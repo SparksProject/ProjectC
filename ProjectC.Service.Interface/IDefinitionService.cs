@@ -1,5 +1,4 @@
 ﻿using ProjectC.DTO;
-using System;
 
 namespace ProjectC.Service.Interface
 {

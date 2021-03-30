@@ -1,16 +1,8 @@
-﻿using System;
-using System.Data;
-using System.IO;
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using ProjectC.Api.Models;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
-
-using Syncfusion.XlsIO;
-
 
 namespace ProjectC.Api.Controllers
 {
@@ -25,8 +17,8 @@ namespace ProjectC.Api.Controllers
         }
 
 
-        // CRUD
-        [HttpGet("List/{id}")]
+        // Crud
+        [HttpGet("List")]
         public IActionResult List()
         {
             var result = _service.List();

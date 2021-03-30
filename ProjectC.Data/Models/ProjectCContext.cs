@@ -46,6 +46,11 @@ namespace ProjectC.Data.Models
         public virtual DbSet<ViewSparksArchive> ViewSparksArchive { get; set; }
         public virtual DbSet<Beyanname> Beyanname { get; set; }
 
+        public virtual DbSet<ChepStokGiris> ChepStokGiris { get; set; }
+        public virtual DbSet<ChepStokGirisDetay> ChepStokGirisDetay { get; set; }
+        public virtual DbSet<ChepStokCikis> ChepStokCikis { get; set; }
+        public virtual DbSet<ChepStokCikisDetay> ChepStokCikisDetay { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
