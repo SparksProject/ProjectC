@@ -6,23 +6,16 @@ namespace ProjectC.DTO
     public class ChepStokCikisDTO
     {
         public int StokCikisId { get; set; }
-        public int IthalatciFirma { get; set; }
-        public int IhracatciFirma { get; set; }
-        public int KapAdet { get; set; }
-        public DateTime BasvuruTarihi { get; set; }
-        public DateTime SureSonuTarihi { get; set; }
-        public DateTime BeyannameTarihi { get; set; }
-        public string GumrukKod { get; set; }
-        public string BeyannameNo { get; set; }
-        public string BelgeAd { get; set; }
-        public string BelgeSart { get; set; }
-        public string TPSAciklama { get; set; }
         public string ReferansNo { get; set; }
+        public DateTime IslemTarihi { get; set; }
+        public DateTime BeyannameTarihi { get; set; }
+        public DateTime TPSTarih { get; set; }
+        public string BeyannameNo { get; set; }
+        public string IhracatciFirma { get; set; }
         public string TPSNo { get; set; }
-        public string TPSDurum { get; set; }
 
-        public string BasvuruTarihiDisplay => $"{BasvuruTarihi:dd.MM.yyyy}";
-        public string SureSonuTarihiDisplay => $"{SureSonuTarihi:dd.MM.yyyy}";
+        public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";
+        public string TPSTarihDisplay => $"{TPSTarih:dd.MM.yyyy}";
         public string BeyannameTarihiDisplay => $"{BeyannameTarihi:dd.MM.yyyy}";
 
         public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }

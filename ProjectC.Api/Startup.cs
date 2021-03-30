@@ -86,6 +86,7 @@ namespace ProjectC.Api
             services.AddScoped<ITeminatService, TeminatService>();
             services.AddScoped<ISparksArchiveService, SparksArchiveService>();
             services.AddScoped<IStokGirisService, StokGirisService>();
+            services.AddScoped<IStokCikisService, StokCikisService>();
         }
 
 
