@@ -13,10 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Service.Interface"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Api", "SparksX.Api\ProjectC.Api.csproj", "{C1C0EE1D-F5F3-4CE9-91C8-5CF77F5EEB80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.UnitTest", "SparksX.UnitTest\ProjectC.UnitTest.csproj", "{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.WinService", "SparksX.WinService\ProjectC.WinService.csproj", "{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Web", "SparksX.Web\ProjectC.Web.csproj", "{9504A2F6-5F64-47BC-809E-DEE530E939BB}"
 EndProject
 Global
@@ -45,14 +41,6 @@ Global
 		{C1C0EE1D-F5F3-4CE9-91C8-5CF77F5EEB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1C0EE1D-F5F3-4CE9-91C8-5CF77F5EEB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1C0EE1D-F5F3-4CE9-91C8-5CF77F5EEB80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9504A2F6-5F64-47BC-809E-DEE530E939BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9504A2F6-5F64-47BC-809E-DEE530E939BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9504A2F6-5F64-47BC-809E-DEE530E939BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
