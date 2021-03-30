@@ -6,12 +6,12 @@ namespace ProjectC.DTO
     public class ChepStokGirisDTO
     {
         public int StokGirisId { get; set; }
-        public int IthalatciFirma { get; set; }
-        public int IhracatciFirma { get; set; }
-        public int KapAdet { get; set; }
-        public DateTime BasvuruTarihi { get; set; }
-        public DateTime SureSonuTarihi { get; set; }
-        public DateTime BeyannameTarihi { get; set; }
+        public int? IthalatciFirma { get; set; }
+        public int? IhracatciFirma { get; set; }
+        public int? KapAdet { get; set; }
+        public DateTime? BasvuruTarihi { get; set; }
+        public DateTime? SureSonuTarihi { get; set; }
+        public DateTime? BeyannameTarihi { get; set; }
         public string GumrukKod { get; set; }
         public string BeyannameNo { get; set; }
         public string BelgeAd { get; set; }
