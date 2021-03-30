@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SparksX.DTO\ProjectC.DTO.csproj" />
+    <ProjectReference Include="..\ProjectC.DTO\ProjectC.DTO.csproj" />
   </ItemGroup>
 
 </Project>
