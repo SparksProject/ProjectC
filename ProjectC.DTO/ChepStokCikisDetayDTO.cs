@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProjectC.DTO
+﻿namespace ProjectC.DTO
 {
     public class ChepStokCikisDetayDTO
     {

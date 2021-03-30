@@ -1,7 +1,6 @@
 ﻿using ProjectC.DTO;
+
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProjectC.Service.Interface
 {

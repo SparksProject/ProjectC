@@ -1,5 +1,4 @@
-﻿using ProjectC.Data.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ProjectC.Data.Models

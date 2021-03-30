@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+
 using ProjectC.Data.Repository;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
+
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ProjectC.Service
 {
