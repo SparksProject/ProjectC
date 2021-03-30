@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SparksX.Data\SparksX.Data.csproj" />
+    <ProjectReference Include="..\SparksX.Data\ProjectC.Data.csproj" />
   </ItemGroup>
 
 </Project>

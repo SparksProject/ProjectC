@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,16 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
-    <PackageReference Include="Quartz" Version="3.2.4" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="4.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Moq" Version="4.12.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\SparksX.DTO\SparksX.DTO.csproj" />
-    <ProjectReference Include="..\SparksX.Service\SparksX.Service.csproj" />
-    <ProjectReference Include="..\SparksX.Service.Interface\SparksX.Service.Interface.csproj" />
+    <ProjectReference Include="..\SparksX.DTO\ProjectC.DTO.csproj" />
+    <ProjectReference Include="..\SparksX.Service\ProjectC.Service.csproj" />
   </ItemGroup>
+
 </Project>

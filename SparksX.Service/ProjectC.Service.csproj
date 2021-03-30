@@ -10,9 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SparksX.Data\SparksX.Data.csproj" />
-    <ProjectReference Include="..\SparksX.DTO\SparksX.DTO.csproj" />
-    <ProjectReference Include="..\SparksX.Service.Interface\SparksX.Service.Interface.csproj" />
+    <ProjectReference Include="..\SparksX.Data\ProjectC.Data.csproj" />
+    <ProjectReference Include="..\SparksX.DTO\ProjectC.DTO.csproj" />
+    <ProjectReference Include="..\SparksX.Service.Interface\ProjectC.Service.Interface.csproj" />
   </ItemGroup>
 
 </Project>

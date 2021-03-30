@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.138
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.Data", "SparksX.Data\SparksX.Data.csproj", "{4EC5F323-007A-47E8-8B4D-23F54DBB7988}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Data", "SparksX.Data\ProjectC.Data.csproj", "{4EC5F323-007A-47E8-8B4D-23F54DBB7988}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.DTO", "SparksX.DTO\SparksX.DTO.csproj", "{12EF8FBB-5C47-4831-BA51-735025A8A6FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.DTO", "SparksX.DTO\ProjectC.DTO.csproj", "{12EF8FBB-5C47-4831-BA51-735025A8A6FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.Service", "SparksX.Service\SparksX.Service.csproj", "{8904E8E7-CB04-4049-B5A6-94852B18DE00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Service", "SparksX.Service\ProjectC.Service.csproj", "{8904E8E7-CB04-4049-B5A6-94852B18DE00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.Service.Interface", "SparksX.Service.Interface\SparksX.Service.Interface.csproj", "{61F36307-C279-49DA-B165-55DEFED9D261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Service.Interface", "SparksX.Service.Interface\ProjectC.Service.Interface.csproj", "{61F36307-C279-49DA-B165-55DEFED9D261}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.Api", "SparksX.Api\SparksX.Api.csproj", "{C1C0EE1D-F5F3-4CE9-91C8-5CF77F5EEB80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Api", "SparksX.Api\ProjectC.Api.csproj", "{C1C0EE1D-F5F3-4CE9-91C8-5CF77F5EEB80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.UnitTest", "SparksX.UnitTest\SparksX.UnitTest.csproj", "{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.UnitTest", "SparksX.UnitTest\ProjectC.UnitTest.csproj", "{4B4FF708-6278-42AF-80F4-E3EDBE2F4B39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksX.WinService", "SparksX.WinService\SparksX.WinService.csproj", "{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.WinService", "SparksX.WinService\ProjectC.WinService.csproj", "{34BDA34D-4BB4-4C25-A7B6-5029C18EA730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparksX.Web", "SparksX.Web\SparksX.Web.csproj", "{9504A2F6-5F64-47BC-809E-DEE530E939BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectC.Web", "SparksX.Web\ProjectC.Web.csproj", "{9504A2F6-5F64-47BC-809E-DEE530E939BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SparksX.DTO\SparksX.DTO.csproj" />
-    <ProjectReference Include="..\SparksX.Service.Interface\SparksX.Service.Interface.csproj" />
-    <ProjectReference Include="..\SparksX.Service\SparksX.Service.csproj" />
+    <ProjectReference Include="..\SparksX.DTO\ProjectC.DTO.csproj" />
+    <ProjectReference Include="..\SparksX.Service.Interface\ProjectC.Service.Interface.csproj" />
+    <ProjectReference Include="..\SparksX.Service\ProjectC.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
