@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.9.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SparksX.Data\SparksX.Data.csproj" />
+    <ProjectReference Include="..\SparksX.DTO\SparksX.DTO.csproj" />
+    <ProjectReference Include="..\SparksX.Service.Interface\SparksX.Service.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

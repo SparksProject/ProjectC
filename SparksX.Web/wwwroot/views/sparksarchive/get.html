@@ -1,0 +1,82 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row">
+    <div class="col-md-3" ng-show="user.UserPermissions.SparksArchiveList">
+        <div class="form-group">
+            <a ui-sref="sparksarchives/list" class="btn btn-block m-icon btn-eo">
+                Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            {{$state.current.data.action}}
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" role="form" ng-init="Get()">
+            <div class="form-body">
+                <h3 class="form-section">Arşiv Bilgileri</h3>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">DosyaTipi:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static" ng-bind="object.DosyaTipi"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">DosyaNo:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static" ng-bind="object.DosyaNo"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Belge Adı:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static" ng-bind="object.BelgeAdi"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Eklenme Tarihi:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static" ng-bind="object.InsDate"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a target="_blank" href="/content/sparksarchive/{{object.FileDate}}{{object.BelgeAdi}}" class="btn green"><i class="fa fa-eye"></i>Göster </a>
+                                <a ng-show="user.UserPermissions.SparksArchiveList" ui-sref="sparksarchives/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6"> </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

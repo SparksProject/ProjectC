@@ -1,0 +1,250 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            {{$state.current.data.action}}
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="form" ng-init="BindEditFields()" valid-submit="Edit(object)" novalidate>
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Lütfen tüm gerekli alanları doldurunuz.
+                </div>
+                <!--/row-->
+                <h3 class="form-section">Firma Bilgileri</h3>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Firma Adı
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-book-open"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Firma Adı" ng-model="object.CompanyName" name="CompanyName" ng-required="true" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Proje No
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-book-open"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Proje No" ng-model="object.ProjectId" name="ProjectId" ng-required="true" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    Arşiv Yolu
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-book-open"></i>
+                                        </span>
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            <input type="text" class="form-control" placeholder="Arşiv Yolu" ng-model="object.ArchivePath" name="ArchivePath" maxlength="250">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <h3 class="form-section">SMTP Bilgileri</h3>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    Host Adresi
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-book-open"></i>
+                                        </span>
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            <input type="text" class="form-control" placeholder="Host Adresi" ng-model="object.SmtpHost" name="SmtpHost" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    Port
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-book-open"></i>
+                                        </span>
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            <input type="text" class="form-control" placeholder="Port" ng-model="object.SmtpPort" name="Port" number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    Kullanıcı Adı
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-book-open"></i>
+                                        </span>
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            <input type="text" class="form-control" placeholder="Kullanıcı Adı" ng-model="object.SmtpUserName" name="UserName" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    Şifre
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-book-open"></i>
+                                        </span>
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            <input type="text" class="form-control" placeholder="Şifre" ng-model="object.SmtpPassword" name="Password" maxlength="50">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-1">
+                                    <span class="required"></span>
+                                </label>
+                                <div class="md-checkbox-inline">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" id="checkbox2" class="md-check" ng-model="object.SmtpIsSSLEnabled" checkbox>
+                                        <label for="checkbox2">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> SSL Doğrulamalı
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <h3 class="form-section">Kayıt Durumu</h3>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{'has-error': form.RecordStatusId.$invalid && form.RecordStatusId.$dirty, 'has-success': form.RecordStatusId.$valid }">
+                                <label class="control-label col-md-3">Kayıt Durumu</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-map-marker"></i>
+                                        </span>
+                                        <ui-select ng-model="$parent.object.RecordStatusId" name="RecordStatusId" theme="bootstrap" ng-required="true">
+                                            <ui-select-match placeholder="Seçiniz">{{$select.selected.RecordStatusName}}</ui-select-match>
+                                            <ui-select-choices repeat="item.RecordStatusId as item in recordStatuses | filter: $select.search">
+                                                <div ng-bind-html="item.RecordStatusName | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/row-->
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a class="btn green" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
+                                    <a href="#/company/get/{{user.CompanyId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Onay</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p> Kaydetmek istediğinize emin misiniz? </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" data-dismiss="modal" class="btn green" id="btn-save"><i class="fa fa-check"></i>Kaydet</button>
+                                <button type="button" data-dismiss="modal" class="btn red"><i class="fa fa-times"></i>İptal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</form>
+        <!-- END FORM-->
+    </div>
+</div>

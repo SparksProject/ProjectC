@@ -1,0 +1,256 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row" ng-show="user.UserPermissions.ProductList">
+    <div class="col-md-3">
+        <div class="form-group">
+            <a ui-sref="products/list" class="btn btn-block m-icon btn-eo">
+                Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            {{$state.current.data.action}}
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="form" ng-init="BindAddFields()" valid-submit="Add(object)" novalidate>
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Lütfen tüm gerekli alanları doldurunuz.
+                </div>
+                <!--/row-->
+                <h3 class="form-section">Ürün Bilgileri</h3>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': form.CustomerId.$invalid && form.CustomerId.$dirty, 'has-success': form.CustomerId.$valid }">
+                            <label class="control-label col-md-3">Müşteri</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <ui-select ng-model="$parent.object.CustomerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged(object.CustomerId)">
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.CustomerId as item in customers | filter: $select.search">
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Ürün No
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Ürün No" ng-model="object.ProductNo" name="ProductNo" ng-required="true" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Ürün Adı (Tr)
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder=" Ürün Adı (Tr)" ng-model="object.ProductNameTr" name="ProductNameTr" ng-required="true" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Ürün Adı (En)
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder=" Ürün Adı (En)" ng-model="object.ProductNameEng" name="ProductNameEng" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Ürün Adı (Orj)
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Ürün Adı (Orj)" ng-model="object.ProductNameOrg" name="ProductNameOrg" ng-required="true" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Hs Kodu
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Hs Kodu" ng-model="object.HsCode" name="HsCode" maxlength="16">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                UOM
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="UOM" ng-model="object.Uom" name="Uom" maxlength="3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Brüt Ağırlık
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Brüt Ağırlık" number ng-model="object.GrossWeight" name="GrossWeight" maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Net Ağırlık
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Net Ağırlık" number ng-model="object.NetWeight" name="NetWeight" maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+            <!--/row-->
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a class="btn green" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
+                                <a ui-sref="products/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Onay</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Kaydetmek istediğinize emin misiniz? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn green" id="btn-save"><i class="fa fa-check"></i>Kaydet</button>
+                            <button type="button" data-dismiss="modal" class="btn red"><i class="fa fa-times"></i>İptal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

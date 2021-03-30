@@ -1,0 +1,135 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <a ui-sref="categories/list" class="btn btn-block m-icon btn-eo">
+                Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            {{$state.current.data.action}}
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="form" ng-init="BindAddMailDefinitionFields()" valid-submit="AddMailDefinition(object)" novalidate>
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Lütfen tüm gerekli alanları doldurunuz.
+                </div>
+                <!--/row-->
+                <h3 class="form-section">E-posta Tanımları</h3>
+                <!--/row-->
+                <div class="row">
+                   <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                E-posta Adresi
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-book-open"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="E-posta Adresi" ng-model="object.EmailAddress" name="EmailAddress" ng-required="true" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Alıcı Adı
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-book-open"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Alıcı Adı" ng-model="object.RecipientName" name="RecipientName" ng-required="true" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <h3 class="form-section" ng-show="mailDefinitions.length>0"> Tanımlı E-posta Adresleri</h3>
+                <!--/row-->
+                <!-- BEGIN TABLE PORTLET-->
+                <div class="row" ng-show="mailDefinitions.length>0">
+                    <div class="col-md-12">
+                        <div class="portlet box tbl-eo">
+                            <div class="portlet-body">
+                                <!--/row-->
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th> Alıcı Adı </th>
+                                            <th> E-posta Adresi</th>
+                                            <th> Kayıt Tarihi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in mailDefinitions">
+                                            <td>{{x.RecipientName}}</td>
+                                            <td>{{x.EmailAddress}}</td>
+                                            <td>{{x.CreatedDateDisplay}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--/row-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END TABLE PORTLET-->
+            </div>
+            <!--/row-->
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a class="btn green" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
+                                <a href="#/company/get/{{user.CompanyId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Onay</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Kaydetmek istediğinize emin misiniz? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn green" id="btn-save"><i class="fa fa-check"></i>Kaydet</button>
+                            <button type="button" data-dismiss="modal" class="btn red"><i class="fa fa-times"></i>İptal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿<h3 class="form-section">Kayıt Bilgileri</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-3">Durum:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.RecordStatusName"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+    <div class="col-md-6" ng-show="object.CreatedDate!=null && (object.CreatedByName==null || object.CreatedByName=='')">
+        <div class="form-group">
+            <label class="control-label col-md-3">Oluşturma Tarih / Saat:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.CreatedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+<!--/row-->
+<div class="row" ng-show="object.CreatedByName!=null && object.CreatedByName!=''">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-3">Oluşturan:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.CreatedByName"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+    <div class="col-md-6" ng-show="object.CreatedDate!=null">
+        <div class="form-group">
+            <label class="control-label col-md-3">Tarih / Saat:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.CreatedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+<!--/row-->
+<div class="row" ng-show="object.ModifiedBy!=null && object.RecordStatusId==1">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-3">Düzenleyen:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.ModifiedByName"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-3">Tarih / Saat:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.ModifiedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+<!--/row-->
+<div class="row" ng-show="object.RecordStatusId==2 && object.DeletedDate != undefined">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-3">Silen:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.DeletedByName"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-3">Tarih / Saat:</label>
+            <div class="col-md-9">
+                <p class="form-control-static" ng-bind="object.DeletedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+<!--/row-->
