@@ -49,6 +49,29 @@ namespace ProjectC.Service
 
                 var result = _uow.ChepStokGiris.Update(entity);
 
+                if (obj.ChepStokGirisDetayList != null)
+                {
+                    foreach (var item in obj.ChepStokGirisDetayList)
+                    {
+                        if (item.StokGirisDetayId > 0)
+                        {
+                            var rr = _uow.ChepStokGirisDetay.Update(Map(item));
+                        }
+                        else
+                        {
+                            var rr = _uow.ChepStokGirisDetay.Add(Map(item));
+                        }
+                    }
+                }
+
+                if (obj.DeletedChepStokGirisDetayIdList != null)
+                {
+                    foreach (var item in obj.DeletedChepStokGirisDetayIdList)
+                    {
+                        _uow.ChepStokGirisDetay.Delete(new ChepStokGirisDetay { StokGirisDetayId = item });
+                    }
+                }
+
                 _uow.Commit();
 
                 return Success(result.StokGirisId);
@@ -106,12 +129,12 @@ namespace ProjectC.Service
                 return default;
             }
 
-            var details = new List<ChepStokGirisDetay>();
+            //var details = new List<ChepStokGirisDetay>();
 
-            if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
-            {
-                details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
-            }
+            //if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
+            //{
+            //    details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
+            //}
 
             return new ChepStokGiris
             {
@@ -131,7 +154,7 @@ namespace ProjectC.Service
                 TPSDurum = obj.TPSDurum,
                 TPSNo = obj.TPSNo,
 
-                ChepStokGirisDetayList = details,
+                //ChepStokGirisDetayList = details,
             };
         }
 
@@ -157,7 +180,7 @@ namespace ProjectC.Service
                 Miktar = obj.Miktar,
                 Model = obj.Model,
                 OlcuBirimi = obj.OlcuBirimi,
-                PO = obj.PO,
+                PONo = obj.PO,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,
@@ -190,7 +213,7 @@ namespace ProjectC.Service
                 Miktar = obj.Miktar,
                 Model = obj.Model,
                 OlcuBirimi = obj.OlcuBirimi,
-                PO = obj.PO,
+                PO = obj.PONo,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,

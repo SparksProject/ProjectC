@@ -47,7 +47,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Post(ProductDTO obj)
+        public IActionResult Post([FromBody] ProductDTO obj)
         {
             var result = _service.Add(obj);
 
@@ -75,7 +75,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(ProductDTO obj)
+        public IActionResult Edit([FromBody] ProductDTO obj)
         {
 
             var result = _service.Edit(obj);
@@ -96,7 +96,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("PostExcel")]
-        public IActionResult PostExcel(ProductExcelModel obj)
+        public IActionResult PostExcel([FromBody] ProductExcelModel obj)
         {
             try
             {

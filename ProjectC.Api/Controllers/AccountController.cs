@@ -53,7 +53,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(UserDTO obj)
+        public IActionResult Edit([FromBody] UserDTO obj)
         {
             var result = _userService.Edit(obj);
 
@@ -136,7 +136,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(UserDTO obj)
+        public IActionResult Add([FromBody] UserDTO obj)
         {
             var result = _userService.Add(obj);
 

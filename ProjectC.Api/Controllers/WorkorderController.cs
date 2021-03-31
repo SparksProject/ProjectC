@@ -37,7 +37,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Post(WorkOrderMasterDTO obj)
+        public IActionResult Post([FromBody] WorkOrderMasterDTO obj)
         {
             var result = _service.Add(obj);
 

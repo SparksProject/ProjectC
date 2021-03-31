@@ -37,7 +37,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Post(MailReportDTO request)
+        public IActionResult Post([FromBody] MailReportDTO request)
         {
             var result = _service.Add(request);
 
@@ -65,7 +65,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(MailReportDTO request)
+        public IActionResult Edit([FromBody] MailReportDTO request)
         {
             var result = _service.Edit(request);
 
@@ -93,7 +93,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("AddMailDefinition")]
-        public IActionResult AddMailDefinition(MailDefinitionDto obj)
+        public IActionResult AddMailDefinition([FromBody] MailDefinitionDto obj)
         {
             var result = _service.AddMailDefinition(obj);
 

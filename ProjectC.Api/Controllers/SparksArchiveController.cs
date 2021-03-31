@@ -129,7 +129,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(SparksArchiveDTO obj)
+        public IActionResult Edit([FromBody] SparksArchiveDTO obj)
         {
 
             var result = _service.Edit(obj);

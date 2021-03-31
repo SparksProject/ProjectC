@@ -26,7 +26,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("edit")]
-        public IActionResult Post(CompanyDTO obj)
+        public IActionResult Post([FromBody] CompanyDTO obj)
         {
             var result = _service.Edit(obj);
 
