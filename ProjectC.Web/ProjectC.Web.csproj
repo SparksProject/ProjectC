@@ -1530,6 +1530,5 @@
     <Folder Include="wwwroot\content\arsivler\" />
     <Folder Include="wwwroot\content\SparksArchive\" />
     <Folder Include="wwwroot\views\customer\" />
-    <Folder Include="wwwroot\views\stokgiris\" />
   </ItemGroup>
 </Project>
