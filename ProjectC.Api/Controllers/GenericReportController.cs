@@ -46,7 +46,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(GenericReportDTO request)
+        public IActionResult Add([FromBody] GenericReportDTO request)
         {
             var result = _service.Add(request);
 
@@ -74,7 +74,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(GenericReportDTO request)
+        public IActionResult Edit([FromBody] GenericReportDTO request)
         {
             var result = _service.Edit(request);
 
@@ -94,7 +94,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("GetResultSet")]
-        public IActionResult GetResultSet(GenericReportDTO obj)
+        public IActionResult GetResultSet([FromBody] GenericReportDTO obj)
         {
             var result = _service.GetResultSet(obj.GenericReportId, obj.UserId, obj.GenericReportParameterList);
 
@@ -108,7 +108,7 @@ namespace ProjectC.Api.Controllers
         }
 
         //[HttpPost("CreateExcel")]
-        //public IActionResult CreateExcel(GenericReportDTO obj)
+        //public IActionResult CreateExcel([FromBody] GenericReportDTO obj)
         //{
         //    var result = _service.CreateExcel(obj.GenericReportId, obj.GenericReportParameterList);
 

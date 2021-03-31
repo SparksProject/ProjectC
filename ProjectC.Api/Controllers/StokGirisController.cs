@@ -39,7 +39,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Post(ChepStokGirisDTO obj)
+        public IActionResult Post([FromBody] ChepStokGirisDTO obj)
         {
             var result = _service.Add(obj);
 
@@ -67,7 +67,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(ChepStokGirisDTO obj)
+        public IActionResult Edit([FromBody] ChepStokGirisDTO obj)
         {
 
             var result = _service.Edit(obj);

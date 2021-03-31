@@ -39,7 +39,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Post(ChepStokCikisDTO obj)
+        public IActionResult Post([FromBody] ChepStokCikisDTO obj)
         {
             var result = _service.Add(obj);
 
@@ -67,7 +67,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(ChepStokCikisDTO obj)
+        public IActionResult Edit([FromBody] ChepStokCikisDTO obj)
         {
 
             var result = _service.Edit(obj);

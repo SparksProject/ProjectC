@@ -26,5 +26,6 @@ namespace ProjectC.DTO
         public string BeyannameTarihiDisplay => $"{BeyannameTarihi:dd.MM.yyyy}";
 
         public List<ChepStokGirisDetayDTO> ChepStokGirisDetayList { get; set; }
+        public List<int> DeletedChepStokGirisDetayIdList { get; set; }
     }
 }
