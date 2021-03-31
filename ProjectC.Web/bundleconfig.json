@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/content/assets/layouts/layout2/css/layout.min.css",
+    "inputFiles": [
+      "wwwroot/content/assets/layouts/layout2/css/layout.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/content/assets/layouts/layout2/css/themes/blue.min.css",
+    "inputFiles": [
+      "wwwroot/content/assets/layouts/layout2/css/themes/blue.css"
+    ]
+  }
+]
