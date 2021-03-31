@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[User] (
+    [UserId]         INT             IDENTITY (1, 1) NOT NULL,
+    [FirstName]      NVARCHAR (50)   NOT NULL,
+    [LastName]       NVARCHAR (50)   NOT NULL,
+    [Company]        NVARCHAR (150)  NULL,
+    [Branch]         NVARCHAR (150)  NULL,
+    [UserName]       NVARCHAR (50)   NOT NULL,
+    [Password]       NVARCHAR (100)  NOT NULL,
+    [EmailAddress]   NVARCHAR (100)  NULL,
+    [RecordStatusId] TINYINT         NOT NULL,
+    [CreatedDate]    DATETIME        NOT NULL,
+    [CreatedBy]      INT             NULL,
+    [ModifiedDate]   DATETIME        NULL,
+    [ModifiedBy]     INT             NULL,
+    [DeletedDate]    DATETIME        NULL,
+    [DeletedBy]      INT             NULL,
+    [UserTypeId]     TINYINT         NOT NULL,
+    [PowerBI]        NVARCHAR (1000) NULL,
+    CONSTRAINT [PK_Users_1] PRIMARY KEY CLUSTERED ([UserId] ASC),
+    CONSTRAINT [FK_User_RecordStatus] FOREIGN KEY ([RecordStatusId]) REFERENCES [dbo].[RecordStatus] ([RecordStatusId]),
+    CONSTRAINT [FK_User_UserTypeId] FOREIGN KEY ([UserTypeId]) REFERENCES [dbo].[UserType] ([UserTypeId]),
+    CONSTRAINT [FK_Users_Users] FOREIGN KEY ([CreatedBy]) REFERENCES [dbo].[User] ([UserId]),
+    CONSTRAINT [FK_Users_Users1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[User] ([UserId]),
+    CONSTRAINT [FK_Users_Users2] FOREIGN KEY ([DeletedBy]) REFERENCES [dbo].[User] ([UserId])
+);
+

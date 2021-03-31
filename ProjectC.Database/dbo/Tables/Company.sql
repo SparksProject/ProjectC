@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Company] (
+    [CompanyId]        UNIQUEIDENTIFIER CONSTRAINT [DF_Company_CompanyID] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
+    [CompanyName]      NVARCHAR (100)   NOT NULL,
+    [ProjectId]        UNIQUEIDENTIFIER NOT NULL,
+    [SmtpHost]         NVARCHAR (100)   NULL,
+    [SmtpPort]         INT              NULL,
+    [SmtpUserName]     NVARCHAR (100)   NULL,
+    [SmtpPassword]     NVARCHAR (50)    NULL,
+    [SmtpIsSSLEnabled] BIT              NULL,
+    [RecordStatusId]   TINYINT          NOT NULL,
+    [ProductEmail]     VARCHAR (100)    NULL,
+    [ArchivePath]      VARCHAR (250)    NULL,
+    [CreatedDate]      DATETIME         NOT NULL,
+    [CreatedBy]        INT              NULL,
+    [ModifiedDate]     DATETIME         NULL,
+    [ModifiedBy]       INT              NULL,
+    [DeletedDate]      DATETIME         NULL,
+    [DeletedBy]        INT              NULL,
+    CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED ([CompanyId] ASC),
+    CONSTRAINT [FK_Company_RecordStatuses] FOREIGN KEY ([RecordStatusId]) REFERENCES [dbo].[RecordStatus] ([RecordStatusId]),
+    CONSTRAINT [FK_Company_Users] FOREIGN KEY ([CreatedBy]) REFERENCES [dbo].[User] ([UserId]),
+    CONSTRAINT [FK_Company_Users1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[User] ([UserId]),
+    CONSTRAINT [FK_Company_Users2] FOREIGN KEY ([DeletedBy]) REFERENCES [dbo].[User] ([UserId])
+);
+
