@@ -52,9 +52,9 @@
     }
 
     function GetBaseRequestPostJson(baseName, definitionName, obj) {
-        return $.ajax({
+        return $http({
             url: $rootScope.settings.serverPath + '/api/' + baseName + '/' + definitionName,
-            type: "post",
+            method: "POST",
             data: obj,
             dataType: "json",
         });
