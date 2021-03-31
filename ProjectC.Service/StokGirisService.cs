@@ -7,7 +7,7 @@ using ProjectC.Service.Interface;
 
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
 
 namespace ProjectC.Service
 {
@@ -22,19 +22,12 @@ namespace ProjectC.Service
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Adds a new product.
-        /// </summary>
-        /// <param name="obj">Product to be created</param>
-        /// <returns>ResponseDTO</returns>
+
         public ResponseDTO Add(ChepStokGirisDTO obj)
         {
             try
             {
-                //obj.RecordStatusId = 1;
-                //obj.CreatedDate = DateTime.Now;
-
-                var entity = _mapper.Map<ChepStokGiris>(obj);
+                var entity = Map(obj);
 
                 var result = _uow.ChepStokGiris.Add(entity);
 
@@ -48,25 +41,11 @@ namespace ProjectC.Service
             }
         }
 
-        /// <summary>
-        /// Updates the given product.
-        /// </summary>
-        /// <param name="obj">Product to be updated</param>
-        /// <returns>ResponseDTO</returns>
         public ResponseDTO Edit(ChepStokGirisDTO obj)
         {
             try
             {
-                //if (obj.RecordStatusId == 1)
-                //{
-                //    obj.ModifiedDate = DateTime.Now;
-                //}
-                //else
-                //{
-                //    obj.DeletedDate = DateTime.Now;
-                //}
-
-                var entity = _mapper.Map<ChepStokGiris>(obj);
+                var entity = Map(obj);
 
                 var result = _uow.ChepStokGiris.Update(entity);
 
@@ -80,24 +59,13 @@ namespace ProjectC.Service
             }
         }
 
-        /// <summary>
-        /// Retrives the product by id
-        /// </summary>
-        /// <param name="id">ProductId</param>
-        /// <returns>ResponseDTO</returns>
         public ResponseDTO Get(int id)
         {
             try
             {
                 var entity = _uow.ChepStokGiris.Single(x => x.StokGirisId == id);
 
-                var result = _mapper.Map<ChepStokGirisDTO>(entity);
-
-                //result.CustomerName = entity.Customer.Name;
-                //result.RecordStatusName = entity.RecordStatus.RecordStatusName;
-                //result.CreatedByName = entity.CreatedByNavigation.FirstName + " " + entity.CreatedByNavigation.LastName;
-                //result.ModifiedByName = entity.ModifiedBy != null ? entity.ModifiedByNavigation.FirstName + " " + entity.ModifiedByNavigation.LastName : null;
-                //result.DeletedByName = entity.DeletedBy != null ? entity.DeletedByNavigation.FirstName + " " + entity.DeletedByNavigation.LastName : null;
+                var result = Map(entity);
 
                 return Success(result);
             }
@@ -107,28 +75,17 @@ namespace ProjectC.Service
             }
         }
 
-        /// <summary>
-        /// Lists all products.
-        /// </summary>
-        /// <returns>ResponseDTO</returns>
         public ResponseDTO List()
         {
             try
             {
                 var entities = _uow.ChepStokGiris.GetAll();
 
-                if (entities.Count == 0)
-                {
-                    return NotFound();
-                }
-
                 var list = new List<ChepStokGirisDTO>();
 
                 foreach (var item in entities)
                 {
-                    var obj = new ChepStokGirisDTO
-                    {
-                    };
+                    var obj = Map(item);
 
                     list.Add(obj);
                 }
@@ -139,6 +96,145 @@ namespace ProjectC.Service
             {
                 return Error(ex);
             }
+        }
+
+
+        private ChepStokGiris Map(ChepStokGirisDTO obj)
+        {
+            if (obj == null)
+            {
+                return default;
+            }
+
+            var details = new List<ChepStokGirisDetay>();
+
+            if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
+            {
+                details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
+            }
+
+            return new ChepStokGiris
+            {
+                BasvuruTarihi = obj.BasvuruTarihi,
+                BelgeAd = obj.BelgeAd,
+                BelgeSart = obj.BelgeSart,
+                BeyannameNo = obj.BeyannameNo,
+                BeyannameTarihi = obj.BeyannameTarihi,
+                GumrukKod = obj.GumrukKod,
+                IhracatciFirma = obj.IhracatciFirma,
+                IthalatciFirma = obj.IthalatciFirma,
+                KapAdet = obj.KapAdet,
+                ReferansNo = obj.ReferansNo,
+                StokGirisId = obj.StokGirisId,
+                SureSonuTarihi = obj.SureSonuTarihi,
+                TPSAciklama = obj.TPSAciklama,
+                TPSDurum = obj.TPSDurum,
+                TPSNo = obj.TPSNo,
+
+                ChepStokGirisDetayList = details,
+            };
+        }
+
+        private ChepStokGirisDetay Map(ChepStokGirisDetayDTO obj)
+        {
+            if (obj == null)
+            {
+                return default;
+            }
+
+            return new ChepStokGirisDetay
+            {
+                CikisRejimi = obj.CikisRejimi,
+                EsyaCinsi = obj.EsyaCinsi,
+                EsyaGTIP = obj.EsyaGTIP,
+                FaturaDovizKod = obj.FaturaDovizKod,
+                FaturaNo = obj.FaturaNo,
+                FaturaTarih = obj.FaturaTarih,
+                FaturaTutar = obj.FaturaTutar,
+                GidecegiUlke = obj.GidecegiUlke,
+                Marka = obj.Marka,
+                MenseUlke = obj.MenseUlke,
+                Miktar = obj.Miktar,
+                Model = obj.Model,
+                OlcuBirimi = obj.OlcuBirimi,
+                PO = obj.PO,
+                Rejim = obj.Rejim,
+                SozlesmeUlke = obj.SozlesmeUlke,
+                StokGirisDetayId = obj.StokGirisDetayId,
+                StokGirisId = obj.StokGirisId,
+                TPSBeyan = obj.TPSBeyan,
+                TPSSiraNo = obj.TPSSiraNo,
+                UrunKod = obj.UrunKod,
+            };
+        }
+
+        private ChepStokGirisDetayDTO Map(ChepStokGirisDetay obj)
+        {
+            if (obj == null)
+            {
+                return default;
+            }
+
+            return new ChepStokGirisDetayDTO
+            {
+                CikisRejimi = obj.CikisRejimi,
+                EsyaCinsi = obj.EsyaCinsi,
+                EsyaGTIP = obj.EsyaGTIP,
+                FaturaDovizKod = obj.FaturaDovizKod,
+                FaturaNo = obj.FaturaNo,
+                FaturaTarih = obj.FaturaTarih,
+                FaturaTutar = obj.FaturaTutar,
+                GidecegiUlke = obj.GidecegiUlke,
+                Marka = obj.Marka,
+                MenseUlke = obj.MenseUlke,
+                Miktar = obj.Miktar,
+                Model = obj.Model,
+                OlcuBirimi = obj.OlcuBirimi,
+                PO = obj.PO,
+                Rejim = obj.Rejim,
+                SozlesmeUlke = obj.SozlesmeUlke,
+                StokGirisDetayId = obj.StokGirisDetayId,
+                StokGirisId = obj.StokGirisId,
+                TPSBeyan = obj.TPSBeyan,
+                TPSSiraNo = obj.TPSSiraNo,
+                UrunKod = obj.UrunKod,
+            };
+        }
+
+        private ChepStokGirisDTO Map(ChepStokGiris obj)
+        {
+            if (obj == null)
+            {
+                return default;
+            }
+
+            var details = new List<ChepStokGirisDetayDTO>();
+
+            if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
+            {
+                details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
+            }
+
+            return new ChepStokGirisDTO
+            {
+                BasvuruTarihi = obj.BasvuruTarihi,
+                BelgeAd = obj.BelgeAd,
+                BelgeSart = obj.BelgeSart,
+                BeyannameNo = obj.BeyannameNo,
+                BeyannameTarihi = obj.BeyannameTarihi,
+                GumrukKod = obj.GumrukKod,
+                IhracatciFirma = obj.IhracatciFirma,
+                IthalatciFirma = obj.IthalatciFirma,
+                KapAdet = obj.KapAdet,
+                ReferansNo = obj.ReferansNo,
+                StokGirisId = obj.StokGirisId,
+                SureSonuTarihi = obj.SureSonuTarihi,
+                TPSAciklama = obj.TPSAciklama,
+                TPSDurum = obj.TPSDurum,
+                TPSNo = obj.TPSNo,
+
+                ChepStokGirisDetayList = details
+            };
         }
     }
 }

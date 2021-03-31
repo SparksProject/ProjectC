@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProjectC.DTO
 {
@@ -27,5 +25,8 @@ namespace ProjectC.DTO
         public string Model { get; set; }
         public string UrunKod { get; set; }
         public string PO { get; set; }
+
+        public string FaturaTarihDisplay => $"{FaturaTarih:dd.MM.yyyy}";
+        public string FaturaTutarDisplay => $"{FaturaTutar:N2}";
     }
 }

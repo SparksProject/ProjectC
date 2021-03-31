@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ProjectC.DTO
 {
@@ -9,10 +8,16 @@ namespace ProjectC.DTO
         public int StokCikisId { get; set; }
         public string ReferansNo { get; set; }
         public DateTime IslemTarihi { get; set; }
-        public string BeyannameNo { get; set; }
         public DateTime BeyannameTarihi { get; set; }
+        public DateTime TPSTarih { get; set; }
+        public string BeyannameNo { get; set; }
         public string IhracatciFirma { get; set; }
         public string TPSNo { get; set; }
-        public DateTime TPSTarih { get; set; }
+
+        public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";
+        public string TPSTarihDisplay => $"{TPSTarih:dd.MM.yyyy}";
+        public string BeyannameTarihiDisplay => $"{BeyannameTarihi:dd.MM.yyyy}";
+
+        public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }
     }
 }

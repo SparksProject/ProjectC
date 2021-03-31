@@ -7,11 +7,11 @@ using ProjectC.Service.Interface;
 namespace ProjectC.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class StokGirisController : Controller
+    public class StokCikisController : Controller
     {
-        private readonly IStokGirisService _service;
+        private readonly IStokCikisService _service;
 
-        public StokGirisController(IStokGirisService service)
+        public StokCikisController(IStokCikisService service)
         {
             _service = service;
         }
@@ -39,7 +39,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Post(ChepStokGirisDTO obj)
+        public IActionResult Post(ChepStokCikisDTO obj)
         {
             var result = _service.Add(obj);
 
@@ -67,7 +67,7 @@ namespace ProjectC.Api.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit(ChepStokGirisDTO obj)
+        public IActionResult Edit(ChepStokCikisDTO obj)
         {
 
             var result = _service.Edit(obj);

@@ -2,11 +2,11 @@
 
 namespace ProjectC.Service.Interface
 {
-    public interface IStokGirisService
+    public interface IStokCikisService
     {
         ResponseDTO List();
-        ResponseDTO Add(ChepStokGirisDTO obj);
-        ResponseDTO Edit(ChepStokGirisDTO obj);
+        ResponseDTO Add(ChepStokCikisDTO obj);
+        ResponseDTO Edit(ChepStokCikisDTO obj);
         ResponseDTO Get(int id);
     }
 }
