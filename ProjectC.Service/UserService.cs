@@ -113,6 +113,16 @@ namespace ProjectC.Service
         {
             try
             {
+                if (obj == null)
+                {
+                    return Warning("Sorgu başarıyla ulaşmadı!");
+                }
+
+                if (obj.UserPermissions == null)
+                {
+                    obj.UserPermissions = new UserPermissionDTO();
+                }
+
                 obj.RecordStatusId = 1;
                 obj.UserName = obj.EmailAddress;
                 obj.Password = new Random().Next(12563, 98453).ToString();

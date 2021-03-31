@@ -136,6 +136,7 @@ namespace ProjectC.Service
             return new ChepStokCikisDetay
             {
                 Miktar = obj.Miktar,
+                Kg = obj.Kg,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId
@@ -152,6 +153,7 @@ namespace ProjectC.Service
             return new ChepStokCikisDetayDTO
             {
                 Miktar = obj.Miktar,
+                Kg = obj.Kg,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId,

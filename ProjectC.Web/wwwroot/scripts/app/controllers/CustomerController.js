@@ -23,7 +23,7 @@
         obj.CreatedBy = $rootScope.user.UserId;
 
         SparksXService.AddCustomer(obj).success(function (data) {
-            $state.go('customer/get', { id: data });
+            $state.go('customers/get', { id: data });
         });
     };
 
