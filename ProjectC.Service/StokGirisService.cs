@@ -121,6 +121,29 @@ namespace ProjectC.Service
             }
         }
 
+        public ResponseDTO ListDetails()
+        {
+            try
+            {
+                var entities = _uow.ChepStokGirisDetay.GetAll();
+
+                var list = new List<ChepStokGirisDetayDTO>();
+
+                foreach (var item in entities)
+                {
+                    var obj = Map(item);
+
+                    list.Add(obj);
+                }
+
+                return Success(list);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
 
         private ChepStokGiris Map(ChepStokGirisDTO obj)
         {

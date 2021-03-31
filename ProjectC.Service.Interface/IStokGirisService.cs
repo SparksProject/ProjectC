@@ -8,5 +8,7 @@ namespace ProjectC.Service.Interface
         ResponseDTO Add(ChepStokGirisDTO obj);
         ResponseDTO Edit(ChepStokGirisDTO obj);
         ResponseDTO Get(int id);
+
+        ResponseDTO ListDetails();
     }
 }

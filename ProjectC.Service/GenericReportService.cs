@@ -199,10 +199,6 @@ namespace ProjectC.Service
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-#if DEBUG
-                id = 2;
-#endif
-
                 var entities = uow.GenericReports.Search(x => x.GenericReportUser.Any(y => y.UserId == id) || x.IsDefaultReport);
 
                 if (entities.Count == 0)

@@ -26,18 +26,7 @@ namespace ProjectC.DTO
         public string UrunKod { get; set; }
         public string PO { get; set; }
 
-        public string FaturaTarihDisplay
-        {
-            get
-            {
-                if (FaturaTarih.HasValue)
-                {
-                    return $"{FaturaTarih.Value:dd.MM.yyyy}";
-                }
-
-                return default;
-            }
-        }
+        public string FaturaTarihDisplay => FaturaTarih != null ? $"{FaturaTarih.Value:dd.MM.yyyy}" : null;
 
         public string FaturaTutarDisplay => $"{FaturaTutar:N2}";
     }

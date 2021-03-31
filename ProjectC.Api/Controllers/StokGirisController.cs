@@ -86,5 +86,27 @@ namespace ProjectC.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
             }
         }
+
+
+        // Detail
+        [HttpGet("ListDetails")]
+        public IActionResult ListDetails()
+        {
+            var result = _service.ListDetails();
+
+            switch (result.ResultMessage)
+            {
+                case Enums.ResponseMessage.OK:
+                    return StatusCode(StatusCodes.Status200OK, result.Result);
+                case Enums.ResponseMessage.ERROR:
+                    return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
+                case Enums.ResponseMessage.NOTFOUND:
+                    return StatusCode(StatusCodes.Status404NotFound);
+                case Enums.ResponseMessage.UNAUTHORIZED:
+                    return StatusCode(StatusCodes.Status401Unauthorized);
+                default:
+                    return StatusCode(StatusCodes.Status404NotFound);
+            }
+        }
     }
 }
