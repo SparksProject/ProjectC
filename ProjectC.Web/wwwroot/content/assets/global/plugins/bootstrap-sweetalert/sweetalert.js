@@ -17,7 +17,7 @@ var defaultParams = {
   closeOnConfirm: true,
   closeOnCancel: true,
   confirmButtonText: 'Tamam',
-  confirmButtonClass: 'btn green',
+  confirmButtonClass: 'btn blue',
   cancelButtonText: 'Iptal',
   cancelButtonClass: 'btn-default',
   containerClass: '',

@@ -47,7 +47,7 @@ var ComponentsBootstrapTouchSpin = function() {
 
         $("#touchspin_9").TouchSpin({
             postfix: "a button",
-            postfix_extraclass: "btn green"
+            postfix_extraclass: "btn blue"
         });
 
         $("#touchspin_10").TouchSpin({
