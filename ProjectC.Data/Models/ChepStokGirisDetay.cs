@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProjectC.Data.Models
 {
     public class ChepStokGirisDetay
     {
+        public ChepStokGirisDetay()
+        {
+            ChepStokCikisDetayList = new HashSet<ChepStokCikisDetay>();
+        }
+
         [Key]
         public int StokGirisDetayId { get; set; }
         public int StokGirisId { get; set; }
@@ -27,5 +33,8 @@ namespace ProjectC.Data.Models
         public string Model { get; set; }
         public string UrunKod { get; set; }
         public string PONo { get; set; }
+
+        public virtual ChepStokGiris ChepStokGiris { get; set; }
+        public virtual ICollection<ChepStokCikisDetay> ChepStokCikisDetayList { get; set; }
     }
 }

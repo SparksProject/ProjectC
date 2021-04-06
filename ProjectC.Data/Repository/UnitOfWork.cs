@@ -63,5 +63,8 @@ namespace ProjectC.Data.Repository
         public Repository<ChepStokGirisDetay> ChepStokGirisDetay { get { return new Repository<ChepStokGirisDetay>(_context); } }
         public Repository<ChepStokCikis> ChepStokCikis { get { return new Repository<ChepStokCikis>(_context); } }
         public Repository<ChepStokCikisDetay> ChepStokCikisDetay { get { return new Repository<ChepStokCikisDetay>(_context); } }
+
+        // views
+        public Repository<ViewStokDusumListe> ViewStokDusumListe { get { return new Repository<ViewStokDusumListe>(_context); } }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectC.DTO
 {
@@ -26,8 +27,12 @@ namespace ProjectC.DTO
         public string UrunKod { get; set; }
         public string PO { get; set; }
 
-        public string FaturaTarihDisplay => FaturaTarih != null ? $"{FaturaTarih.Value:dd.MM.yyyy}" : null;
 
+        public string BeyannameNo { get; set; }
+        public string TPSNo { get; set; }
+        public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }
+
+        public string FaturaTarihDisplay => FaturaTarih == null ? null : $"{FaturaTarih.Value:dd.MM.yyyy}";
         public string FaturaTutarDisplay => $"{FaturaTutar:N2}";
     }
 }

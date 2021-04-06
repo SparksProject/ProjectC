@@ -20,7 +20,7 @@ namespace ProjectC.Data.Models
         {
         }
 
-       
+        public virtual DbSet<ViewStokDusumListe> ViewStokDusumListe { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }
@@ -71,6 +71,13 @@ namespace ProjectC.Data.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+
+            //modelBuilder.Query<ViewStokDusumListe>().ToView("vw_StokDusumListe");
+            modelBuilder.Entity<ViewStokDusumListe>(entity => {
+                entity.HasKey(e => e.StokGirisDetayId);
+                entity.ToTable("vw_StokDusumListe");
+                //entity.Property(e => e.Name).HasMaxLength(50);
+            });
 
             modelBuilder.Entity<Company>(entity =>
             {
