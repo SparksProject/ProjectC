@@ -1,4 +1,5 @@
 ﻿using ProjectC.Data.Models;
+
 using System;
 
 namespace ProjectC.Data.Repository
@@ -37,5 +38,8 @@ namespace ProjectC.Data.Repository
         Repository<ChepStokGirisDetay> ChepStokGirisDetay { get; }
         Repository<ChepStokCikis> ChepStokCikis { get; }
         Repository<ChepStokCikisDetay> ChepStokCikisDetay { get; }
+
+        // Views
+        Repository<ViewStokDusumListe> ViewStokDusumListe { get; }
     }
 }

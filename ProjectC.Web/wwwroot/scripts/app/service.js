@@ -397,4 +397,8 @@
         return GetBaseRequestPostJson("StokCikis", "Edit", obj);
     };
 
+    this.GetGirisDetayList = function (itemNo, cikisAdet) {
+        return GetBaseRequestJson("StokCikis", "GetGirisDetayList", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
+    };
+
 });

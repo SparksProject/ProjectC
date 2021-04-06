@@ -89,10 +89,10 @@ namespace ProjectC.Api.Controllers
             }
         }
 
-        [HttpGet("GetGirisDetayList/{id}")]
-        public IActionResult GetGirisDetayList(int id)
+        [HttpGet("GetGirisDetayList")]
+        public IActionResult GetGirisDetayList([FromQuery] string itemNo, [FromQuery] int cikisAdet)
         {
-            var result = _serviceGiris.Get(id).Result;
+            var result = _serviceGiris.GetGirisDetayList(itemNo, cikisAdet).Result;
 
             return StatusCode(StatusCodes.Status200OK, result);
         }

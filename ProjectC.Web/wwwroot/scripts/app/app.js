@@ -1395,7 +1395,7 @@ SparksXApp.config(['$stateProvider', '$urlRouterProvider', 'permissionsProvider'
         .state('stokcikis/list', {
             url: "/stokcikis/list",
             templateUrl: "/views/stokcikis/list.html",
-            data: { area: "ProjectC", controller: "Stok Giriş Kartı", action: "Tüm Kayıtlar", pageTitle: 'Stok Giriş Kartı | Tüm Kayıtlar', isAuthenticated: permissionsProvider.userDetail != undefined ? permissionsProvider.userDetail.StokCikisList : false },
+            data: { area: "ProjectC", controller: "Stok Çıkış Kartı", action: "Tüm Kayıtlar", pageTitle: 'Stok Çıkış Kartı | Tüm Kayıtlar', isAuthenticated: permissionsProvider.userDetail != undefined ? permissionsProvider.userDetail.StokCikisList : false },
             controller: "StokCikisController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {

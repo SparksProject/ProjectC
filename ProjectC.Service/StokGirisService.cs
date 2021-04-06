@@ -144,6 +144,58 @@ namespace ProjectC.Service
             }
         }
 
+        public ResponseDTO GetGirisDetayList(string itemNo, int toplamCikisAdet) // 250
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(itemNo))
+                {
+                    return Warning("Geçersiz Ürün Kodu!");
+                }
+
+                itemNo = itemNo.ToLower();
+
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
+
+                var list = new List<ViewStokDusumListeDto>();
+
+                var cikisAltToplam = 0;
+                foreach (var item in entities.OrderBy(x => x.SureSonuTarihi)) // 5 kere
+                {
+                    var obj = Mapper.MapSingle<ViewStokDusumListe, ViewStokDusumListeDto>(item);
+
+                    if (toplamCikisAdet <= obj.KalanMiktar) // net çıkarma
+                    {
+                        obj.DusulenMiktar = obj.KalanMiktar - toplamCikisAdet;
+                    }
+                    else if (cikisAltToplam != toplamCikisAdet) // kalanlı çıkarma
+                    {
+                        obj.DusulenMiktar = obj.KalanMiktar;
+                        cikisAltToplam += obj.KalanMiktar;
+                    }
+
+                    // döngü değerleri        toplam=250
+                    // döngü Değeri => 1. => düşülen miktar = 100 ;  kalanMiktar=150
+                    // döngü Değeri => 2. => düşülen miktar = 100 ;  kalanMiktar=50
+
+
+                    //if (obj.DusulenMiktar < 0)
+                    //{
+                    //    kalanMiktar = obj.DusulenMiktar * -1;
+                    //    obj.DusulenMiktar = obj.KalanMiktar;
+                    //}
+
+                    list.Add(obj);
+                }
+
+                return Success(list);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
 
         private ChepStokGiris Map(ChepStokGirisDTO obj)
         {
@@ -221,7 +273,7 @@ namespace ProjectC.Service
                 return default;
             }
 
-            return new ChepStokGirisDetayDTO
+            var target = new ChepStokGirisDetayDTO
             {
                 CikisRejimi = obj.CikisRejimi,
                 EsyaCinsi = obj.EsyaCinsi,
@@ -244,7 +296,31 @@ namespace ProjectC.Service
                 TPSBeyan = obj.TPSBeyan,
                 TPSSiraNo = obj.TPSSiraNo,
                 UrunKod = obj.UrunKod,
+                ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
+
+            if (obj.ChepStokGiris != null)
+            {
+                target.BeyannameNo = obj.ChepStokGiris.BeyannameNo;
+                target.TPSNo = obj.ChepStokGiris.TPSNo;
+            }
+
+            if (obj.ChepStokCikisDetayList != null)
+            {
+                foreach (var item in obj.ChepStokCikisDetayList)
+                {
+                    target.ChepStokCikisDetayList.Add(new ChepStokCikisDetayDTO
+                    {
+                        Kg = item.Kg,
+                        Miktar = item.Miktar,
+                        StokCikisDetayId = item.StokCikisDetayId,
+                        StokCikisId = item.StokCikisId,
+                        StokGirisDetayId = item.StokGirisDetayId,
+                    });
+                }
+            }
+
+            return target;
         }
 
         private ChepStokGirisDTO Map(ChepStokGiris obj)

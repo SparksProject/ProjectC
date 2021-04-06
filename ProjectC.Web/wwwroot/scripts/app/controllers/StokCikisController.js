@@ -92,7 +92,7 @@
                                                     format: { type: "fixedPoint", precision: 0 },
                                                 },
                                                 { dataField: "TPSBeyan", caption: "TPS Beyan", },
-                                               { dataField: "FaturaNo", caption: "Fatura No", },
+                                                { dataField: "FaturaNo", caption: "Fatura No", },
                                                 { dataField: "FaturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
                                                 {
                                                     dataField: "FaturaTutar", caption: "Fatura Tutar", dataType: "number",
@@ -248,26 +248,26 @@
 
             if ($gridDrop == null) {
                 $gridDrop = $("#gridDrop").dxDataGrid({
-                    keyExpr: "StokGirisId",
+                    keyExpr: "StokGirisDetayId",
                     dataSource: [],
                     columns: [
-                        { dataField: "BeyannameNo", caption: "Beyanname No", },
+                        { dataField: "GirisBeyannameNo", caption: "Beyanname No", },
                         { dataField: "TPSNo", caption: "TPS No", },
                         { dataField: "UrunKod", caption: "Item No", },
                         {
-                            dataField: "GirisAdet", caption: "Giriş Adet", dataType: "number",
+                            dataField: "GirisMiktar", caption: "Giriş Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "KalanAdet", caption: "Kalan Adet", dataType: "number",
+                            dataField: "KalanMiktar", caption: "Kalan Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "DüsülenAdet", caption: "Düşülen Adet", dataType: "number",
+                            dataField: "DusulenMiktar", caption: "Düşülen Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "BakiyeAdet", caption: "Bakiye Adet", dataType: "number",
+                            dataField: "BakiyeMiktar", caption: "Bakiye Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                     ],
@@ -561,4 +561,17 @@
                 }
             });
     };
+
+    $scope.GetGirisDetayList = function (itemNo, cikisAdet) {
+        if (itemNo == undefined || cikisAdet == undefined) {
+            alert('Item No ve Çıkış Adet zorunludur!');
+            return false;
+        }
+
+        SparksXService.GetGirisDetayList(itemNo, cikisAdet).success(function (data) {
+            $gridDrop.option("dataSource", data);
+            console.log(data);
+        });
+    };
+
 }]);

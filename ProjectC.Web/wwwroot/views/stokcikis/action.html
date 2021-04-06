@@ -151,7 +151,7 @@
                                 <div class="col-md-7">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" ng-model="object.ItemNo" name="ItemNo" class="form-control" placeholder="Item No" maxlength="16">
+                                        <input type="text" ng-required="true" ng-model="object.Drop.ItemNo" name="ItemNo" class="form-control" placeholder="Item No" maxlength="16">
                                     </div>
                                 </div>
                             </div>
@@ -162,13 +162,13 @@
                                 <div class="col-md-7">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" ng-model="object.DropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
+                                        <input type="text" ng-required="true" ng-model="object.Drop.DropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-click="FindDrop()">Giriş Kayıtlarını Bul</button>
+                            <button class="btn btn-primary btn-block" ng-click="GetGirisDetayList(object.Drop.ItemNo, object.Drop.DropCount)">Giriş Kayıtlarını Bul</button>
                         </div>
                     </div>
                 </div>
