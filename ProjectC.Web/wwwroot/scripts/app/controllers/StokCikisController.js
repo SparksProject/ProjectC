@@ -2,10 +2,13 @@
 
     DevExpress.localization.locale("tr-TR");
 
+    var bodyModalPadding = 0;
     var $gridContainer = null;
     var $gridDetail = null;
+    var $gridDrop = null;
     var $modalDetail = null;
     var $modalImport = null;
+    var $modalDrop = null;
     var DeletedChepStokCikisDetayIdList = [];
 
     var storeStokGiris = new DevExpress.data.CustomStore({
@@ -36,6 +39,13 @@
     $scope.ModalDetail = function () {
         if ($modalDetail == null) {
             $modalDetail = $('#modalDetail').on({
+                "hide.bs.modal": function (e) {
+                    if ($('.modal:visible').length > 1) {
+                        bodyModalPadding = $('body').css('paddingRight');
+                    } else {
+                        bodyModalPadding = 0;
+                    }
+                },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
                     $scope.$apply();
@@ -220,6 +230,61 @@
                 }).dxDataGrid('instance');
             }
         }
+
+        if ($modalDrop == null) {
+            $modalDrop = $('#modalDrop').on({
+                "hide.bs.modal": function (e) {
+                    if ($('.modal:visible').length > 1) {
+                        bodyModalPadding = $('body').css('paddingRight');
+                    } else {
+                        bodyModalPadding = 0;
+                    }
+                },
+            }).modal({
+                show: false,
+                keyboard: false,
+                backdrop: false
+            });
+
+            if ($gridDrop == null) {
+                $gridDrop = $("#gridDrop").dxDataGrid({
+                    keyExpr: "StokGirisId",
+                    dataSource: [],
+                    columns: [
+                        { dataField: "BeyannameNo", caption: "Beyanname No", },
+                        { dataField: "TPSNo", caption: "TPS No", },
+                        { dataField: "UrunKod", caption: "Item No", },
+                        {
+                            dataField: "GirisAdet", caption: "Giriş Adet", dataType: "number",
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "KalanAdet", caption: "Kalan Adet", dataType: "number",
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "DüsülenAdet", caption: "Düşülen Adet", dataType: "number",
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "BakiyeAdet", caption: "Bakiye Adet", dataType: "number",
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                    ],
+                    filterRow: {
+                        visible: false,
+                    },
+                    groupPanel: {
+                        visible: false,
+                    },
+                    showBorders: true,
+                    showRowLines: true,
+                    sorting: {
+                        mode: "none"
+                    },
+                }).dxDataGrid('instance');
+            }
+        }
     }
 
     // CRUD
@@ -365,6 +430,13 @@
     $scope.ModalImport = function () {
         if ($modalImport == null) {
             $modalImport = $('#modalImport').on({
+                "hide.bs.modal": function (e) {
+                    if ($('.modal:visible').length > 1) {
+                        bodyModalPadding = $('body').css('paddingRight');
+                    } else {
+                        bodyModalPadding = 0;
+                    }
+                },
                 "hidden.bs.modal": function () {
 
                 }
