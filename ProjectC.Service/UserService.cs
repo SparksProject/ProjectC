@@ -359,19 +359,18 @@ namespace ProjectC.Service
 
                 var result = Mapper.MapSingle<User, UserDTO>(entity);
 
-                if (userCustomer != null && userCustomer.Count > 0)
-                {
-                    result.UserCustomerList = new List<UserCustomerDTO>();
-
-                    foreach (var item in userCustomer)
-                    {
-                        result.UserCustomerList.Add(new UserCustomerDTO
-                        {
-                            CustomerId = item.CustomerId,
-                            CustomerName = item.Customer.Name,
-                        });
-                    }
-                }
+                //if (userCustomer != null && userCustomer.Count > 0)
+                //{
+                //    result.UserCustomerList = new List<UserCustomerDTO>();
+                //    foreach (var item in userCustomer)
+                //    {
+                //        result.UserCustomerList.Add(new UserCustomerDTO
+                //        {
+                //            CustomerId = item.CustomerId,
+                //            CustomerName = item.Customer.Name,
+                //        });
+                //    }
+                //}
 
                 // Şubat sonu (2021) çalışmasın program BAŞLANGIÇ
                 //var nistDate = GetNistDate();

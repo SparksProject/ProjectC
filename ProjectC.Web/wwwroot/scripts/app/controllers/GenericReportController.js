@@ -221,11 +221,12 @@
         $.ajax({
             url: $rootScope.settings.serverPath + '/api/GenericReport/GetResultSet',
             type: "post",
-            data: {
+            data: JSON.stringify({
                 GenericReportId: $stateParams.id,
                 GenericReportParameterList: $scope.object.GenericReportParameterList,
                 UserId: $rootScope.user.UserId
-            },
+            }),
+            contentType: "application/json",
             dataType: "json",
             beforeSend: function () {
                 $gridContainer.beginCustomLoading();

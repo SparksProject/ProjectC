@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>a084460e-05f8-4bf0-9a53-470372a156b0</UserSecretsId>
   </PropertyGroup>
 
 
@@ -14,12 +15,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="wwwroot\scripts\app\controllers\VendorController.js" />
   </ItemGroup>
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="bundleconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="wwwroot\content\assets\apps\scripts\calendar.js" />
     <None Include="wwwroot\content\assets\apps\scripts\calendar.min.js" />
     <None Include="wwwroot\content\assets\apps\scripts\inbox.js" />

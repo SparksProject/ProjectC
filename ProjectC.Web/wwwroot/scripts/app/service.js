@@ -360,7 +360,11 @@
     //Stok Giris======================>
 
     this.ListStokGirises = function (id) {
-        return GetBaseRequestJson("StokGiris", "List", id);
+        return GetBaseRequestJson("StokGiris", "List");
+    };
+
+    this.ListStokGirisDetails = function (id) {
+        return GetBaseRequestJson("StokGiris", "ListDetails");
     };
 
     this.GetStokGiris = function (id) {
@@ -373,6 +377,24 @@
 
     this.EditStokGiris = function (obj) {
         return GetBaseRequestPostJson("StokGiris", "Edit", obj);
+    };
+
+    //Stok Cikis======================>
+
+    this.ListStokCikises = function (id) {
+        return GetBaseRequestJson("StokCikis", "List");
+    };
+
+    this.GetStokCikis = function (id) {
+        return GetBaseRequestJson("StokCikis", "Get", id);
+    };
+
+    this.AddStokCikis = function (obj) {
+        return GetBaseRequestPostJson("StokCikis", "Add", obj);
+    };
+
+    this.EditStokCikis = function (obj) {
+        return GetBaseRequestPostJson("StokCikis", "Edit", obj);
     };
 
 });
