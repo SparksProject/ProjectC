@@ -37,7 +37,7 @@
         }
 
         .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle .badge.badge-default {
-            background-color: #17C4BB;
+            background-color: #0078bf;
             color: #ffffff;
         }
 
@@ -96,12 +96,12 @@
         }
 
         .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-toggle > .circle {
-            background-color: #17C4BB;
+            background-color: #0078bf;
             color: #ffffff;
         }
 
         .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-toggle > .corner {
-            border-color: transparent transparent transparent #17C4BB;
+            border-color: transparent transparent transparent #0078bf;
         }
 
         .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox .dropdown-menu .dropdown-menu-list .subject .from {
@@ -242,11 +242,11 @@
     .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class*="icon-"],
     .page-sidebar .page-sidebar-menu > li > a > i[class^="icon-"],
     .page-sidebar .page-sidebar-menu > li > a > i[class*="icon-"] {
-        color: #18cdc4;
+        color: #40B8FF;
     }
 
     .page-sidebar .page-sidebar-menu > li > a > i[class*="fa-"] {
-        color: #18cdc4;
+        color: #40B8FF;
     }
 
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .arrow.open:before,
@@ -292,7 +292,7 @@
     .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > i,
     .page-sidebar .page-sidebar-menu > li.active > a > i,
     .page-sidebar .page-sidebar-menu > li.active.open > a > i {
-        color: #18cdc4;
+        color: #40B8FF;
     }
 
     .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > .arrow.open:before,
@@ -489,7 +489,7 @@
 @media (max-width: 767px) {
     /* 767px */
     .page-header.navbar {
-        background: #17C4BB;
+        background: #0078bf;
         /* Top menu */
     }
 
@@ -503,7 +503,7 @@
 ****/
 .page-spinner-bar > div,
 .block-spinner-bar > div {
-    background: #1adbd1;
+    background: #0078bf;
 }
 
 /****
@@ -518,10 +518,10 @@ body {
     }
 
 .btn-eo {
-    background-color: #17C4BB;
+    background-color: #0078bf;
     color: white !important;
 }
 
 .tbl-eo {
-    background-color: #17C4BB;
+    background-color: #0078bf;
 }

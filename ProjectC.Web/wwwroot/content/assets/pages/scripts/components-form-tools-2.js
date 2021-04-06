@@ -282,8 +282,8 @@ var ComponentsFormTools = function () {
     var handleBootstrapTouchSpin = function () {
 
         $("#touchspin_demo1").TouchSpin({
-            buttondown_class: 'btn green',
-            buttonup_class: 'btn green',
+            buttondown_class: 'btn blue',
+            buttonup_class: 'btn blue',
             min: -1000000000,
             max: 1000000000,
             stepinterval: 50,
@@ -304,8 +304,8 @@ var ComponentsFormTools = function () {
         });
 
         $("#touchspin_demo3").TouchSpin({
-            buttondown_class: 'btn green',
-            buttonup_class: 'btn green',
+            buttondown_class: 'btn blue',
+            buttonup_class: 'btn blue',
             prefix: "$",
             postfix: "%"
         });

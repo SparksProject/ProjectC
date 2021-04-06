@@ -27,7 +27,7 @@ var TableDatatablesResponsive = function () {
             // setup buttons extentension: http://datatables.net/extensions/buttons/
             buttons: [
                 { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'pdf', className: 'btn blue btn-outline' },
                 { extend: 'csv', className: 'btn purple btn-outline ' }
             ],
 
@@ -85,7 +85,7 @@ var TableDatatablesResponsive = function () {
             // setup buttons extentension: http://datatables.net/extensions/buttons/
             buttons: [
                 { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'pdf', className: 'btn blue btn-outline' },
                 { extend: 'csv', className: 'btn purple btn-outline ' }
             ],
 
