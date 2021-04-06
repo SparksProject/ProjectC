@@ -134,8 +134,8 @@
     <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="modalDrop" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalDrop" aria-hidden="true" style="z-index: 1051;">
+    <div class="modal-dialog modal-lg">
         <form class="modal-content" name="form" valid-submit="ActionImport(object)" novalidate>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -143,41 +143,45 @@
             </div>
             <div class="modal-body">
                 <!-- BEGIN FORM-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Beyanname No</label>
-                            <div class="col-md-8">
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" ng-model="object.ItemNo" name="ItemNo" class="form-control" placeholder="Item No" maxlength="16">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label col-md-5">Item No</label>
+                                <div class="col-md-7">
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" ng-model="object.ItemNo" name="ItemNo" class="form-control" placeholder="Item No" maxlength="16">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- /row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Çıkış Adet</label>
-                            <div class="col-md-8">
-                                <div class="input-icon right">
-                                    <i class="fa"></i>
-                                    <input type="text" ng-model="object.DropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-5">Çıkış Adet</label>
+                                <div class="col-md-7">
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" ng-model="object.DropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" ng-click="FindDrop()">Giriş Kayıtlarını Bul</button>
+                        </div>
                     </div>
                 </div>
+                <div id="gridDrop" style="min-height: 200px;"></div>
                 <!-- END FORM-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn green" ng-click="UploadFile()">Çıkış İşlemlerini Yap</button>
+                <button type="button" class="btn green" ng-click="SendDrop()">Çıkış İşlemlerini Yap</button>
             </div>
         </form>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+    <div class="modal-backdrop fade in" style="z-index: -1;"></div>
 </div>
