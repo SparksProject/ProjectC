@@ -24,9 +24,9 @@ namespace ProjectC.Api.Controllers
 
         // Crud
         [HttpGet("List")]
-        public IActionResult List()
+        public IActionResult List([FromQuery] string referansNo, [FromQuery] string beyannameNo, [FromQuery] string tpsNo)
         {
-            var result = _service.List();
+            var result = _service.List(referansNo, beyannameNo, tpsNo);
 
             switch (result.ResultMessage)
             {
@@ -97,7 +97,7 @@ namespace ProjectC.Api.Controllers
         {
             try
             {
-                var result = _serviceGiris.GetStokDusumListe(itemNo, cikisAdet);
+                var result = _service.GetStokDusumListe(itemNo, cikisAdet);
 
                 return StatusCode(StatusCodes.Status200OK, result);
             }
@@ -112,11 +112,16 @@ namespace ProjectC.Api.Controllers
         {
             try
             {
-                var result = _serviceGiris.GetStokDusumListe(itemNo, cikisAdet).Result as List<ViewStokDusumListeDto>;
+                var stokDusumListeResult = _service.GetStokDusumListe(itemNo, cikisAdet);
 
-                var result2 = _service.AddDetail(stokCikisId, result);
+                if (!stokDusumListeResult.IsSuccesful || stokDusumListeResult.Result == null)
+                {
+                    return NotFound();
+                }
 
-                return StatusCode(StatusCodes.Status200OK, result);
+                var target = _service.AddDetail(stokCikisId, stokDusumListeResult.Result as List<ViewStokDusumListeDto>);
+
+                return StatusCode(StatusCodes.Status200OK, target);
             }
             catch (Exception ex)
             {

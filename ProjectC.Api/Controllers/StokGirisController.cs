@@ -19,9 +19,9 @@ namespace ProjectC.Api.Controllers
 
         // Crud
         [HttpGet("List")]
-        public IActionResult List()
+        public IActionResult List([FromQuery] string referansNo, [FromQuery] string beyannameNo, [FromQuery] string tpsNo)
         {
-            var result = _service.List();
+            var result = _service.List(referansNo, beyannameNo, tpsNo);
 
             switch (result.ResultMessage)
             {
