@@ -98,22 +98,40 @@ namespace ProjectC.Service
             }
         }
 
-        public ResponseDTO List()
+        public ResponseDTO List(string referansNo, string beyannameNo, string tpsNo)
         {
             try
             {
                 var entities = _uow.ChepStokGiris.GetAll();
 
-                var list = new List<ChepStokGirisDTO>();
+                if (!string.IsNullOrEmpty(referansNo))
+                {
+                    referansNo = referansNo.ToLower();
+                    entities = entities.Where(x => x.ReferansNo != null).Where(x => x.ReferansNo.ToLower().Contains(referansNo)).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(beyannameNo))
+                {
+                    beyannameNo = beyannameNo.ToLower();
+                    entities = entities.Where(x => x.BeyannameNo != null).Where(x => x.BeyannameNo.ToLower().Contains(beyannameNo)).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(tpsNo))
+                {
+                    tpsNo = tpsNo.ToLower();
+                    entities = entities.Where(x => x.TPSNo != null).Where(x => x.TPSNo.ToLower().Contains(tpsNo)).ToList();
+                }
+
+                var target = new List<ChepStokGirisDTO>();
 
                 foreach (var item in entities)
                 {
                     var obj = Map(item);
 
-                    list.Add(obj);
+                    target.Add(obj);
                 }
 
-                return Success(list);
+                return Success(target);
             }
             catch (Exception ex)
             {
@@ -134,114 +152,6 @@ namespace ProjectC.Service
                     var obj = Map(item);
 
                     list.Add(obj);
-                }
-
-                return Success(list);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
-
-        public ResponseDTO GetStokDusumListe(string itemNo, int toplamCikisAdet)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(itemNo))
-                {
-                    return Warning("Geçersiz Ürün Kodu!");
-                }
-
-                itemNo = itemNo.ToLower();
-
-                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
-
-                var target = new List<ViewStokDusumListeDto>();
-
-                var cikisAltToplam = 0;
-                foreach (var item in entities.OrderBy(x => x.SureSonuTarihi))
-                {
-                    var farkCikis = toplamCikisAdet - cikisAltToplam;
-
-                    var obj = Mapper.MapSingle<ViewStokDusumListe, ViewStokDusumListeDto>(item);
-
-                    if (farkCikis > 0)
-                    {
-                        if (farkCikis >= obj.KalanMiktar)
-                        {
-                            obj.DusulenMiktar = obj.KalanMiktar;
-                            cikisAltToplam += obj.KalanMiktar;
-                        }
-                        else
-                        {
-                            obj.DusulenMiktar = farkCikis;
-                            cikisAltToplam += farkCikis;
-                        }
-                    }
-
-                    target.Add(obj);
-                }
-
-                if (toplamCikisAdet - cikisAltToplam > 0)
-                {
-                    var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {toplamCikisAdet - cikisAltToplam}";
-
-                    return Success(target, message);
-                }
-
-                return Success(target);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
-
-        public ResponseDTO InsertStokCikisFromStokDusumListe(string itemNo, int toplamCikisAdet)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(itemNo))
-                {
-                    return Warning("Geçersiz Ürün Kodu!");
-                }
-
-                itemNo = itemNo.ToLower();
-
-                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
-
-                var list = new List<ViewStokDusumListeDto>();
-
-                var cikisAltToplam = 0;
-                foreach (var item in entities.OrderBy(x => x.SureSonuTarihi))
-                {
-                    var farkCikis = toplamCikisAdet - cikisAltToplam;
-
-                    var obj = Mapper.MapSingle<ViewStokDusumListe, ViewStokDusumListeDto>(item);
-
-                    if (farkCikis > 0)
-                    {
-                        if (farkCikis >= obj.KalanMiktar)
-                        {
-                            obj.DusulenMiktar = obj.KalanMiktar;
-                            cikisAltToplam += obj.KalanMiktar;
-                        }
-                        else
-                        {
-                            obj.DusulenMiktar = farkCikis;
-                            cikisAltToplam += farkCikis;
-                        }
-                    }
-
-                    list.Add(obj);
-                }
-
-                if (toplamCikisAdet - cikisAltToplam > 0)
-                {
-                    var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {toplamCikisAdet - cikisAltToplam}";
-
-                    return Success(list, message);
                 }
 
                 return Success(list);
