@@ -269,7 +269,7 @@
                     columns: [
                         { dataField: "GirisBeyannameNo", caption: "Beyanname No", },
                         { dataField: "TPSNo", caption: "TPS No", },
-                        { dataField: "UrunKod", caption: "Item No", },
+                        { dataField: "UrunKod", caption: "Ürün Kodu", },
                         {
                             dataField: "GirisMiktar", caption: "Giriş Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
@@ -578,16 +578,31 @@
             });
     };
 
-    $scope.GetGirisDetayList = function (itemNo, cikisAdet) {
+    $scope.GetStokDusumListe = function (itemNo, cikisAdet) {
         if (itemNo == undefined || cikisAdet == undefined) {
-            alert('Item No ve Çıkış Adet zorunludur!');
+            alert('Ürün Kodu ve Çıkış Adet zorunludur!');
             return false;
         }
 
-        SparksXService.GetGirisDetayList(itemNo, cikisAdet).success(function (data) {
-            $gridDrop.option("dataSource", data);
-            console.log(data);
+        SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
+            if (data.Result != null) {
+                $gridDrop.option("dataSource", data.Result);
+            }
+            if (data.Message != null) {
+                alert(data.Message);
+            }
         });
     };
+
+    $scope.InsertStokCikisFromStokDusumListe = function (id, obj) {
+        if (obj.ItemNo == undefined || obj.DropCount == undefined) {
+            alert('Ürün Kodu ve Çıkış Adet zorunludur!');
+            return false;
+        }
+
+        SparksXService.InsertStokCikisFromStokDusumListe(id, obj.ItemNo, obj.DropCount).success(function (data) {
+            console.log(data);
+        });
+    }
 
 }]);

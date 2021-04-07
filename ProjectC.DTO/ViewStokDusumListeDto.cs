@@ -16,6 +16,6 @@ namespace ProjectC.DTO
         public int GirisMiktar { get; set; }
         public int KalanMiktar { get; set; }
         public int DusulenMiktar { get; set; }
-        public int BakiyeMiktar { get; set; }
+        public int BakiyeMiktar { get { return KalanMiktar - DusulenMiktar; } }
     }
 }

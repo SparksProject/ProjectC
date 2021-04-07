@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
 
+using System;
+using System.Collections.Generic;
+
 namespace ProjectC.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -89,12 +92,36 @@ namespace ProjectC.Api.Controllers
             }
         }
 
-        [HttpGet("GetGirisDetayList")]
-        public IActionResult GetGirisDetayList([FromQuery] string itemNo, [FromQuery] int cikisAdet)
+        [HttpGet("GetStokDusumListe")]
+        public IActionResult GetStokDusumListe([FromQuery] string itemNo, [FromQuery] int cikisAdet)
         {
-            var result = _serviceGiris.GetGirisDetayList(itemNo, cikisAdet).Result;
+            try
+            {
+                var result = _serviceGiris.GetStokDusumListe(itemNo, cikisAdet);
 
-            return StatusCode(StatusCodes.Status200OK, result);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+        [HttpGet("InsertStokCikisFromStokDusumListe")]
+        public IActionResult InsertStokCikisFromStokDusumListe([FromQuery] int stokCikisId, [FromQuery] string itemNo, [FromQuery] int cikisAdet)
+        {
+            try
+            {
+                var result = _serviceGiris.GetStokDusumListe(itemNo, cikisAdet).Result as List<ViewStokDusumListeDto>;
+
+                var result2 = _service.AddDetail(stokCikisId, result);
+
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
     }
