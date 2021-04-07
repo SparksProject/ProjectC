@@ -397,8 +397,12 @@
         return GetBaseRequestPostJson("StokCikis", "Edit", obj);
     };
 
-    this.GetGirisDetayList = function (itemNo, cikisAdet) {
-        return GetBaseRequestJson("StokCikis", "GetGirisDetayList", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
+    this.GetStokDusumListe = function (itemNo, cikisAdet) {
+        return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
+    };
+
+    this.InsertStokCikisFromStokDusumListe = function (stokCikisId, itemNo, cikisAdet) {
+        return GetBaseRequestJson("StokCikis", "InsertStokCikisFromStokDusumListe", undefined, 'stokCikisId=' + stokCikisId + '&itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
     };
 
 });

@@ -136,7 +136,7 @@
 
 <div class="modal fade" id="modalDrop" aria-hidden="true" style="z-index: 1051;">
     <div class="modal-dialog modal-lg">
-        <form class="modal-content" name="form" valid-submit="ActionImport(object)" novalidate>
+        <form class="modal-content" name="form" novalidate>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">CHEP Depo Düşüm</h4>
@@ -147,11 +147,11 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label class="control-label col-md-5">Item No</label>
+                                <label class="control-label col-md-5">Ürün Kodu</label>
                                 <div class="col-md-7">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" ng-required="true" ng-model="object.Drop.ItemNo" name="ItemNo" class="form-control" placeholder="Item No" maxlength="16">
+                                        <input type="text" ng-required="true" ng-model="object.Drop.ItemNo" name="ItemNo" class="form-control" placeholder="Ürün Kodu" maxlength="16">
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-click="GetGirisDetayList(object.Drop.ItemNo, object.Drop.DropCount)">Giriş Kayıtlarını Bul</button>
+                            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.ItemNo, object.Drop.DropCount)">Giriş Kayıtlarını Bul</button>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn blue" ng-click="SendDrop()">Çıkış İşlemlerini Yap</button>
+                <button type="button" class="btn blue" ng-click="InsertStokCikisFromStokDusumListe(object.StokCikisId,object.Drop)">Çıkış İşlemlerini Yap</button>
             </div>
         </form>
         <!-- /.modal-content -->

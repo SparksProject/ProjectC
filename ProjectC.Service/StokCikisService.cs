@@ -98,6 +98,44 @@ namespace ProjectC.Service
             }
         }
 
+        public ResponseDTO AddDetail(int stokCikisId, List<ViewStokDusumListeDto> details)
+        {
+            try
+            {
+                if (stokCikisId < 1 || details == null)
+                {
+                    return NotFound();
+                }
+
+                var detailEntities = new List<ChepStokCikisDetay>();
+
+                foreach (var item in details.Where(x => x.DusulenMiktar > 0))
+                {
+                    detailEntities.Add(new ChepStokCikisDetay
+                    {
+                        StokCikisId = stokCikisId,
+                        Miktar = item.DusulenMiktar,
+                        StokGirisDetayId = item.StokGirisDetayId,
+                    });
+                }
+
+                if (detailEntities.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                _uow.ChepStokCikisDetay.AddRange(detailEntities);
+
+                var result = _uow.Commit();
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
 
         private ChepStokCikis Map(ChepStokCikisDTO obj)
         {

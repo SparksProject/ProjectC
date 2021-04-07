@@ -10,6 +10,6 @@ namespace ProjectC.Service.Interface
         ResponseDTO Get(int id);
 
         ResponseDTO ListDetails();
-        ResponseDTO GetGirisDetayList(string itemNo, int cikisAdet);
+        ResponseDTO GetStokDusumListe(string itemNo, int cikisAdet);
     }
 }
