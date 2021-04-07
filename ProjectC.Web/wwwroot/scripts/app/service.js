@@ -359,8 +359,8 @@
 
     //Stok Giris======================>
 
-    this.ListStokGirises = function (id) {
-        return GetBaseRequestJson("StokGiris", "List");
+    this.ListStokGirises = function (ReferansNo, BeyannameNo, TPSNo) {
+        return GetBaseRequestJson("StokGiris", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&tpsNo=' + TPSNo);
     };
 
     this.ListStokGirisDetails = function (id) {
@@ -381,8 +381,8 @@
 
     //Stok Cikis======================>
 
-    this.ListStokCikises = function (id) {
-        return GetBaseRequestJson("StokCikis", "List");
+    this.ListStokCikises = function (ReferansNo, BeyannameNo, TPSNo) {
+        return GetBaseRequestJson("StokCikis", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&tpsNo=' + TPSNo);
     };
 
     this.GetStokCikis = function (id) {
