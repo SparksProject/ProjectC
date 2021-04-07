@@ -10,6 +10,9 @@
     var $modalImport = null;
     var $modalDrop = null;
     var DeletedChepStokCikisDetayIdList = [];
+    var $btnArchive = null;
+    var $btnJobOrder = null;
+    var $btnDrop = null;
 
     var storeStokGiris = new DevExpress.data.CustomStore({
         key: "StokGirisDetayId",
@@ -54,6 +57,10 @@
                     $gridDetail.cancelEditData();
 
                     DeletedChepStokCikisDetayIdList = [];
+
+                    $modalDetail.find('form .form-group').removeClass('has-success').removeClass('has-error');
+                    $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
+                    $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
                 }
             }).modal({
                 show: false,
@@ -240,6 +247,15 @@
                         bodyModalPadding = 0;
                     }
                 },
+                "hidden.bs.modal": function (e) {
+                    $scope.object.Drop = {};
+
+                    $gridDrop.option("dataSource", []);
+
+                    $modalDrop.find('form .form-group').removeClass('has-success').removeClass('has-error');
+                    $modalDrop.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
+                    $modalDrop.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
+                }
             }).modal({
                 show: false,
                 keyboard: false,
