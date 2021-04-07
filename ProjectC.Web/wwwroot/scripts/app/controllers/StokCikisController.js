@@ -13,6 +13,7 @@
     var $btnArchive = null;
     var $btnJobOrder = null;
     var $btnDrop = null;
+    var $btnDropSubmit = null;
 
     var storeStokGiris = new DevExpress.data.CustomStore({
         key: "StokGirisDetayId",
@@ -41,6 +42,10 @@
 
     $scope.ModalDetail = function () {
         if ($modalDetail == null) {
+            $btnArchive = $('#btnArchive');
+            $btnJobOrder = $('#btnJobOrder');
+            $btnDrop = $('#btnDrop');
+
             $modalDetail = $('#modalDetail').on({
                 "hide.bs.modal": function (e) {
                     if ($('.modal:visible').length > 1) {
@@ -61,6 +66,10 @@
                     $modalDetail.find('form .form-group').removeClass('has-success').removeClass('has-error');
                     $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
                     $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
+
+                    $btnArchive.addClass('hidden');
+                    $btnJobOrder.addClass('hidden');
+                    $btnDrop.addClass('hidden');
                 }
             }).modal({
                 show: false,
@@ -239,6 +248,8 @@
         }
 
         if ($modalDrop == null) {
+            $btnDropSubmit = $('#btnDropSubmit');
+
             $modalDrop = $('#modalDrop').on({
                 "hide.bs.modal": function (e) {
                     if ($('.modal:visible').length > 1) {
@@ -267,8 +278,8 @@
                     keyExpr: "StokGirisDetayId",
                     dataSource: [],
                     columns: [
-                        { dataField: "GirisBeyannameNo", caption: "Beyanname No", },
-                        { dataField: "TPSNo", caption: "TPS No", },
+                        { dataField: "GirisBeyannameNo", caption: "Beyanname No", width: 150, },
+                        { dataField: "TPSNo", caption: "TPS No", width: 150, },
                         { dataField: "UrunKod", caption: "Ürün Kodu", },
                         {
                             dataField: "GirisMiktar", caption: "Giriş Adet", dataType: "number",
@@ -287,6 +298,23 @@
                             format: { type: "fixedPoint", precision: 0 },
                         },
                     ],
+                    summary: {
+                        totalItems: [
+                            {
+                                column: "DusulenMiktar",
+                                summaryType: "sum",
+                            },
+                            {
+                                column: "BakiyeMiktar",
+                                summaryType: "sum",
+                            }
+                        ]
+                    },
+                    onCellPrepared: function (e) {
+                        if (e.rowType == "data" && e.data.DusulenMiktar > 0) {
+                            $(e.cellElement).css('backgroundColor', '#e8f0fe');
+                        }
+                    },
                     filterRow: {
                         visible: false,
                     },
@@ -305,6 +333,7 @@
 
     // CRUD
     $scope.Grid = function () {
+        $scope.filter = {};
 
         if ($gridContainer == null) {
             $gridContainer = $("#gridContainer").dxDataGrid({
@@ -407,6 +436,10 @@
 
                         $gridDetail.option("dataSource", data.ChepStokCikisDetayList);
 
+                        $btnArchive.removeClass('hidden');
+                        $btnJobOrder.removeClass('hidden');
+                        $btnDrop.removeClass('hidden');
+
                         $modalDetail.modal('show');
                     });
                 },
@@ -438,9 +471,9 @@
             }).dxDataGrid('instance');
         }
 
-        $gridContainer.beginCustomLoading();
+        //$gridContainer.beginCustomLoading();
 
-        ListData();
+        //ListData();
     }
 
     $scope.ModalImport = function () {
@@ -464,7 +497,11 @@
     }
 
     function ListData() {
-        SparksXService.ListStokCikises().success(function (data) {
+        var referansNo = $scope.filter.ReferansNo ? $scope.filter.ReferansNo : "";
+        var beyannameNo = $scope.filter.BeyannameNo ? $scope.filter.BeyannameNo : "";
+        var tpsNo = $scope.filter.TPSNo ? $scope.filter.TPSNo : "";
+
+        SparksXService.ListStokCikises(referansNo, beyannameNo, tpsNo).success(function (data) {
             $gridContainer.option("dataSource", data);
             $gridContainer.endCustomLoading();
         }).error(function () {
@@ -485,6 +522,10 @@
         SparksXService.GetStokCikis($stateParams.id).success(function (data) {
             $scope.object = data;
         });
+    };
+
+    $scope.Filter = function (obj) {
+        ListData();
     };
 
     $scope.BindFields = function () {
@@ -579,19 +620,45 @@
     };
 
     $scope.GetStokDusumListe = function (itemNo, cikisAdet) {
-        if (itemNo == undefined || cikisAdet == undefined) {
-            alert('Ürün Kodu ve Çıkış Adet zorunludur!');
-            return false;
-        }
+        var $form = $('#form-drop'),
+            form = $form.controller('form'),
+            input = $form.find('input[ng-required], select[ng-required], textarea[ng-required], div[ng-invalid-required]');;
 
-        SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
-            if (data.Result != null) {
-                $gridDrop.option("dataSource", data.Result);
-            }
-            if (data.Message != null) {
-                alert(data.Message);
-            }
-        });
+        form.$submitted = false;
+        $btnDropSubmit.prop('disabled', true);
+
+        if (form.$valid) {
+            angular.forEach(input, function (formElement, fieldName) {
+                if ($(formElement).hasClass("ng-valid")) {
+                    $(formElement).closest('.form-group').addClass('has-success').removeClass("has-error");
+                    $(formElement).parent('.input-icon').children('i').removeClass('fa-warning').addClass("fa-check");
+                }
+            }, this);
+
+            $gridDrop.beginCustomLoading();
+
+            SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
+                if (data.Result != null) {
+                    $gridDrop.option("dataSource", data.Result);
+
+                    $btnDropSubmit.prop('disabled', false);
+                    $gridDrop.endCustomLoading();
+                }
+                if (data.Message != null) {
+                    swal({
+                        icon: "error",
+                        title: data.Message,
+                    });
+                }
+            });
+        } else {
+            angular.forEach(input, function (formElement, fieldName) {
+                if ($(formElement).hasClass("ng-invalid")) {
+                    $(formElement).closest('.form-group').addClass('has-error').removeClass("has-success");
+                    $(formElement).parent('.input-icon').children('i').removeClass('fa-check').addClass("fa-warning");
+                }
+            }, this);
+        }
     };
 
     $scope.InsertStokCikisFromStokDusumListe = function (id, obj) {

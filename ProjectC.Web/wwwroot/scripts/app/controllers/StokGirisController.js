@@ -154,6 +154,7 @@
 
     // CRUD
     $scope.Grid = function () {
+        $scope.filter = {};
 
         if ($gridContainer == null) {
             $gridContainer = $("#gridContainer").dxDataGrid({
@@ -294,9 +295,9 @@
             }).dxDataGrid('instance');
         }
 
-        $gridContainer.beginCustomLoading();
+        //$gridContainer.beginCustomLoading();
 
-        ListData();
+        //ListData();
     }
 
     $scope.ModalImport = function () {
@@ -313,7 +314,11 @@
     }
 
     function ListData() {
-        SparksXService.ListStokGirises().success(function (data) {
+        var referansNo = $scope.filter.ReferansNo ? $scope.filter.ReferansNo : "";
+        var beyannameNo = $scope.filter.BeyannameNo ? $scope.filter.BeyannameNo : "";
+        var tpsNo = $scope.filter.TPSNo ? $scope.filter.TPSNo : "";
+
+        SparksXService.ListStokGirises(referansNo, beyannameNo, tpsNo).success(function (data) {
             $gridContainer.option("dataSource", data);
             $gridContainer.endCustomLoading();
         }).error(function () {
@@ -321,7 +326,6 @@
             $gridContainer.endCustomLoading();
         });
     }
-
 
     $scope.List = function () {
         $rootScope.settings.layout.pageSidebarClosed = false;
@@ -334,6 +338,10 @@
         SparksXService.GetStokGiris($stateParams.id).success(function (data) {
             $scope.object = data;
         });
+    };
+
+    $scope.Filter = function (obj) {
+        ListData();
     };
 
     $scope.BindFields = function () {
