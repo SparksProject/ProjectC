@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectC.Data\Chep.Data.csproj" />
-    <ProjectReference Include="..\ProjectC.DTO\Chep.DTO.csproj" />
-    <ProjectReference Include="..\ProjectC.Service.Interface\Chep.Service.Interface.csproj" />
+    <ProjectReference Include="..\Chep.Data\Chep.Data.csproj" />
+    <ProjectReference Include="..\Chep.DTO\Chep.DTO.csproj" />
+    <ProjectReference Include="..\Chep.Service.Interface\Chep.Service.Interface.csproj" />
   </ItemGroup>
 
 </Project>

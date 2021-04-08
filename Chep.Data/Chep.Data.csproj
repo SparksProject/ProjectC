@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectC.Core\Chep.Core.csproj" />
+    <ProjectReference Include="..\Chep.Core\Chep.Core.csproj" />
   </ItemGroup>
 
 </Project>
