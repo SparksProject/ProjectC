@@ -46,8 +46,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectC.DTO\ProjectC.DTO.csproj" />
-    <ProjectReference Include="..\ProjectC.Service.Interface\ProjectC.Service.Interface.csproj" />
-    <ProjectReference Include="..\ProjectC.Service\ProjectC.Service.csproj" />
+    <ProjectReference Include="..\ProjectC.DTO\Chep.DTO.csproj" />
+    <ProjectReference Include="..\ProjectC.Service.Interface\Chep.Service.Interface.csproj" />
+    <ProjectReference Include="..\ProjectC.Service\Chep.Service.csproj" />
   </ItemGroup>
 </Project>

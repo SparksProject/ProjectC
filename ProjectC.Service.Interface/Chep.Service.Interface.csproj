@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectC.DTO\ProjectC.DTO.csproj" />
+    <ProjectReference Include="..\ProjectC.DTO\Chep.DTO.csproj" />
   </ItemGroup>
 
 </Project>
