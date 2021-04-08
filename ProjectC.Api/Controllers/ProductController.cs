@@ -5,14 +5,14 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using ProjectC.Api.Models;
-using ProjectC.DTO;
-using ProjectC.Service.Interface;
+using Chep.Api.Models;
+using Chep.DTO;
+using Chep.Service.Interface;
 
 using Syncfusion.XlsIO;
 
 
-namespace ProjectC.Api.Controllers
+namespace Chep.Api.Controllers
 {
     [Route("api/[controller]")]
     public class ProductController : Controller

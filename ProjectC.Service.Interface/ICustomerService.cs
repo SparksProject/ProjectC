@@ -1,7 +1,7 @@
-﻿using ProjectC.DTO;
+﻿using Chep.DTO;
 using System;
 
-namespace ProjectC.Service.Interface
+namespace Chep.Service.Interface
 {
     public interface ICustomerService
     {

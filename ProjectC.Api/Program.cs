@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ProjectC.Api
+namespace Chep.Api
 {
     public class Program
     {

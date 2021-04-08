@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
 
-namespace ProjectC.Service
+namespace Chep.Service
 {
     public static class Extensions
     {

@@ -1,10 +1,10 @@
-﻿using ProjectC.DTO;
+﻿using Chep.DTO;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace ProjectC.Service.Interface
+namespace Chep.Service.Interface
 {
     public interface IMailReportService
     {

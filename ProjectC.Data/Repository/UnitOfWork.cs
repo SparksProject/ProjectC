@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using ProjectC.Core;
+using Chep.Core;
 using System;
 
-namespace ProjectC.Data.Repository
+namespace Chep.Data.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

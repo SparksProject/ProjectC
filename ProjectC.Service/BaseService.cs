@@ -1,7 +1,7 @@
-﻿using ProjectC.DTO;
+﻿using Chep.DTO;
 using System;
 
-namespace ProjectC.Service
+namespace Chep.Service
 {
     public class BaseService : IDisposable
     {

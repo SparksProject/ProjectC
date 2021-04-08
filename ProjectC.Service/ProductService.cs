@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using ProjectC.Core;
-using ProjectC.Data.Repository;
-using ProjectC.DTO;
-using ProjectC.Service.Interface;
+using Chep.Core;
+using Chep.Data.Repository;
+using Chep.DTO;
+using Chep.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace ProjectC.Service
+namespace Chep.Service
 {
     public class ProductService : BaseService, IProductService
     {

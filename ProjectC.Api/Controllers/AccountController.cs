@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using ProjectC.DTO;
-using ProjectC.Service.Interface;
+using Chep.DTO;
+using Chep.Service.Interface;
 using Microsoft.AspNetCore.Http;
-using ProjectC.Api.Models;
+using Chep.Api.Models;
 
-namespace ProjectC.Api.Controllers
+namespace Chep.Api.Controllers
 {
     [Route("api/[controller]")]
     public class AccountController : ControllerBase

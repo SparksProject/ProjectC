@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using ProjectC.DTO;
-using ProjectC.Service.Interface;
+using Chep.DTO;
+using Chep.Service.Interface;
 
 using System;
 using System.Collections.Generic;
 
-namespace ProjectC.Api.Controllers
+namespace Chep.Api.Controllers
 {
     [Route("api/[controller]")]
     public class StokCikisController : Controller

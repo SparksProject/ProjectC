@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 
-using ProjectC.Core;
-using ProjectC.Data.Repository;
-using ProjectC.DTO;
-using ProjectC.Service.Interface;
+using Chep.Core;
+using Chep.Data.Repository;
+using Chep.DTO;
+using Chep.Service.Interface;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace ProjectC.Service
+namespace Chep.Service
 {
     /// <summary>
     /// Generic Report service class

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ProjectC.Core;
-using ProjectC.DTO;
+using Chep.Core;
+using Chep.DTO;
 
-namespace ProjectC.Service
+namespace Chep.Service
 {
     public class MappingProfile : Profile
     {

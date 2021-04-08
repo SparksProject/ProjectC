@@ -1,4 +1,4 @@
-﻿namespace ProjectC.Service
+﻿namespace Chep.Service
 {
     public static class Mapper
     {

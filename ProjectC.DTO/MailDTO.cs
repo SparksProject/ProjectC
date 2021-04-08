@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mail;
 
-namespace ProjectC.DTO
+namespace Chep.DTO
 {
     public class MailDTO
     {

@@ -1,10 +1,10 @@
-﻿using ProjectC.DTO;
-using ProjectC.Service.Interface;
+﻿using Chep.DTO;
+using Chep.Service.Interface;
 
 using System.Net;
 using System.Net.Mail;
 
-namespace ProjectC.Service
+namespace Chep.Service
 {
     public class MailService : BaseService, IMailService
     {

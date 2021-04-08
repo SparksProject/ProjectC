@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ProjectC.Web
+namespace Chep.Web
 {
     public class Program
     {

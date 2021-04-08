@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ProjectC.DTO
+namespace Chep.DTO
 {
     public class MailDefinitionDto
     {

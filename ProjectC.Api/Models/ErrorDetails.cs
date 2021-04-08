@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ProjectC.Api.Models
+namespace Chep.Api.Models
 {
     public class ErrorDetails
     {

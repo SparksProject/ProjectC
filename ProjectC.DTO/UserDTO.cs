@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectC.DTO
+namespace Chep.DTO
 {
     public class UserDTO
     {

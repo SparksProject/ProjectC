@@ -1,4 +1,4 @@
-﻿namespace ProjectC.Api.Models
+﻿namespace Chep.Api.Models
 {
     public class ResultModel
     {

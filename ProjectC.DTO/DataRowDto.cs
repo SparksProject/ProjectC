@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectC.DTO
+namespace Chep.DTO
 {
     public class DataRowDto
     {

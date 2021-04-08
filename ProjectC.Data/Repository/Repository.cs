@@ -1,10 +1,10 @@
-﻿using ProjectC.Core;
+﻿using Chep.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ProjectC.Data.Repository
+namespace Chep.Data.Repository
 {
     public class Repository<T> : IRepository<T>, IDisposable where T : class
     {

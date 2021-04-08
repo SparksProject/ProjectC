@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectC.DTO;
-using ProjectC.Service.Interface;
+using Chep.DTO;
+using Chep.Service.Interface;
 
-namespace ProjectC.Api.Controllers
+namespace Chep.Api.Controllers
 {
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]

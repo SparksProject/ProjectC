@@ -1,6 +1,6 @@
-﻿using ProjectC.DTO;
+﻿using Chep.DTO;
 
-namespace ProjectC.Service.Interface
+namespace Chep.Service.Interface
 {
     public interface IUserService
     {

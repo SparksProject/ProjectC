@@ -5,16 +5,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ProjectC.Service.Interface;
-using ProjectC.Service;
-using ProjectC.Data.Repository;
+using Chep.Service.Interface;
+using Chep.Service;
+using Chep.Data.Repository;
 using AutoMapper;
-using ProjectC.DTO;
+using Chep.DTO;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.Extensions.Hosting;
 
-namespace ProjectC.Api
+namespace Chep.Api
 {
     public class Startup
     {
