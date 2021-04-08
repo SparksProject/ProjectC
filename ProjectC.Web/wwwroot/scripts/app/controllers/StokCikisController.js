@@ -529,21 +529,13 @@
     };
 
     $scope.BindFields = function () {
-        $scope.object = {};
+        $scope.object = {
+            ReferansNo: 20210000015,
+        };
 
-        //if ($rootScope.SelectedCustomerId == undefined) {
-        //} else {
-        //    $scope.object.CustomerId = $rootScope.SelectedCustomerId;
-        //    $scope.hasCustomerSelected = true;
-        //}
-
-        //SparksXService.GetCustomers().success(function (data) {
-        //    $scope.customers = data;
-
-        //    SparksXService.ListStokCikises($scope.object.CustomerId).success(function (data) {
-        //        $scope.list = data;
-        //    });
-        //});
+        SparksXService.GetCustomers().success(function (data) {
+            $scope.customers = data;
+        });
     };
 
     $scope.Action = function (obj) {

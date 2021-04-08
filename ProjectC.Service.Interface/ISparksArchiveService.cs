@@ -5,7 +5,7 @@ namespace ProjectC.Service.Interface
 {
     public interface ISparksArchiveService
     {
-        ResponseDTO List(ArchiveFiltersDTO obj);
+        //ResponseDTO List(ArchiveFiltersDTO obj);
         ResponseDTO Add(SparksArchiveDTO obj);
         ResponseDTO Edit(SparksArchiveDTO obj);
         ResponseDTO Get(Guid id);

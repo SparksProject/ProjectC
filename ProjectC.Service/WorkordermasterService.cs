@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using ProjectC.Data.Repository;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;

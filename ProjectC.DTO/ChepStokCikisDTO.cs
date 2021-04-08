@@ -11,7 +11,7 @@ namespace ProjectC.DTO
         public DateTime? BeyannameTarihi { get; set; }
         public DateTime? TPSTarih { get; set; }
         public string BeyannameNo { get; set; }
-        public string IhracatciFirma { get; set; }
+        public Guid? IhracatciFirma { get; set; }
         public string TPSNo { get; set; }
 
         public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";

@@ -30,7 +30,8 @@
     [ProducerCompany]   NVARCHAR (250)   NULL,
     [IncentiveLineNo]   NVARCHAR (250)   NULL,
     CONSTRAINT [PK_InvoiceDetails] PRIMARY KEY CLUSTERED ([InvoiceDetailId] ASC),
-    CONSTRAINT [FK_InvoiceDetail_Invoice] FOREIGN KEY ([InvoiceId]) REFERENCES [dbo].[Invoice] ([InvoiceId]),
-    CONSTRAINT [FK_InvoiceDetails_Invoices] FOREIGN KEY ([InvoiceId]) REFERENCES [dbo].[Invoice] ([InvoiceId]) ON DELETE CASCADE
+    CONSTRAINT [FK_InvoiceDetail_Invoice] FOREIGN KEY ([InvoiceId]) REFERENCES [dbo].[Invoice] ([InvoiceId])
 );
+
+
 

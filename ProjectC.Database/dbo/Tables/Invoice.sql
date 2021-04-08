@@ -33,7 +33,8 @@
     [Customs]           NVARCHAR (250)   NULL,
     CONSTRAINT [PK_Invoices] PRIMARY KEY CLUSTERED ([InvoiceId] ASC),
     CONSTRAINT [FK_Invoice_WorkOrderMaster] FOREIGN KEY ([WorkOrderMasterId]) REFERENCES [dbo].[WorkOrderMaster] ([WorkOrderMasterId]),
-    CONSTRAINT [FK_Invoices_Invoices] FOREIGN KEY ([InvoiceId]) REFERENCES [dbo].[Invoice] ([InvoiceId]),
-    CONSTRAINT [FK_Invoices_WorkOrderMasters] FOREIGN KEY ([WorkOrderMasterId]) REFERENCES [dbo].[WorkOrderMaster] ([WorkOrderMasterId]) ON DELETE CASCADE
+    CONSTRAINT [FK_Invoices_Invoices] FOREIGN KEY ([InvoiceId]) REFERENCES [dbo].[Invoice] ([InvoiceId])
 );
+
+
 

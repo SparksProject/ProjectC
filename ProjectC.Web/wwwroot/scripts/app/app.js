@@ -44,7 +44,7 @@ SparksXApp.factory('settings', ['$http', '$rootScope', function ($http, $rootSco
     $rootScope.user = JSON.parse(localStorage.getItem("user"));
 
     if ($rootScope.user !== null) {
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.user.Token;
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.user.token;
     }
 
     return settings;
@@ -138,7 +138,7 @@ SparksXApp.provider('permissions', function () {
 
     var user = JSON.parse(localStorage.getItem("user"));
     if (user != null) {
-        var permissions = user.UserPermissions;
+        var permissions = user.userPermissions;
         this.userDetail = permissions;
     }
 });

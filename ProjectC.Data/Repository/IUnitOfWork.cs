@@ -1,4 +1,4 @@
-﻿using ProjectC.Data.Models;
+﻿using ProjectC.Core;
 
 using System;
 
@@ -30,8 +30,6 @@ namespace ProjectC.Data.Repository
         Repository<GenericReportUser> GenericReportUsers { get; }
         Repository<UserType> UserTypes { get; }
         Repository<Teminat> Teminats { get; }
-        Repository<Arsiv> Arsivs { get; }
-        Repository<Beyanname> Beyannames { get; }
         Repository<SparksArchive> SparksArchives { get; }
 
         Repository<ChepStokGiris> ChepStokGiris { get; }
@@ -40,6 +38,6 @@ namespace ProjectC.Data.Repository
         Repository<ChepStokCikisDetay> ChepStokCikisDetay { get; }
 
         // Views
-        Repository<ViewStokDusumListe> ViewStokDusumListe { get; }
+        Repository<VwStokDusumListe> ViewStokDusumListe { get; }
     }
 }

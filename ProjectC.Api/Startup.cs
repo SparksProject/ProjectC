@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,11 +9,10 @@ using ProjectC.Service.Interface;
 using ProjectC.Service;
 using ProjectC.Data.Repository;
 using AutoMapper;
-using ProjectC.Data.Models;
 using ProjectC.DTO;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.Extensions.Hosting;
 
 namespace ProjectC.Api
 {
@@ -30,17 +28,19 @@ namespace ProjectC.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
-            });
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddJsonOptions(options =>
+            //{
+            //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+            //});
+
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.PropertyNameCaseInsensitive = true);
 
             services.AddAuthorization();
 
             services.Configure<SparksConfig>(Configuration.GetSection("SparksXConfig"));
             var configModel = Configuration.GetSection("SparksXConfig").Get<SparksConfig>();
 
-            services.AddDbContext<ProjectCContext>(x => x.UseSqlServer(configModel.ConnectionString));
+            //services.AddDbContext<ProjectCContext>(x => x.UseSqlServer(configModel.ConnectionString));
 
             services.AddAuthentication(options =>
             {
@@ -91,7 +91,7 @@ namespace ProjectC.Api
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -106,7 +106,11 @@ namespace ProjectC.Api
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseStaticFiles(new StaticFileOptions
             {

@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[ChepStokGirisDetay] (
     [StokGirisDetayId] INT           IDENTITY (1, 1) NOT NULL,
     [StokGirisId]      INT           NULL,
-    [TPSSiraNo]        INT           NULL,
-    [TPSBeyan]         NVARCHAR (20) NULL,
+    [TpsSiraNo]        INT           NULL,
+    [TpsBeyan]         NVARCHAR (20) NULL,
     [EsyaCinsi]        NVARCHAR (20) NULL,
-    [EsyaGTIP]         NVARCHAR (12) NULL,
+    [EsyaGtip]         NVARCHAR (12) NULL,
     [FaturaNo]         NVARCHAR (30) NULL,
     [FaturaTarih]      DATETIME      NULL,
     [FaturaTutar]      DECIMAL (18)  NULL,
@@ -19,7 +19,10 @@
     [Marka]            NVARCHAR (50) NULL,
     [Model]            NVARCHAR (50) NULL,
     [UrunKod]          NVARCHAR (50) NULL,
-    [PONo]             NVARCHAR (50) NULL,
-    CONSTRAINT [PK__ChepStok__5F1F65B0F75ADB99] PRIMARY KEY CLUSTERED ([StokGirisDetayId] ASC)
+    [PoNo]             NVARCHAR (50) NULL,
+    CONSTRAINT [PK__ChepStok__5F1F65B0F75ADB99] PRIMARY KEY CLUSTERED ([StokGirisDetayId] ASC),
+    CONSTRAINT [FK_ChepStokGirisDetay_ChepStokGiris] FOREIGN KEY ([StokGirisId]) REFERENCES [dbo].[ChepStokGiris] ([StokGirisId])
 );
+
+
 

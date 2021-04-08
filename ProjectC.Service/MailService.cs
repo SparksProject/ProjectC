@@ -20,7 +20,7 @@ namespace ProjectC.Service
                 return NotFound();
             }
 
-            using (var client = new SmtpClient(obj.Host, obj.Port)
+            using (var client = new SmtpClient(obj.Host, obj.Port.Value)
             {
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(obj.UserName, obj.Password),

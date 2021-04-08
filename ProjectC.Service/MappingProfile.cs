@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using ProjectC.DTO;
 
 namespace ProjectC.Service
