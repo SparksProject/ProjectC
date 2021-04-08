@@ -15,9 +15,9 @@ namespace ProjectC.Api.Controllers
     {
         private readonly IGenericReportService _service;
 
-        private readonly IHostingEnvironment _hostingenviroment;
+        private readonly IWebHostEnvironment _hostingenviroment;
 
-        public GenericReportController(IGenericReportService service, IHostingEnvironment hostingenvironment)
+        public GenericReportController(IGenericReportService service, IWebHostEnvironment hostingenvironment)
         {
             _service = service;
             _hostingenviroment = hostingenvironment;

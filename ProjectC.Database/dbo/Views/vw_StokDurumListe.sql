@@ -1,4 +1,6 @@
-﻿Create View vw_StokDurumListe
+﻿
+
+CREATE View [dbo].[vw_StokDurumListe]
 as
 -- Stok Durum Raporu
 select 
@@ -7,5 +9,6 @@ select
 	CikisRejimi,GidecegiUlke,MenseUlke,SozlesmeUlke,Marka,Model,UrunKod,PONo,
     isnull((select sum(CikisDetay.Miktar) from ChepStokCikisDetay CikisDetay where Detay.StokGirisDetayId=CikisDetay.StokGirisDetayId),0) as CikisMiktar,
     isnull(Miktar,0)-isnull((select sum(CikisDetay.Miktar) from ChepStokCikisDetay CikisDetay where Detay.StokGirisDetayId=CikisDetay.StokGirisDetayId),0) as KalanMiktar 
+ ,1 as UserId
 from ChepStokGiris Giris
  JOIN ChepStokGirisDetay Detay on Giris.StokGirisId=Detay.StokGirisId

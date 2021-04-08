@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using ProjectC.DTO;
 
 namespace ProjectC.Api.Controllers
@@ -35,7 +35,7 @@ namespace ProjectC.Api.Controllers
         {
             try
             {
-                using (ProjectCContext context = new ProjectCContext())
+                using (var context = new ProjectCContext())
                 {
                     var sqlUserId = new SqlParameter("@Id", SqlDbType.Int) { Value = obj.UserId };
                     var sqlTescilNo = new SqlParameter("@TescilNo", SqlDbType.NVarChar) { Value = obj.TescilNo };

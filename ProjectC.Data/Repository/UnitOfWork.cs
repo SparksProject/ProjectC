@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using System;
 
 namespace ProjectC.Data.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ProjectCContext _context;
+        private Chep_NewContext _context;
         private IDbContextTransaction transaction;
 
         public UnitOfWork()
         {
-            _context = new ProjectCContext();
+            _context = new Chep_NewContext();
         }
 
         public bool Commit()
@@ -53,8 +53,6 @@ namespace ProjectC.Data.Repository
         public Repository<GenericReportUser> GenericReportUsers { get { return new Repository<GenericReportUser>(_context); } }
         public Repository<UserType> UserTypes { get { return new Repository<UserType>(_context); } }
         public Repository<Teminat> Teminats { get { return new Repository<Teminat>(_context); } }
-        public Repository<Arsiv> Arsivs { get { return new Repository<Arsiv>(_context); } }
-        public Repository<Beyanname> Beyannames { get { return new Repository<Beyanname>(_context); } }
         public Repository<SparksArchive> SparksArchives { get { return new Repository<SparksArchive>(_context); } }
         public Repository<UserCustomer> UserCustomers { get { return new Repository<UserCustomer>(_context); } }
 
@@ -65,6 +63,6 @@ namespace ProjectC.Data.Repository
         public Repository<ChepStokCikisDetay> ChepStokCikisDetay { get { return new Repository<ChepStokCikisDetay>(_context); } }
 
         // views
-        public Repository<ViewStokDusumListe> ViewStokDusumListe { get { return new Repository<ViewStokDusumListe>(_context); } }
+        public Repository<VwStokDusumListe> ViewStokDusumListe { get { return new Repository<VwStokDusumListe>(_context); } }
     }
 }

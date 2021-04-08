@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using ProjectC.Data.Repository;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
@@ -123,76 +123,76 @@ namespace ProjectC.Service
             }
         }
 
-        public ResponseDTO List(ArchiveFiltersDTO obj)
-        {
-            try
-            {
-                using (ProjectCContext context = new ProjectCContext())
-                {
-                    var sqlUserId = new SqlParameter("@Id", SqlDbType.Int) { Value = obj.UserId };
-                    var sqlTescilNo = new SqlParameter("@TescilNo", SqlDbType.NVarChar) { Value = obj.TescilNo };
-                    var sqlDosyaNo = new SqlParameter("@DosyaNo", SqlDbType.NVarChar) { Value = obj.DosyaNo };
-                    var sqlFaturaNo = new SqlParameter("@FaturaNo", SqlDbType.NVarChar) { Value = obj.FaturaNo };
-                    var sqlTescilTarihiBaslangic = new SqlParameter("@TescilTarihi1", SqlDbType.DateTime) { Value = obj.TescilTarihiBaslangic };
-                    var sqlTescilTarihiBitis = new SqlParameter("@TescilTarihi2", SqlDbType.DateTime) { Value = obj.TescilTarihiBitis };
+        //public ResponseDTO List(ArchiveFiltersDTO obj)
+        //{
+        //    try
+        //    {
+        //        using (var context = new Chep_NewContext())
+        //        {
+        //            var sqlUserId = new SqlParameter("@Id", SqlDbType.Int) { Value = obj.UserId };
+        //            var sqlTescilNo = new SqlParameter("@TescilNo", SqlDbType.NVarChar) { Value = obj.TescilNo };
+        //            var sqlDosyaNo = new SqlParameter("@DosyaNo", SqlDbType.NVarChar) { Value = obj.DosyaNo };
+        //            var sqlFaturaNo = new SqlParameter("@FaturaNo", SqlDbType.NVarChar) { Value = obj.FaturaNo };
+        //            var sqlTescilTarihiBaslangic = new SqlParameter("@TescilTarihi1", SqlDbType.DateTime) { Value = obj.TescilTarihiBaslangic };
+        //            var sqlTescilTarihiBitis = new SqlParameter("@TescilTarihi2", SqlDbType.DateTime) { Value = obj.TescilTarihiBitis };
 
-                    var parameters = new List<SqlParameter> { sqlUserId };
+        //            var parameters = new List<SqlParameter> { sqlUserId };
 
-                    var query = $"SELECT * FROM vw_SparksArchive WHERE UserId = @Id";
+        //            var query = $"SELECT * FROM vw_SparksArchive WHERE UserId = @Id";
 
-                    if (!string.IsNullOrEmpty(obj.TescilNo))
-                    {
-                        query += " AND TescilNo = @TescilNo";
+        //            if (!string.IsNullOrEmpty(obj.TescilNo))
+        //            {
+        //                query += " AND TescilNo = @TescilNo";
 
-                        parameters.Add(sqlTescilNo);
-                    }
-                    if (!string.IsNullOrEmpty(obj.DosyaNo))
-                    {
-                        query += " AND DosyaNo = @DosyaNo";
+        //                parameters.Add(sqlTescilNo);
+        //            }
+        //            if (!string.IsNullOrEmpty(obj.DosyaNo))
+        //            {
+        //                query += " AND DosyaNo = @DosyaNo";
 
-                        parameters.Add(sqlDosyaNo);
-                    }
-                    if (!string.IsNullOrEmpty(obj.FaturaNo))
-                    {
-                        query += " AND FaturaNo like @FaturaNo";
+        //                parameters.Add(sqlDosyaNo);
+        //            }
+        //            if (!string.IsNullOrEmpty(obj.FaturaNo))
+        //            {
+        //                query += " AND FaturaNo like @FaturaNo";
 
-                        parameters.Add(sqlFaturaNo);
-                    }
-                    if (obj.TescilTarihiBaslangic.HasValue && obj.TescilTarihiBitis.HasValue)
-                    {
-                        query += " AND TescilTarihi BETWEEN @TescilTarihi1 and @TescilTarihi2";
+        //                parameters.Add(sqlFaturaNo);
+        //            }
+        //            if (obj.TescilTarihiBaslangic.HasValue && obj.TescilTarihiBitis.HasValue)
+        //            {
+        //                query += " AND TescilTarihi BETWEEN @TescilTarihi1 and @TescilTarihi2";
 
-                        parameters.Add(sqlTescilTarihiBaslangic);
-                        parameters.Add(sqlTescilTarihiBitis);
-                    }
+        //                parameters.Add(sqlTescilTarihiBaslangic);
+        //                parameters.Add(sqlTescilTarihiBitis);
+        //            }
 
-                    var target = new List<ViewSparksArchiveDTO>();
+        //            var target = new List<ViewSparksArchiveDTO>();
 
-                    foreach (var item in context.ViewSparksArchive.FromSql(query, parameters.ToArray<object>()))
-                    {
-                        target.Add(new ViewSparksArchiveDTO
-                        {
-                            DosyaNo = item.DosyaNo,
-                            UserId = item.UserId,
-                            Alici = item.Alici,
-                            ArsivPath = item.ArsivPath,
-                            FaturaNo = item.FaturaNo,
-                            Firma = item.Firma,
-                            FirmaId = item.FirmaId,
-                            Id = item.Id,
-                            MusRefNo = item.MusRefNo,
-                            TescilNo = item.TescilNo,
-                            TescilTarihi = item.TescilTarihi
-                        });
-                    }
+        //            foreach (var item in context.ViewSparksArchive.FromSql(query, parameters.ToArray<object>()))
+        //            {
+        //                target.Add(new ViewSparksArchiveDTO
+        //                {
+        //                    DosyaNo = item.DosyaNo,
+        //                    UserId = item.UserId,
+        //                    Alici = item.Alici,
+        //                    ArsivPath = item.ArsivPath,
+        //                    FaturaNo = item.FaturaNo,
+        //                    Firma = item.Firma,
+        //                    FirmaId = item.FirmaId,
+        //                    Id = item.Id,
+        //                    MusRefNo = item.MusRefNo,
+        //                    TescilNo = item.TescilNo,
+        //                    TescilTarihi = item.TescilTarihi
+        //                });
+        //            }
 
-                    return Success(target);
-                }
-            }
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
+        //            return Success(target);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Error(ex);
+        //    }
+        //}
     }
 }

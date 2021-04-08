@@ -1,4 +1,4 @@
-﻿using ProjectC.Data.Models;
+﻿using ProjectC.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ namespace ProjectC.Data.Repository
 {
     public class Repository<T> : IRepository<T>, IDisposable where T : class
     {
-        private readonly ProjectCContext _context;
+        private readonly Chep_NewContext _context;
 
-        public Repository(ProjectCContext context)
+        public Repository(Chep_NewContext context)
         {
             _context = context;
         }

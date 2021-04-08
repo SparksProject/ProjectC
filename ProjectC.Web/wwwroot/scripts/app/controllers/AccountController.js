@@ -97,7 +97,7 @@
 
         SparksXService.Authenticate(object).success(function (data) {
             $scope.isAuthenticationSuccessful = true;
-            localStorage.setItem("user", JSON.stringify(data.Result));
+            localStorage.setItem("user", JSON.stringify(data.result));
             window.location.href = '/index.html#/dashboard.html';
         }).error(function (err) {
             console.log(err);

@@ -6,8 +6,8 @@ namespace ProjectC.DTO
     public class ChepStokGirisDTO
     {
         public int StokGirisId { get; set; }
-        public int? IthalatciFirma { get; set; }
-        public int? IhracatciFirma { get; set; }
+        public Guid? IthalatciFirma { get; set; }
+        public Guid? IhracatciFirma { get; set; }
         public int? KapAdet { get; set; }
         public DateTime? BasvuruTarihi { get; set; }
         public DateTime? SureSonuTarihi { get; set; }

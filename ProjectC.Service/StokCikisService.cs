@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using ProjectC.Data.Repository;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
@@ -96,7 +96,7 @@ namespace ProjectC.Service
                 if (!string.IsNullOrEmpty(tpsNo))
                 {
                     tpsNo = tpsNo.ToLower();
-                    entities = entities.Where(x => x.TPSNo != null).Where(x => x.TPSNo.ToLower().Contains(tpsNo)).ToList();
+                    entities = entities.Where(x => x.TpsNo != null).Where(x => x.TpsNo.ToLower().Contains(tpsNo)).ToList();
                 }
 
                 var list = new List<ChepStokCikisDTO>();
@@ -174,7 +174,7 @@ namespace ProjectC.Service
                 {
                     var farkCikis = toplamCikisAdet - cikisAltToplam;
 
-                    var obj = Mapper.MapSingle<ViewStokDusumListe, ViewStokDusumListeDto>(item);
+                    var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
 
                     if (farkCikis > 0)
                     {
@@ -231,9 +231,9 @@ namespace ProjectC.Service
                 IhracatciFirma = obj.IhracatciFirma,
                 ReferansNo = obj.ReferansNo,
                 StokCikisId = obj.StokCikisId,
-                TPSNo = obj.TPSNo,
+                TpsNo = obj.TPSNo,
 
-                ChepStokCikisDetayList = details,
+                ChepStokCikisDetay = details,
             };
         }
 
@@ -280,9 +280,9 @@ namespace ProjectC.Service
 
             var details = new List<ChepStokCikisDetayDTO>();
 
-            if (obj.ChepStokCikisDetayList != null && obj.ChepStokCikisDetayList.Count > 0)
+            if (obj.ChepStokCikisDetay != null && obj.ChepStokCikisDetay.Count > 0)
             {
-                details.AddRange(obj.ChepStokCikisDetayList.Select(item => Map(item)));
+                details.AddRange(obj.ChepStokCikisDetay.Select(item => Map(item)));
             }
 
             return new ChepStokCikisDTO
@@ -292,9 +292,9 @@ namespace ProjectC.Service
                 IhracatciFirma = obj.IhracatciFirma,
                 ReferansNo = obj.ReferansNo,
                 StokCikisId = obj.StokCikisId,
-                TPSNo = obj.TPSNo,
+                TPSNo = obj.TpsNo,
                 IslemTarihi = obj.IslemTarihi,
-                TPSTarih = obj.TPSTarih,
+                TPSTarih = obj.TpsTarih,
 
                 ChepStokCikisDetayList = details
             };

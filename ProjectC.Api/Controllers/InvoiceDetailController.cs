@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
+
 namespace ProjectC.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -14,9 +15,9 @@ namespace ProjectC.Api.Controllers
     {
         private readonly IInvoiceDetailService _service;
 
-        private readonly IHostingEnvironment _hostingenvironment;
+        private readonly IWebHostEnvironment _hostingenvironment;
 
-        public InvoiceDetailController(IInvoiceDetailService service, IHostingEnvironment hostingenvironment)
+        public InvoiceDetailController(IInvoiceDetailService service, IWebHostEnvironment hostingenvironment)
         {
             _service = service;
             _hostingenvironment = hostingenvironment;

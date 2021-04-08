@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using ProjectC.Data.Models;
+using ProjectC.Core;
 using ProjectC.Data.Repository;
 using ProjectC.DTO;
 using ProjectC.Service.Interface;
@@ -119,7 +119,7 @@ namespace ProjectC.Service
                 if (!string.IsNullOrEmpty(tpsNo))
                 {
                     tpsNo = tpsNo.ToLower();
-                    entities = entities.Where(x => x.TPSNo != null).Where(x => x.TPSNo.ToLower().Contains(tpsNo)).ToList();
+                    entities = entities.Where(x => x.TpsNo != null).Where(x => x.TpsNo.ToLower().Contains(tpsNo)).ToList();
                 }
 
                 var target = new List<ChepStokGirisDTO>();
@@ -170,13 +170,6 @@ namespace ProjectC.Service
                 return default;
             }
 
-            //var details = new List<ChepStokGirisDetay>();
-
-            //if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
-            //{
-            //    details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
-            //}
-
             return new ChepStokGiris
             {
                 BasvuruTarihi = obj.BasvuruTarihi,
@@ -191,11 +184,9 @@ namespace ProjectC.Service
                 ReferansNo = obj.ReferansNo,
                 StokGirisId = obj.StokGirisId,
                 SureSonuTarihi = obj.SureSonuTarihi,
-                TPSAciklama = obj.TPSAciklama,
-                TPSDurum = obj.TPSDurum,
-                TPSNo = obj.TPSNo,
-
-                //ChepStokGirisDetayList = details,
+                TpsAciklama = obj.TPSAciklama,
+                TpsDurum = obj.TPSDurum,
+                TpsNo = obj.TPSNo,
             };
         }
 
@@ -210,7 +201,7 @@ namespace ProjectC.Service
             {
                 CikisRejimi = obj.CikisRejimi,
                 EsyaCinsi = obj.EsyaCinsi,
-                EsyaGTIP = obj.EsyaGTIP,
+                EsyaGtip = obj.EsyaGTIP,
                 FaturaDovizKod = obj.FaturaDovizKod,
                 FaturaNo = obj.FaturaNo,
                 FaturaTarih = obj.FaturaTarih,
@@ -221,13 +212,13 @@ namespace ProjectC.Service
                 Miktar = obj.Miktar,
                 Model = obj.Model,
                 OlcuBirimi = obj.OlcuBirimi,
-                PONo = obj.PO,
+                PoNo = obj.PO,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,
                 StokGirisId = obj.StokGirisId,
-                TPSBeyan = obj.TPSBeyan,
-                TPSSiraNo = obj.TPSSiraNo,
+                TpsBeyan = obj.TPSBeyan,
+                TpsSiraNo = obj.TPSSiraNo,
                 UrunKod = obj.UrunKod,
             };
         }
@@ -243,7 +234,7 @@ namespace ProjectC.Service
             {
                 CikisRejimi = obj.CikisRejimi,
                 EsyaCinsi = obj.EsyaCinsi,
-                EsyaGTIP = obj.EsyaGTIP,
+                EsyaGTIP = obj.EsyaGtip,
                 FaturaDovizKod = obj.FaturaDovizKod,
                 FaturaNo = obj.FaturaNo,
                 FaturaTarih = obj.FaturaTarih,
@@ -254,26 +245,26 @@ namespace ProjectC.Service
                 Miktar = obj.Miktar,
                 Model = obj.Model,
                 OlcuBirimi = obj.OlcuBirimi,
-                PO = obj.PONo,
+                PO = obj.PoNo,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,
                 StokGirisId = obj.StokGirisId,
-                TPSBeyan = obj.TPSBeyan,
-                TPSSiraNo = obj.TPSSiraNo,
+                TPSBeyan = obj.TpsBeyan,
+                TPSSiraNo = obj.TpsSiraNo,
                 UrunKod = obj.UrunKod,
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
 
-            if (obj.ChepStokGiris != null)
+            if (obj.StokGiris != null)
             {
-                target.BeyannameNo = obj.ChepStokGiris.BeyannameNo;
-                target.TPSNo = obj.ChepStokGiris.TPSNo;
+                target.BeyannameNo = obj.StokGiris.BeyannameNo;
+                target.TPSNo = obj.StokGiris.TpsNo;
             }
 
-            if (obj.ChepStokCikisDetayList != null)
+            if (obj.ChepStokCikisDetay != null)
             {
-                foreach (var item in obj.ChepStokCikisDetayList)
+                foreach (var item in obj.ChepStokCikisDetay)
                 {
                     target.ChepStokCikisDetayList.Add(new ChepStokCikisDetayDTO
                     {
@@ -298,9 +289,9 @@ namespace ProjectC.Service
 
             var details = new List<ChepStokGirisDetayDTO>();
 
-            if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
+            if (obj.ChepStokGirisDetay != null && obj.ChepStokGirisDetay.Count > 0)
             {
-                details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
+                details.AddRange(obj.ChepStokGirisDetay.Select(item => Map(item)));
             }
 
             return new ChepStokGirisDTO
@@ -317,9 +308,9 @@ namespace ProjectC.Service
                 ReferansNo = obj.ReferansNo,
                 StokGirisId = obj.StokGirisId,
                 SureSonuTarihi = obj.SureSonuTarihi,
-                TPSAciklama = obj.TPSAciklama,
-                TPSDurum = obj.TPSDurum,
-                TPSNo = obj.TPSNo,
+                TPSAciklama = obj.TpsAciklama,
+                TPSDurum = obj.TpsDurum,
+                TPSNo = obj.TpsNo,
 
                 ChepStokGirisDetayList = details
             };

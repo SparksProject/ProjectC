@@ -6,8 +6,8 @@ namespace ProjectC.DTO
     public class ChepStokGirisDetayDTO
     {
         public int StokGirisDetayId { get; set; }
-        public int StokGirisId { get; set; }
-        public int TPSSiraNo { get; set; }
+        public int? StokGirisId { get; set; }
+        public int? TPSSiraNo { get; set; }
         public string TPSBeyan { get; set; }
         public string EsyaCinsi { get; set; }
         public string EsyaGTIP { get; set; }
