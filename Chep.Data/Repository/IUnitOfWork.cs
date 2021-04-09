@@ -31,7 +31,6 @@ namespace Chep.Data.Repository
         Repository<UserType> UserTypes { get; }
         Repository<Teminat> Teminats { get; }
         Repository<SparksArchive> SparksArchives { get; }
-
         Repository<ChepStokGiris> ChepStokGiris { get; }
         Repository<ChepStokGirisDetay> ChepStokGirisDetay { get; }
         Repository<ChepStokCikis> ChepStokCikis { get; }

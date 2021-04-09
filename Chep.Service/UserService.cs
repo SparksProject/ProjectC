@@ -17,6 +17,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chep.Service
 {
@@ -348,38 +349,16 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.Users.Single(x => x.UserName == userName && x.Password == password && x.RecordStatusId == 1);
+                var entity = _uow.Users.Set()
+                                       .Include(x => x.UserPermission)
+                                       .FirstOrDefault(x => x.UserName == userName && x.Password == password && x.RecordStatusId == 1);
 
                 if (entity == null)
                 {
                     return NotFound();
                 }
 
-                var userCustomer = _uow.UserCustomers.Search(x => x.UserId == entity.UserId);
-
                 var result = Mapper.MapSingle<User, UserDTO>(entity);
-
-                //if (userCustomer != null && userCustomer.Count > 0)
-                //{
-                //    result.UserCustomerList = new List<UserCustomerDTO>();
-                //    foreach (var item in userCustomer)
-                //    {
-                //        result.UserCustomerList.Add(new UserCustomerDTO
-                //        {
-                //            CustomerId = item.CustomerId,
-                //            CustomerName = item.Customer.Name,
-                //        });
-                //    }
-                //}
-
-                // Şubat sonu (2021) çalışmasın program BAŞLANGIÇ
-                //var nistDate = GetNistDate();
-
-                //if (nistDate == null || nistDate.Value > new DateTime(2021, 03, 01))
-                //{
-                //    return Unauthorized();
-                //}
-                // Şubat sonu (2021) çalışmasın program SONU
 
                 result.UserPermissions = Mapper.MapSingle<UserPermission, UserPermissionDTO>(entity.UserPermission.FirstOrDefault());
                 result.CompanyId = _uow.Companies.GetAll().FirstOrDefault().CompanyId;
@@ -393,7 +372,7 @@ namespace Chep.Service
                     new Claim("UserId", result.UserId.ToString()),
                     new Claim("FullName", result.FullName),
                     new Claim("CompanyId", result.CompanyId.ToString()),
-                    new Claim("UserCustomerList", JsonConvert.SerializeObject(result.UserCustomerList)), // 
+                    new Claim("UserCustomerList", JsonConvert.SerializeObject(result.UserCustomerList)),
                 };
 
                 if (result.UserPermissions != null)
@@ -442,16 +421,19 @@ namespace Chep.Service
                     claims.Add(new Claim("StokCikisList", result.UserPermissions.StokCikisList.ToString()));
                 }
 
+                var now = DateTime.UtcNow;
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyByteArray), SecurityAlgorithms.HmacSha256Signature),
-                    Issuer = "SparksX",
+                    Issuer = "Chep",
                     Audience = null,
-                    IssuedAt = DateTime.UtcNow,
-                    NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddMinutes(expiryDuration),
+                    IssuedAt = now,
+                    NotBefore = now,
+                    Expires = now.AddMinutes(expiryDuration),
                     Subject = new ClaimsIdentity(claims),
                 };
+
                 var jwtTokenHandler = new JwtSecurityTokenHandler();
                 var jwtToken = jwtTokenHandler.CreateJwtSecurityToken(tokenDescriptor);
                 var token = jwtTokenHandler.WriteToken(jwtToken);
@@ -496,64 +478,6 @@ namespace Chep.Service
             catch (Exception ex)
             {
                 return false;
-            }
-        }
-
-        public DateTime? GetNistDate()
-        {
-            try
-            {
-                var ipList = new List<string> { "time-a-g.nist.gov",
-                                        "time-b-g.nist.gov",
-                                        "time-c-g.nist.gov",
-                                        "time-d-g.nist.gov",
-                                        "time-d-g.nist.gov",
-                                        "time-e-g.nist.gov",
-                                        "time-e-g.nist.gov",
-                                        "time-a-wwv.nist.gov",
-                                        "time-b-wwv.nist.gov",
-                                        "time-c-wwv.nist.gov",
-                                        "time-d-wwv.nist.gov",
-                                        "time-d-wwv.nist.gov",
-                                        "time-e-wwv.nist.gov",
-                                        "time-e-wwv.nist.gov",
-                                        "time-a-b.nist.gov",
-                                        "time-b-b.nist.gov",
-                                        "time-c-b.nist.gov",
-                                        "time-d-b.nist.gov",
-                                        "time-d-b.nist.gov",
-                                        "time-e-b.nist.gov",
-                                        "time-e-b.nist.gov",
-                                        "time.nist.gov",
-                                        "utcnist.colorado.edu",
-                                        "utcnist2.colorado.edu"
-            };
-
-                foreach (var item in ipList)
-                {
-                    try
-                    {
-                        using (var client = new TcpClient(item, 13)) // time.nist.gov
-                        using (var streamReader = new StreamReader(client.GetStream()))
-                        {
-                            var response = streamReader.ReadToEnd();
-                            var utcDateTimeString = response.Substring(7, 17);
-                            var localDateTime = DateTime.ParseExact(utcDateTimeString, "yy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
-
-                            return localDateTime;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return default;
-                    }
-                }
-
-                return default;
-            }
-            catch (Exception ex)
-            {
-                return default;
             }
         }
     }
