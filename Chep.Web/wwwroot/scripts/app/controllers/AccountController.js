@@ -96,6 +96,7 @@
         $scope.loginclass = "fa fa-spin fa-spinner";
 
         SparksXService.Authenticate(object).success(function (data) {
+            debugger;
             $scope.isAuthenticationSuccessful = true;
             localStorage.setItem("user", JSON.stringify(data.result));
             window.location.href = '/index.html#/dashboard.html';

@@ -6,73 +6,73 @@
                 <span class="title">ANASAYFA</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.StokGirisList">
+        <li class="start" ng-show="user.userPermissions.stokGirisList">
             <a ui-sref="stokgiris/list">
                 <i class="fa fa-inbox"></i>
                 <span class="title">STOK GİRİŞ</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.StokCikisList">
+        <li class="start" ng-show="user.userPermissions.StokCikisList">
             <a ui-sref="stokcikis/list">
                 <i class="fa fa-envelope-o"></i>
                 <span class="title">STOK ÇIKIŞ</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.CustomerList">
+        <li class="start" ng-show="user.userPermissions.CustomerList">
             <a ui-sref="customers/list">
                 <i class="icon-users"></i>
                 <span class="title">MÜŞTERİLER</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.ProductList">
+        <li class="start" ng-show="user.userPermissions.ProductList">
             <a ui-sref="products/list">
                 <i class="icon-diamond"></i>
                 <span class="title">STOK KARTI</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.GenericReportList">
+        <li class="start" ng-show="user.userPermissions.GenericReportList">
             <a ui-sref="genericreports/list">
                 <i class="fa fa-bars"></i>
                 <span class="title">KULLANICI RAPORLARI</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.MailDefinitionList">
+        <li class="start" ng-show="user.userPermissions.MailDefinitionList">
             <a ui-sref="mailreports/list">
                 <i class="fa fa-envelope-o"></i>
                 <span class="title">MAIL RAPORLARI</span>
             </a>
         </li>
-        <li class="start" ng-show="user.UserPermissions.SparksArchiveList">
+        <li class="start" ng-show="user.userPermissions.SparksArchiveList">
             <a ui-sref="sparksarchives/list">
                 <i class="fa fa-book"></i>
                 <span class="title">ARŞİV</span>
             </a>
         </li>
-        <!--<li class="start" ng-show="user.UserPermissions.BeyannameList">
+        <!--<li class="start" ng-show="user.userPermissions.BeyannameList">
         <a href="#/beyanname/list/{{user.UserId}}">
             <i class="icon-lock"></i>
             <span class="title">BEYANNAME</span>
         </a>
     </li>-->
-        <li class="start" ng-show="user.UserPermissions.UserList">
+        <li class="start" ng-show="user.userPermissions.UserList">
             <a ui-sref="users/list">
                 <i class="icon-lock"></i>
                 <span class="title">KULLANICILAR</span>
             </a>
         </li>
-        <li class="nav-item" ng-show="user.UserPermissions.MailDefinitionList&&user.UserPermissions.CompanyEdit">
+        <li class="nav-item" ng-show="user.userPermissions.MailDefinitionList&&user.userPermissions.CompanyEdit">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title">GENEL TANIMLAR</span>
                 <span class="arrow "></span>
             </a>
             <ul class="sub-menu">
-                <li ng-show="user.UserPermissions.CompanyEdit">
+                <li ng-show="user.userPermissions.CompanyEdit">
                     <a href="#/company/get/{{user.CompanyId}}">
                         <span><i class="icon-arrow-right"></i> Firma Bilgileri </span>
                     </a>
                 </li>
-                <li ng-show="user.UserPermissions.MailDefinitionList">
+                <li ng-show="user.userPermissions.MailDefinitionList">
                     <a ui-sref="mailreport/addmaildefinition">
                         <span><i class="icon-arrow-right"></i> Mail Tanımları </span>
                     </a>
