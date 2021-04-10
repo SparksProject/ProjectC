@@ -1,5 +1,5 @@
 ﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
-<div class="row" ng-show="user.UserPermissions.GenericReportList">
+<div class="row" ng-show="user.userPermissions.GenericReportList">
     <div class="col-md-3">
         <div class="form-group">
             <a ui-sref="genericreports/list" class="btn btn-block m-icon btn-eo">
@@ -184,7 +184,7 @@
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
-                                <a ng-show="user.UserPermissions.GenericReportList" ui-ref="genericreports/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                <a ng-show="user.userPermissions.GenericReportList" ui-ref="genericreports/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
                     </div>

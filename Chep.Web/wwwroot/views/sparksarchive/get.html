@@ -1,6 +1,6 @@
 ﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
 <div class="row">
-    <div class="col-md-3" ng-show="user.UserPermissions.SparksArchiveList">
+    <div class="col-md-3" ng-show="user.userPermissions.SparksArchiveList">
         <div class="form-group">
             <a ui-sref="sparksarchives/list" class="btn btn-block m-icon btn-eo">
                 Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <a target="_blank" href="/content/sparksarchive/{{object.FileDate}}{{object.BelgeAdi}}" class="btn blue"><i class="fa fa-eye"></i>Göster </a>
-                                <a ng-show="user.UserPermissions.SparksArchiveList" ui-sref="sparksarchives/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                <a ng-show="user.userPermissions.SparksArchiveList" ui-sref="sparksarchives/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
                     </div>
