@@ -43,10 +43,10 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <ui-select ng-model="$parent.object.CustomerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged($parent.object.CustomerId)">
-                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.Name}}</ui-select-match>
-                                        <ui-select-choices repeat="item.CustomerId as item in customers | filter: $select.search">
-                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                    <ui-select ng-model="$parent.object.customerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged($parent.object.customerId)">
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>

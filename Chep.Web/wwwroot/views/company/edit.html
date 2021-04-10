@@ -30,7 +30,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Firma Adı" ng-model="object.CompanyName" name="CompanyName" ng-required="true" maxlength="100">
+                                        <input type="text" class="form-control" placeholder="Firma Adı" ng-model="object.companyName" name="CompanyName" ng-required="true" maxlength="100">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Proje No" ng-model="object.ProjectId" name="ProjectId" ng-required="true" maxlength="100">
+                                        <input type="text" class="form-control" placeholder="Proje No" ng-model="object.projectId" name="ProjectId" ng-required="true" maxlength="100">
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Arşiv Yolu" ng-model="object.ArchivePath" name="ArchivePath" maxlength="250">
+                                            <input type="text" class="form-control" placeholder="Arşiv Yolu" ng-model="object.archivePath" name="ArchivePath" maxlength="250">
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Host Adresi" ng-model="object.SmtpHost" name="SmtpHost" maxlength="100">
+                                            <input type="text" class="form-control" placeholder="Host Adresi" ng-model="object.smtpHost" name="SmtpHost" maxlength="100">
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Port" ng-model="object.SmtpPort" name="Port" number>
+                                            <input type="text" class="form-control" placeholder="Port" ng-model="object.smtpPort" name="Port" number>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Kullanıcı Adı" ng-model="object.SmtpUserName" name="UserName" maxlength="100">
+                                            <input type="text" class="form-control" placeholder="Kullanıcı Adı" ng-model="object.smtpUserName" name="UserName" maxlength="100">
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Şifre" ng-model="object.SmtpPassword" name="Password" maxlength="50">
+                                            <input type="text" class="form-control" placeholder="Şifre" ng-model="object.smtpPassword" name="Password" maxlength="50">
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@
                                 </label>
                                 <div class="md-checkbox-inline">
                                     <div class="md-checkbox">
-                                        <input type="checkbox" id="checkbox2" class="md-check" ng-model="object.SmtpIsSSLEnabled" checkbox>
+                                        <input type="checkbox" id="checkbox2" class="md-check" ng-model="object.smtpIsSSLEnabled" checkbox>
                                         <label for="checkbox2">
                                             <span></span>
                                             <span class="check"></span>
@@ -200,10 +200,10 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-map-marker"></i>
                                         </span>
-                                        <ui-select ng-model="$parent.object.RecordStatusId" name="RecordStatusId" theme="bootstrap" ng-required="true">
-                                            <ui-select-match placeholder="Seçiniz">{{$select.selected.RecordStatusName}}</ui-select-match>
-                                            <ui-select-choices repeat="item.RecordStatusId as item in recordStatuses | filter: $select.search">
-                                                <div ng-bind-html="item.RecordStatusName | highlight: $select.search"></div>
+                                        <ui-select ng-model="$parent.object.recordStatusId" name="RecordStatusId" theme="bootstrap" ng-required="true">
+                                            <ui-select-match placeholder="Seçiniz">{{$select.selected.recordStatusName}}</ui-select-match>
+                                            <ui-select-choices repeat="item.recordStatusId as item in recordStatuses | filter: $select.search">
+                                                <div ng-bind-html="item.recordStatusName | highlight: $select.search"></div>
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
@@ -221,7 +221,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
-                                    <a href="#/company/get/{{user.CompanyId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                    <a href="#/company/get/{{user.companyId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
                 <!-- BEGIN FORM-->
                 <div class="form-horizontal">
                     <div class="form-body">
-                        <input type="hidden" id="StokCikisId" ng-model="object.StokCikisId" name="StokCikisId" value="0" />
+                        <input type="hidden" id="StokCikisId" ng-model="object.stokCikisId" name="StokCikisId" value="0" />
 
                         <div class="container no-margin">
                             <div class="row">
@@ -21,7 +21,7 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <input type="text" ng-disabled="true" ng-model="object.ReferansNo" name="ReferansNo" class="form-control" placeholder="Referans No" ng-required="true" maxlength="16">
+                                                <input type="text" ng-disabled="true" ng-model="object.referansNo" name="ReferansNo" class="form-control" placeholder="Referans No" ng-required="true" maxlength="16">
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <input type="text" ng-model="object.TPSNo" name="TPSNo" class="form-control" placeholder="TPS No" ng-required="true" maxlength="30">
+                                                <input type="text" ng-model="object.tpsNo" name="TPSNo" class="form-control" placeholder="TPS No" ng-required="true" maxlength="30">
                                             </div>
                                         </div>
                                     </div>
@@ -45,7 +45,7 @@
                                                 </span>
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" ng-model="object.IslemTarihi" name="IslemTarihi" class="form-control" placeholder="İşlem Tarihi" datetime>
+                                                    <input type="text" ng-model="object.islemTarihi" name="IslemTarihi" class="form-control" placeholder="İşlem Tarihi" datetime>
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
                                                 </span>
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" ng-model="object.TPSTarih" name="TPSTarih" class="form-control" placeholder="TPS Tarihi" datetime>
+                                                    <input type="text" ng-model="object.tpsTarih" name="TPSTarih" class="form-control" placeholder="TPS Tarihi" datetime>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <input type="text" ng-model="object.BeyannameNo" name="BeyannameNo" class="form-control" placeholder="Beyanname No" maxlength="16">
+                                                <input type="text" ng-model="object.beyannameNo" name="BeyannameNo" class="form-control" placeholder="Beyanname No" maxlength="16">
                                             </div>
                                         </div>
                                     </div>
@@ -88,7 +88,7 @@
                                                 </span>
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" ng-model="object.BeyannameTarihi" name="BeyannameTarihi" class="form-control" placeholder="Beyanname Tarihi" datetime>
+                                                    <input type="text" ng-model="object.beyannameTarihi" name="BeyannameTarihi" class="form-control" placeholder="Beyanname Tarihi" datetime>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,17 +104,17 @@
                                         </div>
                                     </div>-->
 
-                                    <div class="form-group" ng-class="{'has-error': x.CustomerId.$invalid && x.CustomerId.$dirty, 'has-success': x.CustomerId.$valid }">
-                                        <label class="control-label col-md-3">İthalatçı Firma</label>
+                                    <div class="form-group" ng-class="{'has-error': form.CustomerId.$invalid && form.CustomerId.$dirty, 'has-success': form.CustomerId.$valid }">
+                                        <label class="control-label col-md-3">İhracatcı Firma</label>
                                         <div class="col-md-9">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-map-marker"></i>
                                                 </span>
-                                                <ui-select ng-model="x.IthalatciFirma" name="IthalatciFirma" theme="bootstrap" ng-required="true">
-                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.Name}}</ui-select-match>
-                                                    <ui-select-choices repeat="item.CustomerId as item in customers | filter: $select.search">
-                                                        <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                                <ui-select ng-model="object.ihracatciFirma" name="ihracatciFirma" theme="bootstrap" ng-required="true">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
                                                     </ui-select-choices>
                                                 </ui-select>
                                             </div>
@@ -169,7 +169,7 @@
                                 <div class="col-md-7">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" ng-required="true" ng-model="object.Drop.ItemNo" name="ItemNo" class="form-control" placeholder="Ürün Kodu" maxlength="16">
+                                        <input type="text" ng-required="true" ng-model="object.Drop.itemNo" name="ItemNo" class="form-control" placeholder="Ürün Kodu" maxlength="16">
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                                 <div class="col-md-7">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" ng-required="true" ng-model="object.Drop.DropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
+                                        <input type="text" ng-required="true" ng-model="object.Drop.dropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button id="btnDropSubmit" type="button" class="btn blue" ng-click="InsertStokCikisFromStokDusumListe(object.StokCikisId,object.Drop)" disabled>Çıkış İşlemlerini Yap</button>
+                <button id="btnDropSubmit" type="button" class="btn blue" ng-click="InsertStokCikisFromStokDusumListe(object.stokCikisId,object.Drop)" disabled>Çıkış İşlemlerini Yap</button>
             </div>
         </form>
         <!-- /.modal-content -->
