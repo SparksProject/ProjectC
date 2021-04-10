@@ -4,49 +4,49 @@
         <div class="form-group">
             <label class="control-label col-md-3">Durum:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.RecordStatusName"></p>
+                <p class="form-control-static" ng-bind="object.recordStatusName"></p>
             </div>
         </div>
     </div>
     <!--/span-->
-    <div class="col-md-6" ng-show="object.CreatedDate!=null && (object.CreatedByName==null || object.CreatedByName=='')">
+    <div class="col-md-6" ng-show="object.createdDate!=null && (object.createdByName==null || object.createdByName=='')">
         <div class="form-group">
             <label class="control-label col-md-3">Oluşturma Tarih / Saat:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.CreatedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+                <p class="form-control-static" ng-bind="object.createdDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
             </div>
         </div>
     </div>
     <!--/span-->
 </div>
 <!--/row-->
-<div class="row" ng-show="object.CreatedByName!=null && object.CreatedByName!=''">
+<div class="row" ng-show="object.createdByName!=null && object.createdByName!=''">
     <div class="col-md-6">
         <div class="form-group">
             <label class="control-label col-md-3">Oluşturan:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.CreatedByName"></p>
+                <p class="form-control-static" ng-bind="object.createdByName"></p>
             </div>
         </div>
     </div>
     <!--/span-->
-    <div class="col-md-6" ng-show="object.CreatedDate!=null">
+    <div class="col-md-6" ng-show="object.createdDate!=null">
         <div class="form-group">
             <label class="control-label col-md-3">Tarih / Saat:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.CreatedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+                <p class="form-control-static" ng-bind="object.createdDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
             </div>
         </div>
     </div>
     <!--/span-->
 </div>
 <!--/row-->
-<div class="row" ng-show="object.ModifiedBy!=null && object.RecordStatusId==1">
+<div class="row" ng-show="object.modifiedBy!=null && object.recordStatusId==1">
     <div class="col-md-6">
         <div class="form-group">
             <label class="control-label col-md-3">Düzenleyen:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.ModifiedByName"></p>
+                <p class="form-control-static" ng-bind="object.modifiedByName"></p>
             </div>
         </div>
     </div>
@@ -55,19 +55,19 @@
         <div class="form-group">
             <label class="control-label col-md-3">Tarih / Saat:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.ModifiedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+                <p class="form-control-static" ng-bind="object.modifiedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
             </div>
         </div>
     </div>
     <!--/span-->
 </div>
 <!--/row-->
-<div class="row" ng-show="object.RecordStatusId==2 && object.DeletedDate != undefined">
+<div class="row" ng-show="object.recordStatusId==2 && object.deletedDate != undefined">
     <div class="col-md-6">
         <div class="form-group">
             <label class="control-label col-md-3">Silen:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.DeletedByName"></p>
+                <p class="form-control-static" ng-bind="object.deletedByName"></p>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
         <div class="form-group">
             <label class="control-label col-md-3">Tarih / Saat:</label>
             <div class="col-md-9">
-                <p class="form-control-static" ng-bind="object.DeletedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
+                <p class="form-control-static" ng-bind="object.deletedDate | date:'dd.MM.yyyy HH:mm:ss'"></p>
             </div>
         </div>
     </div>

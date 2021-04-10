@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -31,8 +29,6 @@ namespace Chep.Core
         public virtual DbSet<GenericReport> GenericReport { get; set; }
         public virtual DbSet<GenericReportParameter> GenericReportParameter { get; set; }
         public virtual DbSet<GenericReportUser> GenericReportUser { get; set; }
-        public virtual DbSet<Invoice> Invoice { get; set; }
-        public virtual DbSet<InvoiceDetail> InvoiceDetail { get; set; }
         public virtual DbSet<MailDefinition> MailDefinition { get; set; }
         public virtual DbSet<MailReport> MailReport { get; set; }
         public virtual DbSet<MailReportUser> MailReportUser { get; set; }
@@ -40,10 +36,6 @@ namespace Chep.Core
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<RecordStatus> RecordStatus { get; set; }
         public virtual DbSet<SentMail> SentMail { get; set; }
-        public virtual DbSet<SparksArchive> SparksArchive { get; set; }
-        public virtual DbSet<Teminat> Teminat { get; set; }
-        public virtual DbSet<TeminatDurum> TeminatDurum { get; set; }
-        public virtual DbSet<TeminatTipi> TeminatTipi { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserCustomer> UserCustomer { get; set; }
         public virtual DbSet<UserPermission> UserPermission { get; set; }
@@ -54,9 +46,6 @@ namespace Chep.Core
         public virtual DbSet<VwStokDusumListe> VwStokDusumListe { get; set; }
         public virtual DbSet<VwStokGirisDetayListe> VwStokGirisDetayListe { get; set; }
         public virtual DbSet<VwSureTakipListe> VwSureTakipListe { get; set; }
-        public virtual DbSet<WorkOrderLog> WorkOrderLog { get; set; }
-        public virtual DbSet<WorkOrderMaster> WorkOrderMaster { get; set; }
-        public virtual DbSet<WorkOrderSend> WorkOrderSend { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -96,6 +85,8 @@ namespace Chep.Core
             {
                 entity.HasKey(e => e.StokCikisDetayId)
                     .HasName("PK__ChepStok__7A5C97E41CA2F026");
+
+                entity.Property(e => e.Kg).HasColumnType("decimal(8, 2)");
 
                 entity.HasOne(d => d.StokCikis)
                     .WithMany(p => p.ChepStokCikisDetay)
@@ -171,7 +162,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.FaturaTarih).HasColumnType("datetime");
 
-                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.GidecegiUlke).HasMaxLength(20);
 
@@ -196,6 +187,7 @@ namespace Chep.Core
                 entity.HasOne(d => d.StokGiris)
                     .WithMany(p => p.ChepStokGirisDetay)
                     .HasForeignKey(d => d.StokGirisId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChepStokGirisDetay_ChepStokGiris");
             });
 
@@ -401,145 +393,6 @@ namespace Chep.Core
                     .HasConstraintName("FK_GenericReportUser_User");
             });
 
-            modelBuilder.Entity<Invoice>(entity =>
-            {
-                entity.Property(e => e.InvoiceId).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.AgentName).HasMaxLength(250);
-
-                entity.Property(e => e.AwbNo).HasMaxLength(30);
-
-                entity.Property(e => e.Blno)
-                    .HasColumnName("BLNo")
-                    .HasMaxLength(25);
-
-                entity.Property(e => e.ConsgnAddress).HasMaxLength(2000);
-
-                entity.Property(e => e.ConsgnCity).HasMaxLength(60);
-
-                entity.Property(e => e.ConsgnCountry).HasMaxLength(25);
-
-                entity.Property(e => e.ConsgnName).HasMaxLength(250);
-
-                entity.Property(e => e.ConsgnNo).HasMaxLength(30);
-
-                entity.Property(e => e.CreatedDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Customs).HasMaxLength(250);
-
-                entity.Property(e => e.DeliveryLocation).HasMaxLength(250);
-
-                entity.Property(e => e.EntryExitCustoms).HasMaxLength(250);
-
-                entity.Property(e => e.FreightAmount).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.FreightCurrency).HasMaxLength(6);
-
-                entity.Property(e => e.GtbReferenceNo).HasMaxLength(25);
-
-                entity.Property(e => e.Incoterms).HasMaxLength(25);
-
-                entity.Property(e => e.InsuranceAmount).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.InsuranceCurrency).HasMaxLength(6);
-
-                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.InvoiceCurrency)
-                    .IsRequired()
-                    .HasMaxLength(6);
-
-                entity.Property(e => e.PaymentMethod).HasMaxLength(50);
-
-                entity.Property(e => e.PlateNo).HasMaxLength(500);
-
-                entity.Property(e => e.SenderAddress).HasMaxLength(2000);
-
-                entity.Property(e => e.SenderCity).HasMaxLength(60);
-
-                entity.Property(e => e.SenderCountry).HasMaxLength(25);
-
-                entity.Property(e => e.SenderName).HasMaxLength(250);
-
-                entity.Property(e => e.SenderNo).HasMaxLength(30);
-
-                entity.Property(e => e.TransptrName).HasMaxLength(250);
-
-                entity.Property(e => e.VesselName).HasMaxLength(250);
-
-                entity.HasOne(d => d.WorkOrderMaster)
-                    .WithMany(p => p.Invoice)
-                    .HasForeignKey(d => d.WorkOrderMasterId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Invoice_WorkOrderMaster");
-            });
-
-            modelBuilder.Entity<InvoiceDetail>(entity =>
-            {
-                entity.Property(e => e.InvoiceDetailId).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CommclDesc).HasMaxLength(240);
-
-                entity.Property(e => e.CountryOfOrigin).HasMaxLength(50);
-
-                entity.Property(e => e.CreatedDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.DeletedDate).HasColumnType("datetime");
-
-                entity.Property(e => e.DescGoods)
-                    .IsRequired()
-                    .HasMaxLength(250);
-
-                entity.Property(e => e.FileNumber)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.HsCode).HasMaxLength(16);
-
-                entity.Property(e => e.IncentiveLineNo).HasMaxLength(250);
-
-                entity.Property(e => e.IntrnlAgmt)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.Property(e => e.InvoiceDate).HasColumnType("date");
-
-                entity.Property(e => e.InvoiceNo)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-
-                entity.Property(e => e.PkgType)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.Property(e => e.ProducerCompany).HasMaxLength(250);
-
-                entity.Property(e => e.ProducerCompanyNo).HasMaxLength(30);
-
-                entity.Property(e => e.ProductNo)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.RecordStatusId).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Uom)
-                    .IsRequired()
-                    .HasMaxLength(3);
-
-                entity.HasOne(d => d.Invoice)
-                    .WithMany(p => p.InvoiceDetail)
-                    .HasForeignKey(d => d.InvoiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_InvoiceDetail_Invoice");
-            });
-
             modelBuilder.Entity<MailDefinition>(entity =>
             {
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
@@ -710,130 +563,6 @@ namespace Chep.Core
                     .HasForeignKey(d => d.MailReportId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SentMail_MailReport");
-            });
-
-            modelBuilder.Entity<SparksArchive>(entity =>
-            {
-                entity.HasKey(e => e.ArchiveId);
-
-                entity.Property(e => e.ArchiveId).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.BelgeAdi)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DosyaNo)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DosyaTipi)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DosyaYolu)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FileDate)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.InsDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.SparksArchive)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SparksArchive_Customer");
-            });
-
-            modelBuilder.Entity<Teminat>(entity =>
-            {
-                entity.Property(e => e.Aciklama)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Alici)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.AntrepoKodu)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Banka)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CozumTarihi).HasColumnType("datetime");
-
-                entity.Property(e => e.DosyaNo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DosyaTipi)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EvrakTeslimAlan)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EvrakTeslimAlmaTarihi).HasColumnType("datetime");
-
-                entity.Property(e => e.EvrakTeslimEden)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EvrakTeslimTarihi).HasColumnType("datetime");
-
-                entity.Property(e => e.Gonderici)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Gumruk)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.InsDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.MuracatNo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.MuracatTarihi).HasColumnType("datetime");
-
-                entity.Property(e => e.OdenecekTutar).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.TeminatRefNo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TeminatTutari).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.TescilNo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TescilTarihi).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<TeminatDurum>(entity =>
-            {
-                entity.Property(e => e.Adı)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<TeminatTipi>(entity =>
-            {
-                entity.Property(e => e.Adı)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -1346,111 +1075,6 @@ namespace Chep.Core
                 entity.Property(e => e.TpssiraNo).HasColumnName("TPSSiraNo");
 
                 entity.Property(e => e.UrunKod).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<WorkOrderLog>(entity =>
-            {
-                entity.Property(e => e.WorkOrderLogId).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Error)
-                    .IsRequired()
-                    .IsUnicode(false);
-
-                entity.Property(e => e.InsDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.WorkOrderNo)
-                    .IsRequired()
-                    .HasMaxLength(30);
-            });
-
-            modelBuilder.Entity<WorkOrderMaster>(entity =>
-            {
-                entity.Property(e => e.WorkOrderMasterId).ValueGeneratedNever();
-
-                entity.Property(e => e.CreatedDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.DeclarationType)
-                    .IsRequired()
-                    .HasMaxLength(2)
-                    .IsFixedLength();
-
-                entity.Property(e => e.DeletedDate).HasColumnType("datetime");
-
-                entity.Property(e => e.DosyaNo).HasMaxLength(20);
-
-                entity.Property(e => e.Message).HasColumnType("ntext");
-
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-
-                entity.Property(e => e.RecordStatusId).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Status).HasDefaultValueSql("((20))");
-
-                entity.Property(e => e.WorkOrderNo)
-                    .IsRequired()
-                    .HasMaxLength(30);
-
-                entity.HasOne(d => d.CreatedByNavigation)
-                    .WithMany(p => p.WorkOrderMasterCreatedByNavigation)
-                    .HasForeignKey(d => d.CreatedBy)
-                    .HasConstraintName("FK_WorkOrderMaster_Users");
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.WorkOrderMaster)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WorkOrderMaster_Customer");
-
-                entity.HasOne(d => d.DeletedByNavigation)
-                    .WithMany(p => p.WorkOrderMasterDeletedByNavigation)
-                    .HasForeignKey(d => d.DeletedBy)
-                    .HasConstraintName("FK_WorkOrderMaster_Users2");
-
-                entity.HasOne(d => d.ModifiedByNavigation)
-                    .WithMany(p => p.WorkOrderMasterModifiedByNavigation)
-                    .HasForeignKey(d => d.ModifiedBy)
-                    .HasConstraintName("FK_WorkOrderMaster_Users1");
-
-                entity.HasOne(d => d.RecordStatus)
-                    .WithMany(p => p.WorkOrderMaster)
-                    .HasForeignKey(d => d.RecordStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WorkOrderMaster_RecordStatuses");
-            });
-
-            modelBuilder.Entity<WorkOrderSend>(entity =>
-            {
-                entity.Property(e => e.Dosyano)
-                    .HasColumnName("DOSYANO")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Expno)
-                    .HasColumnName("EXPNO")
-                    .HasMaxLength(16);
-
-                entity.Property(e => e.Insdate)
-                    .HasColumnName("INSDATE")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Processstatus).HasColumnName("PROCESSSTATUS");
-
-                entity.Property(e => e.Statu)
-                    .HasColumnName("STATU")
-                    .HasMaxLength(25);
-
-                entity.Property(e => e.Upddate)
-                    .HasColumnName("UPDDATE")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.WorkOrderNo).HasMaxLength(30);
-
-                entity.Property(e => e.Xmltext).HasColumnName("XMLTEXT");
             });
 
             OnModelCreatingPartial(modelBuilder);

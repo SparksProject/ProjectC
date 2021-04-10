@@ -17,7 +17,6 @@ namespace Chep.Core
             MailReport = new HashSet<MailReport>();
             Product = new HashSet<Product>();
             User = new HashSet<User>();
-            WorkOrderMaster = new HashSet<WorkOrderMaster>();
         }
 
         public byte RecordStatusId { get; set; }
@@ -29,6 +28,5 @@ namespace Chep.Core
         public virtual ICollection<MailReport> MailReport { get; set; }
         public virtual ICollection<Product> Product { get; set; }
         public virtual ICollection<User> User { get; set; }
-        public virtual ICollection<WorkOrderMaster> WorkOrderMaster { get; set; }
     }
 }

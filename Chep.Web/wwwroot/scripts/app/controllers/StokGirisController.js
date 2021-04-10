@@ -219,7 +219,7 @@
                     if (e.target == "content") {
                         if (!e.items) e.items = [];
 
-                        if ($rootScope.user.UserPermissions.StokGirisAdd) {
+                        if ($rootScope.user.userPermissions.stokGirisAdd) {
                             e.items.push({
                                 text: "Ekle",
                                 icon: "add",

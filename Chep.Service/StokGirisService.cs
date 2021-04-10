@@ -264,7 +264,7 @@ namespace Chep.Service
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,
-                StokGirisId = obj.StokGirisId.Value,
+                StokGirisId = obj.StokGirisId,
                 TpsBeyan = obj.TpsBeyan,
                 TpsSiraNo = obj.TpsSiraNo,
                 UrunKod = obj.UrunKod,

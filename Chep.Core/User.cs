@@ -26,9 +26,6 @@ namespace Chep.Core
             ProductModifiedByNavigation = new HashSet<Product>();
             UserCustomer = new HashSet<UserCustomer>();
             UserPermission = new HashSet<UserPermission>();
-            WorkOrderMasterCreatedByNavigation = new HashSet<WorkOrderMaster>();
-            WorkOrderMasterDeletedByNavigation = new HashSet<WorkOrderMaster>();
-            WorkOrderMasterModifiedByNavigation = new HashSet<WorkOrderMaster>();
         }
 
         public int UserId { get; set; }
@@ -69,8 +66,5 @@ namespace Chep.Core
         public virtual ICollection<Product> ProductModifiedByNavigation { get; set; }
         public virtual ICollection<UserCustomer> UserCustomer { get; set; }
         public virtual ICollection<UserPermission> UserPermission { get; set; }
-        public virtual ICollection<WorkOrderMaster> WorkOrderMasterCreatedByNavigation { get; set; }
-        public virtual ICollection<WorkOrderMaster> WorkOrderMasterDeletedByNavigation { get; set; }
-        public virtual ICollection<WorkOrderMaster> WorkOrderMasterModifiedByNavigation { get; set; }
     }
 }

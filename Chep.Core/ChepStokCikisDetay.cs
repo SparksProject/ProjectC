@@ -13,7 +13,7 @@ namespace Chep.Core
         public int StokCikisId { get; set; }
         public int StokGirisDetayId { get; set; }
         public int? Miktar { get; set; }
-        public int? Kg { get; set; }
+        public decimal? Kg { get; set; }
 
         public virtual ChepStokCikis StokCikis { get; set; }
         public virtual ChepStokGirisDetay StokGirisDetay { get; set; }
