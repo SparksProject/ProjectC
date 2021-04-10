@@ -35,37 +35,37 @@
 
             if ($gridDetail == null) {
                 $gridDetail = $("#gridDetail").dxDataGrid({
-                    keyExpr: "StokGirisDetayId",
+                    keyExpr: "stokGirisDetayId",
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "TPSSiraNo", caption: "TPS Sıra No", dataType: "number",
+                            dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
-                        { dataField: "TPSBeyan", caption: "TPS Beyan", },
-                        { dataField: "EsyaCinsi", caption: "Eşya Cinsi", },
-                        { dataField: "EsyaGTIP", caption: "Eşya GTİP", },
-                        { dataField: "FaturaNo", caption: "Fatura No", },
-                        { dataField: "FaturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
+                        { dataField: "tpsBeyan", caption: "TPS Beyan", },
+                        { dataField: "esyaCinsi", caption: "Eşya Cinsi", },
+                        { dataField: "esyaGtip", caption: "Eşya GTİP", },
+                        { dataField: "faturaNo", caption: "Fatura No", },
+                        { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
                         {
-                            dataField: "FaturaTutar", caption: "Fatura Tutar", dataType: "number",
+                            dataField: "faturaTutar", caption: "Fatura Tutar", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
-                        { dataField: "FaturaDovizKod", caption: "Fatura Döviz Kod", },
+                        { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
                         {
                             dataField: "Miktar", caption: "Miktar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
-                        { dataField: "OlcuBirimi", caption: "Ölçü Birimi", },
-                        { dataField: "Rejim", caption: "Rejim", },
-                        { dataField: "CikisRejimi", caption: "Çıkış Rejimi", },
-                        { dataField: "GidecegiUlke", caption: "Gideceği Ülke", },
-                        { dataField: "MenseUlke", caption: "Menşei Ülke", },
-                        { dataField: "SozlesmeUlke", caption: "Sözleşme Ülke", },
-                        { dataField: "Marka", caption: "Marka", },
-                        { dataField: "Model", caption: "Model", },
-                        { dataField: "UrunKod", caption: "Ürün Kodu", },
-                        { dataField: "PO", caption: "PO", },
+                        { dataField: "olcuBirimi", caption: "Ölçü Birimi", },
+                        { dataField: "rejim", caption: "Rejim", },
+                        { dataField: "cikisRejimi", caption: "Çıkış Rejimi", },
+                        { dataField: "gidecegiUlke", caption: "Gideceği Ülke", },
+                        { dataField: "menseUlke", caption: "Menşei Ülke", },
+                        { dataField: "sozlesmeUlke", caption: "Sözleşme Ülke", },
+                        { dataField: "marka", caption: "Marka", },
+                        { dataField: "model", caption: "Model", },
+                        { dataField: "urunKod", caption: "Ürün Kodu", },
+                        { dataField: "poNo", caption: "PO", },
                     ],
                     onContextMenuPreparing: function (e) {
                         if (e.target == "content") {
@@ -158,23 +158,23 @@
 
         if ($gridContainer == null) {
             $gridContainer = $("#gridContainer").dxDataGrid({
-                keyExpr: "StokGirisId",
+                keyExpr: "stokGirisId",
                 dataSource: [],
                 columns: [
-                    { dataField: "ReferansNo", caption: "Referans No", },
-                    { dataField: "TPSNo", caption: "TPS No", },
-                    { dataField: "TPSDurum", caption: "TPS Durum", },
-                    { dataField: "BasvuruTarihi", caption: "Basvuru Tarihi", dataType: "date", formatType: "shortDate" },
-                    { dataField: "SureSonuTarihi", caption: "Süre Sonu Tarihi", dataType: "date", formatType: "shortDate" },
-                    { dataField: "GumrukKod", caption: "Gumruk Kodu", },
-                    { dataField: "BeyannameNo", caption: "Beyanname No", },
-                    { dataField: "BeyannameTarihi", caption: "Beyanname Tarihi", dataType: "date", formatType: "shortDate" },
-                    { dataField: "BelgeAd", caption: "Belge Ad", },
-                    { dataField: "BelgeSart", caption: "Belge Şart", },
-                    { dataField: "TPSAciklama", caption: "TPS Açıklama", },
-                    { dataField: "IthalatciFirma", caption: "İthalatçı Firma", },
-                    { dataField: "IhracatciFirma", caption: "İhracatçı Firma", },
-                    { dataField: "KapAdet", caption: "Kap Adet", },
+                    { dataField: "referansNo", caption: "Referans No", },
+                    { dataField: "tpsNo", caption: "TPS No", },
+                    { dataField: "tpsDurum", caption: "TPS Durum", },
+                    { dataField: "basvuruTarihi", caption: "Basvuru Tarihi", dataType: "date", formatType: "shortDate" },
+                    { dataField: "sureSonuTarihi", caption: "Süre Sonu Tarihi", dataType: "date", formatType: "shortDate" },
+                    { dataField: "gumrukKod", caption: "Gumruk Kodu", },
+                    { dataField: "beyannameNo", caption: "Beyanname No", },
+                    { dataField: "beyannameTarihi", caption: "Beyanname Tarihi", dataType: "date", formatType: "shortDate" },
+                    { dataField: "belgeAd", caption: "Belge Ad", },
+                    { dataField: "belgeSart", caption: "Belge Şart", },
+                    { dataField: "tpsAciklama", caption: "TPS Açıklama", },
+                    { dataField: "ithalatciFirmaName", caption: "İthalatçı Firma", },
+                    { dataField: "ihracatciFirmaName", caption: "İhracatçı Firma", },
+                    { dataField: "kapAdet", caption: "Kap Adet", },
                 ],
                 export: {
                     enabled: true,
@@ -224,7 +224,7 @@
                                 text: "Ekle",
                                 icon: "add",
                                 onItemClick: function () {
-                                    $scope.object.StokGirisId = 0;
+                                    $scope.object.stokGirisId = 0;
                                     $modalDetail.modal('show');
                                 }
                             });
@@ -262,7 +262,7 @@
                     SparksXService.GetStokGiris(e.key).success(function (data) {
                         $scope.object = data;
 
-                        $gridDetail.option("dataSource", data.ChepStokGirisDetayList);
+                        $gridDetail.option("dataSource", data.chepStokGirisDetayList);
 
                         $modalDetail.modal('show');
                     });
@@ -314,9 +314,9 @@
     }
 
     function ListData() {
-        var referansNo = $scope.filter.ReferansNo ? $scope.filter.ReferansNo : "";
-        var beyannameNo = $scope.filter.BeyannameNo ? $scope.filter.BeyannameNo : "";
-        var tpsNo = $scope.filter.TPSNo ? $scope.filter.TPSNo : "";
+        var referansNo = $scope.filter.referansNo ? $scope.filter.referansNo : "";
+        var beyannameNo = $scope.filter.beyannameNo ? $scope.filter.beyannameNo : "";
+        var tpsNo = $scope.filter.tpsNo ? $scope.filter.tpsNo : "";
 
         SparksXService.ListStokGirises(referansNo, beyannameNo, tpsNo).success(function (data) {
             $gridContainer.option("dataSource", data);
@@ -360,12 +360,12 @@
         var ds = $gridDetail.getDataSource();
 
         for (var i = 0; i < ds._items.length; i++) {
-            if (!Number.isInteger(ds._items[i].StokGirisDetayId)) {
-                ds._items[i].StokGirisDetayId = 0;
+            if (!Number.isInteger(ds._items[i].stokGirisDetayId)) {
+                ds._items[i].stokGirisDetayId = 0;
             }
         }
-        obj.ChepStokGirisDetayList = ds._items;
-        obj.DeletedChepStokGirisDetayIdList = DeletedChepStokGirisDetayIdList;
+        obj.chepStokGirisDetayList = ds._items;
+        obj.deletedChepStokGirisDetayIdList = DeletedChepStokGirisDetayIdList;
 
         $gridDetail
             .getController('validating')
@@ -373,7 +373,7 @@
             .then(function (validGrid) {
                 if (validGrid) {
 
-                    if (obj.StokGirisId == 0) {
+                    if (obj.stokGirisId == 0) {
                         // Insert
                         SparksXService.AddStokGiris(obj).success(function (data) {
                             swal({

@@ -19,9 +19,6 @@
     <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="wwwroot\scripts\app\controllers\VendorController.js" />
-  </ItemGroup>
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="bundleconfig.json" />
   </ItemGroup>
   <ItemGroup>

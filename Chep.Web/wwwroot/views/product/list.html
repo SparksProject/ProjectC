@@ -1,5 +1,5 @@
 ﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
-<div class="row" ng-show="user.userPermissions.ProductAdd">
+<div class="row" ng-show="user.userPermissions.productAdd">
     <div class="col-md-3">
         <div class="form-group">
             <a ui-sref="products/add" class="btn btn-block m-icon btn-eo">
@@ -41,10 +41,10 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <ui-select ng-model="$parent.object.CustomerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged(object.CustomerId)">
-                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.Name}}</ui-select-match>
-                                        <ui-select-choices repeat="item.CustomerId as item in customers | filter: $select.search">
-                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                    <ui-select ng-model="$parent.object.customerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged(object.customerId)">
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>

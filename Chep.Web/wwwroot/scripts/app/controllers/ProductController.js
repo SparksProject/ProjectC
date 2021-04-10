@@ -27,10 +27,6 @@
 
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
-
-            SparksXService.ListProducts($scope.object.CustomerId).success(function (data) {
-                $scope.list = data;
-            });
         });
     };
 
@@ -59,12 +55,16 @@
     };
 
     $scope.Edit = function (obj) {
-        if (obj.RecordStatusId === 1) {
-            obj.ModifiedBy = $rootScope.user.UserId;
+        if (obj.recordStatusId === 1) {
+            obj.modifiedBy = $rootScope.user.userId;
         }
         else {
-            obj.DeletedBy = $rootScope.user.UserId;
+            obj.deletedBy = $rootScope.user.userId;
         }
+
+        obj.grossWeight = parseFloat(obj.grossWeight);
+        obj.netWeight = parseFloat(obj.netWeight);
+
         SparksXService.EditProduct(obj).success(function (data) {
             $state.go('products/list');
         });

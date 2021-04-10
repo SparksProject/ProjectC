@@ -12,67 +12,56 @@
                 <span class="title">STOK GİRİŞ</span>
             </a>
         </li>
-        <li class="start" ng-show="user.userPermissions.StokCikisList">
+        <li class="start" ng-show="user.userPermissions.stokCikisList">
             <a ui-sref="stokcikis/list">
                 <i class="fa fa-envelope-o"></i>
                 <span class="title">STOK ÇIKIŞ</span>
             </a>
         </li>
-        <li class="start" ng-show="user.userPermissions.CustomerList">
+        <li class="start" ng-show="user.userPermissions.customerList">
             <a ui-sref="customers/list">
                 <i class="icon-users"></i>
                 <span class="title">MÜŞTERİLER</span>
             </a>
         </li>
-        <li class="start" ng-show="user.userPermissions.ProductList">
+        <li class="start" ng-show="user.userPermissions.productList">
             <a ui-sref="products/list">
                 <i class="icon-diamond"></i>
                 <span class="title">STOK KARTI</span>
             </a>
         </li>
-        <li class="start" ng-show="user.userPermissions.GenericReportList">
+        <li class="start" ng-show="user.userPermissions.genericReportList">
             <a ui-sref="genericreports/list">
                 <i class="fa fa-bars"></i>
                 <span class="title">KULLANICI RAPORLARI</span>
             </a>
         </li>
-        <li class="start" ng-show="user.userPermissions.MailDefinitionList">
+        <li class="start" ng-show="user.userPermissions.mailDefinitionList">
             <a ui-sref="mailreports/list">
                 <i class="fa fa-envelope-o"></i>
                 <span class="title">MAIL RAPORLARI</span>
             </a>
         </li>
-        <li class="start" ng-show="user.userPermissions.SparksArchiveList">
-            <a ui-sref="sparksarchives/list">
-                <i class="fa fa-book"></i>
-                <span class="title">ARŞİV</span>
-            </a>
-        </li>
-        <!--<li class="start" ng-show="user.userPermissions.BeyannameList">
-        <a href="#/beyanname/list/{{user.UserId}}">
-            <i class="icon-lock"></i>
-            <span class="title">BEYANNAME</span>
-        </a>
-    </li>-->
-        <li class="start" ng-show="user.userPermissions.UserList">
+       
+        <li class="start" ng-show="user.userPermissions.userList">
             <a ui-sref="users/list">
                 <i class="icon-lock"></i>
                 <span class="title">KULLANICILAR</span>
             </a>
         </li>
-        <li class="nav-item" ng-show="user.userPermissions.MailDefinitionList&&user.userPermissions.CompanyEdit">
+        <li class="nav-item" ng-show="user.userPermissions.mailDefinitionList&&user.userPermissions.companyEdit">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title">GENEL TANIMLAR</span>
                 <span class="arrow "></span>
             </a>
             <ul class="sub-menu">
-                <li ng-show="user.userPermissions.CompanyEdit">
-                    <a href="#/company/get/{{user.CompanyId}}">
+                <li ng-show="user.userPermissions.companyEdit">
+                    <a href="#/company/get/{{user.companyId}}">
                         <span><i class="icon-arrow-right"></i> Firma Bilgileri </span>
                     </a>
                 </li>
-                <li ng-show="user.userPermissions.MailDefinitionList">
+                <li ng-show="user.userPermissions.mailDefinitionList">
                     <a ui-sref="mailreport/addmaildefinition">
                         <span><i class="icon-arrow-right"></i> Mail Tanımları </span>
                     </a>

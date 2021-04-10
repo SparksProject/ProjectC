@@ -34,10 +34,10 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <ui-select ng-model="$parent.object.CustomerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged(object.CustomerId)">
-                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.Name}}</ui-select-match>
-                                        <ui-select-choices repeat="item.CustomerId as item in customers | filter: $select.search">
-                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                    <ui-select ng-required="true" ng-model="$parent.object.customerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged(object.customerId)">
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -61,7 +61,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Ürün No" ng-model="object.ProductNo" name="ProductNo" ng-required="true" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Ürün No" ng-model="object.productNo" name="ProductNo" ng-required="true" maxlength="50">
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder=" Ürün Adı (Tr)" ng-model="object.ProductNameTr" name="ProductNameTr" ng-required="true" maxlength="50">
+                                        <input type="text" class="form-control" placeholder=" Ürün Adı (Tr)" ng-model="object.productNameTr" name="ProductNameTr" ng-required="true" maxlength="50">
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder=" Ürün Adı (En)" ng-model="object.ProductNameEng" name="ProductNameEng" maxlength="50">
+                                        <input type="text" class="form-control" placeholder=" Ürün Adı (En)" ng-model="object.productNameEng" name="ProductNameEng" maxlength="50">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Ürün Adı (Orj)" ng-model="object.ProductNameOrg" name="ProductNameOrg" ng-required="true" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Ürün Adı (Orj)" ng-model="object.productNameOrg" name="ProductNameOrg" ng-required="true" maxlength="50">
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Hs Kodu" ng-model="object.HsCode" name="HsCode" maxlength="16">
+                                        <input type="text" class="form-control" placeholder="Hs Kodu" ng-model="object.hsCode" name="HsCode" maxlength="16">
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="UOM" ng-model="object.Uom" name="Uom" maxlength="3">
+                                        <input type="text" class="form-control" placeholder="UOM" ng-model="object.uom" name="Uom" maxlength="3">
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Brüt Ağırlık" number ng-model="object.GrossWeight" name="GrossWeight" maxlength="20">
+                                        <input type="text" class="form-control" placeholder="Brüt Ağırlık" number ng-model="object.grossWeight" name="GrossWeight" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Net Ağırlık" number ng-model="object.NetWeight" name="NetWeight" maxlength="20">
+                                        <input type="text" class="form-control" placeholder="Net Ağırlık" number ng-model="object.netWeight" name="NetWeight" maxlength="20">
                                     </div>
                                 </div>
                             </div>

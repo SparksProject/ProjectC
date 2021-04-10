@@ -1,7 +1,7 @@
 ﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
 
 <!-- BEGIN TABLE PORTLET-->
-<div class="portlet box tbl-eo" ng-show="user.userPermissions.StokCikisList" ng-init="Grid()">
+<div class="portlet box tbl-eo" ng-show="user.userPermissions.stokCikisList" ng-init="Grid()">
     <div class="portlet-title">
         <div class="caption">
             Stok Çıkışları
@@ -14,19 +14,19 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Referans No</label>
-                        <input type="text" ng-model="filter.ReferansNo" class="form-control" placeholder="Referans No" />
+                        <input type="text" ng-model="filter.referansNo" class="form-control" placeholder="Referans No" />
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Beyanname No</label>
-                        <input type="text" ng-model="filter.BeyannameNo" class="form-control" placeholder="Beyanname No" />
+                        <input type="text" ng-model="filter.beyannameNo" class="form-control" placeholder="Beyanname No" />
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">TPS No</label>
-                        <input type="text" ng-model="filter.TPSNo" class="form-control" placeholder="TPS No" />
+                        <input type="text" ng-model="filter.tpsNo" class="form-control" placeholder="TPS No" />
                     </div>
                 </div>
                 <div class="col-md-3">

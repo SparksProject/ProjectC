@@ -496,22 +496,22 @@ SparksXApp.directive('dtUser', function () {
 
     var aoColumns = [
         {
-            "mDataProp": "CreatedDate",
+            "mDataProp": "createdDate",
             "mRender": function (data, type, full) {
                 if (type === 'sort') {
                     return data;
                 } else {
-                    return full.CreatedDateDisplay;
+                    return full.createdDateDisplay;
                 }
             }
         },
-        { "mDataProp": "UserName" },
-        { "mDataProp": "UserTypeName" },
-        { "mDataProp": "RecordStatusName" },
+        { "mDataProp": "userName" },
+        { "mDataProp": "userTypeName" },
+        { "mDataProp": "recordStatusName" },
         {
             "mDataProp": "",
             "mRender": function (data, type, full) {
-                return '<a href="#/users/get/' + full.UserId + '">Detay</a>';
+                return '<a href="#/users/get/' + full.userId + '">Detay</a>';
             }
         }
     ];
@@ -567,21 +567,21 @@ SparksXApp.directive('dtCustomer', function ($compile) {
 
             "aoColumns": [
                 {
-                    "mDataProp": "CreatedDateDisplay",
+                    "mDataProp": "createdDateDisplay",
                     "mRender": function (data, type, full) {
                         if (type == 'sort') {
-                            return full.CreatedDate;
+                            return full.createdDate;
                         } else {
-                            return full.CreatedDateDisplay;
+                            return full.createdDateDisplay;
                         }
                     }
                 },
-                { "mDataProp": "Name" },
-                { "mDataProp": "RecordStatusName" },
+                { "mDataProp": "name" },
+                { "mDataProp": "recordStatusName" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {
-                        return '<a href="#/customers/get/' + full.CustomerId + '">Detay</a>';
+                        return '<a href="#/customers/get/' + full.customerId + '">Detay</a>';
                     }
                 }
             ],
@@ -656,19 +656,19 @@ SparksXApp.directive('dtProduct', function ($compile) {
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "aoColumns": [
-                { "mDataProp": "CustomerName" },
-                { "mDataProp": "ProductNo" },
-                { "mDataProp": "ProductNameTr" },
-                { "mDataProp": "ProductNameEng" },
-                { "mDataProp": "ProductNameOrg" },
-                { "mDataProp": "HsCode" },
-                { "mDataProp": "Uom" },
-                { "mDataProp": "GrossWeight" },
-                { "mDataProp": "NetWeight" },
+                { "mDataProp": "customerName" },
+                { "mDataProp": "productNo" },
+                { "mDataProp": "productNameTr" },
+                { "mDataProp": "productNameEng" },
+                { "mDataProp": "productNameOrg" },
+                { "mDataProp": "hsCode" },
+                { "mDataProp": "uom" },
+                { "mDataProp": "grossWeight" },
+                { "mDataProp": "netWeight" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {
-                        return '<a href="#/products/edit/' + full.ProductId + '">Düzenle</a>';
+                        return '<a href="#/products/edit/' + full.productId + '">Düzenle</a>';
                     }
                 }
             ],
@@ -743,22 +743,22 @@ SparksXApp.directive('dtMailreport', function ($compile) {
 
             "aoColumns": [
                 {
-                    "mDataProp": "CreatedDateDisplay",
+                    "mDataProp": "createdDateDisplay",
                     "mRender": function (data, type, full) {
                         if (type == 'sort') {
-                            return full.CreatedDate;
+                            return full.createdDate;
                         } else {
-                            return full.CreatedDateDisplay;
+                            return full.createdDateDisplay;
                         }
                     }
                 },
-                { "mDataProp": "MailReportName" },
-                { "mDataProp": "PeriodTypeName" },
-                { "mDataProp": "RecordStatusName" },
+                { "mDataProp": "mailReportName" },
+                { "mDataProp": "periodTypeName" },
+                { "mDataProp": "recordStatusName" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {
-                        return '<a href="#/mailreports/get/' + full.MailReportId + '">Detay</a>';
+                        return '<a href="#/mailreports/get/' + full.mailReportId + '">Detay</a>';
                     }
                 }
             ],
@@ -795,16 +795,16 @@ SparksXApp.directive('dtGenericreport', function ($rootScope) {
     ];
 
     var aoColumns = [
-        { "mDataProp": "GenericReportName" },
+        { "mDataProp": "genericReportName" },
         {
-            "mDataProp": "GenericReportId",
+            "mDataProp": "genericReportId",
             "mRender": function (data, type, full) {
                 var detailLink = '<a href="#/genericreports/get/' + data + '">Detay</a>';
                 var reportLink = '<a href="#/genericreports/genericreportexecute/' + data + '">Rapor Al</a>';
                 var isDefaultReportDisplay = '(Sabit Rapor)';
 
                 if ($rootScope.user.UserPermissions.GenericReportGet) {
-                    if (full.IsDefaultReport) {
+                    if (full.isDefaultReport) {
                         return detailLink + ' / ' + reportLink + ' / ' + isDefaultReportDisplay;
                     } else {
                         return detailLink + ' / ' + reportLink;
@@ -822,831 +822,6 @@ SparksXApp.directive('dtGenericreport', function ($rootScope) {
         return GetDirectiveTemplate(scope, element, attrs, aoColumns, order, pageLength)
     };
 });
-
-SparksXApp.directive('dtWorkorder', function ($compile) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": -1,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-                {
-                    "mDataProp": "CreatedDateDisplay",
-                    "mRender": function (data, type, full) {
-                        if (type == 'sort') {
-                            return full.CreatedDate;
-                        } else {
-                            return full.CreatedDateDisplay;
-                        }
-                    }
-                },
-                { "mDataProp": "WorkOrderNo" },
-                { "mDataProp": "DeclarationType" },
-                { "mDataProp": "Status" },
-                { "mDataProp": "MasterId" },
-                { "mDataProp": "CustomerName" },
-                { "mDataProp": "Message" },
-                { "mDataProp": "RecordStatusName" },
-                {
-                    "mDataProp": "",
-                    "mRender": function (data, type, full) {
-                        return '<a class="btn btn-default" href="#/invoice/list/' + full.WorkOrderMasterId + '">Detay</a>';
-                    }
-                },
-                {
-                    "mDataProp": "",
-                    "mRender": function (data, type, full) {
-                        return '<a class="btn btn-success" href="#/invoice/listall/' + full.WorkOrderMasterId + '">Tüm Kalemler</a>';
-                    }
-                }
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-SparksXApp.directive('dtInvoice', function ($compile) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": -1,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-                { "mDataProp": "InvoiceId" },
-                { "mDataProp": "WorkOrderMasterId" },
-                { "mDataProp": "SenderNo" },
-                { "mDataProp": "SenderName" },
-                { "mDataProp": "SenderAddress" },
-                { "mDataProp": "SenderCity" },
-                { "mDataProp": "SenderCountry" },
-                { "mDataProp": "ConsgnName" },
-                {
-                    "mDataProp": "",
-                    "mRender": function (data, type, full) {
-                        return '<a class="btn btn-success" href="#/invoicedetail/list/' + full.InvoiceId + '">Detay</a>';
-                    }
-                }
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
-SparksXApp.directive('dtInvoicedetail', function ($compile) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": -1,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-                { "mDataProp": "InvoiceDetailId" },
-                { "mDataProp": "InvoiceId" },
-                { "mDataProp": "HsCode" },
-                { "mDataProp": "DescGoods" },
-                { "mDataProp": "ProductNo" },
-                { "mDataProp": "CountryOfOrigin" }
-
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
-SparksXApp.directive('dtInvoicealldetail', function ($compile) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-            "footerCallback": function (start, end, display) {
-                var api = this.api(), data;
-
-                // Remove the formatting to get integer data for summation
-                var intVal = function (i) {
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '') * 1 :
-                        typeof i === 'number' ?
-                            i : 0;
-                };
-
-                // Total over all pages
-                total = api
-                    .column(29)
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                total2 = api
-                    .column(30)
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-                total3 = api
-                    .column(31)
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-                total4 = api
-                    .column(32)
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-                // Total over this page
-                pageTotal = api
-                    .column(29, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                // Update footer
-                $(api.column(29).footer()).html(
-                    total
-                );
-                $(api.column(30).footer()).html(
-                    total2
-                );
-                $(api.column(31).footer()).html(
-                    total3
-                );
-                $(api.column(32).footer()).html(
-                    total4
-                );
-            },
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": -1,
-
-
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-
-                { "mDataProp": "SenderNo" },
-                { "mDataProp": "SenderName" },
-                { "mDataProp": "SenderAddress" },
-                { "mDataProp": "SenderCity" },
-                { "mDataProp": "SenderCountry" },
-                { "mDataProp": "ConsgnName" },
-                { "mDataProp": "ConsgnAddress" },
-                { "mDataProp": "ConsgnCity" },
-                { "mDataProp": "ConsgnCountry" },
-                { "mDataProp": "TransptrName" },
-                { "mDataProp": "VesselName" },
-                { "mDataProp": "AgentName" },
-                { "mDataProp": "PlateNo" },
-                { "mDataProp": "AwbNo" },
-                { "mDataProp": "Blno" },
-                { "mDataProp": "Incoterms" },
-                { "mDataProp": "DeliveryLocation" },
-                { "mDataProp": "InvoiceAmount" },
-                { "mDataProp": "InvoiceCurrency" },
-                { "mDataProp": "FreightAmount" },
-                { "mDataProp": "FreightCurrency" },
-                { "mDataProp": "InsuranceAmount" },
-                { "mDataProp": "InsuranceCurrency" },
-                { "mDataProp": "CreatedDate" },
-                { "mDataProp": "HsCode" },
-                { "mDataProp": "DescGoods" },
-                { "mDataProp": "ProductNo" },
-                { "mDataProp": "CountryOfOrigin" },
-                { "mDataProp": "Uom" },
-                { "mDataProp": "ActualQuantity" },
-                { "mDataProp": "InvoiceQuantity" },
-                { "mDataProp": "GrossWeight" },
-                { "mDataProp": "NetWeight" },
-                { "mDataProp": "IntrnlAgmt" },
-                { "mDataProp": "InvoiceNo" },
-                { "mDataProp": "InvoiceDate" },
-                { "mDataProp": "PkgType" },
-                { "mDataProp": "CommclDesc" },
-                { "mDataProp": "NumberOfPackages" },
-                { "mDataProp": "RecordStatusId" },
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            },
-
-
-        };
-
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
-SparksXApp.directive('dtArchive', function ($compile, $rootScope) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-            "columnDefs": [
-                { className: "dt-left", "targets": [0, 1, 2, 3, 4, 5, 6] }
-            ],
-
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": 50,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-                {
-                    "mDataProp": "Id",
-                    "mRender": function (data, type, full) {
-                        return '<a target="_blank" ng-href="' + $rootScope.settings.serverPath + '/files/arsivler/' + data + '.zip" download ><i class="fa fa-download"> İndir</i></a>';
-                    }
-                },
-                { "mDataProp": "DosyaNo" },
-                { "mDataProp": "Firma" },
-                { "mDataProp": "Alici" },
-                { "mDataProp": "MusRefNo" },
-                { "mDataProp": "FaturaNo" },
-                { "mDataProp": "TescilNo" },
-                {
-                    "mDataProp": "TescilTarihi",
-                    "mRender": function (data, type, full) {
-                        var d = new Date(data);
-                        month = '' + (d.getMonth() + 1),
-                            day = '' + d.getDate(),
-                            year = d.getFullYear();
-                        if (month.length < 2)
-                            month = '0' + month;
-                        if (day.length < 2)
-                            day = '0' + day;
-                        return [day, month, year].join('.');
-                        //var date = new Date(data);
-                        //return date.toDate();                       
-                    }
-                }
-
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
-SparksXApp.directive('dtArchivedetail', function ($compile, $rootScope) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": -1,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-                { "mDataProp": "DosyaNo" },
-                { "mDataProp": "FirmaNo" },
-                { "mDataProp": "Firma" },
-                { "mDataProp": "Alici" },
-                { "mDataProp": "MusRefNo" },
-                { "mDataProp": "TescilNo" },
-                { "mDataProp": "TescilTarihi", type: 'date-dd-mmm-yyyy', targets: 0 },
-                {
-                    "mDataProp": "",
-                    "mRender": function (data, type, full) {
-                        //return '<a href="#/archive/get/' + full.Id + '">Detay</a>';
-                        /*return '<a target="_blank" class="btn btn-success" ng-href="/content/arsivler/'+ full.DosyaNo+'/'+ full.Dosya +'.pdf">Ac</a>'*/
-                        //return '<a ng-href="/content/arsivler/' + full.DosyaNo +'.zip" download>download</a>'
-                        //return '<a ng-href="/content/arsivler/' + full.DosyaNo +'.zip" download ><i class="fa fa-download"> İndir</a>'
-                        return '<a target="_blank" ng-href="' + $rootScope.settings.serverPath + '/files/arsivler/' + full.DosyaNo + '.zip" download ><i class="fa fa-download"> İndir</i></a>';
-                    }
-                }
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
-SparksXApp.directive('dtTeminat', function ($compile) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": -1,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-
-                { "mDataProp": "DosyaTipi" },
-                { "mDataProp": "DosyaNo" },
-                { "mDataProp": "Gonderici" },
-                { "mDataProp": "Alici" },
-                { "mDataProp": "TescilNo" },
-                { "mDataProp": "TescilTarihi" },
-                { "mDataProp": "Gumruk" },
-                { "mDataProp": "Banka" },
-                { "mDataProp": "AntrepoKodu" },
-                { "mDataProp": "TeminatRefNo" },
-                { "mDataProp": "TeminatTutari" },
-                { "mDataProp": "OdenecekTutar" },
-                { "mDataProp": "MuracatNo" },
-                { "mDataProp": "MuracatTarihi" },
-                { "mDataProp": "CozumTarihi" },
-                { "mDataProp": "Aciklama" },
-                { "mDataProp": "EvrakTeslimAlan" },
-                { "mDataProp": "EvrakTeslimAlmaTarihi" },
-                { "mDataProp": "EvrakTeslimEden" },
-                { "mDataProp": "EvrakTeslimTarihi" },
-
-                {
-                    "mDataProp": "",
-                    "mRender": function (data, type, full) {
-                        return '<a href="#/teminat/get/' + full.TeminatId + '">Detay</a>';
-                    }
-                }
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
-//SparksXApp.directive('dtSparksarchive', function ($compile) {
-//    return function (scope, element, attrs) {
-//        var _this = scope;
-//        var options = {
-//            "language": {
-//                "sProcessing": "İşleniyor...",
-//                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-//                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-//                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-//                "sInfoEmpty": "Kayıt Yok",
-//                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-//                "sInfoPostFix": "",
-//                "sSearch": "Bul:",
-//                "sUrl": "",
-//                "oPaginate": {
-//                    "sFirst": "İlk",
-//                    "sPrevious": "Önceki",
-//                    "sNext": "Sonraki",
-//                    "sLast": "Son"
-//                }
-//            },
-
-//            buttons: [
-//                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-//                { extend: 'pdf', className: 'btn default' },
-//                { extend: 'excel', className: 'btn default' }
-
-//            ],
-
-//            "order": [
-//                [0, 'desc']
-//            ],
-
-//            "lengthMenu": [
-//                [5, 10, 20, 50, -1],
-//                [5, 10, 20, 50, "Hepsi"] // change per page values here
-//            ],
-
-//            // set the initial value
-//            "pageLength": -1,
-
-//            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-//            "aoColumns": [
-//                { "mDataProp": "CustomerName" },
-//                { "mDataProp": "DosyaNo" },
-//                { "mDataProp": "DosyaTipi" },
-//                { "mDataProp": "DosyaAdi" },
-//                {
-//                    "mDataProp": "",
-//                    "mRender": function (data, type, full) {
-//                        return '<a class="btn btn-primary"><i class="fa fa-trash-o"></i> Sil</a>';
-//                        //return '<button class="btn btn-danger" ng-click="Delete(' + full.ArchiveId + ')">' +
-//                        //    '   <i class="fa fa-trash-o"></i> sil' +
-//                        //    '</button>';
-//                    }
-//                },
-//                {
-//                    "mDataProp": "",
-//                    "mRender": function (data, type, full) {
-//                        //return '<a target="_blank" class="btn btn-success" ng-href="/content/SparksArchive/' + full.FileDate + full.BelgeAdi +'">Göster</a>'
-//                        return '<a href="#/sparksarchive/get/' + full.ArchiveId + '">Detay</a>';
-
-//                    }
-//                }
-//            ],
-//            createdRow: function (row, data, dataIndex) {
-//                $compile(angular.element(row).contents())(_this);
-//            }
-//        };
-
-//        var explicitColumns = [];
-
-//        element.find('th').each(function (index, elem) {
-//            explicitColumns.push($(elem).text());
-//        });
-
-//        if (attrs.fnRowCallback) {
-//            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-//        }
-
-//        scope.$watch(attrs.aaData, function (value) {
-//            var val = value || null;
-//            if (val) {
-//                dataTable.fnClearTable();
-//                dataTable.fnAddData(scope.$eval(attrs.aaData));
-//            }
-//        });
-
-//        var dataTable = element.dataTable(options);
-//    };
-//});
 
 SparksXApp.directive('dtSparksarchive', function ($compile, $rootScope) {
     return function (scope, element, attrs) {
@@ -1696,21 +871,21 @@ SparksXApp.directive('dtSparksarchive', function ($compile, $rootScope) {
 
             "aoColumns": [
                 {
-                    "mDataProp": "DosyaAdi",
+                    "mDataProp": "dosyaAdi",
                     "mRender": function (data, type, full) {
                         return '<a target="_blank" ng-href="' + $rootScope.settings.serverPath + '/files/sparksarchive/download/' + data + '" download ><i class="fa fa-download"> İndir</i></a>';
 
                         //return '<a target="_blank" ng-href="' + data + '" download ><i class="fa fa-download"> İndir</i></a>';
                     }
                 },
-                { "mDataProp": "DosyaNo" },
-                { "mDataProp": "Firma" },
-                { "mDataProp": "Alici" },
-                { "mDataProp": "MusRefNo" },
-                { "mDataProp": "FaturaNo" },
-                { "mDataProp": "TescilNo" },
+                { "mDataProp": "dosyaNo" },
+                { "mDataProp": "firma" },
+                { "mDataProp": "alici" },
+                { "mDataProp": "musRefNo" },
+                { "mDataProp": "faturaNo" },
+                { "mDataProp": "tescilNo" },
                 {
-                    "mDataProp": "TescilTarihi",
+                    "mDataProp": "tescilTarihi",
                     "mRender": function (data, type, full) {
                         var d = new Date(data);
                         month = '' + (d.getMonth() + 1),
@@ -1753,116 +928,6 @@ SparksXApp.directive('dtSparksarchive', function ($compile, $rootScope) {
         var dataTable = element.dataTable(options);
     };
 });
-
-
-
-
-
-
-SparksXApp.directive('dtBeyanname', function ($compile, $rootScope) {
-    return function (scope, element, attrs) {
-        var _this = scope;
-        var options = {
-            "language": {
-                "sProcessing": "İşleniyor...",
-                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
-                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
-                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
-                "sInfoEmpty": "Kayıt Yok",
-                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
-                "sInfoPostFix": "",
-                "sSearch": "Bul:",
-                "sUrl": "",
-                "oPaginate": {
-                    "sFirst": "İlk",
-                    "sPrevious": "Önceki",
-                    "sNext": "Sonraki",
-                    "sLast": "Son"
-                }
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn default', text: 'YAZDIR' },
-                { extend: 'pdf', className: 'btn default' },
-                { extend: 'excel', className: 'btn default' }
-            ],
-            "columnDefs": [
-                { className: "dt-left", "targets": [0, 1, 2, 3, 4] }
-            ],
-
-
-            "order": [
-                [0, 'desc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 20, 50, -1],
-                [5, 10, 20, 50, "Hepsi"] // change per page values here
-            ],
-
-            // set the initial value
-            "pageLength": 50,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            "aoColumns": [
-
-                { "mDataProp": "Dosya_No" },
-                { "mDataProp": "Tip" },
-                { "mDataProp": "VarisGumrukA_1" },
-                {
-                    "mDataProp": "VarisGumrukA_3",
-                    "mRender": function (data, type, full) {
-                        var d = new Date(data);
-                        month = '' + (d.getMonth() + 1),
-                            day = '' + d.getDate(),
-                            year = d.getFullYear();
-                        if (month.length < 2)
-                            month = '0' + month;
-                        if (day.length < 2)
-                            day = '0' + day;
-                        return [day, month, year].join('.');
-                        //var date = new Date(data);
-                        //return date.toDate();                       
-                    }
-                },
-                { "mDataProp": "VarisGumrukA_2" },
-                {
-                    "mDataProp": "",
-                    "mRender": function (data, type, full) {
-                        return '<a target="_blank" href="#/beyanname/get/' + full.VarisGumrukA_2 + '">Beyanname PDF</a>';
-                    }
-                }
-
-
-            ],
-            createdRow: function (row, data, dataIndex) {
-                $compile(angular.element(row).contents())(_this);
-            }
-        };
-
-        var explicitColumns = [];
-
-        element.find('th').each(function (index, elem) {
-            explicitColumns.push($(elem).text());
-        });
-
-        if (attrs.fnRowCallback) {
-            options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
-        }
-
-        scope.$watch(attrs.aaData, function (value) {
-            var val = value || null;
-            if (val) {
-                dataTable.fnClearTable();
-                dataTable.fnAddData(scope.$eval(attrs.aaData));
-            }
-        });
-
-        var dataTable = element.dataTable(options);
-    };
-});
-
 
 SparksXApp.directive('dtStokgiris', function ($compile) {
     return function (scope, element, attrs) {
@@ -1908,15 +973,15 @@ SparksXApp.directive('dtStokgiris', function ($compile) {
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "aoColumns": [
-                { "mDataProp": "CustomerName" },
-                { "mDataProp": "ProductNo" },
-                { "mDataProp": "ProductNameTr" },
-                { "mDataProp": "ProductNameEng" },
-                { "mDataProp": "ProductNameOrg" },
-                { "mDataProp": "HsCode" },
-                { "mDataProp": "Uom" },
-                { "mDataProp": "GrossWeight" },
-                { "mDataProp": "NetWeight" },
+                { "mDataProp": "customerName" },
+                { "mDataProp": "productNo" },
+                { "mDataProp": "productNameTr" },
+                { "mDataProp": "productNameEng" },
+                { "mDataProp": "productNameOrg" },
+                { "mDataProp": "hsCode" },
+                { "mDataProp": "uom" },
+                { "mDataProp": "grossWeight" },
+                { "mDataProp": "netWeight" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {

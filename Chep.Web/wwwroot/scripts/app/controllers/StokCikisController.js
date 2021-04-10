@@ -16,7 +16,7 @@
     var $btnDropSubmit = null;
 
     var storeStokGiris = new DevExpress.data.CustomStore({
-        key: "StokGirisDetayId",
+        key: "stokGirisDetayId",
         method: "Get",
         loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
         load: function () {
@@ -78,15 +78,15 @@
 
             if ($gridDetail == null) {
                 $gridDetail = $("#gridDetail").dxDataGrid({
-                    keyExpr: "StokCikisDetayId",
+                    keyExpr: "stokCikisDetayId",
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "StokGirisDetayId", caption: "Stok Girişi Referans No",
+                            dataField: "stokGirisDetayId", caption: "Stok Girişi Referans No",
                             lookup: {
                                 dataSource: storeStokGiris, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
-                                displayExpr: "ReferansNo", // Dönen veride basılacak metin
-                                valueExpr: "StokGirisDetayId", // Dönen veride basılacak value
+                                displayExpr: "referansNo", // Dönen veride basılacak metin
+                                valueExpr: "stokGirisDetayId", // Dönen veride basılacak value
                             },
                             editCellTemplate: function (cellElement, cellInfo) {
                                 // Hücre içine DropDownBox kurulumu
@@ -94,8 +94,8 @@
                                     dropDownOptions: { width: 600 },
                                     dataSource: storeStokGiris,
                                     value: cellInfo.value,
-                                    valueExpr: "StokGirisDetayId",
-                                    displayExpr: "ReferansNo",
+                                    valueExpr: "stokGirisDetayId",
+                                    displayExpr: "referansNo",
                                     contentTemplate: function (eDDBTemplate) {
 
                                         // DropDownBox içine DataGrid kurulumu
@@ -104,19 +104,19 @@
                                             remoteOperations: true,
                                             columns: [
                                                 {
-                                                    dataField: "TPSSiraNo", caption: "TPS Sıra No", dataType: "number",
+                                                    dataField: "tPSSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                     format: { type: "fixedPoint", precision: 0 },
                                                 },
-                                                { dataField: "TPSBeyan", caption: "TPS Beyan", },
-                                                { dataField: "FaturaNo", caption: "Fatura No", },
-                                                { dataField: "FaturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
+                                                { dataField: "tPSBeyan", caption: "TPS Beyan", },
+                                                { dataField: "faturaNo", caption: "Fatura No", },
+                                                { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
                                                 {
-                                                    dataField: "FaturaTutar", caption: "Fatura Tutar", dataType: "number",
+                                                    dataField: "faturaTutar", caption: "Fatura Tutar", dataType: "number",
                                                     format: { type: "fixedPoint", precision: 2 },
                                                 },
-                                                { dataField: "FaturaDovizKod", caption: "Fatura Döviz Kod", },
+                                                { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
                                                 {
-                                                    dataField: "Miktar", caption: "Miktar", dataType: "number",
+                                                    dataField: "miktar", caption: "Miktar", dataType: "number",
                                                     format: { type: "fixedPoint", precision: 0 },
                                                 },
                                             ],
@@ -155,12 +155,12 @@
                             }
                         },
                         {
-                            dataField: "Miktar", caption: "Miktar", dataType: "number",
+                            dataField: "miktar", caption: "Miktar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "Kg", caption: "Kg", dataType: "number",
-                            format: { type: "fixedPoint", precision: 0 },
+                            dataField: "kg", caption: "Kg", dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
                         },
                     ],
                     onContextMenuPreparing: function (e) {
@@ -275,37 +275,37 @@
 
             if ($gridDrop == null) {
                 $gridDrop = $("#gridDrop").dxDataGrid({
-                    keyExpr: "StokGirisDetayId",
+                    keyExpr: "stokGirisDetayId",
                     dataSource: [],
                     columns: [
-                        { dataField: "GirisBeyannameNo", caption: "Beyanname No", width: 150, },
-                        { dataField: "TPSNo", caption: "TPS No", width: 150, },
-                        { dataField: "UrunKod", caption: "Ürün Kodu", },
+                        { dataField: "girisBeyannameNo", caption: "Beyanname No", width: 150, },
+                        { dataField: "tpsNo", caption: "TPS No", width: 150, },
+                        { dataField: "urunKod", caption: "Ürün Kodu", },
                         {
-                            dataField: "GirisMiktar", caption: "Giriş Adet", dataType: "number",
+                            dataField: "girisMiktar", caption: "Giriş Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "KalanMiktar", caption: "Kalan Adet", dataType: "number",
+                            dataField: "kalanMiktar", caption: "Kalan Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "DusulenMiktar", caption: "Düşülen Adet", dataType: "number",
+                            dataField: "dusulenMiktar", caption: "Düşülen Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "BakiyeMiktar", caption: "Bakiye Adet", dataType: "number",
+                            dataField: "bakiyeMiktar", caption: "Bakiye Adet", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                     ],
                     summary: {
                         totalItems: [
                             {
-                                column: "DusulenMiktar",
+                                column: "dusulenMiktar",
                                 summaryType: "sum",
                             },
                             {
-                                column: "BakiyeMiktar",
+                                column: "bakiyeMiktar",
                                 summaryType: "sum",
                             }
                         ]
@@ -337,16 +337,16 @@
 
         if ($gridContainer == null) {
             $gridContainer = $("#gridContainer").dxDataGrid({
-                keyExpr: "StokCikisId",
+                keyExpr: "stokCikisId",
                 dataSource: [],
                 columns: [
-                    { dataField: "ReferansNo", caption: "Referans No", },
-                    { dataField: "TPSNo", caption: "TPS No", },
-                    { dataField: "IslemTarihi", caption: "İşlem Tarihi", dataType: "date", formatType: "shortDate" },
-                    { dataField: "TPSTarih", caption: "TPS Tarihi", dataType: "date", formatType: "shortDate" },
-                    { dataField: "BeyannameNo", caption: "Beyanname No", },
-                    { dataField: "BeyannameTarihi", caption: "Beyanname Tarihi", dataType: "date", formatType: "shortDate" },
-                    { dataField: "IthalatciFirma", caption: "İthalatçı Firma", },
+                    { dataField: "referansNo", caption: "Referans No", },
+                    { dataField: "tpsNo", caption: "TPS No", },
+                    { dataField: "islemTarihi", caption: "İşlem Tarihi", dataType: "date", formatType: "shortDate" },
+                    { dataField: "tpsTarih", caption: "TPS Tarihi", dataType: "date", formatType: "shortDate" },
+                    { dataField: "beyannameNo", caption: "Beyanname No", },
+                    { dataField: "beyannameTarihi", caption: "Beyanname Tarihi", dataType: "date", formatType: "shortDate" },
+                    { dataField: "ihracatciFirmaName", caption: "İhracatci Firma", },
                 ],
                 export: {
                     enabled: true,
@@ -434,7 +434,7 @@
                     SparksXService.GetStokCikis(e.key).success(function (data) {
                         $scope.object = data;
 
-                        $gridDetail.option("dataSource", data.ChepStokCikisDetayList);
+                        $gridDetail.option("dataSource", data.chepStokCikisDetayList);
 
                         $btnArchive.removeClass('hidden');
                         $btnJobOrder.removeClass('hidden');
@@ -497,9 +497,9 @@
     }
 
     function ListData() {
-        var referansNo = $scope.filter.ReferansNo ? $scope.filter.ReferansNo : "";
-        var beyannameNo = $scope.filter.BeyannameNo ? $scope.filter.BeyannameNo : "";
-        var tpsNo = $scope.filter.TPSNo ? $scope.filter.TPSNo : "";
+        var referansNo = $scope.filter.referansNo ? $scope.filter.referansNo : "";
+        var beyannameNo = $scope.filter.beyannameNo ? $scope.filter.beyannameNo : "";
+        var tpsNo = $scope.filter.tpsNo ? $scope.filter.tpsNo : "";
 
         SparksXService.ListStokCikises(referansNo, beyannameNo, tpsNo).success(function (data) {
             $gridContainer.option("dataSource", data);
@@ -544,12 +544,12 @@
         var ds = $gridDetail.getDataSource();
 
         for (var i = 0; i < ds._items.length; i++) {
-            if (!Number.isInteger(ds._items[i].StokCikisDetayId)) {
-                ds._items[i].StokCikisDetayId = 0;
+            if (!Number.isInteger(ds._items[i].stokCikisDetayId)) {
+                ds._items[i].stokCikisDetayId = 0;
             }
         }
-        obj.ChepStokCikisDetayList = ds._items;
-        obj.DeletedChepStokCikisDetayIdList = DeletedChepStokCikisDetayIdList;
+        obj.chepStokCikisDetayList = ds._items;
+        obj.deletedChepStokCikisDetayIdList = DeletedChepStokCikisDetayIdList;
 
         $gridDetail
             .getController('validating')
@@ -557,7 +557,7 @@
             .then(function (validGrid) {
                 if (validGrid) {
 
-                    if (obj.StokCikisId == 0) {
+                    if (obj.stokCikisId == 0) {
                         // Insert
                         SparksXService.AddStokCikis(obj).success(function (data) {
                             swal({

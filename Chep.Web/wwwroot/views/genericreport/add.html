@@ -39,7 +39,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Rapor Adı" ng-model="object.GenericReportName" name="GenericReportName" ng-required="true" maxlength="500">
+                                        <input type="text" class="form-control" placeholder="Rapor Adı" ng-model="object.genericReportName" name="GenericReportName" ng-required="true" maxlength="500">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <textarea class="form-control" placeholder="Sql Sorgusu" rows="5" ng-model="object.SqlScript" name="SqlScript" ng-required="true"></textarea>
+                                        <textarea class="form-control" placeholder="Sql Sorgusu" rows="5" ng-model="object.sqlScript" name="SqlScript" ng-required="true"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-book-open"></i>
                                     </span>
-                                    <ui-select multiple ng-model="$parent.object.UserList" name="UserList" theme="bootstrap" sortable="true" close-on-select="false" ng-required="!object.IsDefaultReport">
+                                    <ui-select multiple ng-model="$parent.object.userList" name="UserList" theme="bootstrap" sortable="true" close-on-select="false" ng-required="!object.IsDefaultReport">
                                         <ui-select-match placeholder="Yetkili Kullanıcılar">{{$item.FullName}}</ui-select-match>
                                         <ui-select-choices repeat="item.UserId as item in users | filter: $select.search">
                                             <div ng-bind-html="item.FullName | highlight: $select.search"></div>
@@ -95,7 +95,7 @@
                             </label>
                             <div class="md-checkbox-inline">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="IsDefaultReport" class="md-check" ng-model="object.IsDefaultReport" checkbox>
+                                    <input type="checkbox" id="IsDefaultReport" class="md-check" ng-model="object.isDefaultReport" checkbox>
                                     <label for="IsDefaultReport">
                                         <span></span>
                                         <span class="check"></span>
@@ -128,7 +128,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Ör:#Tarih#" ng-model="x.GenericReportParameterName" name="GenericReportParameterName" ng-required="true">
+                                            <input type="text" class="form-control" placeholder="Ör:#Tarih#" ng-model="x.genericReportParameterName" name="GenericReportParameterName" ng-required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
                                     <div class="input-group">
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Ör: Başlangıç Tarihi" ng-model="x.ParameterLabel" name="ParameterLabel" ng-required="true" required>
+                                            <input type="text" class="form-control" placeholder="Ör: Başlangıç Tarihi" ng-model="x.parameterLabel" name="ParameterLabel" ng-required="true" required>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-map-marker"></i>
                                         </span>
-                                        <ui-select ng-model="x.ParameterType" name="ParameterTypeId" theme="bootstrap" ng-required="true">
+                                        <ui-select ng-model="x.parameterType" name="ParameterTypeId" theme="bootstrap" ng-required="true">
                                             <ui-select-match placeholder="Seçiniz">{{$select.selected.ParameterTypeName}}</ui-select-match>
                                             <ui-select-choices repeat="item.ParameterTypeId as item in parameterTypes | filter: $select.search">
                                                 <div ng-bind-html="item.ParameterTypeName | highlight: $select.search"></div>
