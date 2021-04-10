@@ -167,7 +167,7 @@
                         if (e.target == "content") {
                             if (!e.items) e.items = [];
 
-                            if ($rootScope.user.UserPermissions.StokCikisAdd) {
+                            if ($rootScope.user.userPermissions.stokCikisAdd) {
                                 e.items.push({
                                     text: "Ekle",
                                     icon: "add",
@@ -391,7 +391,7 @@
                     if (e.target == "content") {
                         if (!e.items) e.items = [];
 
-                        if ($rootScope.user.UserPermissions.StokCikisAdd) {
+                        if ($rootScope.user.userPermissions.stokCikisAdd) {
                             e.items.push({
                                 text: "Ekle",
                                 icon: "add",

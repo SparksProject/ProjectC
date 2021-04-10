@@ -9,6 +9,12 @@ namespace Chep.DTO
         public string OtherId { get; set; }
         public string UserNameWs { get; set; }
         public string PasswordWs { get; set; }
+        public string TaxNo { get; set; }
+        public string TaxName { get; set; }
+        public string Adress { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Telephone { get; set; }
         public byte RecordStatusId { get; set; }
         public DateTime CreatedDate { get; set; }
         public int? CreatedBy { get; set; }

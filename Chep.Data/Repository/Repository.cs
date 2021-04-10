@@ -1,4 +1,7 @@
 ﻿using Chep.Core;
+
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,34 +18,40 @@ namespace Chep.Data.Repository
             _context = context;
         }
 
+        public DbSet<T> Set()
+        {
+            return _context.Set<T>();
+        }
+
         public T Add(T entity)
         {
-            _context.Set<T>().Add(entity);
+            Set().Add(entity);
+
             return entity;
         }
 
         public bool Any(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Any(predicate);
+            return Set().Any(predicate);
         }
 
         public void AddRange(List<T> obj)
         {
-            _context.Set<T>().AddRange(obj);
+            Set().AddRange(obj);
         }
 
         public void Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            Set().Remove(entity);
         }
 
         public void Delete(Expression<Func<T, bool>> predicate)
         {
-            var result = _context.Set<T>().Where(predicate);
+            var result = Set().Where(predicate);
 
             foreach (var item in result)
             {
-                _context.Set<T>().Remove(item);
+                Set().Remove(item);
             }
         }
 
@@ -53,22 +62,23 @@ namespace Chep.Data.Repository
 
         public List<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return Set().ToList();
         }
 
         public List<T> Search(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Where(predicate).ToList();
+            return Set().Where(predicate).ToList();
         }
 
         public T Single(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().FirstOrDefault(predicate);
+            return Set().FirstOrDefault(predicate);
         }
 
         public T Update(T entity)
         {
-            _context.Set<T>().Update(entity);
+            Set().Update(entity);
+
             return entity;
         }
     }

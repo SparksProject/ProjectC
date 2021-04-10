@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
+
 using Chep.Core;
 using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
+
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chep.Service
 {
@@ -87,7 +92,14 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.Customers.Single(x => x.CustomerId == id);
+                var entity = _uow.Customers.Set()
+                                           .Include(x => x.RecordStatus)
+                                           .Include(x => x.ChepStokGirisIhracatciFirmaNavigation)
+                                           .Include(x => x.ChepStokGirisIhracatciFirmaNavigation)
+                                           .Include(x => x.CreatedByNavigation)
+                                           .Include(x => x.ModifiedByNavigation)
+                                           .Include(x => x.DeletedByNavigation)
+                                           .FirstOrDefault(x => x.CustomerId == id);
 
                 var result = _mapper.Map<CustomerDTO>(entity);
 
@@ -112,20 +124,19 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.Customers.GetAll();
+                var entities = _uow.Customers.Set().Include(x => x.RecordStatus).ToList();
 
-                List<CustomerDTO> list = new List<CustomerDTO>();
+                var list = new List<CustomerDTO>();
 
                 foreach (var item in entities)
                 {
-                    CustomerDTO obj = new CustomerDTO
+                    var obj = new CustomerDTO
                     {
                         CustomerId = item.CustomerId,
                         Name = item.Name,
                         CreatedDate = item.CreatedDate,
                         RecordStatusName = item.RecordStatus.RecordStatusName,
                         UserNameWs = item.UserNameWs,
-                        
                     };
 
                     list.Add(obj);

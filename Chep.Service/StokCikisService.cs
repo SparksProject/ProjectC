@@ -5,6 +5,8 @@ using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +65,9 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.ChepStokCikis.Single(x => x.StokCikisId == id);
+                var entity = _uow.ChepStokCikis.Set()
+                                               .Include(x => x.ChepStokCikisDetay)
+                                               .FirstOrDefault(x => x.StokCikisId == id);
 
                 var result = Map(entity);
 
@@ -79,7 +83,11 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokCikis.GetAll();
+                var entities = _uow.ChepStokCikis.Set()
+                                                 .Include(x => x.ChepStokCikisDetay)
+                                                 .Include(x => x.IhracatciFirmaNavigation)
+                                                 .Include(x => x.IhracatciFirmaNavigation)
+                                                 .ToList();
 
                 if (!string.IsNullOrEmpty(referansNo))
                 {
@@ -231,7 +239,9 @@ namespace Chep.Service
                 IhracatciFirma = obj.IhracatciFirma,
                 ReferansNo = obj.ReferansNo,
                 StokCikisId = obj.StokCikisId,
-                TpsNo = obj.TPSNo,
+                TpsNo = obj.TpsNo,
+                IslemTarihi = obj.IslemTarihi,
+                TpsTarih = obj.TpsTarih,
 
                 ChepStokCikisDetay = details,
             };
@@ -247,7 +257,7 @@ namespace Chep.Service
             return new ChepStokCikisDetay
             {
                 Miktar = obj.Miktar,
-                Kg = obj.Kg,
+                Kg = (int)obj.Kg,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId
@@ -285,19 +295,27 @@ namespace Chep.Service
                 details.AddRange(obj.ChepStokCikisDetay.Select(item => Map(item)));
             }
 
-            return new ChepStokCikisDTO
+            var target = new ChepStokCikisDTO
             {
                 BeyannameNo = obj.BeyannameNo,
                 BeyannameTarihi = obj.BeyannameTarihi,
                 IhracatciFirma = obj.IhracatciFirma,
                 ReferansNo = obj.ReferansNo,
                 StokCikisId = obj.StokCikisId,
-                TPSNo = obj.TpsNo,
+                TpsNo = obj.TpsNo,
                 IslemTarihi = obj.IslemTarihi,
-                TPSTarih = obj.TpsTarih,
+                TpsTarih = obj.TpsTarih,
 
                 ChepStokCikisDetayList = details
             };
+
+            if (obj.IhracatciFirmaNavigation != null)
+            {
+                target.IhracatciFirmaName = obj.IhracatciFirmaNavigation.Name;
+            }
+
+
+            return target;
         }
     }
 }

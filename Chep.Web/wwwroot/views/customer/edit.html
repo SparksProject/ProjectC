@@ -1,5 +1,5 @@
 ﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
-<div class="row" ng-show="user.userPermissions.CustomerList">
+<div class="row" ng-show="user.userPermissions.customerList">
     <div class="col-md-3">
         <div class="form-group">
             <a ui-sref="customers/list" class="btn btn-block m-icon btn-eo">
@@ -68,7 +68,7 @@
                     <!--/span-->
                 </div>
                 <!--/row-->
-                 <div class="row">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label col-md-3">
@@ -111,6 +111,135 @@
                     <!--/span-->
                 </div>
                 <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Vergi Dairesi
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Vergi Dairesi" ng-model="object.taxName" name="TaxName" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Vergi No
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Vergi No" ng-model="object.taxNo" name="TaxNo" maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                İl
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="İl" ng-model="object.city" name="City" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Ülke
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Ülke" ng-model="object.country" name="Country" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Telefon
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Telefon" ng-model="object.telephone" name="Telephone" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Adres
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Adres" ng-model="object.adress" name="Adress" maxlength="500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
                 <h3 class="form-section">Kayıt Durumu</h3>
                 <!--/row-->
                 <div class="row">
@@ -143,7 +272,7 @@
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
-                                <a ng-show="user.userPermissions.CustomerGet" href="#/customers/get/{{object.CustomerId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                <a ng-show="user.userPermissions.customerGet" href="#/customers/get/{{object.customerId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chep.Service
 {
@@ -195,9 +196,15 @@ namespace Chep.Service
         /// <returns>ResponseDTO</returns>
         public ResponseDTO Get(int id)
         {
-            var entity = _uow.MailReports.Single(x => x.MailReportId == id);
+            var entity = _uow.MailReports.Set()
+                                         .Include(x => x.RecordStatus)
+                                         .Include(x => x.PeriodType)
+                                         .FirstOrDefault(x => x.MailReportId == id);
 
-            var mailList = _uow.MailReportUsers.Search(x => x.MailReportId == id);
+            var mailList = _uow.MailReportUsers.Set()
+                                               .Include(x => x.MailDefinition)
+                                               .Where(x => x.MailReportId == id)
+                                               .ToList();
 
             var result = Mapper.MapSingle<MailReport, MailReportDTO>(entity);
             result.RecordStatusName = entity.RecordStatus.RecordStatusName;

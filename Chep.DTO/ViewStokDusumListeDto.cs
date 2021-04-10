@@ -11,7 +11,7 @@ namespace Chep.DTO
         public string Marka { get; set; }
         public string Model { get; set; }
         public string UrunKod { get; set; }
-        public string TPSNo { get; set; }
+        public string TpsNo { get; set; }
         public string PONo { get; set; }
         public int GirisMiktar { get; set; }
         public int KalanMiktar { get; set; }

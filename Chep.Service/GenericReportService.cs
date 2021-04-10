@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chep.Service
 {
@@ -156,7 +157,10 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.GenericReports.Single(x => x.GenericReportId == id);
+                var entity = _uow.GenericReports.Set()
+                                                .Include(x => x.RecordStatus)
+                                                .Include(x => x.GenericReportUser)
+                                                .Single(x => x.GenericReportId == id);
 
                 var result = Mapper.MapSingle<GenericReport, GenericReportDTO>(entity);
                 result.RecordStatusName = entity.RecordStatus.RecordStatusName;
@@ -199,7 +203,7 @@ namespace Chep.Service
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                var entities = uow.GenericReports.Search(x => x.GenericReportUser.Any(y => y.UserId == id) || x.IsDefaultReport);
+                var entities = uow.GenericReports.Set().Include(x => x.RecordStatus).Where(x => x.GenericReportUser.Any(y => y.UserId == id) || x.IsDefaultReport).ToList();
 
                 if (entities.Count == 0)
                 {

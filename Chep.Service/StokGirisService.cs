@@ -5,6 +5,8 @@ using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +55,8 @@ namespace Chep.Service
                 {
                     foreach (var item in obj.ChepStokGirisDetayList)
                     {
+                        item.StokGirisId = obj.StokGirisId;
+
                         if (item.StokGirisDetayId > 0)
                         {
                             var rr = _uow.ChepStokGirisDetay.Update(Map(item));
@@ -86,7 +90,11 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.ChepStokGiris.Single(x => x.StokGirisId == id);
+                var entity = _uow.ChepStokGiris.Set()
+                                               .Include(x => x.ChepStokGirisDetay)
+                                               .Include(x => x.IhracatciFirmaNavigation)
+                                               .Include(x => x.IthalatciFirmaNavigation)
+                                               .FirstOrDefault(x => x.StokGirisId == id);
 
                 var result = Map(entity);
 
@@ -102,7 +110,11 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokGiris.GetAll();
+                var entities = _uow.ChepStokGiris.Set()
+                                                 .Include(x => x.ChepStokGirisDetay)
+                                                 .Include(x => x.IhracatciFirmaNavigation)
+                                                 .Include(x => x.IthalatciFirmaNavigation)
+                                                 .ToList();
 
                 if (!string.IsNullOrEmpty(referansNo))
                 {
@@ -143,7 +155,10 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokGirisDetay.GetAll();
+                var entities = _uow.ChepStokGirisDetay.Set()
+                                                      .Include(x => x.ChepStokCikisDetay)
+                                                      .Include(x => x.StokGiris)
+                                                      .ToList();
 
                 var list = new List<ChepStokGirisDetayDTO>();
 
@@ -184,9 +199,9 @@ namespace Chep.Service
                 ReferansNo = obj.ReferansNo,
                 StokGirisId = obj.StokGirisId,
                 SureSonuTarihi = obj.SureSonuTarihi,
-                TpsAciklama = obj.TPSAciklama,
-                TpsDurum = obj.TPSDurum,
-                TpsNo = obj.TPSNo,
+                TpsAciklama = obj.TpsAciklama,
+                TpsDurum = obj.TpsDurum,
+                TpsNo = obj.TpsNo,
             };
         }
 
@@ -201,7 +216,7 @@ namespace Chep.Service
             {
                 CikisRejimi = obj.CikisRejimi,
                 EsyaCinsi = obj.EsyaCinsi,
-                EsyaGtip = obj.EsyaGTIP,
+                EsyaGtip = obj.EsyaGtip,
                 FaturaDovizKod = obj.FaturaDovizKod,
                 FaturaNo = obj.FaturaNo,
                 FaturaTarih = obj.FaturaTarih,
@@ -212,13 +227,13 @@ namespace Chep.Service
                 Miktar = obj.Miktar,
                 Model = obj.Model,
                 OlcuBirimi = obj.OlcuBirimi,
-                PoNo = obj.PO,
+                PoNo = obj.PoNo,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,
                 StokGirisId = obj.StokGirisId,
-                TpsBeyan = obj.TPSBeyan,
-                TpsSiraNo = obj.TPSSiraNo,
+                TpsBeyan = obj.TpsBeyan,
+                TpsSiraNo = obj.TpsSiraNo,
                 UrunKod = obj.UrunKod,
             };
         }
@@ -234,7 +249,7 @@ namespace Chep.Service
             {
                 CikisRejimi = obj.CikisRejimi,
                 EsyaCinsi = obj.EsyaCinsi,
-                EsyaGTIP = obj.EsyaGtip,
+                EsyaGtip = obj.EsyaGtip,
                 FaturaDovizKod = obj.FaturaDovizKod,
                 FaturaNo = obj.FaturaNo,
                 FaturaTarih = obj.FaturaTarih,
@@ -245,13 +260,13 @@ namespace Chep.Service
                 Miktar = obj.Miktar,
                 Model = obj.Model,
                 OlcuBirimi = obj.OlcuBirimi,
-                PO = obj.PoNo,
+                PoNo = obj.PoNo,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
                 StokGirisDetayId = obj.StokGirisDetayId,
                 StokGirisId = obj.StokGirisId,
-                TPSBeyan = obj.TpsBeyan,
-                TPSSiraNo = obj.TpsSiraNo,
+                TpsBeyan = obj.TpsBeyan,
+                TpsSiraNo = obj.TpsSiraNo,
                 UrunKod = obj.UrunKod,
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
@@ -259,7 +274,7 @@ namespace Chep.Service
             if (obj.StokGiris != null)
             {
                 target.BeyannameNo = obj.StokGiris.BeyannameNo;
-                target.TPSNo = obj.StokGiris.TpsNo;
+                target.TpsNo = obj.StokGiris.TpsNo;
             }
 
             if (obj.ChepStokCikisDetay != null)
@@ -294,7 +309,7 @@ namespace Chep.Service
                 details.AddRange(obj.ChepStokGirisDetay.Select(item => Map(item)));
             }
 
-            return new ChepStokGirisDTO
+            var target = new ChepStokGirisDTO
             {
                 BasvuruTarihi = obj.BasvuruTarihi,
                 BelgeAd = obj.BelgeAd,
@@ -308,12 +323,23 @@ namespace Chep.Service
                 ReferansNo = obj.ReferansNo,
                 StokGirisId = obj.StokGirisId,
                 SureSonuTarihi = obj.SureSonuTarihi,
-                TPSAciklama = obj.TpsAciklama,
-                TPSDurum = obj.TpsDurum,
-                TPSNo = obj.TpsNo,
+                TpsAciklama = obj.TpsAciklama,
+                TpsDurum = obj.TpsDurum,
+                TpsNo = obj.TpsNo,
 
                 ChepStokGirisDetayList = details
             };
+
+            if (obj.IhracatciFirmaNavigation != null)
+            {
+                target.IhracatciFirmaName = obj.IhracatciFirmaNavigation.Name;
+            }
+            if (obj.IthalatciFirmaNavigation != null)
+            {
+                target.IthalatciFirmaName = obj.IthalatciFirmaNavigation.Name;
+            }
+
+            return target;
         }
     }
 }

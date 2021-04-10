@@ -15,13 +15,17 @@ namespace Chep.Core
             ChepStokGirisIhracatciFirmaNavigation = new HashSet<ChepStokGiris>();
             ChepStokGirisIthalatciFirmaNavigation = new HashSet<ChepStokGiris>();
             Product = new HashSet<Product>();
-            SparksArchive = new HashSet<SparksArchive>();
             UserCustomer = new HashSet<UserCustomer>();
-            WorkOrderMaster = new HashSet<WorkOrderMaster>();
         }
 
         public Guid CustomerId { get; set; }
         public string Name { get; set; }
+        public string TaxNo { get; set; }
+        public string TaxName { get; set; }
+        public string Adress { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Telephone { get; set; }
         public string OtherId { get; set; }
         public string UserNameWs { get; set; }
         public string PasswordWs { get; set; }
@@ -43,8 +47,6 @@ namespace Chep.Core
         public virtual ICollection<ChepStokGiris> ChepStokGirisIhracatciFirmaNavigation { get; set; }
         public virtual ICollection<ChepStokGiris> ChepStokGirisIthalatciFirmaNavigation { get; set; }
         public virtual ICollection<Product> Product { get; set; }
-        public virtual ICollection<SparksArchive> SparksArchive { get; set; }
         public virtual ICollection<UserCustomer> UserCustomer { get; set; }
-        public virtual ICollection<WorkOrderMaster> WorkOrderMaster { get; set; }
     }
 }

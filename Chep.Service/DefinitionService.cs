@@ -1,28 +1,26 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+
 using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
-using System;
-using System.Collections.Generic;
 
 namespace Chep.Service
 {
     public class DefinitionService : BaseService, IDefinitionService
     {
         private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
 
-        public DefinitionService(IUnitOfWork uow, IMapper mapper)
+        public DefinitionService(IUnitOfWork uow)
         {
             _uow = uow;
-            _mapper = mapper;
         }
 
         public ResponseDTO GetCustomers()
         {
             var entities = _uow.Customers.GetAll();
 
-            List<CustomerDTO> list = new List<CustomerDTO>();
+            var list = new List<CustomerDTO>();
 
             foreach (var item in entities)
             {
@@ -40,7 +38,7 @@ namespace Chep.Service
         {
             var entities = _uow.PeriodTypes.GetAll();
 
-            List<PeriodTypeDTO> list = new List<PeriodTypeDTO>();
+            var list = new List<PeriodTypeDTO>();
 
             foreach (var item in entities)
             {
@@ -58,7 +56,7 @@ namespace Chep.Service
         {
             var entities = _uow.RecordStatuses.GetAll();
 
-            List<RecordStatusDTO> list = new List<RecordStatusDTO>();
+            var list = new List<RecordStatusDTO>();
 
             foreach (var item in entities)
             {
@@ -76,7 +74,7 @@ namespace Chep.Service
         {
             var entities = _uow.Users.GetAll();
 
-            List<UserDTO> list = new List<UserDTO>();
+            var list = new List<UserDTO>();
 
             foreach (var item in entities)
             {
@@ -95,7 +93,7 @@ namespace Chep.Service
         {
             var entities = _uow.MailDefinitions.GetAll();
 
-            List<MailDefinitionDto> list = new List<MailDefinitionDto>();
+            var list = new List<MailDefinitionDto>();
 
             foreach (var item in entities)
             {

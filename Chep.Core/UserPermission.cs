@@ -34,20 +34,12 @@ namespace Chep.Core
         public bool MailReportGet { get; set; }
         public bool MailReportEdit { get; set; }
         public bool MailReportExecute { get; set; }
-        public bool WorkOrderMasterList { get; set; }
-        public bool WorkOrderMasterAdd { get; set; }
-        public bool WorkOrderMasterGet { get; set; }
-        public bool WorkOrderMasterEdit { get; set; }
         public bool UserList { get; set; }
         public bool UserAdd { get; set; }
         public bool UserGet { get; set; }
         public bool UserEdit { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public bool SparksArchiveImport { get; set; }
-        public bool SparksArchiveList { get; set; }
-        public bool EvrimArchiveList { get; set; }
-        public bool BeyannameList { get; set; }
         public bool StokGirisList { get; set; }
         public bool StokGirisEdit { get; set; }
         public bool StokGirisGet { get; set; }

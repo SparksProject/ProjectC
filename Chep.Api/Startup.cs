@@ -80,15 +80,9 @@ namespace Chep.Api
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IDefinitionService, DefinitionService>();
-            services.AddScoped<IWorkordermasterService, WorkordermasterService>();
-            services.AddScoped<IInvoiceService, InvoiceService>();
-            services.AddScoped<IInvoiceDetailService, InvoiceDetailService>();
-            services.AddScoped<ITeminatService, TeminatService>();
-            services.AddScoped<ISparksArchiveService, SparksArchiveService>();
             services.AddScoped<IStokGirisService, StokGirisService>();
             services.AddScoped<IStokCikisService, StokCikisService>();
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

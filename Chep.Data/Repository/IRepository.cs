@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
@@ -6,6 +8,7 @@ namespace Chep.Data.Repository
 {
     public interface IRepository<T> where T : class
     {
+        DbSet<T> Set();
         T Add(T entity);
         void AddRange(List<T> obj);
         T Update(T entity);
