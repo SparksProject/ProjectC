@@ -129,6 +129,15 @@
                         // Çift tıklanan satırı düzenleme ayarı
                         e.component.editRow(e.rowIndex);
                     },
+                    onInitNewRow: function (e) {
+                        var ds = e.component.getDataSource();
+
+                        if (ds._items.length) {
+                            e.data.tpsSiraNo = $(ds._items).last()[0].tpsSiraNo + 1;
+                        } else {
+                            e.data.tpsSiraNo = 1;
+                        }
+                    },
                     editing: {
                         mode: "row",
                         allowUpdating: true,
