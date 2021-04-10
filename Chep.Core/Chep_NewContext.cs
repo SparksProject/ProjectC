@@ -268,6 +268,18 @@ namespace Chep.Core
             {
                 entity.Property(e => e.CustomerId).HasDefaultValueSql("(newid())");
 
+                entity.Property(e => e.Adress)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.City)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Country)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.CreatedDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
@@ -285,6 +297,16 @@ namespace Chep.Core
                 entity.Property(e => e.PasswordWs).HasMaxLength(20);
 
                 entity.Property(e => e.RecordStatusId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TaxName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.TaxNo)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Telephone).HasMaxLength(100);
 
                 entity.Property(e => e.UserNameWs).HasMaxLength(20);
 
