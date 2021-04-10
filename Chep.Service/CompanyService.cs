@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
+
 using Chep.Core;
 using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
+
+using Microsoft.EntityFrameworkCore;
+
 using System;
+using System.Linq;
 
 namespace Chep.Service
 {
@@ -59,7 +64,12 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.Companies.Single(x => x.CompanyId == id);
+                var entity = _uow.Companies.Set()
+                                           .Include(x => x.RecordStatus)
+                                           .Include(x => x.CreatedByNavigation)
+                                           .Include(x => x.ModifiedByNavigation)
+                                           .Include(x => x.DeletedByNavigation)
+                                           .FirstOrDefault(x => x.CompanyId == id);
 
                 var result = _mapper.Map<CompanyDTO>(entity);
                 result.RecordStatusName = entity.RecordStatus.RecordStatusName;

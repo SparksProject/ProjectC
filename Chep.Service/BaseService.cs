@@ -1,4 +1,5 @@
 ﻿using Chep.DTO;
+
 using System;
 
 namespace Chep.Service
@@ -41,6 +42,7 @@ namespace Chep.Service
                 ResultMessage = Enums.ResponseMessage.NOTFOUND
             };
         }
+
         public ResponseDTO Warning(string message)
         {
             return new ResponseDTO

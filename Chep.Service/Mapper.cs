@@ -9,7 +9,8 @@
                 cfg.CreateMap<S, T>();
             });
 
-            AutoMapper.IMapper mapper = config.CreateMapper();
+            var mapper = config.CreateMapper();
+
             var result = mapper.Map<S, T>((S)source);
 
             return result;

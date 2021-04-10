@@ -6,6 +6,8 @@ using Chep.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Chep.Service
 {
@@ -109,7 +111,13 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.Products.Single(x => x.ProductId == id);
+                var entity = _uow.Products.Set()
+                                          .Include(x => x.RecordStatus)
+                                          .Include(x => x.Customer)
+                                          .Include(x => x.CreatedByNavigation)
+                                          .Include(x => x.ModifiedByNavigation)
+                                          .Include(x => x.DeletedByNavigation)
+                                          .FirstOrDefault(x => x.ProductId == id);
 
                 var result = _mapper.Map<ProductDTO>(entity);
 
@@ -135,18 +143,18 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.Products.Search(x => x.CustomerId == customerId);
+                var entities = _uow.Products.Set().Where(x => x.CustomerId == customerId).ToList();
 
                 if (entities.Count == 0)
                 {
                     return NotFound();
                 }
 
-                List<ProductDTO> list = new List<ProductDTO>();
+                var list = new List<ProductDTO>();
 
                 foreach (var item in entities)
                 {
-                    ProductDTO obj = new ProductDTO
+                    var obj = new ProductDTO
                     {
                         ProductId = item.ProductId,
                         CustomerName = item.Customer.Name,

@@ -5,6 +5,8 @@ using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +65,9 @@ namespace Chep.Service
         {
             try
             {
-                var entity = _uow.ChepStokCikis.Single(x => x.StokCikisId == id);
+                var entity = _uow.ChepStokCikis.Set()
+                                               .Include(x => x.ChepStokCikisDetay)
+                                               .FirstOrDefault(x => x.StokCikisId == id);
 
                 var result = Map(entity);
 
@@ -79,7 +83,11 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokCikis.GetAll();
+                var entities = _uow.ChepStokCikis.Set()
+                                                 .Include(x => x.ChepStokCikisDetay)
+                                                 .Include(x => x.IhracatciFirmaNavigation)
+                                                 .Include(x => x.IhracatciFirmaNavigation)
+                                                 .ToList();
 
                 if (!string.IsNullOrEmpty(referansNo))
                 {

@@ -5,6 +5,8 @@ using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
 
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +104,9 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokGiris.GetAll();
+                var entities = _uow.ChepStokGiris.Set()
+                                                 .Include(x => x.ChepStokGirisDetay)
+                                                 .ToList();
 
                 if (!string.IsNullOrEmpty(referansNo))
                 {
@@ -143,7 +147,10 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokGirisDetay.GetAll();
+                var entities = _uow.ChepStokGirisDetay.Set()
+                                                      .Include(x => x.ChepStokCikisDetay)
+                                                      .Include(x => x.StokGiris)
+                                                      .ToList();
 
                 var list = new List<ChepStokGirisDetayDTO>();
 

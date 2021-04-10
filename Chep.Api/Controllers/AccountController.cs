@@ -72,32 +72,32 @@ namespace Chep.Api.Controllers
             }
         }
 
-        [HttpGet("Get/{id}")]
-        public IActionResult Get(string id)
-        {
-            var token = Request.Headers["Authorization"];
+        //[HttpGet("Get/{id}")]
+        //public IActionResult Get(string id)
+        //{
+        //    var token = Request.Headers["Authorization"];
 
-            var result = _userService.Get(token, id);
+        //    var result = _userService.Get(token, id);
 
-            switch (result.ResultMessage)
-            {
-                case Enums.ResponseMessage.OK:
-                    return StatusCode(StatusCodes.Status200OK, result.Result);
-                case Enums.ResponseMessage.ERROR:
-                    return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
-                case Enums.ResponseMessage.NOTFOUND:
-                    return StatusCode(StatusCodes.Status404NotFound);
-                case Enums.ResponseMessage.UNAUTHORIZED:
-                    return StatusCode(StatusCodes.Status401Unauthorized);
-                default:
-                    return StatusCode(StatusCodes.Status404NotFound);
-            }
-        }
+        //    switch (result.ResultMessage)
+        //    {
+        //        case Enums.ResponseMessage.OK:
+        //            return StatusCode(StatusCodes.Status200OK, result.Result);
+        //        case Enums.ResponseMessage.ERROR:
+        //            return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
+        //        case Enums.ResponseMessage.NOTFOUND:
+        //            return StatusCode(StatusCodes.Status404NotFound);
+        //        case Enums.ResponseMessage.UNAUTHORIZED:
+        //            return StatusCode(StatusCodes.Status401Unauthorized);
+        //        default:
+        //            return StatusCode(StatusCodes.Status404NotFound);
+        //    }
+        //}
 
         [HttpGet("GetUser/{id}")]
         public IActionResult GetUser(int id)
         {
-            var result = _userService.GetUser(id);
+            var result = _userService.Get(id);
 
             switch (result.ResultMessage)
             {

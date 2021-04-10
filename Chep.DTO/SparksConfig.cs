@@ -22,6 +22,5 @@ namespace Chep.DTO
         public int RefreshExpiration { get; set; }
         [Display(Name = "expiryDuration")]
         public int ExpiryDuration { get; set; }
-
     }
 }

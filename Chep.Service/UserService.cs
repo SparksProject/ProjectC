@@ -42,11 +42,11 @@ namespace Chep.Service
             {
                 var entities = _uow.Users.GetAll();
 
-                List<UserDTO> list = new List<UserDTO>();
+                var list = new List<UserDTO>();
 
                 foreach (var item in entities)
                 {
-                    UserDTO obj = new UserDTO
+                    var obj = new UserDTO
                     {
                         UserId = item.UserId,
                         UserName = item.UserName,
@@ -70,11 +70,19 @@ namespace Chep.Service
         /// Get user by id
         /// </summary>
         /// <returns>ResponseDTO</returns>
-        public ResponseDTO GetUser(int id)
+        public ResponseDTO Get(int id)
         {
             try
             {
-                var entity = _uow.Users.Single(x => x.UserId == id);
+                var entity = _uow.Users.Set()
+                                       .Include(x => x.UserType)
+                                       .Include(x => x.UserCustomer)
+                                       .Include(x => x.UserPermission)
+                                       .Include(x => x.RecordStatus)
+                                       .Include(x => x.CreatedByNavigation)
+                                       .Include(x => x.ModifiedByNavigation)
+                                       .Include(x => x.DeletedByNavigation)
+                                       .FirstOrDefault(x => x.UserId == id);
 
                 var target = Mapper.MapSingle<User, UserDTO>(entity);
                 target.UserTypeName = entity.UserType.UserTypeName;
