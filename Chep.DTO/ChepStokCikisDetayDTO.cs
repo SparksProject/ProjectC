@@ -6,6 +6,6 @@
         public int StokCikisId { get; set; }
         public int StokGirisDetayId { get; set; }
         public int? Miktar { get; set; }
-        public int? Kg { get; set; }
+        public decimal? Kg { get; set; }
     }
 }

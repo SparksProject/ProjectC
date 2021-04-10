@@ -143,7 +143,11 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.Products.Set().Where(x => x.CustomerId == customerId).ToList();
+                var entities = _uow.Products.Set()
+                                            .Include(x => x.RecordStatus)
+                                            .Include(x => x.Customer)
+                                            .Where(x => x.CustomerId == customerId)
+                                            .ToList();
 
                 if (entities.Count == 0)
                 {

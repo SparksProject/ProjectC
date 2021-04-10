@@ -164,10 +164,6 @@ namespace Chep.Service
                         MailReportEdit = true,
                         MailReportGet = true,
                         MailReportList = true,
-                        WorkOrderMasterAdd = true,
-                        WorkOrderMasterEdit = true,
-                        WorkOrderMasterGet = true,
-                        WorkOrderMasterList = true,
                         ProductAdd = true,
                         ProductEdit = true,
                         ProductGet = true,
@@ -176,10 +172,6 @@ namespace Chep.Service
                         UserEdit = true,
                         UserGet = true,
                         UserList = true,
-                        EvrimArchiveList = true,
-                        BeyannameList = true,
-                        SparksArchiveList = true,
-                        SparksArchiveImport = true,
                         CreatedDate = obj.CreatedDate,
                     });
                 }
@@ -206,10 +198,6 @@ namespace Chep.Service
                         MailReportEdit = obj.UserPermissions.MailReportEdit,
                         MailReportGet = obj.UserPermissions.MailReportGet,
                         MailReportList = obj.UserPermissions.MailReportList,
-                        WorkOrderMasterAdd = obj.UserPermissions.WorkOrderMasterAdd,
-                        WorkOrderMasterEdit = obj.UserPermissions.WorkOrderMasterEdit,
-                        WorkOrderMasterGet = obj.UserPermissions.WorkOrderMasterGet,
-                        WorkOrderMasterList = obj.UserPermissions.WorkOrderMasterList,
                         ProductAdd = obj.UserPermissions.ProductAdd,
                         ProductEdit = obj.UserPermissions.ProductEdit,
                         ProductGet = obj.UserPermissions.ProductGet,
@@ -218,8 +206,6 @@ namespace Chep.Service
                         UserEdit = obj.UserPermissions.UserEdit,
                         UserGet = obj.UserPermissions.UserGet,
                         UserList = obj.UserPermissions.UserList,
-                        SparksArchiveImport = obj.UserPermissions.SparksArchiveImport,
-                        SparksArchiveList = obj.UserPermissions.SparksArchiveList,
                         StokGirisAdd = obj.UserPermissions.StokGirisAdd,
                         StokGirisEdit = obj.UserPermissions.StokGirisEdit,
                         StokGirisGet = obj.UserPermissions.StokGirisGet,
@@ -228,8 +214,6 @@ namespace Chep.Service
                         StokCikisEdit = obj.UserPermissions.StokCikisEdit,
                         StokCikisGet = obj.UserPermissions.StokCikisGet,
                         StokCikisList = obj.UserPermissions.StokCikisList,
-                        BeyannameList = obj.UserPermissions.BeyannameList,
-                        EvrimArchiveList = obj.UserPermissions.EvrimArchiveList
                     });
                 }
 
@@ -385,48 +369,40 @@ namespace Chep.Service
 
                 if (result.UserPermissions != null)
                 {
-                    claims.Add(new Claim("CompanyEdit", result.UserPermissions.CompanyEdit.ToString()));
-                    claims.Add(new Claim("CustomerEdit", result.UserPermissions.CustomerEdit.ToString()));
-                    claims.Add(new Claim("CustomerAdd", result.UserPermissions.CustomerAdd.ToString()));
-                    claims.Add(new Claim("CustomerGet", result.UserPermissions.CustomerGet.ToString()));
-                    claims.Add(new Claim("CustomerList", result.UserPermissions.CustomerList.ToString()));
-                    claims.Add(new Claim("GenericReportAdd", result.UserPermissions.GenericReportAdd.ToString()));
-                    claims.Add(new Claim("GenericReportEdit", result.UserPermissions.GenericReportEdit.ToString()));
-                    claims.Add(new Claim("GenericReportExecute", result.UserPermissions.GenericReportExecute.ToString()));
-                    claims.Add(new Claim("GenericReportGet", result.UserPermissions.GenericReportGet.ToString()));
-                    claims.Add(new Claim("GenericReportList", result.UserPermissions.GenericReportList.ToString()));
-                    claims.Add(new Claim("MailDefinitionAdd", result.UserPermissions.MailDefinitionAdd.ToString()));
-                    claims.Add(new Claim("MailDefinitionEdit", result.UserPermissions.MailDefinitionEdit.ToString()));
-                    claims.Add(new Claim("MailDefinitionGert", result.UserPermissions.MailDefinitionGert.ToString()));
-                    claims.Add(new Claim("MailDefinitionList", result.UserPermissions.MailDefinitionList.ToString()));
-                    claims.Add(new Claim("ProductAdd", result.UserPermissions.ProductAdd.ToString()));
-                    claims.Add(new Claim("ProductEdit", result.UserPermissions.ProductEdit.ToString()));
-                    claims.Add(new Claim("ProductGet", result.UserPermissions.ProductGet.ToString()));
-                    claims.Add(new Claim("ProductList", result.UserPermissions.ProductList.ToString()));
-                    claims.Add(new Claim("UserAdd", result.UserPermissions.UserAdd.ToString()));
-                    claims.Add(new Claim("UserEdit", result.UserPermissions.UserEdit.ToString()));
-                    claims.Add(new Claim("UserGet", result.UserPermissions.UserGet.ToString()));
-                    claims.Add(new Claim("UserList", result.UserPermissions.UserList.ToString()));
-                    claims.Add(new Claim("WorkOrderMasterList", result.UserPermissions.WorkOrderMasterList.ToString()));
-                    claims.Add(new Claim("WorkOrderMasterGet", result.UserPermissions.WorkOrderMasterGet.ToString()));
-                    claims.Add(new Claim("WorkOrderMasterEdit", result.UserPermissions.WorkOrderMasterEdit.ToString()));
-                    claims.Add(new Claim("WorkOrderMasterAdd", result.UserPermissions.WorkOrderMasterAdd.ToString()));
-                    claims.Add(new Claim("MailReportList", result.UserPermissions.MailReportList.ToString()));
-                    claims.Add(new Claim("MailReportGet", result.UserPermissions.MailReportGet.ToString()));
-                    claims.Add(new Claim("MailReportEdit", result.UserPermissions.MailReportEdit.ToString()));
-                    claims.Add(new Claim("MailReportAdd", result.UserPermissions.MailReportAdd.ToString()));
-                    claims.Add(new Claim("SparksArchiveList", result.UserPermissions.SparksArchiveList.ToString()));
-                    claims.Add(new Claim("SparksArchiveImport", result.UserPermissions.SparksArchiveImport.ToString()));
-                    claims.Add(new Claim("EvrimArchiveList", result.UserPermissions.EvrimArchiveList.ToString()));
-                    claims.Add(new Claim("BeyannameList", result.UserPermissions.BeyannameList.ToString()));
-                    claims.Add(new Claim("StokGirisAdd", result.UserPermissions.StokGirisAdd.ToString()));
-                    claims.Add(new Claim("StokGirisEdit", result.UserPermissions.StokGirisEdit.ToString()));
-                    claims.Add(new Claim("StokGirisGet", result.UserPermissions.StokGirisGet.ToString()));
-                    claims.Add(new Claim("StokGirisList", result.UserPermissions.StokGirisList.ToString()));
-                    claims.Add(new Claim("StokCikisAdd", result.UserPermissions.StokCikisAdd.ToString()));
-                    claims.Add(new Claim("StokCikisEdit", result.UserPermissions.StokCikisEdit.ToString()));
-                    claims.Add(new Claim("StokCikisGet", result.UserPermissions.StokCikisGet.ToString()));
-                    claims.Add(new Claim("StokCikisList", result.UserPermissions.StokCikisList.ToString()));
+                    claims.Add(new Claim("CompanyEdit", $"{result.UserPermissions.CompanyEdit}"));
+                    claims.Add(new Claim("CustomerEdit", $"{result.UserPermissions.CustomerEdit}"));
+                    claims.Add(new Claim("CustomerAdd", $"{result.UserPermissions.CustomerAdd}"));
+                    claims.Add(new Claim("CustomerGet", $"{result.UserPermissions.CustomerGet}"));
+                    claims.Add(new Claim("CustomerList", $"{result.UserPermissions.CustomerList}"));
+                    claims.Add(new Claim("GenericReportAdd", $"{result.UserPermissions.GenericReportAdd}"));
+                    claims.Add(new Claim("GenericReportEdit", $"{result.UserPermissions.GenericReportEdit}"));
+                    claims.Add(new Claim("GenericReportExecute", $"{result.UserPermissions.GenericReportExecute}"));
+                    claims.Add(new Claim("GenericReportGet", $"{result.UserPermissions.GenericReportGet}"));
+                    claims.Add(new Claim("GenericReportList", $"{result.UserPermissions.GenericReportList}"));
+                    claims.Add(new Claim("MailDefinitionAdd", $"{result.UserPermissions.MailDefinitionAdd}"));
+                    claims.Add(new Claim("MailDefinitionEdit", $"{result.UserPermissions.MailDefinitionEdit}"));
+                    claims.Add(new Claim("MailDefinitionGert", $"{result.UserPermissions.MailDefinitionGert}"));
+                    claims.Add(new Claim("MailDefinitionList", $"{result.UserPermissions.MailDefinitionList}"));
+                    claims.Add(new Claim("ProductAdd", $"{result.UserPermissions.ProductAdd}"));
+                    claims.Add(new Claim("ProductEdit", $"{result.UserPermissions.ProductEdit}"));
+                    claims.Add(new Claim("ProductGet", $"{result.UserPermissions.ProductGet}"));
+                    claims.Add(new Claim("ProductList", $"{result.UserPermissions.ProductList}"));
+                    claims.Add(new Claim("UserAdd", $"{result.UserPermissions.UserAdd}"));
+                    claims.Add(new Claim("UserEdit", $"{result.UserPermissions.UserEdit}"));
+                    claims.Add(new Claim("UserGet", $"{result.UserPermissions.UserGet}"));
+                    claims.Add(new Claim("UserList", $"{result.UserPermissions.UserList}"));
+                    claims.Add(new Claim("MailReportList", $"{result.UserPermissions.MailReportList}"));
+                    claims.Add(new Claim("MailReportGet", $"{result.UserPermissions.MailReportGet}"));
+                    claims.Add(new Claim("MailReportEdit", $"{result.UserPermissions.MailReportEdit}"));
+                    claims.Add(new Claim("MailReportAdd", $"{result.UserPermissions.MailReportAdd}"));
+                    claims.Add(new Claim("StokGirisAdd", $"{result.UserPermissions.StokGirisAdd}"));
+                    claims.Add(new Claim("StokGirisEdit", $"{result.UserPermissions.StokGirisEdit}"));
+                    claims.Add(new Claim("StokGirisGet", $"{result.UserPermissions.StokGirisGet}"));
+                    claims.Add(new Claim("StokGirisList", $"{result.UserPermissions.StokGirisList}"));
+                    claims.Add(new Claim("StokCikisAdd", $"{result.UserPermissions.StokCikisAdd}"));
+                    claims.Add(new Claim("StokCikisEdit", $"{result.UserPermissions.StokCikisEdit}"));
+                    claims.Add(new Claim("StokCikisGet", $"{result.UserPermissions.StokCikisGet}"));
+                    claims.Add(new Claim("StokCikisList", $"{result.UserPermissions.StokCikisList}"));
                 }
 
                 var now = DateTime.UtcNow;

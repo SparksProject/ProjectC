@@ -24,11 +24,11 @@ namespace Chep.Api.Controllers
 
             if (_userService.ValidateToken(token))
             {
-                return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK, "OK");
             }
             else
             {
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status401Unauthorized, "Unauthorized");
             }
         }
 

@@ -16,10 +16,13 @@ namespace Chep.DTO
         public string BeyannameNo { get; set; }
         public string BelgeAd { get; set; }
         public string BelgeSart { get; set; }
-        public string TPSAciklama { get; set; }
+        public string TpsAciklama { get; set; }
         public string ReferansNo { get; set; }
-        public string TPSNo { get; set; }
-        public string TPSDurum { get; set; }
+        public string TpsNo { get; set; }
+        public string TpsDurum { get; set; }
+
+        public string IthalatciFirmaName { get; set; }
+        public string IhracatciFirmaName { get; set; }
 
         public string BasvuruTarihiDisplay => $"{BasvuruTarihi:dd.MM.yyyy}";
         public string SureSonuTarihiDisplay => $"{SureSonuTarihi:dd.MM.yyyy}";

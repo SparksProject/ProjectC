@@ -6,11 +6,11 @@ namespace Chep.DTO
     public class ChepStokGirisDetayDTO
     {
         public int StokGirisDetayId { get; set; }
-        public int? StokGirisId { get; set; }
-        public int? TPSSiraNo { get; set; }
-        public string TPSBeyan { get; set; }
+        public int StokGirisId { get; set; }
+        public int? TpsSiraNo { get; set; }
+        public string TpsBeyan { get; set; }
         public string EsyaCinsi { get; set; }
-        public string EsyaGTIP { get; set; }
+        public string EsyaGtip { get; set; }
         public string FaturaNo { get; set; }
         public DateTime? FaturaTarih { get; set; }
         public decimal? FaturaTutar { get; set; }
@@ -25,11 +25,11 @@ namespace Chep.DTO
         public string Marka { get; set; }
         public string Model { get; set; }
         public string UrunKod { get; set; }
-        public string PO { get; set; }
+        public string PoNo { get; set; }
 
 
         public string BeyannameNo { get; set; }
-        public string TPSNo { get; set; }
+        public string TpsNo { get; set; }
         public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }
 
         public string FaturaTarihDisplay => FaturaTarih == null ? null : $"{FaturaTarih.Value:dd.MM.yyyy}";
