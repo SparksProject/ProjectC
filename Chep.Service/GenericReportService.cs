@@ -201,9 +201,12 @@ namespace Chep.Service
         /// <returns>ResponseDTO</returns>
         public ResponseDTO List(int id)
         {
-            using (UnitOfWork uow = new UnitOfWork())
+            try
             {
-                var entities = uow.GenericReports.Set().Include(x => x.RecordStatus).Where(x => x.GenericReportUser.Any(y => y.UserId == id) || x.IsDefaultReport).ToList();
+                var entities = _uow.GenericReports.Set()
+                                                  .Include(x => x.RecordStatus)
+                                                  .Where(x => x.GenericReportUser.Any(y => y.UserId == id) || x.IsDefaultReport)
+                                                  .ToList();
 
                 if (entities.Count == 0)
                 {
@@ -227,6 +230,10 @@ namespace Chep.Service
                 }
 
                 return Success(target);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
             }
         }
 
