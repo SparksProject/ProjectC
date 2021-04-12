@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Chep.Service.Interface;
+using System;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Chep.Api.Controllers
 {
@@ -10,18 +13,52 @@ namespace Chep.Api.Controllers
     public class DefinitionController : ControllerBase
     {
         private readonly IDefinitionService _service;
+        private IWebHostEnvironment _environment;
 
-        public DefinitionController(IDefinitionService service)
+        public DefinitionController(IDefinitionService service, IWebHostEnvironment environment)
         {
             _service = service;
+            _environment = environment;
         }
 
         [HttpGet("GetPeriodTypes")]
         public IActionResult GetPeriodTypes()
         {
-            var result = _service.GetPeriodTypes().Result;
+            try
+            {
+                var result = _service.GetPeriodTypes().Result;
 
-            return StatusCode(StatusCodes.Status200OK, result);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                var basePath = Path.Combine(_environment.WebRootPath, "files");
+                var filename = "logs.txt";
+
+                var message = string.Empty;
+
+                if (ex.Message != null)
+                {
+                    message += ex.Message;
+                    message += Environment.NewLine;
+                }
+
+                if (ex.InnerException != null)
+                {
+                    message += ex.InnerException.ToString();
+                    message += Environment.NewLine;
+                }
+
+                if (ex.StackTrace != null)
+                {
+                    message += ex.StackTrace;
+                    message += Environment.NewLine;
+                }
+
+                System.IO.File.AppendAllText(Path.Combine(basePath, filename), message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         [HttpGet("GetRecordStatuses")]
