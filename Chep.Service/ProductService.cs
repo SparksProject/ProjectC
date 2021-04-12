@@ -170,6 +170,8 @@ namespace Chep.Service
                         Uom = item.Uom,
                         GrossWeight = item.GrossWeight,
                         NetWeight = item.NetWeight,
+                        SapCode =item.SapCode,
+                        CountryOfOrigin=item.CountryOfOrigin,
                         RecordStatusName = item.RecordStatus.RecordStatusName
                     };
 
@@ -228,6 +230,8 @@ namespace Chep.Service
                             Uom = item[5].ToString(),
                             GrossWeight = Convert.ToDouble(item[6]),
                             NetWeight = Convert.ToDouble(item[7]),
+                            SapCode = item[8].ToString(),
+                            CountryOfOrigin = item[9].ToString(),
                             RecordStatusId = 1,
                             CreatedDate = DateTime.Now,
                             CreatedBy = createdBy
@@ -268,6 +272,10 @@ namespace Chep.Service
                         else if (product.Uom != null && product.Uom.Length > 3)
                         {
                             message += $"{product.ProductNo} numaralı ürünün Uom alanı 3 karakterden fazla olamaz!";
+                        }
+                        else if (product.CountryOfOrigin != null && product.CountryOfOrigin.Length > 3)
+                        {
+                            message += $"{product.ProductNo} numaralı ürünün Menşei Alanı alanı 3 karakterden fazla olamaz!";
                         }
 
                         if (!string.IsNullOrEmpty(message))
