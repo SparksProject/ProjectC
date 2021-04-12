@@ -54,6 +54,11 @@
                         bodyModalPadding = 0;
                     }
                 },
+                "shown.bs.modal": function () {
+                    SparksXService.GetNextReferenceNumber('Cikis').success(function (data) {
+                        $scope.object.referansNo = data;
+                    });
+                },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
                     $scope.$apply();
@@ -396,7 +401,7 @@
                                 text: "Ekle",
                                 icon: "add",
                                 onItemClick: function () {
-                                    $scope.object.StokCikisId = 0;
+                                    $scope.object.stokCikisId = 0;
                                     $modalDetail.modal('show');
                                 }
                             });
@@ -529,9 +534,7 @@
     };
 
     $scope.BindFields = function () {
-        $scope.object = {
-            ReferansNo: 20210000015,
-        };
+        $scope.object = {};
 
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
@@ -539,6 +542,22 @@
     };
 
     $scope.Action = function (obj) {
+        if (obj.islemTarihi == "") {
+            obj.islemTarihi = null;
+        }
+
+        if (obj.beyannameTarihi == "") {
+            obj.beyannameTarihi = null;
+        }
+
+        if (obj.tpsTarih == "") {
+            obj.tpsTarih = null;
+        }
+
+        obj.referansNo = parseInt(obj.referansNo);
+
+        console.log(obj);
+
         App.startPageLoading();
 
         var ds = $gridDetail.getDataSource();

@@ -19,7 +19,7 @@ namespace Chep.Api.Controllers
 
         // Crud
         [HttpGet("List")]
-        public IActionResult List([FromQuery] string referansNo, [FromQuery] string beyannameNo, [FromQuery] string tpsNo)
+        public IActionResult List([FromQuery] int? referansNo, [FromQuery] string beyannameNo, [FromQuery] string tpsNo)
         {
             var result = _service.List(referansNo, beyannameNo, tpsNo);
 
@@ -53,6 +53,8 @@ namespace Chep.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 case Enums.ResponseMessage.UNAUTHORIZED:
                     return StatusCode(StatusCodes.Status401Unauthorized);
+                case Enums.ResponseMessage.BADREQUEST:
+                    return StatusCode(StatusCodes.Status400BadRequest);
                 default:
                     return StatusCode(StatusCodes.Status404NotFound);
             }
@@ -108,5 +110,6 @@ namespace Chep.Api.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
             }
         }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -69,8 +71,6 @@ namespace Chep.Core
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.ReferansNo).HasMaxLength(20);
-
                 entity.Property(e => e.TpsNo).HasMaxLength(50);
 
                 entity.Property(e => e.TpsTarih).HasColumnType("datetime");
@@ -117,10 +117,6 @@ namespace Chep.Core
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
                 entity.Property(e => e.GumrukKod).HasMaxLength(6);
-
-                entity.Property(e => e.ReferansNo)
-                    .IsRequired()
-                    .HasMaxLength(16);
 
                 entity.Property(e => e.SureSonuTarihi).HasColumnType("datetime");
 

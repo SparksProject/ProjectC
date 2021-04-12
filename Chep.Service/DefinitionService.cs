@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
+using System.Linq;
 
 namespace Chep.Service
 {
@@ -140,5 +141,62 @@ namespace Chep.Service
 
             return Success(target);
         }
+
+        public ResponseDTO GetCustoms()
+        {
+            var entities = _uow.Customs.GetAll();
+
+            var list = entities.Select(item => new CustomDTO
+            {
+                CustomsId = item.CustomsId,
+                CustomsName = item.CustomsName,
+                EdiCode = item.EdiCode,
+                Status = item.Status
+            });
+
+            return Success(list);
+        }
+
+        public ResponseDTO GetNextReferenceNumber(string stockType)
+        {
+            try
+            {
+                var target = string.Empty;
+
+                switch (stockType)
+                {
+                    case "Giris":
+                        if (_uow.ChepStokGiris.Any(x => true))
+                        {
+                            var max = _uow.ChepStokGiris.Set().Max(x => x.ReferansNo);
+                            ++max;
+
+                            target = max.ToString();
+                        }
+                        break;
+                    case "Cikis":
+                        if (_uow.ChepStokCikis.Any(x => true))
+                        {
+                            var max = _uow.ChepStokCikis.Set().Max(x => x.ReferansNo);
+                            ++max;
+
+                            target = max.ToString();
+                        }
+                        break;
+                }
+
+                if (string.IsNullOrEmpty(target))
+                {
+                    target = $"{DateTime.Now.Year}{"1".PadLeft(5, '0')}"; // 202100001
+                }
+
+                return Success(target);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
     }
 }

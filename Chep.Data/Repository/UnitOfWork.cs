@@ -55,6 +55,7 @@ namespace Chep.Data.Repository
         public Repository<Teminat> Teminats { get { return new Repository<Teminat>(_context); } }
         public Repository<SparksArchive> SparksArchives { get { return new Repository<SparksArchive>(_context); } }
         public Repository<UserCustomer> UserCustomers { get { return new Repository<UserCustomer>(_context); } }
+        public Repository<Customs> Customs { get { return new Repository<Customs>(_context); } }
 
         // chep
         public Repository<ChepStokGiris> ChepStokGiris { get { return new Repository<ChepStokGiris>(_context); } }

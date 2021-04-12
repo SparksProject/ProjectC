@@ -17,7 +17,7 @@ namespace Chep.DTO
         public string BelgeAd { get; set; }
         public string BelgeSart { get; set; }
         public string TpsAciklama { get; set; }
-        public string ReferansNo { get; set; }
+        public int ReferansNo { get; set; }
         public string TpsNo { get; set; }
         public string TpsDurum { get; set; }
 

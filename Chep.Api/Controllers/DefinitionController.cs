@@ -71,5 +71,21 @@ namespace Chep.Api.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
+        [HttpGet("GetCustoms")]
+        public IActionResult GetCustoms()
+        {
+            var result = _service.GetCustoms().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("GetNextReferenceNumber/{id}")]
+        public IActionResult GetNextReferenceNumber(string id)
+        {
+            var result = _service.GetNextReferenceNumber(id).Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
     }
 }

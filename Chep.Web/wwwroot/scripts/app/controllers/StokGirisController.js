@@ -27,6 +27,11 @@
                     $gridDetail.cancelEditData();
 
                     DeletedChepStokGirisDetayIdList = [];
+                },
+                "shown.bs.modal": function () {
+                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
+                        $scope.object.referansNo = data;
+                    });
                 }
             }).modal({
                 show: false,
@@ -345,16 +350,32 @@
     };
 
     $scope.BindFields = function () {
-        $scope.object = {
-            ReferansNo: 20210000015,
-        };
+        $scope.object = {};
 
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
         });
+
+        SparksXService.GetCustoms().success(function (data) {
+            $scope.customs = data;
+        });
     };
 
     $scope.Action = function (obj) {
+        if (obj.basvuruTarihi == "") {
+            obj.basvuruTarihi = null;
+        }
+
+        if (obj.beyannameTarihi == "") {
+            obj.beyannameTarihi = null;
+        }
+
+        if (obj.sureSonuTarihi == "") {
+            obj.sureSonuTarihi = null;
+        }
+
+        obj.referansNo = parseInt(obj.referansNo);
+
         App.startPageLoading();
 
         var ds = $gridDetail.getDataSource();

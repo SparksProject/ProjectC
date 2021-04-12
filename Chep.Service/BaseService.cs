@@ -43,6 +43,16 @@ namespace Chep.Service
             };
         }
 
+        public ResponseDTO BadRequest()
+        {
+            return new ResponseDTO
+            {
+                IsSuccesful = false,
+                Result = null,
+                ResultMessage = Enums.ResponseMessage.BADREQUEST
+            };
+        }
+
         public ResponseDTO Warning(string message)
         {
             return new ResponseDTO
