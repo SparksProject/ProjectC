@@ -134,9 +134,9 @@
                                         <i class="fa fa-desktop"></i>
                                     </span>
                                     <ui-select ng-model="$parent.object.userTypeId" name="UserTypeId" theme="bootstrap" ng-required="true">
-                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.UserTypeName}}</ui-select-match>
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.userTypeName}}</ui-select-match>
                                         <ui-select-choices repeat="item.UserTypeId as item in userTypes | filter: $select.search">
-                                            <div ng-bind-html="item.UserTypeName | highlight: $select.search"></div>
+                                            <div ng-bind-html="item.userTypeName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -242,55 +242,8 @@
                         </div>
                     </div>
                     <!--/span-->
-                </div>                
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                <span class="required"></span>
-                            </label>
-                            <div class="md-checkbox-inline">
-                                <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2412" class="md-check" ng-model="object.userPermissions.WorkOrderMasterList" checkbox>
-                                    <label for="checkbox2412">
-                                        <span></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> Listeleme
-                                    </label>
-                                </div>
-                                <!-- /checkbox -->
-                                <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2112" class="md-check" ng-model="object.userPermissions.WorkOrderMasterAdd" checkbox>
-                                    <label for="checkbox2112">
-                                        <span></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> Yeni Kayıt
-                                    </label>
-                                </div>
-                                <!-- /checkbox -->
-                                <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2212" class="md-check" ng-model="object.userPermissions.WorkOrderMasterGet" checkbox>
-                                    <label for="checkbox2212">
-                                        <span></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> Detay
-                                    </label>
-                                </div>
-                                <!-- /checkbox -->
-                                <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2312" class="md-check" ng-model="object.userPermissions.WorkOrderMasterEdit" checkbox>
-                                    <label for="checkbox2312">
-                                        <span></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span> Düzenleme
-                                    </label>
-                                </div>
-                                <!-- /checkbox -->
-                            </div>
-                        </div>
-                    </div>
-                    <!--/span-->
-                </div>
+                </div>          
+               
                 <!--/row-->
                 <h4 class="form-section">Rapor İşlemleri</h4>
                 <!--/row-->

@@ -87,10 +87,12 @@
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "stokGirisDetayId", caption: "Stok Girişi Referans No",
+                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No - TPS Sıra No",
                             lookup: {
                                 dataSource: storeStokGiris, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
-                                displayExpr: "referansNo", // Dönen veride basılacak metin
+                                displayExpr: function (data) {
+                                    return data.beyannameNo + " - " + data.tpsSiraNo;
+                                }, // Dönen veride basılacak metin
                                 valueExpr: "stokGirisDetayId", // Dönen veride basılacak value
                             },
                             editCellTemplate: function (cellElement, cellInfo) {
@@ -100,7 +102,9 @@
                                     dataSource: storeStokGiris,
                                     value: cellInfo.value,
                                     valueExpr: "stokGirisDetayId",
-                                    displayExpr: "referansNo",
+                                    displayExpr: function (data) {
+                                        return data.beyannameNo + " - " + data.tpsSiraNo;
+                                    }, // Dönen veride basılacak metin
                                     contentTemplate: function (eDDBTemplate) {
 
                                         // DropDownBox içine DataGrid kurulumu
@@ -109,10 +113,10 @@
                                             remoteOperations: true,
                                             columns: [
                                                 {
-                                                    dataField: "tPSSiraNo", caption: "TPS Sıra No", dataType: "number",
+                                                    dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                     format: { type: "fixedPoint", precision: 0 },
                                                 },
-                                                { dataField: "tPSBeyan", caption: "TPS Beyan", },
+                                                { dataField: "tpsBeyan", caption: "TPS Beyan", },
                                                 { dataField: "faturaNo", caption: "Fatura No", },
                                                 { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
                                                 {
