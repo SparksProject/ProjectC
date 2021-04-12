@@ -17,11 +17,13 @@ namespace Chep.Service
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IDefinitionService _definitionService;
 
-        public StokCikisService(IUnitOfWork uow, IMapper mapper)
+        public StokCikisService(IUnitOfWork uow, IMapper mapper, IDefinitionService definitionService)
         {
             _uow = uow;
             _mapper = mapper;
+            _definitionService = definitionService;
         }
 
 
@@ -29,6 +31,13 @@ namespace Chep.Service
         {
             try
             {
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+
+                obj.ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Cikis").Result);
+
                 var entity = Map(obj);
 
                 var result = _uow.ChepStokCikis.Add(entity);
@@ -47,6 +56,11 @@ namespace Chep.Service
         {
             try
             {
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+
                 var entity = Map(obj);
 
                 var result = _uow.ChepStokCikis.Update(entity);
@@ -79,7 +93,7 @@ namespace Chep.Service
             }
         }
 
-        public ResponseDTO List(string referansNo, string beyannameNo, string tpsNo)
+        public ResponseDTO List(int? referansNo, string beyannameNo, string tpsNo)
         {
             try
             {
@@ -89,10 +103,9 @@ namespace Chep.Service
                                                  .Include(x => x.IhracatciFirmaNavigation)
                                                  .ToList();
 
-                if (!string.IsNullOrEmpty(referansNo))
+                if (referansNo.HasValue && referansNo.Value > 0)
                 {
-                    referansNo = referansNo.ToLower();
-                    entities = entities.Where(x => x.ReferansNo != null).Where(x => x.ReferansNo.ToLower().Contains(referansNo)).ToList();
+                    entities = entities.Where(x => x.ReferansNo.Equals(referansNo.Value)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(beyannameNo))

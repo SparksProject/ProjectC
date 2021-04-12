@@ -91,8 +91,16 @@
         return GetDefinitionRequestJson('GetUsers');
     };
 
+    this.GetCustoms = function () {
+        return GetDefinitionRequestJson('GetCustoms');
+    };
+
     this.GetParameterTypes = function () {
         return GetDefinitionRequestJson('GetParameterTypes');
+    };
+
+    this.GetNextReferenceNumber = function (id) {
+        return GetDefinitionRequestJsonById('GetNextReferenceNumber', id);
     };
 
     //Login========================>

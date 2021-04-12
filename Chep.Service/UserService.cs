@@ -40,7 +40,7 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.Users.GetAll();
+                var entities = _uow.Users.Set().Include(x => x.UserType).Include(x => x.RecordStatus).ToList();
 
                 var list = new List<UserDTO>();
 
@@ -50,7 +50,7 @@ namespace Chep.Service
                     {
                         UserId = item.UserId,
                         UserName = item.UserName,
-                        RecordStatusName = item.RecordStatusId == 1 ? "Aktif" : "Pasif",
+                        RecordStatusName = item.RecordStatus.RecordStatusName,
                         UserTypeName = item.UserType.UserTypeName,
                         CreatedDate = item.CreatedDate
                     };

@@ -9,6 +9,7 @@
             NOTFOUND = 3,
             UNAUTHORIZED = 4,
             WARNING = 5,
+            BADREQUEST
         }
 
         public enum PeriodType

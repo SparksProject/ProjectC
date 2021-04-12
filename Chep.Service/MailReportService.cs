@@ -40,9 +40,9 @@ namespace Chep.Service
         /// <returns>ResponseDTO</returns>
         public ResponseDTO List()
         {
-            using (UnitOfWork uow = new UnitOfWork())
+            try
             {
-                var entities = uow.MailReports.GetAll();
+                var entities = _uow.MailReports.Set().Include(x => x.RecordStatus).Include(x => x.PeriodType).ToList();
 
                 if (entities.Count == 0)
                 {
@@ -68,6 +68,10 @@ namespace Chep.Service
                 }
 
                 return Success(list);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
             }
         }
 

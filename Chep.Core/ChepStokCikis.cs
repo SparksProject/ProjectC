@@ -15,7 +15,7 @@ namespace Chep.Core
         }
 
         public int StokCikisId { get; set; }
-        public string ReferansNo { get; set; }
+        public int ReferansNo { get; set; }
         public DateTime? IslemTarihi { get; set; }
         public string BeyannameNo { get; set; }
         public DateTime? BeyannameTarihi { get; set; }

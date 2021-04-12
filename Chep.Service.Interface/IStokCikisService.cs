@@ -6,7 +6,7 @@ namespace Chep.Service.Interface
 {
     public interface IStokCikisService
     {
-        ResponseDTO List(string referansNo, string beyannameNo, string tpsNo);
+        ResponseDTO List(int? referansNo, string beyannameNo, string tpsNo);
         ResponseDTO Add(ChepStokCikisDTO obj);
         ResponseDTO Edit(ChepStokCikisDTO obj);
         ResponseDTO Get(int id);

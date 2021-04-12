@@ -62,17 +62,10 @@
     <Folder Include="dbo\Views\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\WorkOrderSend.sql" />
-    <Build Include="dbo\Tables\WorkOrderMaster.sql" />
-    <Build Include="dbo\Tables\WorkOrderLog.sql" />
     <Build Include="dbo\Tables\UserType.sql" />
     <Build Include="dbo\Tables\UserPermission.sql" />
     <Build Include="dbo\Tables\UserCustomer.sql" />
     <Build Include="dbo\Tables\User.sql" />
-    <Build Include="dbo\Tables\TeminatTipi.sql" />
-    <Build Include="dbo\Tables\TeminatDurum.sql" />
-    <Build Include="dbo\Tables\Teminat.sql" />
-    <Build Include="dbo\Tables\SparksArchive.sql" />
     <Build Include="dbo\Tables\SentMail.sql" />
     <Build Include="dbo\Tables\RecordStatus.sql" />
     <Build Include="dbo\Tables\Product.sql" />
@@ -80,8 +73,6 @@
     <Build Include="dbo\Tables\MailReportUser.sql" />
     <Build Include="dbo\Tables\MailReport.sql" />
     <Build Include="dbo\Tables\MailDefinition.sql" />
-    <Build Include="dbo\Tables\InvoiceDetail.sql" />
-    <Build Include="dbo\Tables\Invoice.sql" />
     <Build Include="dbo\Tables\GenericReportUser.sql" />
     <Build Include="dbo\Tables\GenericReportParameter.sql" />
     <Build Include="dbo\Tables\GenericReport.sql" />

@@ -6,7 +6,7 @@ namespace Chep.DTO
     public class ChepStokCikisDTO
     {
         public int StokCikisId { get; set; }
-        public string ReferansNo { get; set; }
+        public int ReferansNo { get; set; }
         public DateTime? IslemTarihi { get; set; }
         public DateTime? BeyannameTarihi { get; set; }
         public DateTime? TpsTarih { get; set; }

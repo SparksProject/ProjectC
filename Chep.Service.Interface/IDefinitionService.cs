@@ -11,5 +11,7 @@ namespace Chep.Service.Interface
         ResponseDTO GetMailDefinitions();
         ResponseDTO GetUserTypes();
         ResponseDTO GetParameterTypes();
+        ResponseDTO GetCustoms();
+        ResponseDTO GetNextReferenceNumber(string stockType);
     }
 }

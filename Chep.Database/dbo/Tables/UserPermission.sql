@@ -24,20 +24,12 @@
     [MailReportGet]        BIT      NOT NULL,
     [MailReportEdit]       BIT      NOT NULL,
     [MailReportExecute]    BIT      NOT NULL,
-    [WorkOrderMasterList]  BIT      NOT NULL,
-    [WorkOrderMasterAdd]   BIT      NOT NULL,
-    [WorkOrderMasterGet]   BIT      NOT NULL,
-    [WorkOrderMasterEdit]  BIT      NOT NULL,
     [UserList]             BIT      NOT NULL,
     [UserAdd]              BIT      NOT NULL,
     [UserGet]              BIT      NOT NULL,
     [UserEdit]             BIT      NOT NULL,
     [CreatedDate]          DATETIME NOT NULL,
     [ModifiedDate]         DATETIME NULL,
-    [SparksArchiveImport]  BIT      CONSTRAINT [DF_UserPermission_SparksArchiveImport] DEFAULT ((0)) NOT NULL,
-    [SparksArchiveList]    BIT      CONSTRAINT [DF_UserPermission_SparksArchiveList] DEFAULT ((0)) NOT NULL,
-    [EvrimArchiveList]     BIT      CONSTRAINT [DF_UserPermission_SparksArchiveList1] DEFAULT ((0)) NOT NULL,
-    [BeyannameList]        BIT      CONSTRAINT [DF_UserPermission_BeyannameList] DEFAULT ((0)) NOT NULL,
     [StokGirisList]        BIT      NOT NULL,
     [StokGirisEdit]        BIT      NOT NULL,
     [StokGirisGet]         BIT      NOT NULL,
@@ -49,4 +41,6 @@
     CONSTRAINT [PK__UserPerm__A90F88B23AC71F0C] PRIMARY KEY CLUSTERED ([UserPermissionId] ASC),
     CONSTRAINT [FK_UserPermission_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
 );
+
+
 
