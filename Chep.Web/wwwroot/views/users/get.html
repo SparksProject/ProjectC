@@ -77,7 +77,7 @@
                                 <p class="form-control-static" ng-bind="object.UserName"></p>
                             </div>
                         </div>
-                    </div>                 
+                    </div>
                 </div>
                 <!--/row-->
                 <div class="row">
@@ -189,7 +189,7 @@
                     </div>
                     <!--/span-->
                 </div>
-                <!--/row-->               
+                <!--/row-->
                 <h4 class="form-section">Rapor İşlemleri</h4>
                 <!--/row-->
                 <div class="row">
@@ -361,7 +361,7 @@
                     <!--/span-->
                 </div>
                 <!--/row-->
-                <h4 class="form-section">Ürün İşlemleri</h4>
+                <h4 class="form-section">Stok Kartı İşlemleri</h4>
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-12">
@@ -461,8 +461,108 @@
                         </div>
                     </div>
                     <!--/span-->
-                </div>              
+                </div>
 
+                <h4 class="form-section">Stok Giriş İşlemleri</h4>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                <span class="required"></span>
+                            </label>
+                            <div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox61" class="md-check" ng-model="object.userPermissions.userList" checkbox>
+                                    <label for="checkbox61">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Listeleme
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox62" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
+                                    <label for="checkbox62">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Yeni Kayıt
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox63" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
+                                    <label for="checkbox63">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Detay
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox64" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
+                                    <label for="checkbox64">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Düzenleme
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <h4 class="form-section">Stok Çıkış İşlemleri</h4>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                <span class="required"></span>
+                            </label>
+                            <div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox61" class="md-check" ng-model="object.userPermissions.userList" checkbox>
+                                    <label for="checkbox61">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Listeleme
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox62" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
+                                    <label for="checkbox62">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Yeni Kayıt
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox63" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
+                                    <label for="checkbox63">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Detay
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="checkbox64" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
+                                    <label for="checkbox64">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Düzenleme
+                                    </label>
+                                </div>
+                                <!-- /checkbox -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
                 <div data-ng-include="'/views/partials/recordstatus.html'"></div>
             </div>
             <div class="form-actions">
