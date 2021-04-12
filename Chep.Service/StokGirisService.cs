@@ -36,7 +36,7 @@ namespace Chep.Service
                     return BadRequest();
                 }
 
-                obj.ReferansNo = (int)_definitionService.GetNextReferenceNumber("Cikis").Result;
+                obj.ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Giris").Result);
 
                 var entity = Map(obj);
 
