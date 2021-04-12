@@ -665,6 +665,8 @@ SparksXApp.directive('dtProduct', function ($compile) {
                 { "mDataProp": "uom" },
                 { "mDataProp": "grossWeight" },
                 { "mDataProp": "netWeight" },
+                { "mDataProp": "sapCode" },
+                { "mDataProp": "countryOfOrigin" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {
@@ -982,6 +984,8 @@ SparksXApp.directive('dtStokgiris', function ($compile) {
                 { "mDataProp": "uom" },
                 { "mDataProp": "grossWeight" },
                 { "mDataProp": "netWeight" },
+                { "mDataProp": "sapCode" },
+                { "mDataProp": "countryOfOrigin" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {
