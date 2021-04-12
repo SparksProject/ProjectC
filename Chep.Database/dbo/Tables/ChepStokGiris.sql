@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[ChepStokGiris] (
     [StokGirisId]     INT              IDENTITY (1, 1) NOT NULL,
-    [ReferansNo]      NVARCHAR (16)    NOT NULL,
+    [ReferansNo]      INT              NOT NULL,
     [TpsNo]           NVARCHAR (30)    NOT NULL,
     [TpsDurum]        NVARCHAR (50)    NOT NULL,
     [BasvuruTarihi]   DATETIME         NULL,
@@ -18,6 +18,8 @@
     CONSTRAINT [FK_ChepStokGiris_Customer] FOREIGN KEY ([IthalatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId]),
     CONSTRAINT [FK_ChepStokGiris_Customer1] FOREIGN KEY ([IhracatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId])
 );
+
+
 
 
 
