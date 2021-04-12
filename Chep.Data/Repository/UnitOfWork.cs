@@ -37,22 +37,18 @@ namespace Chep.Data.Repository
         public Repository<Customer> Customers { get { return new Repository<Customer>(_context); } }
         public Repository<ExceptionLog> ExceptionLogs { get { return new Repository<ExceptionLog>(_context); } }
         public Repository<GenericReport> GenericReports { get { return new Repository<GenericReport>(_context); } }
-        public Repository<GenericReportParameter> GenericReportParameters { get { return new Repository<GenericReportParameter>(_context); } }
-        public Repository<Invoice> Invoices { get { return new Repository<Invoice>(_context); } }
-        public Repository<InvoiceDetail> InvoiceDetails { get { return new Repository<InvoiceDetail>(_context); } }
+        public Repository<GenericReportParameter> GenericReportParameters { get { return new Repository<GenericReportParameter>(_context); } }        
         public Repository<Product> Products { get { return new Repository<Product>(_context); } }
         public Repository<RecordStatus> RecordStatuses { get { return new Repository<RecordStatus>(_context); } }
         public Repository<SentMail> SentMails { get { return new Repository<SentMail>(_context); } }
         public Repository<User> Users { get { return new Repository<User>(_context); } }
-        public Repository<UserPermission> UserPermissions { get { return new Repository<UserPermission>(_context); } }
-        public Repository<WorkOrderMaster> WorkOrderMasters { get { return new Repository<WorkOrderMaster>(_context); } }
+        public Repository<UserPermission> UserPermissions { get { return new Repository<UserPermission>(_context); } }        
         public Repository<MailDefinition> MailDefinitions { get { return new Repository<MailDefinition>(_context); } }
         public Repository<MailReport> MailReports { get { return new Repository<MailReport>(_context); } }
         public Repository<MailReportUser> MailReportUsers { get { return new Repository<MailReportUser>(_context); } }
         public Repository<PeriodType> PeriodTypes { get { return new Repository<PeriodType>(_context); } }
         public Repository<GenericReportUser> GenericReportUsers { get { return new Repository<GenericReportUser>(_context); } }
-        public Repository<UserType> UserTypes { get { return new Repository<UserType>(_context); } }
-        public Repository<Teminat> Teminats { get { return new Repository<Teminat>(_context); } }
+        public Repository<UserType> UserTypes { get { return new Repository<UserType>(_context); } }       
         public Repository<SparksArchive> SparksArchives { get { return new Repository<SparksArchive>(_context); } }
         public Repository<UserCustomer> UserCustomers { get { return new Repository<UserCustomer>(_context); } }
         public Repository<Customs> Customs { get { return new Repository<Customs>(_context); } }

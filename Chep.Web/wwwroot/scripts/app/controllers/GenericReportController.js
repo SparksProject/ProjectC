@@ -13,7 +13,7 @@
 
 
     $scope.List = function () {
-        SparksXService.ListGenericReports($rootScope.user.UserId).success(function (data) {
+        SparksXService.ListGenericReports($rootScope.user.userId).success(function (data) {
             $scope.list = data.Items;
         });
     };
@@ -149,7 +149,7 @@
     };
 
     $scope.Add = function (obj) {
-        obj.CreatedBy = $rootScope.user.UserId;
+        obj.CreatedBy = $rootScope.user.userId;
 
         SparksXService.AddGenericReport(obj).success(function (data) {
             $state.go('genericreports/get', { id: data });
@@ -158,10 +158,10 @@
 
     $scope.Edit = function (obj) {
         if (obj.RecordStatusId === 1) {
-            obj.ModifiedBy = $rootScope.user.UserId;
+            obj.ModifiedBy = $rootScope.user.userId;
         }
         else {
-            obj.DeletedBy = $rootScope.user.UserId;
+            obj.DeletedBy = $rootScope.user.userId;
         }
         SparksXService.EditGenericReport(obj).success(function (data) {
             $state.go('genericreports/get', { id: data });
@@ -223,8 +223,8 @@
             type: "post",
             data: JSON.stringify({
                 GenericReportId: $stateParams.id,
-                GenericReportParameterList: $scope.object.GenericReportParameterList,
-                UserId: $rootScope.user.UserId
+                GenericReportParameterList: $scope.object.genericReportParameterList,
+                UserId: $rootScope.user.userId
             }),
             contentType: "application/json",
             dataType: "json",
