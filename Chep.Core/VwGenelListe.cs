@@ -10,7 +10,7 @@ namespace Chep.Core
     public partial class VwGenelListe
     {
         public int StokGirisId { get; set; }
-        public string GirisReferansNo { get; set; }
+        public int GirisReferansNo { get; set; }
         public string GirisTpsno { get; set; }
         public string Tpsdurum { get; set; }
         public DateTime? BasvuruTarihi { get; set; }
@@ -21,8 +21,8 @@ namespace Chep.Core
         public string BelgeAd { get; set; }
         public string BelgeSart { get; set; }
         public string Tpsaciklama { get; set; }
-        public int? IthalatciFirma { get; set; }
-        public int? GirisIhracatciFirma { get; set; }
+        public Guid? IthalatciFirma { get; set; }
+        public Guid? GirisIhracatciFirma { get; set; }
         public int? KapAdet { get; set; }
         public int StokGirisDetayId { get; set; }
         public int? GirisTpssiraNo { get; set; }
@@ -45,11 +45,11 @@ namespace Chep.Core
         public string UrunKod { get; set; }
         public string Pono { get; set; }
         public int? StokCikisId { get; set; }
-        public string CikisReferansNo { get; set; }
+        public int? CikisReferansNo { get; set; }
         public DateTime? CikisIslemTarihi { get; set; }
         public string CikisBeyannameNo { get; set; }
         public DateTime? CikisBeyannameTarihi { get; set; }
-        public string CikisIhracatciFirma { get; set; }
+        public Guid? CikisIhracatciFirma { get; set; }
         public string CikisTpsno { get; set; }
         public DateTime? CikisTpstarih { get; set; }
         public int? CikisMiktar { get; set; }

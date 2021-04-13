@@ -268,6 +268,7 @@
                     }
                 },
                 "hidden.bs.modal": function (e) {
+                    $btnDropSubmit.prop('disabled', true);
                     $scope.object.Drop = {};
 
                     $gridDrop.option("dataSource", []);
@@ -275,6 +276,8 @@
                     $modalDrop.find('form .form-group').removeClass('has-success').removeClass('has-error');
                     $modalDrop.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
                     $modalDrop.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
+
+                    $scope.$apply();
                 }
             }).modal({
                 show: false,
@@ -653,18 +656,21 @@
             $gridDrop.beginCustomLoading();
 
             SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
-                if (data.Result != null) {
-                    $gridDrop.option("dataSource", data.Result);
+                if (data.result != null) {
+                    $gridDrop.option("dataSource", data.result);
 
                     $btnDropSubmit.prop('disabled', false);
-                    $gridDrop.endCustomLoading();
                 }
-                if (data.Message != null) {
+                if (data.message != null) {
                     swal({
                         icon: "error",
-                        title: data.Message,
+                        title: data.message,
                     });
                 }
+
+                $gridDrop.endCustomLoading();
+            }).error(function (err) {
+                $gridDrop.endCustomLoading();
             });
         } else {
             angular.forEach(input, function (formElement, fieldName) {
@@ -677,13 +683,20 @@
     };
 
     $scope.InsertStokCikisFromStokDusumListe = function (id, obj) {
-        if (obj.ItemNo == undefined || obj.DropCount == undefined) {
+        if (obj.itemNo == undefined || obj.dropCount == undefined) {
             alert('Ürün Kodu ve Çıkış Adet zorunludur!');
             return false;
         }
 
-        SparksXService.InsertStokCikisFromStokDusumListe(id, obj.ItemNo, obj.DropCount).success(function (data) {
-            console.log(data);
+        SparksXService.InsertStokCikisFromStokDusumListe(id, obj.itemNo, obj.dropCount).success(function (data) {
+            if (data.result) {
+                swal({
+                    icon: "success",
+                    title: "İşlem başarlı!",
+                }, function () {
+                        $modalDrop.modal('hide');
+                });
+            }
         });
     }
 

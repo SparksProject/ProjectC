@@ -5,17 +5,32 @@ namespace Chep.DTO
     public class ViewStokDusumListeDto
     {
         public int StokGirisDetayId { get; set; }
-        public string GirisBeyannameNo { get; set; }
+        public int StokGirisId { get; set; }
+        public string Tpsno { get; set; }
         public string GirisReferansNo { get; set; }
         public DateTime? SureSonuTarihi { get; set; }
+        public string GirisBeyannameNo { get; set; }
+        public DateTime? GirisBeyannameTarihi { get; set; }
         public string Marka { get; set; }
         public string Model { get; set; }
         public string UrunKod { get; set; }
-        public string TpsNo { get; set; }
-        public string PONo { get; set; }
-        public int GirisMiktar { get; set; }
-        public int KalanMiktar { get; set; }
+        public string Pono { get; set; }
+        public int? GirisMiktar { get; set; }
+        public int CikisMiktar { get; set; }
+        public int? KalanMiktar { get; set; }
+        public int UserId { get; set; }
         public int DusulenMiktar { get; set; }
-        public int BakiyeMiktar { get { return KalanMiktar - DusulenMiktar; } }
+        public int BakiyeMiktar
+        {
+            get
+            {
+                if (!KalanMiktar.HasValue)
+                {
+                    return 0;
+                }
+
+                return KalanMiktar.Value - DusulenMiktar;
+            }
+        }
     }
 }

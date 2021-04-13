@@ -12,7 +12,7 @@ namespace Chep.Core
         public int StokGirisDetayId { get; set; }
         public int StokGirisId { get; set; }
         public string Tpsno { get; set; }
-        public string GirisReferansNo { get; set; }
+        public int GirisReferansNo { get; set; }
         public DateTime? SureSonuTarihi { get; set; }
         public string GirisBeyannameNo { get; set; }
         public DateTime? GirisBeyannameTarihi { get; set; }

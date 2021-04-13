@@ -10,11 +10,11 @@ namespace Chep.Core
     public partial class VwStokCikisDetayListe
     {
         public int StokCikisId { get; set; }
-        public string ReferansNo { get; set; }
+        public int ReferansNo { get; set; }
         public DateTime? IslemTarihi { get; set; }
         public string BeyannameNo { get; set; }
         public DateTime? BeyannameTarihi { get; set; }
-        public string IhracatciFirma { get; set; }
+        public Guid? IhracatciFirma { get; set; }
         public string Tpsno { get; set; }
         public DateTime? Tpstarih { get; set; }
         public int StokCikisDetayId { get; set; }

@@ -11,7 +11,7 @@ namespace Chep.Core
     {
         public int? KalanSure { get; set; }
         public int StokGirisId { get; set; }
-        public string ReferansNo { get; set; }
+        public int ReferansNo { get; set; }
         public string Tpsno { get; set; }
         public string Tpsdurum { get; set; }
         public DateTime? BasvuruTarihi { get; set; }
@@ -22,8 +22,8 @@ namespace Chep.Core
         public string BelgeAd { get; set; }
         public string BelgeSart { get; set; }
         public string Tpsaciklama { get; set; }
-        public int? IthalatciFirma { get; set; }
-        public int? IhracatciFirma { get; set; }
+        public Guid? IthalatciFirma { get; set; }
+        public Guid? IhracatciFirma { get; set; }
         public int? KapAdet { get; set; }
         public int StokGirisDetayId { get; set; }
         public int? TpssiraNo { get; set; }

@@ -124,5 +124,21 @@ namespace Chep.Api.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
+        [HttpGet("GetCountries")]
+        public IActionResult GetCountries()
+        {
+            var result = _service.GetCountries().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("GetProducts")]
+        public IActionResult GetProducts()
+        {
+            var result = _service.GetProducts().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
     }
 }
