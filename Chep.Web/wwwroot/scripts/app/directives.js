@@ -665,6 +665,8 @@ SparksXApp.directive('dtProduct', function ($compile) {
                 { "mDataProp": "uom" },
                 { "mDataProp": "grossWeight" },
                 { "mDataProp": "netWeight" },
+                { "mDataProp": "sapCode" },
+                { "mDataProp": "countryOfOrigin" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {
@@ -803,7 +805,7 @@ SparksXApp.directive('dtGenericreport', function ($rootScope) {
                 var reportLink = '<a href="#/genericreports/genericreportexecute/' + data + '">Rapor Al</a>';
                 var isDefaultReportDisplay = '(Sabit Rapor)';
 
-                if ($rootScope.user.UserPermissions.GenericReportGet) {
+                if ($rootScope.user.userPermissions.genericReportGet) {
                     if (full.isDefaultReport) {
                         return detailLink + ' / ' + reportLink + ' / ' + isDefaultReportDisplay;
                     } else {
@@ -982,6 +984,8 @@ SparksXApp.directive('dtStokgiris', function ($compile) {
                 { "mDataProp": "uom" },
                 { "mDataProp": "grossWeight" },
                 { "mDataProp": "netWeight" },
+                { "mDataProp": "sapCode" },
+                { "mDataProp": "countryOfOrigin" },
                 {
                     "mDataProp": "",
                     "mRender": function (data, type, full) {

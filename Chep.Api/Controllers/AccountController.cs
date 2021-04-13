@@ -123,7 +123,7 @@ namespace Chep.Api.Controllers
             {
                 case Enums.ResponseMessage.OK:
                     ResultModel model = new ResultModel { Items = result.Result, TotalCount = (result.Result as List<UserDTO>).Count };
-                    return StatusCode(StatusCodes.Status200OK, model);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 case Enums.ResponseMessage.ERROR:
                     return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
                 case Enums.ResponseMessage.NOTFOUND:
