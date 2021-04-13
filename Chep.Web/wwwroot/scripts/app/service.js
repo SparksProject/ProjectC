@@ -99,6 +99,14 @@
         return GetDefinitionRequestJson('GetParameterTypes');
     };
 
+    this.GetCountries = function () {
+        return GetDefinitionRequestJson('GetCountries');
+    };
+
+    this.GetProducts = function () {
+        return GetDefinitionRequestJson('GetProducts');
+    };
+
     this.GetNextReferenceNumber = function (id) {
         return GetDefinitionRequestJsonById('GetNextReferenceNumber', id);
     };

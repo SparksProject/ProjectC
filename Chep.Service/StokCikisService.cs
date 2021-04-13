@@ -199,10 +199,10 @@ namespace Chep.Service
 
                     if (farkCikis > 0)
                     {
-                        if (farkCikis >= obj.KalanMiktar)
+                        if (obj.KalanMiktar.HasValue && farkCikis >= obj.KalanMiktar)
                         {
-                            obj.DusulenMiktar = obj.KalanMiktar;
-                            cikisAltToplam += obj.KalanMiktar;
+                            obj.DusulenMiktar = obj.KalanMiktar.Value;
+                            cikisAltToplam += obj.KalanMiktar.Value;
                         }
                         else
                         {

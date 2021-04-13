@@ -157,6 +157,39 @@ namespace Chep.Service
             return Success(list);
         }
 
+        public ResponseDTO GetCountries()
+        {
+            var entities = _uow.Country.GetAll();
+
+            var list = entities.Select(item => new CountryDTO
+            {
+                CountryId = item.CountryId,
+                CountryName = item.CountryName,
+                EdiCode = item.EdiCode,
+                Status = item.Status
+            });
+
+            return Success(list);
+        }
+
+        public ResponseDTO GetProducts()
+        {
+            var entities = _uow.Products.GetAll();
+
+            var list = entities.Select(item => new ProductDTO
+            {
+                ProductId = item.ProductId,
+                HsCode = item.HsCode,
+                SapCode = item.SapCode,
+                ProductNameTr = item.ProductNameTr,
+                ProductNameOrg = item.ProductNameOrg,
+                ProductNameEng = item.ProductNameEng,
+                ProductNo = item.ProductNo,
+            });
+
+            return Success(list);
+        }
+
         public ResponseDTO GetNextReferenceNumber(string stockType)
         {
             try

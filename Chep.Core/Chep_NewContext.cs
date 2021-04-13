@@ -467,6 +467,8 @@ namespace Chep.Core
             {
                 entity.Property(e => e.ProductId).ValueGeneratedNever();
 
+                entity.Property(e => e.CountryOfOrigin).HasMaxLength(3);
+
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.DeletedDate).HasColumnType("datetime");
@@ -488,6 +490,8 @@ namespace Chep.Core
                 entity.Property(e => e.ProductNo)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.SapCode).HasMaxLength(50);
 
                 entity.Property(e => e.Uom)
                     .HasMaxLength(3)
@@ -888,10 +892,6 @@ namespace Chep.Core
                 entity.Property(e => e.GirisBeyannameNo).HasMaxLength(16);
 
                 entity.Property(e => e.GirisBeyannameTarihi).HasColumnType("datetime");
-
-                entity.Property(e => e.GirisReferansNo)
-                    .IsRequired()
-                    .HasMaxLength(16);
 
                 entity.Property(e => e.Marka).HasMaxLength(50);
 
