@@ -805,7 +805,7 @@ SparksXApp.directive('dtGenericreport', function ($rootScope) {
                 var reportLink = '<a href="#/genericreports/genericreportexecute/' + data + '">Rapor Al</a>';
                 var isDefaultReportDisplay = '(Sabit Rapor)';
 
-                if ($rootScope.user.UserPermissions.GenericReportGet) {
+                if ($rootScope.user.userPermissions.genericReportGet) {
                     if (full.isDefaultReport) {
                         return detailLink + ' / ' + reportLink + ' / ' + isDefaultReportDisplay;
                     } else {

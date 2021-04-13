@@ -31,13 +31,11 @@ namespace Chep.Api.Controllers
             switch (result.ResultMessage)
             {
                 case Enums.ResponseMessage.OK:
-                    ResultModel model = new ResultModel { Items = result.Result, TotalCount = (result.Result as List<GenericReportDTO>).Count };
-                    return StatusCode(StatusCodes.Status200OK, model);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 case Enums.ResponseMessage.ERROR:
                     return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
                 case Enums.ResponseMessage.NOTFOUND:
-                    model = new ResultModel { Items = null, TotalCount = 0 };
-                    return StatusCode(StatusCodes.Status200OK, model);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 case Enums.ResponseMessage.UNAUTHORIZED:
                     return StatusCode(StatusCodes.Status401Unauthorized);
                 default:

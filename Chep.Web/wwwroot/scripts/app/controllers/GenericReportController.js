@@ -14,7 +14,7 @@
 
     $scope.List = function () {
         SparksXService.ListGenericReports($rootScope.user.userId).success(function (data) {
-            $scope.list = data.Items;
+            $scope.list = data.result;
         });
     };
 
@@ -27,7 +27,7 @@
                     dataSource: [],
                     export: {
                         enabled: true,
-                        fileName: data.GenericReportName
+                        fileName: data.genericReportName
                     },
                     onExporting: function (e) {
                         var workbook = new ExcelJS.Workbook();
@@ -138,7 +138,7 @@
                             }
                         }).then(function () {
                             workbook.xlsx.writeBuffer().then(function (buffer) {
-                                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), data.GenericReportName + '.xlsx');
+                                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), data.genericReportName + '.xlsx');
                             });
                         });
                         e.cancel = true;
@@ -170,7 +170,7 @@
 
     $scope.BindAddFields = function () {
         $scope.object = {
-            GenericReportParameterList: []
+            genericReportParameterList: []
         };
 
         SparksXService.GetUsers().success(function (data) {
@@ -200,23 +200,6 @@
         });
     };
 
-    //$scope.CreateExcel = function (parameters, reportName) {
-
-    //    var object = {
-    //        GenericReportId: $stateParams.id,
-    //        GenericReportName: reportName,
-    //        GenericReportParameterList: parameters
-    //    };
-
-    //    SparksXService.CreateExcel(object).success(function (data) {
-    //        var fullPath = $rootScope.settings.serverPath + '/files/' + data.GenericReportName;
-
-    //        window.location.href = fullPath;
-    //    }).error(function (obj) {
-    //        console.log("Bir hata oluştu!");
-    //    });
-    //}
-
     $scope.GetResultSet = function (isPivot) {
         $.ajax({
             url: $rootScope.settings.serverPath + '/api/GenericReport/GetResultSet',
@@ -243,9 +226,9 @@
 
                         $.each(response[0], function (key, element) {
                             var column = {
-                                dataField: key + ".Value",
-                                caption: element.Caption,
-                                dataType: element.DataType.toLowerCase(),
+                                dataField: key + ".value",
+                                caption: element.caption,
+                                dataType: element.dataType.toLowerCase(),
                             };
 
                             var numberFormats = ["decimal", "double", "int16", "int32", "int64", "byte", "sbyte", "single"];
@@ -281,15 +264,15 @@
                                 //console.log(key, obj);
                                 var value = obj.Value;
 
-                                if (obj.DataType == "Decimal") {
+                                if (obj.dataType == "Decimal") {
                                     value = parseFloat(obj.Value);
-                                } else if (obj.DataType == "Int32" || obj.DataType == "Int16") {
+                                } else if (obj.dataType == "Int32" || obj.dataType == "Int16") {
                                     value = parseInt(obj.value);
-                                } else if (obj.DataType == "DateTime") {
+                                } else if (obj.dataType == "DateTime") {
                                     value = new Date(obj.Value);
                                 }
 
-                                object[obj.Caption] = value;
+                                object[obj.caption] = value;
                             });
 
                             objectList.push(object);
@@ -316,10 +299,10 @@
 
     // Sub Table Helpers (Add and Delete Buttons)
     $scope.AddParameter = function () {
-        $scope.object.GenericReportParameterList.push({});
+        $scope.object.genericReportParameterList.push({});
     };
 
     $scope.DeleteParameter = function (i) {
-        $scope.object.GenericReportParameterList.splice(i, 1);
+        $scope.object.genericReportParameterList.splice(i, 1);
     };
 }]);
