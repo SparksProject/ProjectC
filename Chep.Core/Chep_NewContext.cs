@@ -678,11 +678,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.CikisBeyannameTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.CikisIhracatciFirma).HasMaxLength(50);
-
                 entity.Property(e => e.CikisIslemTarihi).HasColumnType("datetime");
-
-                entity.Property(e => e.CikisReferansNo).HasMaxLength(20);
 
                 entity.Property(e => e.CikisRejimi).HasMaxLength(4);
 
@@ -696,13 +692,11 @@ namespace Chep.Core
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
-                entity.Property(e => e.EsyaGtip)
-                    .HasColumnName("EsyaGTIP")
-                    .HasMaxLength(12);
+                entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
                 entity.Property(e => e.FaturaDovizKod).HasMaxLength(3);
 
-                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.GidecegiUlke).HasMaxLength(20);
 
@@ -713,10 +707,6 @@ namespace Chep.Core
                 entity.Property(e => e.GirisFaturaNo).HasMaxLength(30);
 
                 entity.Property(e => e.GirisFaturaTarih).HasColumnType("datetime");
-
-                entity.Property(e => e.GirisReferansNo)
-                    .IsRequired()
-                    .HasMaxLength(16);
 
                 entity.Property(e => e.GirisTpsno)
                     .IsRequired()
@@ -773,11 +763,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
-                entity.Property(e => e.EsyaGtip)
-                    .HasColumnName("EsyaGTIP")
-                    .HasMaxLength(12);
-
-                entity.Property(e => e.IhracatciFirma).HasMaxLength(50);
+                entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
 
@@ -788,8 +774,6 @@ namespace Chep.Core
                 entity.Property(e => e.Pono)
                     .HasColumnName("PONo")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.ReferansNo).HasMaxLength(20);
 
                 entity.Property(e => e.Tpsno)
                     .HasColumnName("TPSNo")
@@ -822,9 +806,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
-                entity.Property(e => e.EsyaGtip)
-                    .HasColumnName("EsyaGTIP")
-                    .HasMaxLength(12);
+                entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
                 entity.Property(e => e.FaturaDovizKod).HasMaxLength(3);
 
@@ -832,7 +814,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.FaturaTarih).HasColumnType("datetime");
 
-                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.GidecegiUlke).HasMaxLength(20);
 
@@ -849,10 +831,6 @@ namespace Chep.Core
                 entity.Property(e => e.Pono)
                     .HasColumnName("PONo")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.ReferansNo)
-                    .IsRequired()
-                    .HasMaxLength(16);
 
                 entity.Property(e => e.Rejim).HasMaxLength(4);
 
@@ -931,9 +909,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
-                entity.Property(e => e.EsyaGtip)
-                    .HasColumnName("EsyaGTIP")
-                    .HasMaxLength(12);
+                entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
                 entity.Property(e => e.FaturaDovizKod).HasMaxLength(3);
 
@@ -941,7 +917,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.FaturaTarih).HasColumnType("datetime");
 
-                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.GidecegiUlke).HasMaxLength(20);
 
@@ -958,10 +934,6 @@ namespace Chep.Core
                 entity.Property(e => e.Pono)
                     .HasColumnName("PONo")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.ReferansNo)
-                    .IsRequired()
-                    .HasMaxLength(16);
 
                 entity.Property(e => e.Rejim).HasMaxLength(4);
 
@@ -1012,9 +984,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
-                entity.Property(e => e.EsyaGtip)
-                    .HasColumnName("EsyaGTIP")
-                    .HasMaxLength(12);
+                entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
                 entity.Property(e => e.FaturaDovizKod).HasMaxLength(3);
 
@@ -1022,7 +992,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.FaturaTarih).HasColumnType("datetime");
 
-                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.GidecegiUlke).HasMaxLength(20);
 
@@ -1039,10 +1009,6 @@ namespace Chep.Core
                 entity.Property(e => e.Pono)
                     .HasColumnName("PONo")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.ReferansNo)
-                    .IsRequired()
-                    .HasMaxLength(16);
 
                 entity.Property(e => e.Rejim).HasMaxLength(4);
 
