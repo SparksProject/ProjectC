@@ -1,0 +1,132 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row" ng-show="user.userPermissions.ProductList">
+    <div class="col-md-3">
+        <div class="form-group">
+            <a ui-sref="products/list" class="btn btn-block m-icon btn-eo">
+                Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            {{$state.current.data.action}}
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="form" ng-init="BindAddFields()" novalidate>
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Lütfen tüm gerekli alanları doldurunuz.
+                </div>
+                <!--/row-->
+                <div class="alert alert-warning" ng-show="!hasCustomerSelected">
+                    <button class="close" data-close="alert"></button>
+                    Dosya yükleyebilmeniz için müşteri seçmeniz gerekmektedir.
+                </div>
+                <!--/row-->
+                <div class="alert alert-warning display-none" id="divMessage">
+                    <button class="close" data-close="alert"></button>
+                </div>
+                <!--/row-->
+                <h3 class="form-section">Müşteri Bilgileri</h3>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': form.CustomerId.$invalid && form.CustomerId.$dirty, 'has-success': form.CustomerId.$valid }">
+                            <label class="control-label col-md-3">Müşteri</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <ui-select ng-model="$parent.object.customerId" name="CustomerId" theme="bootstrap" ng-change="ProductChanged($parent.object.customerId)">
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6" ng-show="hasCustomerSelected">
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> Excel Dosyası </label>
+                            <div class="col-md-3">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group input-large">
+                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                            <span class="fileinput-filename"> </span>
+                                        </div>
+                                        <span class="input-group-addon btn default btn-file">
+                                            <span class="fileinput-new"> Seçiniz </span>
+                                            <span class="fileinput-exists"> Değiştir </span>
+                                            <input type="file" name="ExcelFile" ngf-select accept=".xlsx" ng-change="UploadFile(object.CustomerId)" ng-model="ExcelFile">
+                                        </span>
+                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Kaldır </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                
+                <!--/row-->
+            </div>
+            <!--/row-->
+            <div class="form-actions" ng-show="false">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
+                                <a ui-sref="products/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Onay</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Kaydetmek istediğinize emin misiniz? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn blue" id="btn-save"><i class="fa fa-check"></i>Kaydet</button>
+                            <button type="button" data-dismiss="modal" class="btn red"><i class="fa fa-times"></i>İptal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
+<div id="warning-modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Uyarı Mesajı </h4>
+            </div>
+            <div class="modal-body">
+                <p ng-show="ResultMessage!=undefined" style="font-weight:bolder" ng-bind-html="ResultMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="ContinueRedirect()" type="button" data-dismiss="modal" class="btn blue"><i class="fa fa-check"></i>Tamam</button>
+            </div>
+        </div>
+    </div>
+</div>

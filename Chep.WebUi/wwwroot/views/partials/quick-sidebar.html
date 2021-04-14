@@ -1,0 +1,25 @@
+﻿<form class="page-quick-sidebar" ng-controller="DashboardController" ng-init="GetDrivingCourseSMSSettings()">
+    <div class="nav-justified">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active">
+                <a href="#" data-target="#quick_sidebar_tab_3" data-toggle="tab" dropdown-menu-hover data-close-others="true">AYARLAR</a>
+            </li>
+        </ul>
+        <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
+            <div class="page-quick-sidebar-settings-list">
+                <ul class="list-items borderless">
+                    <li>
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox1" class="md-check" ng-model="object.TwoStepVerification" checkbox ng-change="SetTwoStepVerification(object.TwoStepVerification)">
+                            <label for="checkbox1">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> 2 Adımlı Doğrulama
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>

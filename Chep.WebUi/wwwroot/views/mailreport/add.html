@@ -1,0 +1,251 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <a ui-sref="mailreports/list" class="btn btn-block m-icon btn-eo">
+                Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            {{$state.current.data.action}}
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="form" ng-init="BindAddFields()" valid-submit="Add(object)" novalidate>
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Lütfen tüm gerekli alanları doldurunuz.
+                </div>
+                <!--/row-->
+                <h3 class="form-section">Rapor Bilgileri</h3>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Rapor Adı
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Rapor Adı" ng-model="object.mailReportName" name="MailReportName" ng-required="true" maxlength="500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Başlık
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Başlık" ng-model="object.subject" name="Subject" ng-required="true" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Mail Şablonu
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <textarea class="form-control" placeholder="Mail Şablonu" rows="5" ng-model="object.bodyTemplate" name="BodyTemplate" ng-required="true" maxlength="1000"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Sql Sorgusu
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <textarea class="form-control" placeholder="Sql Sorgusu" rows="5" ng-model="object.sqlScript" name="SqlScript" ng-required="true" maxlength="1000"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': form.PeriodTypeId.$invalid && form.PeriodTypeId.$dirty, 'has-success': form.PeriodTypeId.$valid }">
+                            <label class="control-label col-md-3">Gönderim Periyodu</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <ui-select ng-model="$parent.object.periodTypeId" name="PeriodTypeId" theme="bootstrap">
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.PeriodTypeName}}</ui-select-match>
+                                        <ui-select-choices repeat="item.PeriodTypeId as item in periodTypes | filter: $select.search">
+                                            <div ng-bind-html="item.PeriodTypeName | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6" ng-show="object.PeriodTypeId==2">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Gönderim Günü
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.periodValue" name="PeriodValue" ng-required="object.PeriodTypeId==2" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6" ng-show="object.PeriodTypeId==1">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Gönderim Saati
+                                <span class="required"></span>
+                            </label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                    <div class="input-icon right">
+                                        <i class="fa"></i>
+                                        <input type="text" class="form-control" placeholder="Gönderim Saati" ng-model="object.periodValue" name="PeriodValue" ng-required="object.PeriodTypeId==1" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': form.ToEmails.$invalid && form.ToEmails.$dirty, 'has-success': form.ToEmails.$valid }">
+                            <label class="control-label eo-required col-md-3">Alıcı E-posta</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-book-open"></i>
+                                    </span>
+                                    <ui-select multiple ng-model="$parent.object.toEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false" ng-required="true">
+                                        <ui-select-match placeholder="Alıcı e-posta adresleri">{{$item.DisplayName}}</ui-select-match>
+                                        <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
+                                            <div ng-bind-html="item.DisplayName | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': form.CcEmails.$invalid && form.CcEmails.$dirty, 'has-success': form.CcEmails.$valid }">
+                            <label class="control-label col-md-3">Bilgi E-posta</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon-book-open"></i>
+                                    </span>
+                                    <ui-select multiple ng-model="$parent.object.ccEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false">
+                                        <ui-select-match placeholder="Bilgi e-posta adresleri">{{$item.DisplayName}}</ui-select-match>
+                                        <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
+                                            <div ng-bind-html="item.DisplayName | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+            </div>
+            <!--/row-->
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
+                                <a ui-ref="mailreports/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Onay</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p> Kaydetmek istediğinize emin misiniz? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn blue" id="btn-save"><i class="fa fa-check"></i>Kaydet</button>
+                            <button type="button" data-dismiss="modal" class="btn red"><i class="fa fa-times"></i>İptal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
