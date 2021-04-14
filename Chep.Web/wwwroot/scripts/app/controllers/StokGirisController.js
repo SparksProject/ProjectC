@@ -61,6 +61,10 @@
                     $gridDetail.cancelEditData();
 
                     DeletedChepStokGirisDetayIdList = [];
+
+                    $modalDetail.find('form .form-group').removeClass('has-success').removeClass('has-error');
+                    $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
+                    $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
                 },
                 "shown.bs.modal": function () {
                     SparksXService.GetNextReferenceNumber('Giris').success(function (data) {

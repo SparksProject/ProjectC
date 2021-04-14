@@ -340,6 +340,13 @@ SparksXApp.directive('validSubmit', ['$parse', function ($parse) {
                                     }
                                 }, this);
 
+                                element.find('div[ng-required]').each(function () {
+                                    if ($(this).hasClass("ng-invalid")) {
+                                        $(this).closest('.form-group').addClass('has-error').removeClass("has-success");
+                                        $(this).parent('.input-icon').children('i').removeClass('fa-check').addClass("fa-warning");
+                                    }
+                                })
+
                                 setTimeout(function () {
                                     App.scrollTop();
                                 }, 500);
