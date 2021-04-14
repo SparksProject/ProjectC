@@ -1,0 +1,96 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row" ng-show="user.userPermissions.GenericReportList">
+    <div class="col-md-3">
+        <div class="form-group">
+            <a ui-sref="genericreports/list" class="btn btn-block m-icon btn-eo">
+                Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <!--<div class="col-md-3" ng-show="columns!=undefined">
+        <div class="form-group">
+            <a ng-click="CreateExcel(object.GenericReportParameterList, object.GenericReportName)" class="btn btn-block m-icon btn-eo">
+                Excel İndir <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>-->
+</div>
+
+<!-- Parametre Listesi -->
+<div class="portlet box tbl-eo">
+    <div class="portlet-title">
+        <div class="caption">
+            Rapor Parametreleri
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        <form class="form-horizontal" name="form" valid-submit="GetResultSet()" novalidate>
+            <div class="form-body" ng-show="object.GenericReportParameterList.length > 0">
+                <div ng-repeat="x in object.GenericReportParameterList">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    {{x.ParameterLabel}}
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="icon-book-open"></i>
+                                        </span>
+                                        <div class="input-icon right" ng-show="x.ParameterType==0">
+                                            <i class="fa"></i>
+                                            <input type="text" class="form-control" placeholder="Değer" ng-model="x.genericReportParameterValue" name="GenericReportParameterValue">
+                                        </div>
+                                        <div class="input-icon right" ng-show="x.ParameterType==1">
+                                            <i class="fa"></i>
+                                            <input type="text" datetime readonly class="form-control" placeholder="Değer" ng-model="x.genericReportParameterValue" name="GenericReportParameterValue">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                </div>
+                <!--/row-->
+            </div>
+            <!--/row-->
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button class="btn blue btn-block" type="button" id="btn-save" ng-disabled="IsOnAir"><i class="fa fa-check"></i> Rapor Çalıştır </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn default btn-block" type="button" ng-click="GetResultSet(true)" id="btn-pivot" ng-disabled="IsOnAir"><i class="fa fa-table"></i> Pivot Çalıştır</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>
+
+<div class="row" ng-init="Get()">
+    <div class="col-md-12">
+        <div class="portlet box tbl-eo">
+            <div class="portlet-title">
+                <div class="caption">
+                    Rapor - {{object.GenericReportName}}
+                </div>
+                <div class="tools"> </div>
+            </div>
+            <!-- Sonuç varsa gösterilecek tablo -->
+            <div class="portlet-body">
+                <div id="gridContainer" style="min-height:400px;" ng-show="!IsPivot"></div>
+                <div id="pivotContainer" style="min-height:400px;" ng-show="IsPivot"></div>
+            </div>
+        </div>
+    </div>
+</div>

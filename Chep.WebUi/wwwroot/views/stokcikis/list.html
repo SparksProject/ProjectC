@@ -1,0 +1,47 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+
+<!-- BEGIN TABLE PORTLET-->
+<div class="portlet box tbl-eo" ng-show="user.userPermissions.stokCikisList" ng-init="Grid()">
+    <div class="portlet-title">
+        <div class="caption">
+            Stok Çıkışları
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <div class="portlet-body">
+        <form name="form" novalidate ng-submit="Filter(filter)" style="max-width: 900px;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Referans No</label>
+                        <input type="text" ng-model="filter.referansNo" class="form-control" placeholder="Referans No" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Beyanname No</label>
+                        <input type="text" ng-model="filter.beyannameNo" class="form-control" placeholder="Beyanname No" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">TPS No</label>
+                        <input type="text" ng-model="filter.tpsNo" class="form-control" placeholder="TPS No" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label hidden-sm">&nbsp;</label>
+                    <button type="submit" class="btn blue btn-block">Ara</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="portlet-body">
+        <div id="gridContainer" style="min-height: 400px;"></div>
+    </div>
+</div>
+<!-- END TABLE PORTLET-->
+<!-- BEGIN MODAL FORM-->
+<div data-ng-include="'/views/stokcikis/action.html'"></div>
+<div data-ng-include="'/views/stokcikis/import.html'"></div>
+<!-- END MODAL FORM-->

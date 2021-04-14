@@ -24,7 +24,7 @@ SparksXApp.config(['$controllerProvider', function ($controllerProvider) {
 /* Setup global settings */
 SparksXApp.factory('settings', ['$http', '$rootScope', function ($http, $rootScope) {
 
-    var localServerPath = 'http://localhost:6259';
+    var localServerPath = 'http://chepapi-test.us-east-1.elasticbeanstalk.com';
 
     // supported languages
     var settings = {
