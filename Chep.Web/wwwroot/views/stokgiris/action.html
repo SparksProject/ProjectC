@@ -76,12 +76,10 @@
                                     </div>
 
                                     <div class="form-group" ng-class="{'has-error': form.GumrukKod.$invalid && form.GumrukKod.$dirty, 'has-success': form.GumrukKod.$valid }">
-                                        <label class="control-label col-md-3">Gümrük</label>
-                                        <div class="col-md-9">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-map-marker"></i>
-                                                </span>
+                                        <label class="control-label col-md-4">Gümrük <span class="required">*</span></label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
                                                 <ui-select ng-model="object.gumrukKod" name="GumrukKod" theme="bootstrap" ng-required="true">
                                                     <ui-select-match placeholder="Seçiniz">{{$select.selected.ediCode}}</ui-select-match>
                                                     <ui-select-choices repeat="item.ediCode as item in customs | filter: $select.search">
