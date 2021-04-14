@@ -81,7 +81,7 @@
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
                                                 <ui-select ng-model="object.gumrukKod" name="GumrukKod" theme="bootstrap" ng-required="true">
-                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.ediCode}}</ui-select-match>
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.ediCode}}-{{$select.selected.customsName}}</ui-select-match>
                                                     <ui-select-choices repeat="item.ediCode as item in customs | filter: $select.search">
                                                         <div ng-bind-html="(item.ediCode + ' - ' + item.customsName) | highlight: $select.search"></div>
                                                     </ui-select-choices>
