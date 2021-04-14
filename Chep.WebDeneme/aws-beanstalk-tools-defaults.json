@@ -1,0 +1,20 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "netcoreapp2.2",
+    "self-contained" : false,
+    "application"    : "ChepWebDeneme",
+    "environment"    : "ChepWebDeneme-test",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-369fe836\";\"aws:ec2:vpc,Subnets\"=\"subnet-fb4630a4\"",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.1.4 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "chepwebdeneme-test",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx"
+}

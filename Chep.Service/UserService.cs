@@ -96,9 +96,15 @@ namespace Chep.Service
                     target.UserCustomerList = new List<UserCustomerDTO>();
                     target.CustomerIdList = new List<Guid>();
 
-                    foreach (var item in userCustomers.Where(x => x != null))
+                    foreach (var item in userCustomers)
                     {
-                        target.UserCustomerList.Add(new UserCustomerDTO { CustomerName = item.Customer.Name, });
+                        if (item.Customer != null)
+                        {
+                            target.UserCustomerList.Add(new UserCustomerDTO
+                            {
+                                CustomerName = item.Customer.Name,
+                            });
+                        }
                         target.CustomerIdList.Add(item.CustomerId);
                     }
                 }

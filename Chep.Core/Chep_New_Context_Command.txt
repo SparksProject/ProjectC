@@ -1,1 +1,0 @@
-﻿Scaffold-DbContext "Server=.;Database=Chep_New;Trusted_Connection=False;User Id=necmi;Password=@Necmi*" Microsoft.EntityFrameworkCore.SqlServer -f

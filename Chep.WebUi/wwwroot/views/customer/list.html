@@ -1,0 +1,34 @@
+﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
+<div class="row" ng-show="user.userPermissions.customerAdd">
+    <div class="col-md-3">
+        <div class="form-group">
+            <a ui-sref="customers/add" class="btn btn-block m-icon btn-eo">
+                Yeni Kayıt <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box tbl-eo">
+            <div class="portlet-title">
+                <div class="caption">
+                    {{$state.current.data.action}}
+                </div>
+                <div class="tools"> </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover" ng-init="List()" dt-customer aa-data="list">
+                    <thead>
+                        <tr>
+                            <th> Kayıt Tarihi</th>
+                            <th> Müşteri </th>
+                            <th> Durum</th>
+                            <th> Detay</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
