@@ -11,9 +11,9 @@ namespace Chep.Data.Repository
 {
     public class Repository<T> : IRepository<T>, IDisposable where T : class
     {
-        private readonly Chep_NewContext _context;
+        private readonly ChepContext _context;
 
-        public Repository(Chep_NewContext context)
+        public Repository(ChepContext context)
         {
             _context = context;
         }

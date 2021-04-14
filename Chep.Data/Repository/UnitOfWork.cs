@@ -6,12 +6,12 @@ namespace Chep.Data.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private Chep_NewContext _context;
+        private ChepContext _context;
         private IDbContextTransaction transaction;
 
         public UnitOfWork()
         {
-            _context = new Chep_NewContext();
+            _context = new ChepContext();
         }
 
         public bool Commit()

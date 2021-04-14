@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Chep.Core
 {
-    public partial class Chep_NewContext : DbContext
+    public partial class ChepContext : DbContext
     {
-        public Chep_NewContext()
+        public ChepContext()
         {
         }
 
-        public Chep_NewContext(DbContextOptions<Chep_NewContext> options)
+        public ChepContext(DbContextOptions<ChepContext> options)
             : base(options)
         {
         }
@@ -54,7 +54,7 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=Chep_New;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
+                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
 

@@ -92,4 +92,7 @@
     <Build Include="dbo\Tables\Customs.sql" />
     <Build Include="dbo\Tables\Country.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="projectToAmazon.scmp" />
+  </ItemGroup>
 </Project>
