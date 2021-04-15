@@ -121,9 +121,9 @@
                                         <i class="icon-user"></i>
                                     </span>
                                     <ui-select ng-model="$parent.object.periodTypeId" name="PeriodTypeId" theme="bootstrap">
-                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.PeriodTypeName}}</ui-select-match>
+                                        <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.periodTypeName}}</ui-select-match>
                                         <ui-select-choices repeat="item.PeriodTypeId as item in periodTypes | filter: $select.search">
-                                            <div ng-bind-html="item.PeriodTypeName | highlight: $select.search"></div>
+                                            <div ng-bind-html="item.periodTypeName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6" ng-show="object.PeriodTypeId==2">
+                    <div class="col-md-6" ng-show="object.periodTypeId==2">
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 Gönderim Günü
@@ -144,14 +144,14 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.dayValue" name="DayValue" ng-required="object.PeriodTypeId==2" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.dayValue" name="DayValue" ng-required="object.periodTypeId==2" maxlength="50">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6" ng-show="object.PeriodTypeId==1">
+                    <div class="col-md-6" ng-show="object.periodTypeId==1">
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 Gönderim Saati
@@ -183,9 +183,9 @@
                                         <i class="icon-book-open"></i>
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.toEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false" ng-required="true">
-                                        <ui-select-match placeholder="Alıcı e-posta adresleri">{{$item.DisplayName}}</ui-select-match>
+                                        <ui-select-match placeholder="Alıcı e-posta adresleri">{{$item.displayName}}</ui-select-match>
                                         <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
-                                            <div ng-bind-html="item.DisplayName | highlight: $select.search"></div>
+                                            <div ng-bind-html="item.displayName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -202,9 +202,9 @@
                                         <i class="icon-book-open"></i>
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.ccEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false">
-                                        <ui-select-match placeholder="Bilgi e-posta adresleri">{{$item.DisplayName}}</ui-select-match>
+                                        <ui-select-match placeholder="Bilgi e-posta adresleri">{{$item.displayName}}</ui-select-match>
                                         <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
-                                            <div ng-bind-html="item.DisplayName | highlight: $select.search"></div>
+                                            <div ng-bind-html="item.displayName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -246,7 +246,7 @@
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
-                                <a href="#/mailreports/get/{{object.MailReportId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                <a href="#/mailreports/get/{{object.mailReportId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
                     </div>

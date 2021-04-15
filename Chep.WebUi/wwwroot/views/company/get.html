@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Firma Adı:</label>
                             <div class="col-md-9">
-                                <p class="form-control-static" ng-bind="object.CompanyName"></p>
+                                <p class="form-control-static" ng-bind="object.companyName"></p>
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Proje No:</label>
                             <div class="col-md-9">
-                                <p class="form-control-static" ng-bind="object.ProjectId"></p>
+                                <p class="form-control-static" ng-bind="object.projectId"></p>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Host:</label>
                                 <div class="col-md-9">
-                                    <p class="form-control-static" ng-bind="object.SmtpHost"></p>
+                                    <p class="form-control-static" ng-bind="object.smtpHost"></p>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Port:</label>
                                 <div class="col-md-9">
-                                    <p class="form-control-static" ng-bind="object.SmtpPort"></p>
+                                    <p class="form-control-static" ng-bind="object.smtpPort"></p>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Kullanıcı Adı:</label>
                                 <div class="col-md-9">
-                                    <p class="form-control-static" ng-bind="object.SmtpUserName"></p>
+                                    <p class="form-control-static" ng-bind="object.smtpUserName"></p>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Şifre:</label>
                                 <div class="col-md-9">
-                                    <p class="form-control-static" ng-bind="object.SmtpPassword"></p>
+                                    <p class="form-control-static" ng-bind="object.smtpPassword"></p>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <a ng-show="user.userPermissions.CompanyEdit" href="#/company/edit/{{object.CompanyId}}" class="btn blue"><i class="fa fa-pencil"></i>Düzenle </a>
+                                <a ng-show="user.userPermissions.companyEdit" href="#/company/edit/{{object.companyId}}" class="btn blue"><i class="fa fa-pencil"></i>Düzenle </a>
                                 <a ui-sref="dashboard" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
