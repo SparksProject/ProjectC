@@ -24,7 +24,7 @@ SparksXApp.config(['$controllerProvider', function ($controllerProvider) {
 /* Setup global settings */
 SparksXApp.factory('settings', ['$http', '$rootScope', function ($http, $rootScope) {
 
-    var localServerPath = 'http://localhost:58033';
+    var localServerPath = 'https://localhost:44361';
 
     // supported languages
     var settings = {
