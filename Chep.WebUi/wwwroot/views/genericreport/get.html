@@ -1,15 +1,15 @@
 ﻿<div data-ng-include="'/views/partials/pagecontentheader.html'"></div>
 <div class="row">
-    <div class="col-md-3" ng-show="user.userPermissions.GenericReportList">
+    <div class="col-md-3" ng-show="user.userPermissions.genericReportList">
         <div class="form-group">
             <a ui-sref="genericreports/list" class="btn btn-block m-icon btn-eo">
                 Tüm Kayıtlar <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
     </div>
-    <div class="col-md-3" ng-show="user.userPermissions.GenericReportAdd">
+    <div class="col-md-3" ng-show="user.userPermissions.genericReportAdd">
         <div class="form-group">
-            <a href="#/genericreports/genericreportexecute/{{object.GenericReportId}}" class="btn btn-block m-icon btn-eo">
+            <a href="#/genericreports/genericreportexecute/{{object.genericReportId}}" class="btn btn-block m-icon btn-eo">
                 Çalıştır <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -25,14 +25,14 @@
         <!-- BEGIN FORM-->
         <form class="form-horizontal" role="form" ng-init="Get()">
             <div class="form-body">
-                <h3 class="form-section">{{object.GenericReportName}}</h3>
+                <h3 class="form-section">{{object.genericReportName}}</h3>
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label col-md-2">Sql Sorgusu:</label>
                             <div class="col-md-10">
-                                <textarea class="form-control-static" rows="5" cols="100" ng-bind="object.SqlScript" disabled></textarea>
+                                <textarea class="form-control-static" rows="5" cols="100" ng-bind="object.sqlScript" disabled></textarea>
                             </div>
                         </div>
                     </div>
@@ -44,17 +44,17 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Sabit Rapor Mu: </label>
                             <div class="col-md-9">
-                                <p class="form-control-static" ng-bind="object.IsDefaultReportDisplay"></p>
+                                <p class="form-control-static" ng-bind="object.isDefaultReportDisplay"></p>
                             </div>
                         </div>
                     </div>
                     <!--/span-->
                 </div>
                 <!--/row-->
-                <h3 class="form-section" ng-show="object.GenericReportUserList.length>0"> Rapor Kullanıcıları </h3>
+                <h3 class="form-section" ng-show="object.genericReportUserList.length>0"> Rapor Kullanıcıları </h3>
                 <!--/row-->
                 <!-- BEGIN TABLE PORTLET-->
-                <div class="row" ng-show="object.GenericReportUserList.length>0">
+                <div class="row" ng-show="object.genericReportUserList.length>0">
                     <div class="col-md-12">
                         <div class="portlet box tbl-eo">
                             <div class="portlet-body">
@@ -66,8 +66,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="x in object.GenericReportUserList">
-                                            <td>{{x.UserName}}</td>
+                                        <tr ng-repeat="x in object.genericReportUserList">
+                                            <td>{{object.userName}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -77,10 +77,10 @@
                     </div>
                 </div>
                 <!-- END TABLE PORTLET-->
-                <h3 class="form-section" ng-show="object.GenericReportParameterList.length>0"> Rapor Parametreleri </h3>
+                <h3 class="form-section" ng-show="object.genericReportParameterList.length>0"> Rapor Parametreleri </h3>
                 <!--/row-->
                 <!-- BEGIN TABLE PORTLET-->
-                <div class="row" ng-show="object.GenericReportParameterList.length>0">
+                <div class="row" ng-show="object.genericReportParameterList.length>0">
                     <div class="col-md-12">
                         <div class="portlet box tbl-eo">
                             <div class="portlet-body">
@@ -94,10 +94,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="x in object.GenericReportParameterList">
-                                            <td>{{x.GenericReportParameterName}}</td>
-                                            <td>{{x.ParameterLabel}}</td>
-                                            <td>{{x.ParameterTypeDisplay}}</td>
+                                        <tr ng-repeat="x in object.genericReportParameterList">
+                                            <td>{{object.genericReportParameterName}}</td>
+                                            <td>{{object.parameterLabel}}</td>
+                                            <td>{{object.parameterTypeDisplay}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -114,8 +114,8 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <a href="#/genericreports/edit/{{object.GenericReportId}}" class="btn blue"><i class="fa fa-pencil"></i>Düzenle </a>
-                                <a ng-show="user.userPermissions.GenericReportList" ui-sref="genericreports/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                <a href="#/genericreports/edit/{{object.genericReportId}}" class="btn blue"><i class="fa fa-pencil"></i>Düzenle </a>
+                                <a ng-show="user.userPermissions.genericReportList" ui-sref="genericreports/list" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
                     </div>
