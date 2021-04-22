@@ -85,35 +85,35 @@
                             dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
-                        { dataField: "tpsBeyan", caption: "TPS Beyan", width: 100, },
+                        { dataField: "tpsBeyan", caption: "TPS Beyan", width: 70, },
                         {
-                            dataField: "urunKod", caption: "Ürün Kodu", width: 150,
+                            dataField: "urunKod", caption: "Ürün Kodu", width: 80,
                             lookup: {
                                 dataSource: storeProducts, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: "productNo", // Dönen veride basılacak metin
                                 valueExpr: "productNo", // Dönen veride basılacak value
                             },
                         },
-                        { dataField: "esyaGtip", caption: "Eşya GTİP", },
-                        { dataField: "esyaCinsi", caption: "Eşya Cinsi", },
-                        { dataField: "faturaNo", caption: "Fatura No", },
-                        { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
+                        { dataField: "esyaGtip", caption: "Eşya GTİP", width: 100, },
+                        { dataField: "esyaCinsi", caption: "Eşya Cinsi", width: 100, },
+                        { dataField: "faturaNo", caption: "Fatura No", width: 80, },
+                        { dataField: "faturaTarih", caption: "Fatura Tarihi", width: 90, dataType: "date", formatType: "shortDate" },
                         {
-                            dataField: "faturaTutar", caption: "Fatura Tutar", dataType: "number",
+                            dataField: "faturaTutar", caption: "Fatura Tutar", width: 90,dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
-                        { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
+                        { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", width: 90, },
                         {
                             dataField: "Miktar", caption: "Miktar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
-                        { dataField: "olcuBirimi", caption: "Ölçü Birimi", },
+                        { dataField: "olcuBirimi", caption: "Ölçü Birimi", width: 80, },
                         { dataField: "rejim", caption: "Rejim", },
-                        { dataField: "cikisRejimi", caption: "Çıkış Rejimi", },
+                        { dataField: "cikisRejimi", caption: "Çıkış Rejimi", width: 80,},
                         {
                             dataField: "gidecegiUlke",
                             caption: "Gideceği Ülke",
-                            width: 200,
+                            width: 130,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -125,7 +125,7 @@
                         {
                             dataField: "menseUlke",
                             caption: "Menşei Ülke",
-                            width: 200,
+                            width: 130,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -137,7 +137,7 @@
                         {
                             dataField: "sozlesmeUlke",
                             caption: "Sözleşme Ülke",
-                            width: 200,
+                            width: 130,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
