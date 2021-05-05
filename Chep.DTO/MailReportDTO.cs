@@ -19,6 +19,7 @@ namespace Chep.DTO
         public int? ModifiedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
         public int? DeletedBy { get; set; }
+        public string PeriodDay { get; set; }
 
         public int[] ToEmails { get; set; }
         public int[] CcEmails { get; set; }

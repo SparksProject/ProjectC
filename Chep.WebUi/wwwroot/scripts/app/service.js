@@ -224,6 +224,7 @@
     };
 
     this.AddMailReport = function (obj) {
+        console.log(obj);
         return GetBaseRequestPostJson("MailReport", "Add", obj);
     };
 

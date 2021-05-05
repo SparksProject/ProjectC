@@ -178,7 +178,10 @@ namespace Chep.Service
                         _uow.MailReportUsers.Add(mailReportUser);
                     }
                 }
-
+                if (obj.PeriodDay == null)
+                {
+                    obj.PeriodDay = string.Empty;
+                }
                 var entity = Mapper.MapSingle<MailReportDTO, MailReport>(obj);
 
                 var result = _uow.MailReports.Update(entity);

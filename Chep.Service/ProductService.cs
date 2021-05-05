@@ -34,7 +34,10 @@ namespace Chep.Service
                 obj.RecordStatusId = 1;
                 obj.CreatedDate = DateTime.Now;
                 obj.ProductId = Guid.NewGuid();
-
+                if (obj.HsCode == null)
+                {
+                obj.HsCode = string.Empty;
+                }
                 var entity = _mapper.Map<Product>(obj);
 
                 var result = _uow.Products.Add(entity);
@@ -170,8 +173,8 @@ namespace Chep.Service
                         Uom = item.Uom,
                         GrossWeight = item.GrossWeight,
                         NetWeight = item.NetWeight,
-                        SapCode =item.SapCode,
-                        CountryOfOrigin=item.CountryOfOrigin,
+                        SapCode = item.SapCode,
+                        CountryOfOrigin = item.CountryOfOrigin,
                         RecordStatusName = item.RecordStatus.RecordStatusName
                     };
 

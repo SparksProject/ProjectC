@@ -183,7 +183,7 @@ namespace Chep.Service
                     GenericReportId = x.GenericReportId,
                     GenericReportUserId = x.GenericReportUserId,
                     UserId = x.UserId,
-                    UserName = x.User.UserName
+                    UserName = x.User?.UserName
                 }).ToList();
 
                 return Success(result);

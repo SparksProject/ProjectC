@@ -113,7 +113,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.PeriodTypeId.$invalid && form.PeriodTypeId.$dirty, 'has-success': form.PeriodTypeId.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.periodTypeId.$invalid && form.periodTypeId.$dirty, 'has-success': form.periodTypeId.$valid }">
                             <label class="control-label col-md-3">Gönderim Periyodu</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -122,7 +122,7 @@
                                     </span>
                                     <ui-select ng-model="$parent.object.periodTypeId" name="PeriodTypeId" theme="bootstrap">
                                         <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.periodTypeName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.PeriodTypeId as item in periodTypes | filter: $select.search">
+                                        <ui-select-choices repeat="item.periodTypeId as item in periodTypes | filter: $select.search">
                                             <div ng-bind-html="item.periodTypeName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -164,7 +164,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Gönderim Saati" ng-model="object.periodValue" name="PeriodValue" ng-required="object.PeriodTypeId==1" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Gönderim Saati" ng-model="object.periodValue" name="PeriodValue" ng-required="object.periodTypeId==1" maxlength="50">
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.ToEmails.$invalid && form.ToEmails.$dirty, 'has-success': form.ToEmails.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.toEmails.$invalid && form.toEmails.$dirty, 'has-success': form.toEmails.$valid }">
                             <label class="control-label eo-required col-md-3">Alıcı E-posta</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -194,7 +194,7 @@
                     </div>
                     <!--/span-->
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.CcEmails.$invalid && form.CcEmails.$dirty, 'has-success': form.CcEmails.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.ccEmails.$invalid && form.ccEmails.$dirty, 'has-success': form.ccEmails.$valid }">
                             <label class="control-label col-md-3">Bilgi E-posta</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -218,7 +218,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.RecordStatusId.$invalid && form.RecordStatusId.$dirty, 'has-success': form.RecordStatusId.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.recordStatusId.$invalid && form.recordStatusId.$dirty, 'has-success': form.recordStatusId.$valid }">
                             <label class="control-label col-md-3">Kayıt Durumu</label>
                             <div class="col-md-9">
                                 <div class="input-group">
