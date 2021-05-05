@@ -21,7 +21,7 @@
 
         if ($rootScope.SelectedCustomerId == undefined) {
         } else {
-            $scope.object.CustomerId = $rootScope.SelectedCustomerId;
+            $scope.object.customerId = $rootScope.SelectedCustomerId;
             $scope.hasCustomerSelected = true;
         }
 
