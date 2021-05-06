@@ -104,9 +104,9 @@ namespace Chep.Service
                 var result = _mapper.Map<CustomerDTO>(entity);
 
                 result.RecordStatusName = entity.RecordStatus.RecordStatusName;
-                result.CreatedByName = entity.CreatedByNavigation.FirstName + " " + entity.CreatedByNavigation.LastName;
-                result.ModifiedByName = entity.ModifiedBy != null ? entity.ModifiedByNavigation.FirstName + " " + entity.ModifiedByNavigation.LastName : null;
-                result.DeletedByName = entity.DeletedBy != null ? entity.DeletedByNavigation.FirstName + " " + entity.DeletedByNavigation.LastName : null;
+                result.CreatedByName = entity.CreatedByNavigation != null ? entity.CreatedByNavigation?.FirstName + " " + entity.CreatedByNavigation?.LastName : null;
+                result.ModifiedByName = entity.ModifiedBy != null ? entity.ModifiedByNavigation?.FirstName + " " + entity.ModifiedByNavigation?.LastName : null;
+                result.DeletedByName = entity.DeletedBy != null ? entity.DeletedByNavigation?.FirstName + " " + entity.DeletedByNavigation?.LastName : null;
 
                 return Success(result);
             }

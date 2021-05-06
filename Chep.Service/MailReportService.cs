@@ -86,6 +86,10 @@ namespace Chep.Service
             {
                 obj.RecordStatusId = 1;
                 obj.CreatedDate = DateTime.Now;
+                if (obj.PeriodDay == null)
+                {
+                    obj.PeriodDay = string.Empty;
+                }
                 var entity = Mapper.MapSingle<MailReportDTO, MailReport>(obj);
 
                 if (obj.ToEmails != null && obj.ToEmails.Length > 0)
@@ -178,7 +182,10 @@ namespace Chep.Service
                         _uow.MailReportUsers.Add(mailReportUser);
                     }
                 }
-
+                if (obj.PeriodDay == null)
+                {
+                    obj.PeriodDay = string.Empty;
+                }
                 var entity = Mapper.MapSingle<MailReportDTO, MailReport>(obj);
 
                 var result = _uow.MailReports.Update(entity);

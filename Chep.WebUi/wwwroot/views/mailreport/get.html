@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Saat/Gün:</label>
                             <div class="col-md-9">
-                                <p class="form-control-static">{{object.timeValue}}{{object.dayValue}}</p>
+                                <p class="form-control-static">{{object.periodValue}}/{{object.periodDay}}</p>
                             </div>
                         </div>
                     </div>
@@ -115,9 +115,9 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="x in object.mailReportUserList">
-                                            <td>{{object.RecipientName}}</td>
-                                            <td>{{object.EmailAddress}}</td>
-                                            <td>{{object.ReceiverTypeName}}</td>
+                                            <td>{{x.recipientName}}</td>
+                                            <td>{{x.emailAddress}}</td>
+                                            <td>{{x.receiverTypeName}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

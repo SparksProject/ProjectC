@@ -34,7 +34,10 @@ namespace Chep.Service
                 obj.RecordStatusId = 1;
                 obj.CreatedDate = DateTime.Now;
                 obj.ProductId = Guid.NewGuid();
-
+                if (obj.HsCode == null)
+                {
+                    obj.HsCode = string.Empty;
+                }
                 var entity = _mapper.Map<Product>(obj);
 
                 var result = _uow.Products.Add(entity);
@@ -119,15 +122,25 @@ namespace Chep.Service
                                           .Include(x => x.DeletedByNavigation)
                                           .FirstOrDefault(x => x.ProductId == id);
 
-                var result = _mapper.Map<ProductDTO>(entity);
+                if (entity == null)
+                {
+                    return Warning("Geçersiz Id");
+                }
 
-                result.CustomerName = entity.Customer.Name;
-                result.RecordStatusName = entity.RecordStatus.RecordStatusName;
-                result.CreatedByName = entity.CreatedByNavigation.FirstName + " " + entity.CreatedByNavigation.LastName;
-                result.ModifiedByName = entity.ModifiedBy != null ? entity.ModifiedByNavigation.FirstName + " " + entity.ModifiedByNavigation.LastName : null;
-                result.DeletedByName = entity.DeletedBy != null ? entity.DeletedByNavigation.FirstName + " " + entity.DeletedByNavigation.LastName : null;
+                var target = _mapper.Map<ProductDTO>(entity);
 
-                return Success(result);
+                if (target == null)
+                {
+                    return Warning("Geçersiz Id");
+                }
+
+                target.CustomerName = entity.Customer.Name;
+                target.RecordStatusName = entity.RecordStatus?.RecordStatusName;
+                target.CreatedByName = entity.CreatedByNavigation != null ? entity.CreatedByNavigation?.FirstName + " " + entity.CreatedByNavigation?.LastName : null;
+                target.ModifiedByName = entity.ModifiedBy != null ? entity.ModifiedByNavigation?.FirstName + " " + entity.ModifiedByNavigation?.LastName : null;
+                target.DeletedByName = entity.DeletedBy != null ? entity.DeletedByNavigation?.FirstName + " " + entity.DeletedByNavigation?.LastName : null;
+
+                return Success(target);
             }
             catch (Exception ex)
             {
@@ -151,7 +164,7 @@ namespace Chep.Service
 
                 if (entities.Count == 0)
                 {
-                    return NotFound();
+                    return Success(null);
                 }
 
                 var list = new List<ProductDTO>();
@@ -170,8 +183,8 @@ namespace Chep.Service
                         Uom = item.Uom,
                         GrossWeight = item.GrossWeight,
                         NetWeight = item.NetWeight,
-                        SapCode =item.SapCode,
-                        CountryOfOrigin=item.CountryOfOrigin,
+                        SapCode = item.SapCode,
+                        CountryOfOrigin = item.CountryOfOrigin,
                         RecordStatusName = item.RecordStatus.RecordStatusName
                     };
 

@@ -20,7 +20,7 @@
     };
 
     $scope.Add = function (obj) {
-        obj.CreatedBy = $rootScope.user.UserId;
+        obj.createdBy = $rootScope.user.userId;
 
         SparksXService.AddCustomer(obj).success(function (data) {
             $state.go('customers/get', { id: data });

@@ -78,9 +78,9 @@
                                         <i class="icon-book-open"></i>
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.userList" name="UserList" theme="bootstrap" sortable="true" close-on-select="false" ng-required="!object.IsDefaultReport">
-                                        <ui-select-match placeholder="Yetkili Kullanıcılar">{{$item.FullName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.UserId as item in users | filter: $select.search">
-                                            <div ng-bind-html="item.FullName | highlight: $select.search"></div>
+                                        <ui-select-match placeholder="Yetkili Kullanıcılar">{{$item.fullName}}</ui-select-match>
+                                        <ui-select-choices repeat="item.userId as item in users | filter: $select.search">
+                                            <div ng-bind-html="item.fullName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -109,13 +109,13 @@
                     <!--/span-->
                 </div>
                 <!--/row-->
-                <h3 class="form-section" ng-show="object.GenericReportParameterList.length==0">
+                <h3 class="form-section" ng-show="object.genericReportParameterList.length==0">
                     <a class="btn m-icon btn-eo" ng-click="AddParameter()"> Rapor Parametresi Ekle</a>
                 </h3>
                 <!--/row-->
-                <h3 class="form-section" ng-show="object.GenericReportParameterList.length!=0">Rapor Parametreleri</h3>
+                <h3 class="form-section" ng-show="object.genericReportParameterList.length!=0">Rapor Parametreleri</h3>
                 <!--/row-->
-                <div ng-repeat="x in object.GenericReportParameterList track by $index" ng-show="object.GenericReportParameterList.length>0">
+                <div ng-repeat="x in object.genericReportParameterList track by $index" ng-show="object.genericReportParameterList.length>0">
                     <div class="row">
                         <div class="col-md-1"> &nbsp; </div>
                         <!--/span-->
@@ -149,7 +149,7 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-4">
-                            <div class="form-group" ng-class="{'has-error': x.ParameterTypeId.$invalid && x.ParameterTypeId.$dirty, 'has-success': x.ParameterTypeId.$valid }">
+                            <div class="form-group" ng-class="{'has-error': x.parameterTypeId.$invalid && x.parameterTypeId.$dirty, 'has-success': x.parameterTypeId.$valid }">
                                 <label class="control-label col-md-3">Parametre Türü</label>
                                 <div class="col-md-9">
                                     <div class="input-group">
@@ -157,9 +157,9 @@
                                             <i class="fa fa-map-marker"></i>
                                         </span>
                                         <ui-select ng-model="x.parameterType" name="ParameterTypeId" theme="bootstrap" ng-required="true">
-                                            <ui-select-match placeholder="Seçiniz">{{$select.selected.ParameterTypeName}}</ui-select-match>
-                                            <ui-select-choices repeat="item.ParameterTypeId as item in parameterTypes | filter: $select.search">
-                                                <div ng-bind-html="item.ParameterTypeName | highlight: $select.search"></div>
+                                            <ui-select-match placeholder="Seçiniz">{{$select.selected.parameterTypeName}}</ui-select-match>
+                                            <ui-select-choices repeat="item.parameterTypeId as item in parameterTypes | filter: $select.search">
+                                                <div ng-bind-html="item.parameterTypeName | highlight: $select.search"></div>
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
@@ -168,8 +168,8 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-2">
-                            <a class="btn m-icon btn-eo" ng-click="AddParameter()" ng-show="(object.GenericReportParameterList.length - 1) == $index">Ekle</a>
-                            <a class="btn btn-danger m-icon btn-warning" ng-click="DeleteParameter($index)" ng-show="object.GenericReportParameterList.length>1">Sil</a>
+                            <a class="btn m-icon btn-eo" ng-click="AddParameter()" ng-show="(object.genericReportParameterList.length - 1) == $index">Ekle</a>
+                            <a class="btn btn-danger m-icon btn-warning" ng-click="DeleteParameter($index)" ng-show="object.genericReportParameterList.length>1">Sil</a>
                         </div>
                         <!--/span-->
                     </div>
