@@ -13,6 +13,7 @@ namespace Chep.Service.Interface
         ResponseDTO GetParameterTypes();
         ResponseDTO GetCustoms();
         ResponseDTO GetCountries();
+        ResponseDTO GetCurrencyTypes();
         ResponseDTO GetProducts();
         ResponseDTO GetNextReferenceNumber(string stockType);
     }

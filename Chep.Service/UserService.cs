@@ -77,6 +77,7 @@ namespace Chep.Service
                 var entity = _uow.Users.Set()
                                        .Include(x => x.UserType)
                                        .Include(x => x.UserCustomer)
+                                       .ThenInclude(x => x.Customer)
                                        .Include(x => x.UserPermission)
                                        .Include(x => x.RecordStatus)
                                        .Include(x => x.CreatedByNavigation)

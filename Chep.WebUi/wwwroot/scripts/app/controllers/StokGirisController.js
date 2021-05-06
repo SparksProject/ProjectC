@@ -25,6 +25,23 @@
         }
     });
 
+    var storeCurrencyTypes = new DevExpress.data.CustomStore({
+        key: "ediCode",
+        method: "Get",
+        loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
+        load: function () {
+            var deferred = $.Deferred();
+
+            SparksXService.GetCurrencyTypes().success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                deferred.reject("Data Loading Error");
+            });
+
+            return deferred.promise();
+        }
+    });
+
     var storeProducts = new DevExpress.data.CustomStore({
         key: "productNo",
         method: "Get",
@@ -102,7 +119,14 @@
                             dataField: "faturaTutar", caption: "Fatura Tutar", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
-                        { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
+                        {
+                            dataField: "faturaDovizKod", caption: "Fatura Döviz Kod",
+                            lookup: {
+                                dataSource: storeCurrencyTypes, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: "ediCode", // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
                         {
                             dataField: "Miktar", caption: "Miktar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },

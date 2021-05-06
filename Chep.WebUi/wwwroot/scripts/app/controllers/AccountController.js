@@ -69,11 +69,12 @@
     };
 
     $scope.Add = function (obj) {
-        obj.createdBy = $rootScope.user.UserId;
+        obj.createdBy = $rootScope.user.userId;
         obj.recordStatusId = 1;
 
         SparksXService.AddUser(obj).success(function (data) {
             $state.go('users/get', { id: data.result });
+
         });
     };
 
@@ -85,7 +86,7 @@
             obj.deletedBy = $rootScope.user.userId;
         }
         SparksXService.Edit(obj).success(function (data) {
-            $state.go('users/get', { id: data.result });
+            $state.go('users/get', { id: data });
         });
     };
 
