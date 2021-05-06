@@ -1,8 +1,9 @@
-﻿CREATE TABLE [dbo].[Units](
-	[UnitsId] [uniqueidentifier] NOT NULL,
-	[EdiCode] [varchar](3) NOT NULL,
-	[UnitsName] [varchar](100) NOT NULL,
-	[Status] [bit] NOT NULL default 0,
-	CONSTRAINT [PK_Units] PRIMARY KEY CLUSTERED ([UnitsId] ASC)
-) 
+﻿CREATE TABLE [dbo].[Units] (
+    [UnitsId]   UNIQUEIDENTIFIER CONSTRAINT [DF_Units_UnitsId] DEFAULT (newid()) NOT NULL,
+    [EdiCode]   VARCHAR (3)      NOT NULL,
+    [UnitsName] VARCHAR (100)    NOT NULL,
+    [Status]    BIT              CONSTRAINT [DF_Units_Status] DEFAULT ((1)) NOT NULL
+);
+
+ 
 

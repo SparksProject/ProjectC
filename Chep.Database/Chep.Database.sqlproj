@@ -94,6 +94,7 @@
       <CopyToOutputDirectory>DoNotCopy</CopyToOutputDirectory>
     </Build>
     <Build Include="dbo\Tables\Units.sql" />
+    <Build Include="dbo\Tables\CurrencyType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="projectToAmazon.scmp" />

@@ -25,6 +25,7 @@ namespace Chep.Core
         public virtual DbSet<ChepStokGirisDetay> ChepStokGirisDetay { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<CurrencyType> CurrencyType { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Customs> Customs { get; set; }
         public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }
@@ -38,6 +39,7 @@ namespace Chep.Core
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<RecordStatus> RecordStatus { get; set; }
         public virtual DbSet<SentMail> SentMail { get; set; }
+        public virtual DbSet<Units> Units { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserCustomer> UserCustomer { get; set; }
         public virtual DbSet<UserPermission> UserPermission { get; set; }
@@ -54,7 +56,8 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("User ID=Necmi;Password=@Necmi*;Server=.,1433;Database=Chep;Pooling=true;");
+                // optionsBuilder.UseSqlServer("User ID=Necmi;Password=@Necmi*;Server=.,1433;Database=Chep;Pooling=true;");
+                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
 
@@ -68,6 +71,16 @@ namespace Chep.Core
                 entity.Property(e => e.BeyannameNo).HasMaxLength(20);
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.GtbReferenceNo).HasMaxLength(25);
+
+                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.InvoiceCurrency).HasMaxLength(3);
+
+                entity.Property(e => e.InvoiceDate).HasColumnType("date");
+
+                entity.Property(e => e.InvoiceNo).HasMaxLength(50);
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
 
@@ -85,6 +98,8 @@ namespace Chep.Core
             {
                 entity.HasKey(e => e.StokCikisDetayId)
                     .HasName("PK__ChepStok__7A5C97E41CA2F026");
+
+                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Kg).HasColumnType("decimal(8, 2)");
 
@@ -250,6 +265,27 @@ namespace Chep.Core
                     .HasMaxLength(3);
 
                 entity.Property(e => e.IsoCode).HasMaxLength(2);
+            });
+
+            modelBuilder.Entity<CurrencyType>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.CurrencyTypeId).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.CurrencyTypeName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EdiCode)
+                    .IsRequired()
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -563,6 +599,27 @@ namespace Chep.Core
                     .HasForeignKey(d => d.MailReportId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SentMail_MailReport");
+            });
+
+            modelBuilder.Entity<Units>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.EdiCode)
+                    .IsRequired()
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UnitsId).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.UnitsName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<User>(entity =>

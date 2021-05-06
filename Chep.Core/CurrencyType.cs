@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace Chep.Core
 {
-    public partial class Units
+    public partial class CurrencyType
     {
-        public Guid UnitsId { get; set; }
+        public Guid CurrencyTypeId { get; set; }
         public string EdiCode { get; set; }
-        public string UnitsName { get; set; }
+        public string CurrencyTypeName { get; set; }
         public bool? Status { get; set; }
     }
 }
