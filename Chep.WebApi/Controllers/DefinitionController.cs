@@ -140,6 +140,14 @@ namespace Chep.WebApi.Controllers
             return StatusCode(StatusCodes.Status200OK, result);
         }
 
+        [HttpGet("GetCurrencyTypes")]
+        public IActionResult GetCurrencyTypes()
+        {
+            var result = _service.GetCurrencyTypes().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
         [HttpGet("GetProducts")]
         public IActionResult GetProducts()
         {

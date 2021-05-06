@@ -187,6 +187,21 @@ namespace Chep.Service
             return Success(list);
         }
 
+        public ResponseDTO GetCurrencyTypes()
+        {
+            var entities = _uow.CurrencyType.GetAll();
+
+            var list = entities.Select(item => new CurrencyTypeDto
+            {
+                CurrencyTypeId = item.CurrencyTypeId,
+                CurrencyTypeName = item.CurrencyTypeName,
+                EdiCode = item.EdiCode,
+                Status = item.Status
+            });
+
+            return Success(list);
+        }
+
         public ResponseDTO GetProducts()
         {
             var entities = _uow.Products.GetAll();

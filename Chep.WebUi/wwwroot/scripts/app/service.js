@@ -91,6 +91,10 @@
         return GetDefinitionRequestJson('GetUsers');
     };
 
+    this.GetCurrencyTypes = function () {
+        return GetDefinitionRequestJson('GetCurrencyTypes');
+    };
+
     this.GetCustoms = function () {
         return GetDefinitionRequestJson('GetCustoms');
     };
@@ -266,7 +270,7 @@
         return GetBaseRequestPostJson("GenericReport", "Edit", obj);
     };
 
-   //Stok Giris======================>
+    //Stok Giris======================>
 
     this.ListStokGirises = function (ReferansNo, BeyannameNo, TPSNo) {
         return GetBaseRequestJson("StokGiris", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&tpsNo=' + TPSNo);

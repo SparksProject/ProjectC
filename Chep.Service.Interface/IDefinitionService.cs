@@ -14,6 +14,7 @@ namespace Chep.Service.Interface
         ResponseDTO GetCustoms();
         ResponseDTO GetUnits();
         ResponseDTO GetCountries();
+        ResponseDTO GetCurrencyTypes();
         ResponseDTO GetProducts();
         ResponseDTO GetNextReferenceNumber(string stockType);
     }

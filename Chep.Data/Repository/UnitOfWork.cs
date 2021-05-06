@@ -54,6 +54,7 @@ namespace Chep.Data.Repository
         public Repository<Customs> Customs { get { return new Repository<Customs>(_context); } }
         public Repository<Units> Units { get { return new Repository<Units>(_context); } }
         public Repository<Country> Country { get { return new Repository<Country>(_context); } }
+        public Repository<CurrencyType> CurrencyType { get { return new Repository<CurrencyType>(_context); } }
 
         // chep
         public Repository<ChepStokGiris> ChepStokGiris { get { return new Repository<ChepStokGiris>(_context); } }

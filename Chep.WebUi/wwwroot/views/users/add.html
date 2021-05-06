@@ -70,7 +70,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.CustomerIdList.$invalid && form.CustomerIdList.$dirty, 'has-success': form.CustomerIdList.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.customerIdList.$invalid && form.customerIdList.$dirty, 'has-success': form.customerIdList.$valid }">
                             <label class="control-label eo-required col-md-3">Müşteriler</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -126,7 +126,7 @@
                     </div>
                     <!--/span-->
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.UserTypeId.$invalid && form.UserTypeId.$dirty, 'has-success': form.UserTypeId.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.userTypeId.$invalid && form.userTypeId.$dirty, 'has-success': form.userTypeId.$valid }">
                             <label class="control-label col-md-3">Yetki Seviyesi</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -135,7 +135,7 @@
                                     </span>
                                     <ui-select ng-model="$parent.object.userTypeId" name="UserTypeId" theme="bootstrap" ng-required="true">
                                         <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.userTypeName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.UserTypeId as item in userTypes | filter: $select.search">
+                                        <ui-select-choices repeat="item.userTypeId as item in userTypes | filter: $select.search">
                                             <div ng-bind-html="item.userTypeName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -151,7 +151,6 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 PowerBI
-                                <span class="required"></span>
                             </label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -477,8 +476,8 @@
                             </label>
                             <div class="md-checkbox-inline">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox61" class="md-check" ng-model="object.userPermissions.userList" checkbox>
-                                    <label for="checkbox61">
+                                    <input type="checkbox" id="checkbox883" class="md-check" ng-model="object.userPermissions.userList" checkbox>
+                                    <label for="checkbox883">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Listeleme
@@ -486,8 +485,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox62" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
-                                    <label for="checkbox62">
+                                    <input type="checkbox" id="checkbox882" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
+                                    <label for="checkbox882">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Yeni Kayıt
@@ -495,8 +494,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox63" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
-                                    <label for="checkbox63">
+                                    <input type="checkbox" id="checkbox881" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
+                                    <label for="checkbox881">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Detay
@@ -504,8 +503,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox64" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
-                                    <label for="checkbox64">
+                                    <input type="checkbox" id="checkbox880" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
+                                    <label for="checkbox880">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Düzenleme
@@ -527,8 +526,8 @@
                             </label>
                             <div class="md-checkbox-inline">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox61" class="md-check" ng-model="object.userPermissions.userList" checkbox>
-                                    <label for="checkbox61">
+                                    <input type="checkbox" id="checkbox773" class="md-check" ng-model="object.userPermissions.stokGirisList" checkbox>
+                                    <label for="checkbox773">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Listeleme
@@ -536,8 +535,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox62" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
-                                    <label for="checkbox62">
+                                    <input type="checkbox" id="checkbox772" class="md-check" ng-model="object.userPermissions.stokGirisAdd" checkbox>
+                                    <label for="checkbox772">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Yeni Kayıt
@@ -545,8 +544,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox63" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
-                                    <label for="checkbox63">
+                                    <input type="checkbox" id="checkbox771" class="md-check" ng-model="object.userPermissions.stokGirisGet" checkbox>
+                                    <label for="checkbox771">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Detay
@@ -554,8 +553,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox64" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
-                                    <label for="checkbox64">
+                                    <input type="checkbox" id="checkbox770" class="md-check" ng-model="object.userPermissions.stokGirisEdit" checkbox>
+                                    <label for="checkbox770">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Düzenleme
@@ -577,8 +576,8 @@
                             </label>
                             <div class="md-checkbox-inline">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox61" class="md-check" ng-model="object.userPermissions.userList" checkbox>
-                                    <label for="checkbox61">
+                                    <input type="checkbox" id="checkbox223" class="md-check" ng-model="object.userPermissions.userList" checkbox>
+                                    <label for="checkbox223">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Listeleme
@@ -586,8 +585,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox62" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
-                                    <label for="checkbox62">
+                                    <input type="checkbox" id="checkbox222" class="md-check" ng-model="object.userPermissions.userAdd" checkbox>
+                                    <label for="checkbox222">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Yeni Kayıt
@@ -595,8 +594,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox63" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
-                                    <label for="checkbox63">
+                                    <input type="checkbox" id="checkbox221" class="md-check" ng-model="object.userPermissions.userGet" checkbox>
+                                    <label for="checkbox221">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Detay
@@ -604,8 +603,8 @@
                                 </div>
                                 <!-- /checkbox -->
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox64" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
-                                    <label for="checkbox64">
+                                    <input type="checkbox" id="checkbox220" class="md-check" ng-model="object.userPermissions.userEdit" checkbox>
+                                    <label for="checkbox220">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Düzenleme
