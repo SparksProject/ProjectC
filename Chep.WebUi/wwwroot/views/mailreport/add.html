@@ -113,7 +113,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.PeriodTypeId.$invalid && form.PeriodTypeId.$dirty, 'has-success': form.periodTypeId.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.periodTypeId.$invalid && form.periodTypeId.$dirty, 'has-success': form.periodTypeId.$valid }">
                             <label class="control-label col-md-3">Gönderim Periyodu</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -122,7 +122,7 @@
                                     </span>
                                     <ui-select ng-model="$parent.object.periodTypeId" name="PeriodTypeId" theme="bootstrap">
                                         <ui-select-match allow-clear="true" placeholder="Seçiniz">{{$select.selected.periodTypeName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.PeriodTypeId as item in periodTypes | filter: $select.search">
+                                        <ui-select-choices repeat="item.periodTypeId as item in periodTypes | filter: $select.search">
                                             <div ng-bind-html="item.periodTypeName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6" ng-show="object.periodTypeId==2">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 Gönderim Günü
@@ -144,14 +144,14 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.periodValue" name="PeriodValue" ng-required="object.PeriodTypeId==2" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.periodDay" name="PeriodDay" ng-required="object.periodTypeId==2" maxlength="50">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6" ng-show="object.PeriodTypeId==1">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 Gönderim Saati
@@ -164,7 +164,7 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Gönderim Saati" ng-model="object.periodValue" name="PeriodValue" ng-required="object.PeriodTypeId==1" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Gönderim Saati" ng-model="object.periodValue" name="PeriodValue" ng-required="object.periodTypeId==1" maxlength="50">
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.ToEmails.$invalid && form.ToEmails.$dirty, 'has-success': form.ToEmails.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.toEmails.$invalid && form.toEmails.$dirty, 'has-success': form.toEmails.$valid }">
                             <label class="control-label eo-required col-md-3">Alıcı E-posta</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -184,7 +184,7 @@
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.toEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false" ng-required="true">
                                         <ui-select-match placeholder="Alıcı e-posta adresleri">{{$item.displayName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
+                                        <ui-select-choices repeat="item.mailDefinitionId as item in mailDefinitions | filter: $select.search">
                                             <div ng-bind-html="item.displayName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -203,7 +203,7 @@
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.ccEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false">
                                         <ui-select-match placeholder="Bilgi e-posta adresleri">{{$item.displayName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
+                                        <ui-select-choices repeat="item.mailDefinitionId as item in mailDefinitions | filter: $select.search">
                                             <div ng-bind-html="item.displayName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>

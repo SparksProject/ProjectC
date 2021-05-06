@@ -34,7 +34,9 @@ namespace Chep.Data.Repository
         Repository<ChepStokCikis> ChepStokCikis { get; }
         Repository<ChepStokCikisDetay> ChepStokCikisDetay { get; }
         Repository<Customs> Customs { get; }
+        Repository<Units> Units { get; }
         Repository<Country> Country { get; }
+        Repository<CurrencyType> CurrencyType { get; }
 
         // Views
         Repository<VwStokDusumListe> ViewStokDusumListe { get; }

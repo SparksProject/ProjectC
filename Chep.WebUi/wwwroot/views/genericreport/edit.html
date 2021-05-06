@@ -70,16 +70,16 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div ng-show="!object.isDefaultReport" class="form-group" ng-class="{'has-error': form.userList.$invalid && form.userList.$dirty, 'has-success': form.UserList.$valid }">
+                        <div ng-show="!object.isDefaultReport" class="form-group" ng-class="{'has-error': form.userList.$invalid && form.userList.$dirty, 'has-success': form.userList.$valid }">
                             <label class="control-label eo-required col-md-3">Yetkili Kullanıcılar</label>
                             <div class="col-md-9">
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="icon-book-open"></i>
                                     </span>
-                                    <ui-select multiple ng-model="$parent.object.userList" name="UserList" theme="bootstrap" sortable="true" close-on-select="false" ng-required="!object.IsDefaultReport">
+                                    <ui-select multiple ng-model="$parent.object.userList" name="UserList" theme="bootstrap" sortable="true" close-on-select="false" ng-required="!object.isDefaultReport">
                                         <ui-select-match placeholder="Yetkili Kullanıcılar">{{$item.fullName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.UserId as item in users | filter: $select.search">
+                                        <ui-select-choices repeat="item.userId as item in users | filter: $select.search">
                                             <div ng-bind-html="item.fullName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -129,7 +129,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Ör:#Tarih#" ng-model="object.genericReportParameterName" name="GenericReportParameterName" ng-required="true">
+                                            <input type="text" class="form-control" placeholder="Ör:#Tarih#" ng-model="x.genericReportParameterName" name="GenericReportParameterName" ng-required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-4">
-                            <div class="form-group" ng-class="{'has-error': x.ParameterTypeId.$invalid && x.ParameterTypeId.$dirty, 'has-success': x.ParameterTypeId.$valid }">
+                            <div class="form-group" ng-class="{'has-error': x.parameterTypeId.$invalid && x.parameterTypeId.$dirty, 'has-success': x.parameterTypeId.$valid }">
                                 <label class="control-label col-md-3">Parametre Türü</label>
                                 <div class="col-md-9">
                                     <div class="input-group">
@@ -159,7 +159,7 @@
                                         </span>
                                         <ui-select ng-model="x.parameterType" name="ParameterTypeId" theme="bootstrap" ng-required="true">
                                             <ui-select-match placeholder="Seçiniz">{{$select.selected.parameterTypeName}}</ui-select-match>
-                                            <ui-select-choices repeat="item.ParameterTypeId as item in parameterTypes | filter: $select.search">
+                                            <ui-select-choices repeat="item.parameterTypeId as item in parameterTypes | filter: $select.search">
                                                 <div ng-bind-html="item.parameterTypeName | highlight: $select.search"></div>
                                             </ui-select-choices>
                                         </ui-select>
@@ -181,7 +181,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.RecordStatusId.$invalid && form.RecordStatusId.$dirty, 'has-success': form.RecordStatusId.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.recordStatusId.$invalid && form.recordStatusId.$dirty, 'has-success': form.recordStatusId.$valid }">
                             <label class="control-label col-md-3">Kayıt Durumu</label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -209,7 +209,7 @@
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
                                 <a class="btn blue" data-toggle="modal" id="btn-show-modal"><i class="fa fa-check"></i>Kaydet</a>
-                                <a ng-show="user.userPermissions.GenericReportGet" href="#/genericreports/get/{{object.GenericReportId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
+                                <a ng-show="user.userPermissions.genericReportGet" href="#/genericreports/get/{{object.genericReportId}}" class="btn red"><i class="fa fa-times"></i>İptal </a>
                             </div>
                         </div>
                     </div>

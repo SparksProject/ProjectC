@@ -21,7 +21,7 @@
     $scope.Get = function () {
         SparksXService.GetGenericReport($stateParams.id).success(function (data) {
             $scope.object = data;
-
+            console.log(data);
             if ($gridContainer == null) {
                 $gridContainer = $("#gridContainer").dxDataGrid({
                     dataSource: [],
@@ -149,7 +149,7 @@
     };
 
     $scope.Add = function (obj) {
-        obj.CreatedBy = $rootScope.user.userId;
+        obj.createdBy = $rootScope.user.userId;
 
         SparksXService.AddGenericReport(obj).success(function (data) {
             $state.go('genericreports/get', { id: data });

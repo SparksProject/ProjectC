@@ -157,6 +157,21 @@ namespace Chep.Service
             return Success(list);
         }
 
+        public ResponseDTO GetUnits()
+        {
+            var entities = _uow.Units.GetAll();
+
+            var list = entities.Select(item => new UnitsDTO
+            {
+                UnitsId = item.UnitsId,
+                UnitsName = item.UnitsName,
+                EdiCode = item.EdiCode,
+                Status = item.Status
+            });
+
+            return Success(list);
+        }
+
         public ResponseDTO GetCountries()
         {
             var entities = _uow.Country.GetAll();
@@ -165,6 +180,21 @@ namespace Chep.Service
             {
                 CountryId = item.CountryId,
                 CountryName = item.CountryName,
+                EdiCode = item.EdiCode,
+                Status = item.Status
+            });
+
+            return Success(list);
+        }
+
+        public ResponseDTO GetCurrencyTypes()
+        {
+            var entities = _uow.CurrencyType.GetAll();
+
+            var list = entities.Select(item => new CurrencyTypeDto
+            {
+                CurrencyTypeId = item.CurrencyTypeId,
+                CurrencyTypeName = item.CurrencyTypeName,
                 EdiCode = item.EdiCode,
                 Status = item.Status
             });

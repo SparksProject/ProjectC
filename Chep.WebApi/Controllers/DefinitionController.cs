@@ -116,6 +116,13 @@ namespace Chep.WebApi.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
+        [HttpGet("GetUnits")]
+        public IActionResult GetUnits()
+        {
+            var result = _service.GetUnits().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
 
         [HttpGet("GetNextReferenceNumber/{id}")]
         public IActionResult GetNextReferenceNumber(string id)
@@ -129,6 +136,14 @@ namespace Chep.WebApi.Controllers
         public IActionResult GetCountries()
         {
             var result = _service.GetCountries().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("GetCurrencyTypes")]
+        public IActionResult GetCurrencyTypes()
+        {
+            var result = _service.GetCurrencyTypes().Result;
 
             return StatusCode(StatusCodes.Status200OK, result);
         }

@@ -67,7 +67,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="x in object.genericReportUserList">
-                                            <td>{{object.userName}}</td>
+                                            <td>{{x.userName}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -95,9 +95,9 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="x in object.genericReportParameterList">
-                                            <td>{{object.genericReportParameterName}}</td>
-                                            <td>{{object.parameterLabel}}</td>
-                                            <td>{{object.parameterTypeDisplay}}</td>
+                                            <td>{{x.genericReportParameterName}}</td>
+                                            <td>{{x.parameterLabel}}</td>
+                                            <td>{{x.parameterTypeDisplay}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
