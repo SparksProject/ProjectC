@@ -22,6 +22,13 @@ namespace Chep.Core
         public Guid? IhracatciFirma { get; set; }
         public string TpsNo { get; set; }
         public DateTime? TpsTarih { get; set; }
+        public Guid? WorkOrderMasterId { get; set; }
+        public Guid? InvoiceId { get; set; }
+        public string InvoiceNo { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+        public decimal? InvoiceAmount { get; set; }
+        public string InvoiceCurrency { get; set; }
+        public string GtbReferenceNo { get; set; }
 
         public virtual Customer IhracatciFirmaNavigation { get; set; }
         public virtual ICollection<ChepStokCikisDetay> ChepStokCikisDetay { get; set; }

@@ -12,6 +12,7 @@ namespace Chep.Service.Interface
         ResponseDTO GetUserTypes();
         ResponseDTO GetParameterTypes();
         ResponseDTO GetCustoms();
+        ResponseDTO GetUnits();
         ResponseDTO GetCountries();
         ResponseDTO GetCurrencyTypes();
         ResponseDTO GetProducts();
