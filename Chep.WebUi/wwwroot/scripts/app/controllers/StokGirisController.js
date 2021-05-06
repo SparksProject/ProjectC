@@ -149,7 +149,7 @@
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
-                            dataField: "olcuBirimi", caption: "Ölçü Birimi", width: 120,
+                            dataField: "olcuBirimi", caption: "Ölçü Birimi", width: 200,
                             lookup: {
                                 dataSource: storeUnits, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: "unitsName", // Dönen veride basılacak metin
