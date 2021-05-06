@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6" ng-show="object.periodTypeId==2">
+                    <div class="col-md-6"">
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 Gönderim Günü
@@ -144,14 +144,14 @@
                                     </span>
                                     <div class="input-icon right">
                                         <i class="fa"></i>
-                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.dayValue" name="DayValue" ng-required="object.periodTypeId==2" maxlength="50">
+                                        <input type="text" class="form-control" placeholder="Gönderim Günü" ng-model="object.periodDay" name="PeriodDay" ng-required="object.periodTypeId==2" maxlength="50">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--/span-->
-                    <div class="col-md-6" ng-show="object.periodTypeId==1">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label col-md-3">
                                 Gönderim Saati
@@ -184,7 +184,7 @@
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.toEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false" ng-required="true">
                                         <ui-select-match placeholder="Alıcı e-posta adresleri">{{$item.displayName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
+                                        <ui-select-choices repeat="item.mailDefinitionId as item in mailDefinitions | filter: $select.search">
                                             <div ng-bind-html="item.displayName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -203,7 +203,7 @@
                                     </span>
                                     <ui-select multiple ng-model="$parent.object.ccEmails" name="ToEmails" theme="bootstrap" sortable="true" close-on-select="false">
                                         <ui-select-match placeholder="Bilgi e-posta adresleri">{{$item.displayName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.MailDefinitionId as item in mailDefinitions | filter: $select.search">
+                                        <ui-select-choices repeat="item.mailDefinitionId as item in mailDefinitions | filter: $select.search">
                                             <div ng-bind-html="item.displayName | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>

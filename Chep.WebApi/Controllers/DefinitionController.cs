@@ -116,6 +116,13 @@ namespace Chep.WebApi.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
+        [HttpGet("GetUnits")]
+        public IActionResult GetUnits()
+        {
+            var result = _service.GetUnits().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
 
         [HttpGet("GetNextReferenceNumber/{id}")]
         public IActionResult GetNextReferenceNumber(string id)

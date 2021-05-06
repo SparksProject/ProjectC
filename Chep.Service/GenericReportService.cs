@@ -159,7 +159,9 @@ namespace Chep.Service
             {
                 var entity = _uow.GenericReports.Set()
                                                 .Include(x => x.RecordStatus)
+                                                .Include(x => x.GenericReportParameter)
                                                 .Include(x => x.GenericReportUser)
+                                                .ThenInclude(x => x.User)
                                                 .Single(x => x.GenericReportId == id);
 
                 var result = Mapper.MapSingle<GenericReport, GenericReportDTO>(entity);

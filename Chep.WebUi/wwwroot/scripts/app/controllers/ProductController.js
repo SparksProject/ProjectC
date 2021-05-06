@@ -46,9 +46,11 @@
     };
 
     $scope.Add = function (obj) {
-        obj.CreatedBy = $rootScope.user.UserId;
-        obj.RecordStatusId = 1;
-
+        obj.createdBy = $rootScope.user.userId;
+        obj.recordStatusId = 1;
+        obj.netWeight = parseFloat(obj.netWeight);
+        obj.grossWeight = parseFloat(obj.grossWeight);
+        //obj.createdDate = new Date();
         SparksXService.AddProduct(obj).success(function (data) {
             $state.go('products/list');
         });

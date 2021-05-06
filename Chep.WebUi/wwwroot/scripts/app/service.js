@@ -107,6 +107,10 @@
         return GetDefinitionRequestJson('GetProducts');
     };
 
+    this.GetUnits = function () {
+        return GetDefinitionRequestJson('GetUnits');
+    };
+
     this.GetNextReferenceNumber = function (id) {
         return GetDefinitionRequestJsonById('GetNextReferenceNumber', id);
     };

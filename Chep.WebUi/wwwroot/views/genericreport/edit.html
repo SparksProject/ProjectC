@@ -129,7 +129,7 @@
                                         </span>
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <input type="text" class="form-control" placeholder="Ör:#Tarih#" ng-model="object.genericReportParameterName" name="GenericReportParameterName" ng-required="true">
+                                            <input type="text" class="form-control" placeholder="Ör:#Tarih#" ng-model="x.genericReportParameterName" name="GenericReportParameterName" ng-required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-4">
-                            <div class="form-group" ng-class="{'has-error': x.ParameterTypeId.$invalid && x.ParameterTypeId.$dirty, 'has-success': x.ParameterTypeId.$valid }">
+                            <div class="form-group" ng-class="{'has-error': x.parameterTypeId.$invalid && x.parameterTypeId.$dirty, 'has-success': x.parameterTypeId.$valid }">
                                 <label class="control-label col-md-3">Parametre Türü</label>
                                 <div class="col-md-9">
                                     <div class="input-group">
@@ -159,7 +159,7 @@
                                         </span>
                                         <ui-select ng-model="x.parameterType" name="ParameterTypeId" theme="bootstrap" ng-required="true">
                                             <ui-select-match placeholder="Seçiniz">{{$select.selected.parameterTypeName}}</ui-select-match>
-                                            <ui-select-choices repeat="item.ParameterTypeId as item in parameterTypes | filter: $select.search">
+                                            <ui-select-choices repeat="item.parameterTypeId as item in parameterTypes | filter: $select.search">
                                                 <div ng-bind-html="item.parameterTypeName | highlight: $select.search"></div>
                                             </ui-select-choices>
                                         </ui-select>
@@ -181,7 +181,7 @@
                 <!--/row-->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" ng-class="{'has-error': form.RecordStatusId.$invalid && form.RecordStatusId.$dirty, 'has-success': form.RecordStatusId.$valid }">
+                        <div class="form-group" ng-class="{'has-error': form.recordStatusId.$invalid && form.recordStatusId.$dirty, 'has-success': form.recordStatusId.$valid }">
                             <label class="control-label col-md-3">Kayıt Durumu</label>
                             <div class="col-md-9">
                                 <div class="input-group">

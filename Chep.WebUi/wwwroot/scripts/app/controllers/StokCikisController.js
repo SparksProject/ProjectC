@@ -563,8 +563,6 @@
 
         obj.referansNo = parseInt(obj.referansNo);
 
-        console.log(obj);
-
         App.startPageLoading();
 
         var ds = $gridDetail.getDataSource();
@@ -582,56 +580,65 @@
             .validate()
             .then(function (validGrid) {
                 if (validGrid) {
+                    if (obj.chepStokCikisDetayList.length > 0) {
+                        if (obj.stokCikisId == 0) {
+                            // Insert
+                            SparksXService.AddStokCikis(obj).success(function (data) {
+                                swal({
+                                    icon: "success",
+                                    title: "Başarılı!",
+                                    text: "Ekleme işlemi başarılı.",
+                                }, function (result) {
+                                    if (result) {
+                                        $modalDetail.modal('hide');
+                                    }
+                                });
 
-                    if (obj.stokCikisId == 0) {
-                        // Insert
-                        SparksXService.AddStokCikis(obj).success(function (data) {
-                            swal({
-                                icon: "success",
-                                title: "Başarılı!",
-                                text: "Ekleme işlemi başarılı.",
-                            }, function (result) {
-                                if (result) {
-                                    $modalDetail.modal('hide');
-                                }
+                                ListData();
+
+                                App.stopPageLoading();
+                            }).error(function () {
+                                swal({
+                                    icon: "error",
+                                    title: "Hata!",
+                                    text: "Ekleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                                });
+
+                                App.stopPageLoading();
                             });
+                        } else {
+                            // Update
+                            SparksXService.EditStokCikis(obj).success(function (data) {
+                                swal({
+                                    icon: "success",
+                                    title: "Başarılı!",
+                                    text: "Güncelleme işlemi başarılı.",
+                                }, function (result) {
+                                    if (result) {
+                                        $modalDetail.modal('hide');
+                                    }
+                                });
 
-                            ListData();
-
-                            App.stopPageLoading();
-                        }).error(function () {
-                            swal({
-                                icon: "error",
-                                title: "Hata!",
-                                text: "Ekleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                                ListData();
+                                App.stopPageLoading();
+                            }).error(function () {
+                                swal({
+                                    icon: "error",
+                                    title: "Hata!",
+                                    text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                                });
+                                App.stopPageLoading();
                             });
-
-                            App.stopPageLoading();
-                        });
-                    } else {
-                        // Update
-                        SparksXService.EditStokCikis(obj).success(function (data) {
-                            swal({
-                                icon: "success",
-                                title: "Başarılı!",
-                                text: "Güncelleme işlemi başarılı.",
-                            }, function (result) {
-                                if (result) {
-                                    $modalDetail.modal('hide');
-                                }
-                            });
-
-                            ListData();
-                            App.stopPageLoading();
-                        }).error(function () {
-                            swal({
-                                icon: "error",
-                                title: "Hata!",
-                                text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
-                            });
-                            App.stopPageLoading();
+                        }
+                    }
+                    else {
+                        swal({
+                            icon: "warning",
+                            title: "Detay Alanı Giriniz!",
+                            text: "Detay alanına satır eklemeden kayıt yapılamaz!",
                         });
                     }
+                    
 
                 }
             });
@@ -694,7 +701,7 @@
                     icon: "success",
                     title: "İşlem başarlı!",
                 }, function () {
-                        $modalDrop.modal('hide');
+                    $modalDrop.modal('hide');
                 });
             }
         });

@@ -42,6 +42,23 @@
         }
     });
 
+    var storeUnits = new DevExpress.data.CustomStore({
+        key: "ediCode",
+        method: "Get",
+        loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
+        load: function () {
+            var deferred = $.Deferred();
+
+            SparksXService.GetUnits().success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                deferred.reject("Data Loading Error");
+            });
+
+            return deferred.promise();
+        }
+    });
+
     $scope.$on('$viewContentLoaded', function () {
         App.initAjax();
         $rootScope.settings.layout.pageContentWhite = true;
@@ -82,38 +99,45 @@
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
+                            dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number", width: 100,
                             format: { type: "fixedPoint", precision: 0 },
                         },
-                        { dataField: "tpsBeyan", caption: "TPS Beyan", width: 70, },
+                        { dataField: "tpsBeyan", caption: "TPS Beyan", width: 100, },
                         {
-                            dataField: "urunKod", caption: "Ürün Kodu", width: 80,
+                            dataField: "urunKod", caption: "Ürün Kodu", width: 170,
                             lookup: {
                                 dataSource: storeProducts, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: "productNo", // Dönen veride basılacak metin
                                 valueExpr: "productNo", // Dönen veride basılacak value
                             },
                         },
-                        { dataField: "esyaGtip", caption: "Eşya GTİP", width: 100, },
-                        { dataField: "esyaCinsi", caption: "Eşya Cinsi", width: 100, },
-                        { dataField: "faturaNo", caption: "Fatura No", width: 80, },
-                        { dataField: "faturaTarih", caption: "Fatura Tarihi", width: 90, dataType: "date", formatType: "shortDate" },
+                        { dataField: "esyaGtip", caption: "Eşya GTİP", width: 120, },
+                        { dataField: "esyaCinsi", caption: "Eşya Cinsi", width: 120, },
+                        { dataField: "faturaNo", caption: "Fatura No", width: 100, },
+                        { dataField: "faturaTarih", caption: "Fatura Tarihi", width: 100, dataType: "date", formatType: "shortDate" },
                         {
-                            dataField: "faturaTutar", caption: "Fatura Tutar", width: 90,dataType: "number",
+                            dataField: "faturaTutar", caption: "Fatura Tutar", width: 100, dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
-                        { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", width: 90, },
+                        { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", width: 140, },
                         {
-                            dataField: "Miktar", caption: "Miktar", dataType: "number",
+                            dataField: "Miktar", caption: "Miktar", dataType: "number", width: 100,
                             format: { type: "fixedPoint", precision: 0 },
                         },
-                        { dataField: "olcuBirimi", caption: "Ölçü Birimi", width: 80, },
-                        { dataField: "rejim", caption: "Rejim", },
-                        { dataField: "cikisRejimi", caption: "Çıkış Rejimi", width: 80,},
+                        {
+                            dataField: "olcuBirimi", caption: "Ölçü Birimi", width: 120,
+                            lookup: {
+                                dataSource: storeUnits, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: "unitsName", // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
+                        { dataField: "rejim", caption: "Rejim", width: 90, },
+                        { dataField: "cikisRejimi", caption: "Çıkış Rejimi", width: 100, },
                         {
                             dataField: "gidecegiUlke",
                             caption: "Gideceği Ülke",
-                            width: 130,
+                            width: 200,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -125,7 +149,7 @@
                         {
                             dataField: "menseUlke",
                             caption: "Menşei Ülke",
-                            width: 130,
+                            width: 200,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -137,7 +161,7 @@
                         {
                             dataField: "sozlesmeUlke",
                             caption: "Sözleşme Ülke",
-                            width: 130,
+                            width: 200,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -146,15 +170,15 @@
                                 valueExpr: "ediCode", // Dönen veride basılacak value
                             },
                         },
-                        { dataField: "marka", caption: "Marka", },
-                        { dataField: "model", caption: "Model", },
-                        { dataField: "poNo", caption: "PO", },
+                        { dataField: "marka", caption: "Marka", width: 100, },
+                        { dataField: "model", caption: "Model", width: 100, },
+                        { dataField: "poNo", caption: "PO", width: 100, },
                     ],
                     onContextMenuPreparing: function (e) {
                         if (e.target == "content") {
                             if (!e.items) e.items = [];
 
-                            if ($rootScope.user.UserPermissions.StokGirisAdd) {
+                            if ($rootScope.user.userPermissions.stokGirisAdd) {
                                 e.items.push({
                                     text: "Ekle",
                                     icon: "add",
@@ -253,9 +277,9 @@
                 keyExpr: "stokGirisId",
                 dataSource: [],
                 columns: [
-                    { dataField: "referansNo", caption: "Referans No", },
-                    { dataField: "tpsNo", caption: "TPS No", },
-                    { dataField: "tpsDurum", caption: "TPS Durum", },
+                    { dataField: "referansNo", caption: "Referans No", width: 120 },
+                    { dataField: "tpsNo", caption: "TPS No", width: 200 },
+                    { dataField: "tpsDurum", caption: "TPS Durum", width: 200 },
                     { dataField: "basvuruTarihi", caption: "Basvuru Tarihi", dataType: "date", formatType: "shortDate" },
                     { dataField: "sureSonuTarihi", caption: "Süre Sonu Tarihi", dataType: "date", formatType: "shortDate" },
                     { dataField: "gumrukKod", caption: "Gumruk Kodu", },
@@ -264,8 +288,8 @@
                     { dataField: "belgeAd", caption: "Belge Ad", },
                     { dataField: "belgeSart", caption: "Belge Şart", },
                     { dataField: "tpsAciklama", caption: "TPS Açıklama", },
-                    { dataField: "ithalatciFirmaName", caption: "İthalatçı Firma", },
-                    { dataField: "ihracatciFirmaName", caption: "İhracatçı Firma", },
+                    { dataField: "ithalatciFirmaName", caption: "İthalatçı Firma", width: 200 },
+                    { dataField: "ihracatciFirmaName", caption: "İhracatçı Firma", width: 200 },
                     { dataField: "kapAdet", caption: "Kap Adet", },
                 ],
                 export: {
@@ -480,56 +504,66 @@
             .validate()
             .then(function (validGrid) {
                 if (validGrid) {
+                    console.log(obj);
+                    if (obj.chepStokGirisDetayList.length > 0) {
+                        if (obj.stokGirisId == 0) {
+                            // Insert
+                            SparksXService.AddStokGiris(obj).success(function (data) {
+                                swal({
+                                    icon: "success",
+                                    title: "Başarılı!",
+                                    text: "Ekleme işlemi başarılı.",
+                                }, function (result) {
+                                    if (result) {
+                                        $modalDetail.modal('hide');
+                                    }
+                                });
 
-                    if (obj.stokGirisId == 0) {
-                        // Insert
-                        SparksXService.AddStokGiris(obj).success(function (data) {
-                            swal({
-                                icon: "success",
-                                title: "Başarılı!",
-                                text: "Ekleme işlemi başarılı.",
-                            }, function (result) {
-                                if (result) {
-                                    $modalDetail.modal('hide');
-                                }
+                                ListData();
+
+                                App.stopPageLoading();
+                            }).error(function () {
+                                swal({
+                                    icon: "error",
+                                    title: "Hata!",
+                                    text: "Ekleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                                });
+
+                                App.stopPageLoading();
                             });
+                        } else {
+                            // Update
+                            SparksXService.EditStokGiris(obj).success(function (data) {
+                                swal({
+                                    icon: "success",
+                                    title: "Başarılı!",
+                                    text: "Güncelleme işlemi başarılı.",
+                                }, function (result) {
+                                    if (result) {
+                                        $modalDetail.modal('hide');
+                                    }
+                                });
 
-                            ListData();
-
-                            App.stopPageLoading();
-                        }).error(function () {
-                            swal({
-                                icon: "error",
-                                title: "Hata!",
-                                text: "Ekleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                                ListData();
+                                App.stopPageLoading();
+                            }).error(function () {
+                                swal({
+                                    icon: "error",
+                                    title: "Hata!",
+                                    text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                                });
+                                App.stopPageLoading();
                             });
-
-                            App.stopPageLoading();
-                        });
-                    } else {
-                        // Update
-                        SparksXService.EditStokGiris(obj).success(function (data) {
-                            swal({
-                                icon: "success",
-                                title: "Başarılı!",
-                                text: "Güncelleme işlemi başarılı.",
-                            }, function (result) {
-                                if (result) {
-                                    $modalDetail.modal('hide');
-                                }
-                            });
-
-                            ListData();
-                            App.stopPageLoading();
-                        }).error(function () {
-                            swal({
-                                icon: "error",
-                                title: "Hata!",
-                                text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
-                            });
-                            App.stopPageLoading();
+                        }
+                    }
+                    else {
+                        swal({
+                            icon: "warning",
+                            title: "Detay Alanı Giriniz!",
+                            text: "Detay alanına satır eklemeden kayıt yapılamaz!",
                         });
                     }
+
 
                 }
             });

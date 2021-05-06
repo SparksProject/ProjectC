@@ -149,7 +149,7 @@
     };
 
     $scope.Add = function (obj) {
-        obj.CreatedBy = $rootScope.user.userId;
+        obj.createdBy = $rootScope.user.userId;
 
         SparksXService.AddGenericReport(obj).success(function (data) {
             $state.go('genericreports/get', { id: data });
