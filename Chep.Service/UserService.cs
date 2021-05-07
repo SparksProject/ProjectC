@@ -227,6 +227,14 @@ namespace Chep.Service
                 var result = _uow.Users.Add(entity);
 
                 _uow.Commit();
+                if (obj.CustomerIdList != null)
+                {
+                    foreach (var item in obj.CustomerIdList.Where(x => x != null))
+                    {
+                        _uow.UserCustomers.Add(new UserCustomer { CustomerId = item, UserId = result.UserId });
+                    }
+                }
+                _uow.Commit();
 
                 return Success(result.UserId);
             }
