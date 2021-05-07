@@ -592,4 +592,42 @@
                 }
             });
     };
+
+    // UploadFile
+    $scope.UploadFile = function (obj) {
+        $scope.HasMessage = false;
+        $scope.ResultMessage = undefined;
+        //console.log($scope.object.ExcelFile);-- obj.ExcelFile Aynı şey
+        if (obj.ExcelFile == null) {
+            return false;
+        }
+
+        var reader = new FileReader();
+        reader.readAsBinaryString(obj.ExcelFile);
+        reader.onload = function () {
+            var files = btoa(reader.result);
+
+            SparksXService.ImportStokGiris(files).success(function (data) {
+                if (data.Message != null && data.Message != undefined && data.Message.length > 0) {
+                    $scope.ResultMessage = data.Message;
+                    $scope.HasMessage = true;
+
+                    var content = '<button class="close" data-close="alert"></button>';
+                    content += data.Message;
+
+                    $('#divMessage').html(content).removeClass('display-none');
+                } else {
+                    $state.go('stokgiris/list');
+                }
+            }).error(function () {
+                $scope.ResultMessage = "HATA";
+                $scope.HasMessage = true;
+            });
+        };
+        reader.onerror = function () {
+            console.log("error");
+            return false;
+        };
+    };
+
 }]);

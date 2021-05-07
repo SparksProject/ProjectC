@@ -10,7 +10,7 @@
                 <!-- BEGIN FORM-->
                 <div class="form-group">
                     <label class="control-label col-md-3"> Excel Dosyası </label>
-                    <div class="col-md-3">
+                    <!--<div class="col-md-3">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="input-group input-large">
                                 <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
@@ -25,13 +25,35 @@
                                 <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Kaldır </a>
                             </div>
                         </div>
+                    </div>-->
+                    <!--/span-->
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group input-large">
+                                    <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Seçiniz </span>
+                                        <span class="fileinput-exists"> Değiştir </span>
+                                        <input type="file" name="ExcelFile" ngf-select accept=".xlsx" ng-model="object.ExcelFile">
+                                    </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Kaldır </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
+
+                    <!--/span-->
                 </div>
                 <!-- END FORM-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn blue" ng-click="UploadFile()" ng-model="ExcelFile">Dosya Yükle</button>
+                <button type="button" class="btn blue" ng-click="UploadFile(object)">Dosya Yükle</button>
             </div>
         </form>
         <!-- /.modal-content -->

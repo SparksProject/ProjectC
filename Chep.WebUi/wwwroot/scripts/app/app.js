@@ -868,7 +868,10 @@ SparksXApp.config(['$stateProvider', '$urlRouterProvider', 'permissionsProvider'
                         files: [
 
                             '/scripts/app/custom/angular-file-upload/ng-file-upload-shim.min.js',
-                            '/scripts/app/custom/angular-file-upload/ng-file-upload.min.js'
+                            '/scripts/app/custom/angular-file-upload/ng-file-upload.min.js',
+
+                            '/content/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+                            '/content/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
                         ]
                     }, {
                         name: 'ui.select',
