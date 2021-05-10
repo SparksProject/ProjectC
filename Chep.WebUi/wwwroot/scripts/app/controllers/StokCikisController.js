@@ -6,14 +6,18 @@
     var $gridContainer = null;
     var $gridDetail = null;
     var $gridDrop = null;
+    var $gridDrop1 = null;
     var $modalDetail = null;
     var $modalImport = null;
     var $modalDrop = null;
+    //var $modalDrop1 = null;
     var DeletedChepStokCikisDetayIdList = [];
     var $btnArchive = null;
     var $btnJobOrder = null;
     var $btnDrop = null;
+    //var $btnDrop1 = null;
     var $btnDropSubmit = null;
+    //var $btnDropSubmit1 = null;
 
     var storeStokGiris = new DevExpress.data.CustomStore({
         key: "stokGirisDetayId",
@@ -45,6 +49,7 @@
             $btnArchive = $('#btnArchive');
             $btnJobOrder = $('#btnJobOrder');
             $btnDrop = $('#btnDrop');
+            //$btnDrop1 = $('#btnDrop1');
 
             $modalDetail = $('#modalDetail').on({
                 "hide.bs.modal": function (e) {
@@ -482,11 +487,97 @@
                 focusedRowEnabled: true,
             }).dxDataGrid('instance');
         }
+        if ($modalDrop1 == null) {
+            $btnDropSubmit1 = $('#btnDropSubmit1');
 
+            $modalDrop1 = $('#modalDrop1').on({
+                "hide.bs.modal": function (e) {
+                    if ($('.modal:visible').length > 1) {
+                        bodyModalPadding = $('body').css('paddingRight');
+                    } else {
+                        bodyModalPadding = 0;
+                    }
+                },
+                "hidden.bs.modal": function (e) {
+                    $btnDropSubmit.prop('disabled', true);
+                    $scope.object.Drop = {};
+
+                    $gridDrop.option("dataSource", []);
+
+                    $modalDrop1.find('form .form-group').removeClass('has-success').removeClass('has-error');
+                    $modalDrop1.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
+                    $modalDrop1.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
+
+                    $scope.$apply();
+                }
+            }).modal({
+                show: true,
+                keyboard: false,
+                backdrop: false
+            });
+
+            //if ($gridDrop1 == null) {
+            //    $gridDrop1 = $("#gridDrop1").dxDataGrid({
+            //        keyExpr: "stokGirisDetayId",
+            //        dataSource: [],
+            //        columns: [
+            //            { dataField: "girisBeyannameNo", caption: "Beyanname No", width: 150, },
+            //            { dataField: "tpsNo", caption: "TPS No", width: 150, },
+            //            { dataField: "urunKod", caption: "Ürün Kodu", },
+            //            {
+            //                dataField: "girisMiktar", caption: "Giriş Adet", dataType: "number",
+            //                format: { type: "fixedPoint", precision: 0 },
+            //            },
+            //            {
+            //                dataField: "kalanMiktar", caption: "Kalan Adet", dataType: "number",
+            //                format: { type: "fixedPoint", precision: 0 },
+            //            },
+            //            {
+            //                dataField: "dusulenMiktar", caption: "Düşülen Adet", dataType: "number",
+            //                format: { type: "fixedPoint", precision: 0 },
+            //            },
+            //            {
+            //                dataField: "bakiyeMiktar", caption: "Bakiye Adet", dataType: "number",
+            //                format: { type: "fixedPoint", precision: 0 },
+            //            },
+            //        ],
+            //        summary: {
+            //            totalItems: [
+            //                {
+            //                    column: "dusulenMiktar",
+            //                    summaryType: "sum",
+            //                },
+            //                {
+            //                    column: "bakiyeMiktar",
+            //                    summaryType: "sum",
+            //                }
+            //            ]
+            //        },
+            //        onCellPrepared: function (e) {
+            //            if (e.rowType == "data" && e.data.DusulenMiktar > 0) {
+            //                $(e.cellElement).css('backgroundColor', '#e8f0fe');
+            //            }
+            //        },
+            //        filterRow: {
+            //            visible: false,
+            //        },
+            //        groupPanel: {
+            //            visible: false,
+            //        },
+            //        showBorders: true,
+            //        showRowLines: true,
+            //        sorting: {
+            //            mode: "none"
+            //        },
+            //    }).dxDataGrid('instance');
+            //}
+        }
         //$gridContainer.beginCustomLoading();
 
         //ListData();
+        //}
     }
+
 
     $scope.ModalImport = function () {
         if ($modalImport == null) {
