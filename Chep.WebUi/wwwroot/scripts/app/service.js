@@ -292,6 +292,10 @@
         return GetBaseRequestPostJson("StokGiris", "Edit", obj);
     };
 
+    this.ImportStokGiris = function (obj) {
+        return GetBaseRequestPostJson("StokGiris", "Import", obj);
+    };
+
     //Stok Cikis======================>
 
     this.ListStokCikises = function (ReferansNo, BeyannameNo, TPSNo) {
