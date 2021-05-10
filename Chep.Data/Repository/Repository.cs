@@ -1,7 +1,7 @@
 ﻿using Chep.Core;
 
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +35,11 @@ namespace Chep.Data.Repository
             return Set().Any(predicate);
         }
 
-        public void AddRange(List<T> obj)
+        public List<T> AddRange(List<T> obj)
         {
             Set().AddRange(obj);
+
+            return obj;
         }
 
         public void Delete(T entity)
@@ -81,5 +83,15 @@ namespace Chep.Data.Repository
 
             return entity;
         }
+
+        private IDbContextTransaction transaction;
+
+        public List<T> UpdateRange(List<T> obj)
+        {
+            Set().UpdateRange(obj);
+
+            return obj;
+        }
+       
     }
 }

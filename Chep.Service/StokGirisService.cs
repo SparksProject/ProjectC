@@ -364,11 +364,11 @@ namespace Chep.Service
         private const string ExcelGumrukKod = "Gumruk";
         private const string ExcelBeyannameNo = "Beyanname No";
         private const string ExcelBeyannameTarihi = "Beyanname Tarihi";
-        private const string ExcelBelgeAd = "Belge Adı";
-        private const string ExcelBelgeSart = "Belge Özel Şart";
-        private const string ExcelTpsAciklama = "TPS Açıklama";
-        private const string ExcelIthalatciFirma = "İthalatçı Firma";
-        private const string ExcelIhracatciFirma = "İhracatçı Firma";
+        private const string ExcelBelgeAd = "Belge Adi";
+        private const string ExcelBelgeSart = "Belge Ozel Sart";
+        private const string ExcelTpsAciklama = "TPS Aciklama";
+        private const string ExcelIthalatciFirma = "İthalatci Firma";
+        private const string ExcelIhracatciFirma = "İhracatci Firma";
         private const string ExcelTpsSiraNo = "TPS Sıra No";
         private const string ExcelTpsBeyan = "TPS Beyan";
         private const string ExcelEsyaCinsi = "Eşya Cinsi";
@@ -396,12 +396,20 @@ namespace Chep.Service
         private const string ImportMultipleProductKey = "MultipleProduct";
         private const string ImportNoProductKey = "NoProduct";
 
-        public ResponseDTO Import(IFormFile file)
+        public ResponseDTO Import(IFormFile file, int userId)
         {
 
             var summaryList = new List<string>();
             var informationDictionary = new Dictionary<string, List<string>>();
-
+            var user = _uow.Users.Set().Include(x => x.UserType)
+                                      .Include(x => x.UserCustomer)
+                                      .ThenInclude(x => x.Customer)
+                                      .Include(x => x.UserPermission)
+                                      .Include(x => x.RecordStatus)
+                                      .Include(x => x.CreatedByNavigation)
+                                      .Include(x => x.ModifiedByNavigation)
+                                      .Include(x => x.DeletedByNavigation)
+                                      .FirstOrDefault(x => x.UserId == userId);
             try
             {
                 using var stream = new MemoryStream();
@@ -641,9 +649,9 @@ namespace Chep.Service
                     return Warning("Beklenen formatta bir excel dosyası verilmedi!" + informationDictionary + " ");
                 }
 
-                var an9EntityInsertList = new List<ChepStokGiris>();
-                var an9EntityUpdateList = new List<ChepStokGiris>();
-                var an9FileDto = new ChepStokGirisDTO();
+                var stokGirisInsertList = new List<ChepStokGiris>();
+                var stokGirisUpdateList = new List<ChepStokGiris>();
+                var stokGirisDto = new ChepStokGirisDTO();
                 var detailDto = new ChepStokGirisDetayDTO();
 
 
@@ -710,61 +718,61 @@ namespace Chep.Service
                             //bu kontroller sütün sayısının içindeki isim ve dışarıda tanımlanan ExcelWarehouseName in karşılığına gelen isim eşit ise dto yu doldurmaya yarar.
                             if (j == importColumnNames[ExcelTpsNo])
                             {
-                                an9FileDto.TpsNo = cellValue;
+                                stokGirisDto.TpsNo = cellValue;
                             }
                             else if (j == importColumnNames[ExcelTpsDurum])
                             {
-                                an9FileDto.TpsDurum = cellValue;
+                                stokGirisDto.TpsDurum = cellValue;
                             }
                             else if (j == importColumnNames[ExcelBasvuruTarihi])
                             {
                                 if (!string.IsNullOrEmpty(cellValue.Trim()))
                                 {
-                                    an9FileDto.BasvuruTarihi = cell.DateCellValue;
+                                    stokGirisDto.BasvuruTarihi = cell.DateCellValue;
                                 }
                             }
                             else if (j == importColumnNames[ExcelSureSonuTarihi])
                             {
                                 if (!string.IsNullOrEmpty(cellValue.Trim()))
                                 {
-                                    an9FileDto.SureSonuTarihi = cell.DateCellValue;
+                                    stokGirisDto.SureSonuTarihi = cell.DateCellValue;
                                 }
                             }
                             else if (j == importColumnNames[ExcelGumrukKod])
                             {
-                                an9FileDto.GumrukKod = cellValue;
+                                stokGirisDto.GumrukKod = cellValue;
                             }
                             else if (j == importColumnNames[ExcelBeyannameNo])
                             {
-                                an9FileDto.BeyannameNo = cellValue;
+                                stokGirisDto.BeyannameNo = cellValue;
                             }
                             else if (j == importColumnNames[ExcelBeyannameTarihi])
                             {
                                 if (!string.IsNullOrEmpty(cellValue.Trim()))
                                 {
-                                    an9FileDto.BeyannameTarihi = cell.DateCellValue;
+                                    stokGirisDto.BeyannameTarihi = cell.DateCellValue;
                                 }
                             }
                             else if (j == importColumnNames[ExcelBelgeAd])
                             {
-                                an9FileDto.BelgeAd = cellValue;
+                                stokGirisDto.BelgeAd = cellValue;
                             }
                             else if (j == importColumnNames[ExcelBelgeSart])
                             {
-                                an9FileDto.BelgeSart = cellValue;
+                                stokGirisDto.BelgeSart = cellValue;
 
                             }
                             else if (j == importColumnNames[ExcelTpsAciklama])
                             {
-                                an9FileDto.TpsAciklama = cellValue;
+                                stokGirisDto.TpsAciklama = cellValue;
                             }
                             else if (j == importColumnNames[ExcelIthalatciFirma])
                             {
-                                an9FileDto.IthalatciFirmaName = cellValue;
+                                stokGirisDto.IthalatciFirmaName = cellValue;
                             }
                             else if (j == importColumnNames[ExcelIhracatciFirma])
                             {
-                                an9FileDto.IthalatciFirmaName = cellValue;
+                                stokGirisDto.IhracatciFirmaName = cellValue;
                             }
                             else if (j == importColumnNames[ExcelTpsSiraNo])
                             {
@@ -850,8 +858,12 @@ namespace Chep.Service
                                 detailDto.UrunKod = cellValue;
                             }
                         }
+                        var existStokGirisEntities = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo);
+                        var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
 
-                        var customsEntities = _uow.Customs.Search(x => x.EdiCode == an9FileDto.GumrukKod);
+
+
+                        var customsEntities = _uow.Customs.Search(x => x.EdiCode == stokGirisDto.GumrukKod);
                         //eğer Customs tablosunda exceldeki GumrukKod ile eşleşen alan yoksa başa dön
                         if (customsEntities.Count != 1)
                         {
@@ -859,7 +871,7 @@ namespace Chep.Service
 
                             if (customsEntities.Count == 0) // beyanname no bulunmayınca
                             {
-                                tempList.Add($"Gumruk Kod Bulunamadı. Gumruk Kod:{an9FileDto.GumrukKod}");
+                                tempList.Add($"Gumruk Kod Bulunamadı. Gumruk Kod:{stokGirisDto.GumrukKod}");
 
                                 // dicitonary'den "GumrukKod bulunamadı" tipindeki listeyi getir.
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoFileMasterKey, out List<string> valueList);
@@ -882,7 +894,7 @@ namespace Chep.Service
                             }
                             else if (customsEntities.Count > 1) // birden çok beyanname no bulunnunca
                             {
-                                tempList.Add($"Gumruk Kod beklenenden fazla değer döndü. GumrukKod:{an9FileDto.GumrukKod}");
+                                tempList.Add($"Gumruk Kod beklenenden fazla değer döndü. GumrukKod:{stokGirisDto.GumrukKod}");
 
                                 // dicitonary'den "Beklenenden fazla değer döndü" tipindeki listeyi getir.
                                 var isKeyContains = informationDictionary.TryGetValue(ImportMultipleFileMasterKey, out List<string> valueList);
@@ -965,13 +977,13 @@ namespace Chep.Service
                         var units = unitEntities.FirstOrDefault();
 
 
-                        var IthalatcıFirmaEntities = _uow.Companies.Search(x => x.CompanyName == an9FileDto.IthalatciFirmaName);
-                        if (IthalatcıFirmaEntities.Count != 1)
+                        var ithalatcıFirmaEntities = _uow.Customers.Search(x => x.Name.Trim().ToUpper() == stokGirisDto.IthalatciFirmaName.Trim().ToUpper());
+                        if (ithalatcıFirmaEntities.Count != 1)
                         {
                             var tempList = new List<string>();
-                            if (IthalatcıFirmaEntities.Count == 0)
+                            if (ithalatcıFirmaEntities.Count == 0)
                             {
-                                tempList.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{an9FileDto.IthalatciFirmaName}");
+                                tempList.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}");
 
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -995,15 +1007,15 @@ namespace Chep.Service
                             continue;
                         }
 
-                        var ithalatcıFirma = IthalatcıFirmaEntities.FirstOrDefault();
+                        var ithalatcıFirma = ithalatcıFirmaEntities.FirstOrDefault();
 
-                        var IhracatciFirmaEntities = _uow.Companies.Search(x => x.CompanyName == an9FileDto.IhracatciFirmaName);
-                        if (IhracatciFirmaEntities.Count != 1)
+                        var ihracatciFirmaEntities = _uow.Customers.Search(x => x.Name.Trim().ToUpper() == stokGirisDto.IhracatciFirmaName.Trim().ToUpper());
+                        if (ihracatciFirmaEntities.Count != 1)
                         {
                             var tempList = new List<string>();
-                            if (IhracatciFirmaEntities.Count == 0)
+                            if (ihracatciFirmaEntities.Count == 0)
                             {
-                                tempList.Add($"IhracatciFirmaName Bulunamadı. IhracatciFirmaName:{an9FileDto.IhracatciFirmaName}");
+                                tempList.Add($"IhracatciFirmaName Bulunamadı. IhracatciFirmaName:{stokGirisDto.IhracatciFirmaName}");
 
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -1027,13 +1039,13 @@ namespace Chep.Service
                             continue;
                         }
 
-                        var ihracatciFirma = IhracatciFirmaEntities.FirstOrDefault();
+                        var ihracatciFirma = ihracatciFirmaEntities.FirstOrDefault();
 
-                        var SozlesmeCounryEntities = _uow.Country.Search(x => x.IsoCode == detailDto.SozlesmeUlke || x.EdiCode == detailDto.SozlesmeUlke);
-                        if (SozlesmeCounryEntities.Count != 1)
+                        var sozlesmeCounryEntities = _uow.Country.Search(x => x.IsoCode.Trim().ToUpper() == detailDto.SozlesmeUlke.Trim().ToUpper() || x.EdiCode == detailDto.SozlesmeUlke);
+                        if (sozlesmeCounryEntities.Count != 1)
                         {
                             var tempList = new List<string>();
-                            if (SozlesmeCounryEntities.Count == 0)
+                            if (sozlesmeCounryEntities.Count == 0)
                             {
                                 tempList.Add($"SozlesmeUlke Bulunamadı. SozlesmeUlke:{detailDto.SozlesmeUlke}");
 
@@ -1059,14 +1071,14 @@ namespace Chep.Service
                             continue;
                         }
 
-                        var sozlesmeUlke = SozlesmeCounryEntities.FirstOrDefault().EdiCode;
+                        var sozlesmeUlke = sozlesmeCounryEntities.FirstOrDefault().EdiCode;
 
 
-                        var GidecegiUlkeEntities = _uow.Country.Search(x => x.IsoCode == detailDto.GidecegiUlke || x.EdiCode == detailDto.GidecegiUlke);
-                        if (GidecegiUlkeEntities.Count != 1)
+                        var gidecegiUlkeEntities = _uow.Country.Search(x => x.IsoCode.Trim().ToUpper() == detailDto.GidecegiUlke.Trim().ToUpper() || x.EdiCode == detailDto.GidecegiUlke);
+                        if (gidecegiUlkeEntities.Count != 1)
                         {
                             var tempList = new List<string>();
-                            if (GidecegiUlkeEntities.Count == 0)
+                            if (gidecegiUlkeEntities.Count == 0)
                             {
                                 tempList.Add($"GidecegiUlke Bulunamadı. GidecegiUlke:{detailDto.GidecegiUlke}");
 
@@ -1092,15 +1104,15 @@ namespace Chep.Service
                             continue;
                         }
 
-                        var gidecegiUlke = GidecegiUlkeEntities.FirstOrDefault().EdiCode;
+                        var gidecegiUlke = gidecegiUlkeEntities.FirstOrDefault().EdiCode;
 
 
-                        var MenseUlkeEntities = _uow.Country.Search(x => x.IsoCode == detailDto.MenseUlke || x.EdiCode == detailDto.MenseUlke);
-                        //eğer Units tablosunda exceldek OlcuBirimi ile eşleşen alan yoksa başa dön
-                        if (MenseUlkeEntities.Count != 1)
+                        var menseUlkeEntities = _uow.Country.Search(x => x.IsoCode.Trim().ToUpper() == detailDto.MenseUlke.Trim().ToUpper() || x.EdiCode == detailDto.MenseUlke);
+                        //eğer MenseUlke tablosunda exceldek OlcuBirimi ile eşleşen alan yoksa başa dön
+                        if (menseUlkeEntities.Count != 1)
                         {
                             var tempList = new List<string>();
-                            if (MenseUlkeEntities.Count == 0)
+                            if (menseUlkeEntities.Count == 0)
                             {
                                 tempList.Add($"MenseUlke Bulunamadı. MenseUlke:{detailDto.MenseUlke}");
 
@@ -1127,72 +1139,88 @@ namespace Chep.Service
                             continue;
                         }
 
-                        var menseUlke = GidecegiUlkeEntities.FirstOrDefault().EdiCode;
+                        var menseUlke = gidecegiUlkeEntities.FirstOrDefault().EdiCode;
 
                         //GoodsName excelden gelir veritabanındaki ile karşılaştırır eşit olanları getirir.
-                        //var productEntities = _uow.Products.Search(x => x..Trim().ToUpper() == detailDto.UrunKod.Trim().ToUpper());
-                        ////eğer product tablosunda aynı adla 1'den fazla veri var ise başa dön kullanıcıya uyarı ver.
-                        //if (productEntities.Count > 1)
-                        //{
-                        //    var tempList = new List<string>();
-                        //    //product nameleri al aralara virgül koy ve string olarak dön
-                        //    var ambiguousValues = string.Join(",", productEntities.Select(x => x.ProductName));
-
-                        //    tempList.Add($"Beyanname No: {an9FileDto.WarehouseName}.{detailDto.GoodsName} adlı \"TANIM\" için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}");
-
-                        //    var isKeyContains = informationDictionary.TryGetValue(ImportMultipleProductKey, out List<string> valueList);
-
-                        //    if (isKeyContains)
-                        //    {
-                        //        if (valueList == null)
-                        //        {
-                        //            valueList = new List<string>();
-                        //        }
-
-                        //        valueList.AddRange(tempList);
-
-                        //        informationDictionary[ImportMultipleProductKey] = valueList;
-                        //    }
-                        //    else
-                        //    {
-                        //        informationDictionary.Add(ImportMultipleProductKey, tempList);
-                        //    }
-
-                        //    continue;
-                        //}
-
-                        //var product = productEntities.FirstOrDefault();
-                        ////eğer product tablosunda tanım ile eşleşen yok ise tabloya insert atar.
-                        //if (product == null)
-                        //{
-                        //    product = productRepository.Insert(new Product
-                        //    {
-                        //        ProductName = detailDto.GoodsName.ToUpper(),
-                        //        Status = 1
-                        //    });
-
-                        //    if (product == null || product.ProductId < 1)
-                        //    {
-                        //        continue;
-                        //    }
-
-                        //}
-                        // eğer fileMaster tablosundaki fileMasterId ile warehouseFileId eşitse an9file tablosunda kayıt var demektir. 
-                        //buraya ilk girişte girmez. 2. girişte 2.veriyi An9filegoods listesine ekler.
-                        if (an9EntityInsertList.Any(x => x.GumrukKod == customs.EdiCode))
+                        var productEntities = _uow.Products.Search(x => x.ProductNo.Trim().ToUpper() == detailDto.UrunKod.Trim().ToUpper());
+                        //eğer product tablosunda aynı adla 1'den fazla veri var ise başa dön kullanıcıya uyarı ver.
+                        if (productEntities.Count > 1)
                         {
-                            //kayıt var ise ilk satırı alır
-                            var existItem = an9EntityInsertList.FirstOrDefault(x => x.GumrukKod == customs.EdiCode);
-                            //ilk satırı An9filegoods listesine kayıt ettirir.
-                            if (existItem != null && existItem.ChepStokGirisDetay != null)
+                            var tempList = new List<string>();
+                            //product nameleri al aralara virgül koy ve string olarak dön
+                            var ambiguousValues = string.Join(",", productEntities.Select(x => x.ProductNo));
+
+                            tempList.Add($"TPS No: {stokGirisDto.TpsNo}.{detailDto.UrunKod} adlı \"Ürün\" için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}");
+
+                            var isKeyContains = informationDictionary.TryGetValue(ImportMultipleProductKey, out List<string> valueList);
+
+                            if (isKeyContains)
                             {
-                                existItem.ChepStokGirisDetay.Add(new ChepStokGirisDetay
+                                if (valueList == null)
                                 {
-                                    //UrunKod = product.ProductId,
+                                    valueList = new List<string>();
+                                }
+
+                                valueList.AddRange(tempList);
+
+                                informationDictionary[ImportMultipleProductKey] = valueList;
+                            }
+                            else
+                            {
+                                informationDictionary.Add(ImportMultipleProductKey, tempList);
+                            }
+
+                            continue;
+                        }
+
+                        var product = productEntities.FirstOrDefault();
+                        //eğer product tablosunda tanım ile eşleşen yok ise tabloya insert atar.
+                        if (product == null)
+                        {
+                            product = _uow.Products.Add(new Product
+                            {
+                                ProductNo = detailDto.UrunKod.ToUpper(),
+                                HsCode = detailDto.EsyaGtip,
+                                CreatedDate = DateTime.Now,
+                                RecordStatusId = 1,
+                                ProductNameTr = detailDto.EsyaCinsi,
+                                CustomerId = ihracatciFirma.CustomerId
+                            });
+
+                            _uow.Commit();
+                            if (product == null || product.ProductId == null)
+                            {
+                                continue;
+                            }
+
+                        }
+                        
+
+                        if (stokGirisInsertList.Any(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo))//INSERT
+                        {
+                            var endDetayList = stokGirisInsertList.LastOrDefault().ChepStokGirisDetay.LastOrDefault();
+                            //kayıt var ise ilk satırı alır
+                            //TpsSira no alanı exceldeki önceki alanla eşit ise eklemeyi yapma
+                            if (endDetayList.TpsSiraNo == detailDto.TpsSiraNo && endDetayList.EsyaGtip == detailDto.EsyaGtip && endDetayList.FaturaNo == detailDto.FaturaNo
+                                             && endDetayList.FaturaTutar == detailDto.FaturaTutar && endDetayList.FaturaDovizKod == detailDto.FaturaDovizKod
+                                             && endDetayList.Miktar == detailDto.Miktar
+                                             && endDetayList.OlcuBirimi == units.EdiCode && endDetayList.UrunKod == product.ProductNo)
+                            {
+                                continue;
+                            }
+
+                            var existItemMasterGiris = stokGirisInsertList.FirstOrDefault(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo);
+
+                            if (existItemMasterGiris != null && existItemMasterGiris.ChepStokGirisDetay != null && existItemMasterGiris.ChepStokGirisDetay.Count > 0
+                                && detailDto.FaturaTutar != null && detailDto.FaturaTutar > 0 && detailDto.FaturaDovizKod != null
+                                && detailDto.EsyaGtip != null && detailDto.FaturaNo != null
+                                && detailDto.Miktar != null && detailDto.Miktar > 0)
+                            {
+                                existItemMasterGiris.ChepStokGirisDetay.Add(new ChepStokGirisDetay
+                                {
                                     TpsSiraNo = detailDto.TpsSiraNo,
+                                    EsyaGtip = detailDto.EsyaGtip,
                                     TpsBeyan = detailDto.TpsBeyan,
-                                    //StokGirisId = detailDto.StokGirisId,
-                                    //StokGirisDetayId = detailDto.StokGirisDetayId,
                                     SozlesmeUlke = sozlesmeUlke,
                                     Rejim = detailDto.Rejim,
                                     OlcuBirimi = units.EdiCode,
@@ -1205,43 +1233,89 @@ namespace Chep.Service
                                     GidecegiUlke = gidecegiUlke,
                                     FaturaTutar = detailDto.FaturaTutar,
                                     EsyaCinsi = detailDto.EsyaCinsi,
-                                    EsyaGtip = detailDto.EsyaGtip,
                                     FaturaDovizKod = detailDto.FaturaDovizKod,
                                     FaturaNo = detailDto.FaturaNo,
                                     FaturaTarih = detailDto.FaturaTarih,
                                 });
-
-                                continue;
+                                _uow.Commit();
                             }
                         }
 
-
-                        var existAn9Entities = _uow.ChepStokGiris.Search(x => x.GumrukKod == customs.EdiCode);
-                        //existAn9Entities'dan 0 dönerse master tablosune ekleme yapar. Detaya'da 1 ekleme yapar. 
-                        //Excelde aynı fileMasterId var ise detay için devam eder.
-                        if (existAn9Entities.Count == 0)
+                        else if (stokGirisUpdateList.Any(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo) && existStokGirisEntities != null)
                         {
-                            var an9Entity = new ChepStokGiris
+                            var existStokGirisDetayEntities = _uow.ChepStokGirisDetay.Search(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
+                            var existStokGirisDetayEntity = existStokGirisDetayEntities.FirstOrDefault();
+
+                            var oldEntityGirisDetayList = _uow.ChepStokGirisDetay.Set()
+                                             .Include(x => x.StokGiris)
+                                             .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
+                                             && x.TpsSiraNo == detailDto.TpsSiraNo && x.EsyaGtip == detailDto.EsyaGtip && x.FaturaNo == detailDto.FaturaNo
+                                             && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.Miktar == detailDto.Miktar
+                                             && x.OlcuBirimi == units.EdiCode && x.UrunKod == product.ProductNo);
+
+                            ChepStokGiris old83InEntity = null;
+
+                            if (oldEntityGirisDetayList == null) // giriş detay bulunamadı!
+                            {
+                                old83InEntity = _uow.ChepStokGiris.Set()
+                                    .Include(x => x.ChepStokGirisDetay)
+                                             .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
+                                if (old83InEntity == null)
+                                {
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                old83InEntity = oldEntityGirisDetayList.StokGiris;
+                            }
+
+                            if (oldEntityGirisDetayList != null && oldEntityGirisDetayList.StokGirisId > 0)
+                            {
+                                oldEntityGirisDetayList.TpsBeyan = detailDto.TpsBeyan;
+                                oldEntityGirisDetayList.SozlesmeUlke = sozlesmeUlke;
+                                oldEntityGirisDetayList.Rejim = detailDto.Rejim;
+                                oldEntityGirisDetayList.CikisRejimi = detailDto.CikisRejimi;
+                                oldEntityGirisDetayList.PoNo = detailDto.PoNo;
+                                oldEntityGirisDetayList.Model = detailDto.Model;
+                                oldEntityGirisDetayList.MenseUlke = menseUlke;
+                                oldEntityGirisDetayList.Marka = detailDto.Marka;
+                                oldEntityGirisDetayList.GidecegiUlke = gidecegiUlke;
+                                oldEntityGirisDetayList.EsyaCinsi = detailDto.EsyaCinsi;
+                                oldEntityGirisDetayList.FaturaTarih = detailDto.FaturaTarih;
+
+                                var addition83indetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetayList);
+                                _uow.Commit();
+                                continue;
+                            }
+
+                        }
+
+
+                        //Excelde aynı fileMasterId var ise detay için devam eder.
+                        if (existStokGirisEntities.Count == 0)
+                        {
+                            var stokGirisEntity = new ChepStokGiris
                             {
                                 GumrukKod = customs.EdiCode,
-                                BasvuruTarihi = an9FileDto.BasvuruTarihi,
-                                BelgeAd = an9FileDto.BelgeAd,
-                                BelgeSart = an9FileDto.BelgeSart,
-                                BeyannameNo = an9FileDto.BeyannameNo,
-                                BeyannameTarihi = an9FileDto.BeyannameTarihi,
-                                IhracatciFirma = an9FileDto.IhracatciFirma,
-                                TpsNo = an9FileDto.TpsNo,
-                                KapAdet = an9FileDto.KapAdet,
-                                IthalatciFirma = an9FileDto.IthalatciFirma,
-                                ReferansNo = an9FileDto.ReferansNo,
-                                SureSonuTarihi = an9FileDto.SureSonuTarihi,
-                                TpsAciklama = an9FileDto.TpsAciklama,
-                                TpsDurum = an9FileDto.TpsDurum,
+                                BasvuruTarihi = stokGirisDto.BasvuruTarihi,
+                                BelgeAd = stokGirisDto.BelgeAd,
+                                BelgeSart = stokGirisDto.BelgeSart,
+                                BeyannameNo = stokGirisDto.BeyannameNo,
+                                BeyannameTarihi = stokGirisDto.BeyannameTarihi,
+                                IhracatciFirma = ihracatciFirma.CustomerId,
+                                TpsNo = stokGirisDto.TpsNo,
+                                KapAdet = stokGirisDto.KapAdet,
+                                IthalatciFirma = stokGirisDto.IthalatciFirma,
+                                ReferansNo = stokGirisDto.ReferansNo,
+                                SureSonuTarihi = stokGirisDto.SureSonuTarihi,
+                                TpsAciklama = stokGirisDto.TpsAciklama,
+                                TpsDurum = stokGirisDto.TpsDurum,
                             };
 
-                            an9Entity.ChepStokGirisDetay = new List<ChepStokGirisDetay>();
+                            stokGirisEntity.ChepStokGirisDetay = new List<ChepStokGirisDetay>();
                             //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki ifte atar. 
-                            var fileGoodsEntity = new ChepStokGirisDetay
+                            var stokGirisDetay = new ChepStokGirisDetay
                             {
                                 //UrunKod = product.ProductId,
                                 TpsSiraNo = detailDto.TpsSiraNo,
@@ -1266,61 +1340,108 @@ namespace Chep.Service
                                 FaturaTarih = detailDto.FaturaTarih,
                             };
 
-                            an9Entity.ChepStokGirisDetay.Add(fileGoodsEntity);
+                            stokGirisEntity.ChepStokGirisDetay.Add(stokGirisDetay);
 
-                            an9EntityInsertList.Add(an9Entity);
+                            stokGirisInsertList.Add(stokGirisEntity);
                         }
                         //sadece exceldeki kırmızı alanları update eder.
-                        else if (existAn9Entities.Count == 1)
+                        else if (existStokGirisEntities.Count == 1)
                         {
-                            var existAn9Entity = existAn9Entities.FirstOrDefault();
+                            var oldEntityGirisDetay = _uow.ChepStokGirisDetay.Set()
+                                             .Include(x => x.StokGiris)
+                                             .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
+                                             && x.TpsSiraNo == detailDto.TpsSiraNo && x.EsyaGtip == detailDto.EsyaGtip && x.FaturaNo == detailDto.FaturaNo
+                                             && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.Miktar == detailDto.Miktar
+                                             && x.OlcuBirimi == units.EdiCode && x.UrunKod == product.ProductNo);
 
-                            if (!an9EntityUpdateList.Any(x => x.StokGirisId == existAn9Entity.StokGirisId))
+                            ChepStokGiris oldGirisEntity = null;
+
+                            if (oldEntityGirisDetay == null) // giriş detay bulunamadı!
                             {
-                                existAn9Entity.ReferansNo = an9FileDto.ReferansNo;
-                                existAn9Entity.KapAdet = an9FileDto.KapAdet;
-                                existAn9Entity.GumrukKod = units.EdiCode;
-                                existAn9Entity.TpsAciklama = an9FileDto.TpsAciklama;
-                                existAn9Entity.SureSonuTarihi = an9FileDto.SureSonuTarihi;
-                                existAn9Entity.TpsDurum = an9FileDto.TpsDurum;
-                                existAn9Entity.IthalatciFirma = an9FileDto.IthalatciFirma;
-                                existAn9Entity.TpsNo = an9FileDto.TpsNo;
-                                existAn9Entity.IhracatciFirma = an9FileDto.IhracatciFirma;
-                                existAn9Entity.BeyannameTarihi = an9FileDto.BeyannameTarihi;
-                                existAn9Entity.BeyannameNo = an9FileDto.BeyannameNo;
-                                existAn9Entity.BelgeSart = an9FileDto.BelgeSart;
-                                existAn9Entity.BelgeAd = an9FileDto.BelgeAd;
-                                existAn9Entity.BasvuruTarihi = an9FileDto.BasvuruTarihi;
+                                oldGirisEntity = _uow.ChepStokGiris.Set().AsNoTracking()
+                                    .Include(x => x.ChepStokGirisDetay)
+                                             .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
+                                if (oldGirisEntity == null)
+                                {
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                oldGirisEntity = oldEntityGirisDetay.StokGiris;
+                            }
 
-                                an9EntityUpdateList.Add(existAn9Entity);
+                            if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
+                            {
+                                existStokGirisEntity.ReferansNo = stokGirisDto.ReferansNo;
+                                existStokGirisEntity.KapAdet = stokGirisDto.KapAdet;
+                                existStokGirisEntity.GumrukKod = units.EdiCode;
+                                existStokGirisEntity.TpsAciklama = stokGirisDto.TpsAciklama;
+                                existStokGirisEntity.SureSonuTarihi = stokGirisDto.SureSonuTarihi;
+                                existStokGirisEntity.TpsDurum = stokGirisDto.TpsDurum;
+                                existStokGirisEntity.IthalatciFirma = stokGirisDto.IthalatciFirma;
+                                existStokGirisEntity.TpsNo = stokGirisDto.TpsNo;
+                                existStokGirisEntity.IhracatciFirma = ihracatciFirma.CustomerId;
+                                existStokGirisEntity.BeyannameTarihi = stokGirisDto.BeyannameTarihi;
+                                existStokGirisEntity.BeyannameNo = stokGirisDto.BeyannameNo;
+                                existStokGirisEntity.BelgeSart = stokGirisDto.BelgeSart;
+                                existStokGirisEntity.BelgeAd = stokGirisDto.BelgeAd;
+                                existStokGirisEntity.BasvuruTarihi = stokGirisDto.BasvuruTarihi;
+
+                                if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisDetayId > 0)
+                                {
+                                    oldEntityGirisDetay.TpsSiraNo = oldEntityGirisDetay.TpsSiraNo;
+                                    oldEntityGirisDetay.EsyaGtip = oldEntityGirisDetay.EsyaGtip;
+                                    oldEntityGirisDetay.TpsBeyan = detailDto.TpsBeyan;
+                                    //oldEntityInDetail.StokGirisId = oldEntityInDetail.StokGirisId;
+                                    oldEntityGirisDetay.SozlesmeUlke = sozlesmeUlke;
+                                    oldEntityGirisDetay.Rejim = detailDto.Rejim;
+                                    oldEntityGirisDetay.OlcuBirimi = oldEntityGirisDetay.OlcuBirimi;
+                                    oldEntityGirisDetay.CikisRejimi = detailDto.CikisRejimi;
+                                    oldEntityGirisDetay.PoNo = detailDto.PoNo;
+                                    oldEntityGirisDetay.Miktar = oldEntityGirisDetay.Miktar;
+                                    oldEntityGirisDetay.Model = detailDto.Model;
+                                    oldEntityGirisDetay.MenseUlke = menseUlke;
+                                    oldEntityGirisDetay.Marka = detailDto.Marka;
+                                    oldEntityGirisDetay.GidecegiUlke = gidecegiUlke;
+                                    oldEntityGirisDetay.FaturaTutar = oldEntityGirisDetay.FaturaTutar;
+                                    oldEntityGirisDetay.EsyaCinsi = detailDto.EsyaCinsi;
+                                    oldEntityGirisDetay.FaturaDovizKod = oldEntityGirisDetay.FaturaDovizKod;
+                                    oldEntityGirisDetay.FaturaNo = oldEntityGirisDetay.FaturaNo;
+                                    oldEntityGirisDetay.FaturaTarih = detailDto.FaturaTarih;
+
+                                    var stokGirisDetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
+                                    _uow.Commit();
+                                }
+                                stokGirisUpdateList.Add(existStokGirisEntity);
                             }
                         }
                         //bir hata var ise string tipinde virgül ile listeler ve yazdırır.
                         else
                         {
-                            //var tempList = new List<string>();
+                            var tempList = new List<string>();
 
-                            //var ambiguousValues = string.Join(",", productEntities.Select(x => x.ProductName));
+                            var ambiguousValues = string.Join(",", productEntities.Select(x => x.ProductNo));
 
-                            //tempList.Add($"Beyanname No: {an9FileDto.WarehouseName}.{detailDto.GoodsName} adlı \"Malzeme\" için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}");
+                            tempList.Add($"Beyanname No: {stokGirisDto.TpsNo} için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}");
 
-                            //var isKeyContains = informationDictionary.TryGetValue(ImportNoProductKey, out List<string> valueList);
+                            var isKeyContains = informationDictionary.TryGetValue(ImportNoProductKey, out List<string> valueList);
 
-                            //if (isKeyContains)
-                            //{
-                            //    if (valueList == null)
-                            //    {
-                            //        valueList = new List<string>();
-                            //    }
+                            if (isKeyContains)
+                            {
+                                if (valueList == null)
+                                {
+                                    valueList = new List<string>();
+                                }
 
-                            //    valueList.AddRange(tempList);
+                                valueList.AddRange(tempList);
 
-                            //    informationDictionary[ImportNoProductKey] = valueList;
-                            //}
-                            //else
-                            //{
-                            //    informationDictionary.Add(ImportNoProductKey, tempList);
-                            //}
+                                informationDictionary[ImportNoProductKey] = valueList;
+                            }
+                            else
+                            {
+                                informationDictionary.Add(ImportNoProductKey, tempList);
+                            }
 
                             continue;
                         }
@@ -1332,27 +1453,28 @@ namespace Chep.Service
                     }
                 } // END FOR
 
-                //if (an9EntityInsertList != null && an9EntityInsertList.Count > 0)
-                //{
-                //    var resultInsert = _uow.ChepStokGiris.Insert(an9EntityInsertList);
-                //    if (resultInsert > 0)
-                //    {
-                //        summaryList.Insert(0, $"{resultInsert} adet yeni kayıt atıldı.");
-                //    }
-                //}
+                if (stokGirisInsertList != null && stokGirisInsertList.Count > 0)
+                {
+                    var resultInsert = _uow.ChepStokGiris.AddRange(stokGirisInsertList);
+                    _uow.Commit();
+                    if (resultInsert.Count > 0)
+                    {
+                        summaryList.Insert(0, $"{resultInsert.Count} adet yeni kayıt atıldı.");
+                    }
+                }
 
-                //if (an9EntityUpdateList != null && an9EntityUpdateList.Count > 0)
-                //{
-                //    var resultUpdate = _uow.ChepStokGiris.Update(an9EntityUpdateList);
-                //    if (resultUpdate.Count > 0)
-                //    {
-                //        summaryList.Insert(0, $"{resultUpdate.Count} adet güncelleme yapıldı.");
-                //    }
-                //}
+                if (stokGirisUpdateList != null && stokGirisUpdateList.Count > 0)
+                {
+                    var resultUpdate = _uow.ChepStokGiris.UpdateRange(stokGirisUpdateList);
+                    _uow.Commit();
+                    if (resultUpdate.Count > 0)
+                    {
+                        summaryList.Insert(0, $"{resultUpdate.Count} adet güncelleme yapıldı.");
+                    }
+                }
 
-                _uow.Commit();
 
-                return Success("");
+                return Success(summaryList);
             }
             catch (Exception ex)
             {

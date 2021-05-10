@@ -116,7 +116,7 @@ namespace Chep.WebApi.Controllers
         }
 
         [HttpPost("Import")]
-        public IActionResult Import()
+        public IActionResult Import([FromQuery] int userId)
         {
             var result = new ResponseDTO();
 
@@ -125,7 +125,7 @@ namespace Chep.WebApi.Controllers
                 var file = Request.Form.Files[0];
                 if (file.Length > 0)
                 {
-                    result = _service.Import(file);
+                    result = _service.Import(file, userId);
                 }
             }
             else
