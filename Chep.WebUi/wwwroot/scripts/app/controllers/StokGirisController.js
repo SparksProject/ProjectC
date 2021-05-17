@@ -269,6 +269,24 @@
                             e.data.tpsSiraNo = 1;
                         }
                     },
+                    onEditorPreparing: function (e) {//her değişiklikte her satıra bakar 
+                        //Stok Giriş Detay Kısmında Ürün kodu Seçildiğinde Eşya Gitp,Eşya cinsi otomatik Doldurulma İşlemi
+                        if (e.dataField == "urunKod") {//eğer satır urunKod ise
+                            e.editorOptions.onValueChanged = function (args) {
+                                e.setValue(args.value);
+
+                                var ds = args.element.dxSelectBox("instance").getDataSource(),
+                                    items = ds._items,
+                                    selectedData = $(items).filter(function (i, el) {
+                                        return el.productNo == args.value;
+                                    });
+
+                                e.component.cellValue(e.row.rowIndex, "esyaGtip", selectedData[0].hsCode);
+                                e.component.cellValue(e.row.rowIndex, "esyaCinsi", selectedData[0].productNameTr);
+
+                            }
+                        } 
+                    },
                     editing: {
                         mode: "row",
                         allowUpdating: true,
@@ -592,4 +610,61 @@
                 }
             });
     };
+
+    $scope.UploadFile = function (obj) {
+        Upload.upload({
+            url: $rootScope.settings.serverPath + '/api/StokGiris/Import/?userId=' + $rootScope.user.userId,
+            data: {},
+            file: obj.ExcelFile
+        }).success(function (data) {
+            swal({
+                icon: "success",
+                title: "Başarılı!",
+                text: "Excel'den veri yükleme işlemi başarılı. " + data,
+            });
+
+        }).then(function (response) {
+            $timeout(function () {
+                $state.go('stokgiris/list');
+            });
+        });
+    }
+
+    //// UploadFile
+    //$scope.UploadFile = function (obj) {
+    //    $scope.HasMessage = false;
+    //    $scope.ResultMessage = undefined;
+    //    //console.log($scope.object.ExcelFile);-- obj.ExcelFile Aynı şey
+    //    if (obj.ExcelFile == null) {
+    //        return false;
+    //    }
+
+    //    var reader = new FileReader();
+    //    reader.readAsBinaryString(obj.ExcelFile);
+    //    reader.onload = function () {
+    //        var files = btoa(reader.result);
+
+    //        SparksXService.ImportStokGiris(files).success(function (data) {
+    //            if (data.Message != null && data.Message != undefined && data.Message.length > 0) {
+    //                $scope.ResultMessage = data.Message;
+    //                $scope.HasMessage = true;
+
+    //                var content = '<button class="close" data-close="alert"></button>';
+    //                content += data.Message;
+
+    //                $('#divMessage').html(content).removeClass('display-none');
+    //            } else {
+    //                $state.go('stokgiris/list');
+    //            }
+    //        }).error(function () {
+    //            $scope.ResultMessage = "HATA";
+    //            $scope.HasMessage = true;
+    //        });
+    //    };
+    //    reader.onerror = function () {
+    //        console.log("error");
+    //        return false;
+    //    };
+    //};
+
 }]);

@@ -1,4 +1,6 @@
 ﻿using Chep.DTO;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace Chep.Service.Interface
 {
@@ -10,5 +12,6 @@ namespace Chep.Service.Interface
         ResponseDTO Get(int id);
 
         ResponseDTO ListDetails();
+        ResponseDTO Import(IFormFile files, int userId);
     }
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpress.Xpo" Version="20.2.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.5" />
   </ItemGroup>
 
   <ItemGroup>
