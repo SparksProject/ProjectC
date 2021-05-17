@@ -92,7 +92,7 @@
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No - TPS Sıra No",
+                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No",
                             lookup: {
                                 dataSource: storeStokGiris, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -121,6 +121,7 @@
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                     format: { type: "fixedPoint", precision: 0 },
                                                 },
+                                                { dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", },
                                                 { dataField: "tpsBeyan", caption: "TPS Beyan", },
                                                 { dataField: "faturaNo", caption: "Fatura No", },
                                                 { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
@@ -129,10 +130,7 @@
                                                     format: { type: "fixedPoint", precision: 2 },
                                                 },
                                                 { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
-                                                {
-                                                    dataField: "miktar", caption: "Miktar", dataType: "number",
-                                                    format: { type: "fixedPoint", precision: 0 },
-                                                },
+
                                             ],
                                             hoverStateEnabled: true,
                                             scrolling: { mode: "virtual" },
@@ -169,12 +167,24 @@
                             }
                         },
                         {
+                            dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 130,
+                            format: { type: "fixedPoint", precision: 0 }
+                        },
+                        {
                             dataField: "miktar", caption: "Miktar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
                             dataField: "kg", caption: "Kg", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
+                            dataField: "invoiceAmount", caption: "Fatura Tutar", dataType: "number",
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "invoiceDetailId", caption: "Fatura Detay Id", dataType: "text", width: 130,
+                            format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
                     onContextMenuPreparing: function (e) {
@@ -640,6 +650,9 @@
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
         });
+        SparksXService.GetCurrencyTypes().success(function (data) {
+            $scope.currencytypes = data;
+        });
     };
 
     $scope.Action = function (obj) {
@@ -655,7 +668,13 @@
             obj.tpsTarih = null;
         }
 
+        if (obj.invoiceDate == "") {
+            obj.invoiceDate = null;
+        }
         obj.referansNo = parseInt(obj.referansNo);
+        if (obj.gtbReferenceNo != null) {
+            obj.gtbReferenceNo = obj.gtbReferenceNo.toString();
+        }
 
         App.startPageLoading();
 
@@ -732,7 +751,7 @@
                             text: "Detay alanına satır eklemeden kayıt yapılamaz!",
                         });
                     }
-                    
+
 
                 }
             });

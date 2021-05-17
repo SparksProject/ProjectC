@@ -65,6 +65,13 @@ namespace Chep.Service
 
                 var result = _uow.ChepStokCikis.Update(entity);
 
+                if (obj.DeletedChepStokCikisDetayIdList != null)
+                {
+                    foreach (var item in obj.DeletedChepStokCikisDetayIdList)
+                    {
+                        _uow.ChepStokCikisDetay.Delete(new ChepStokCikisDetay { StokCikisDetayId = item });
+                    }
+                }
                 _uow.Commit();
 
                 return Success(result.StokCikisId);
@@ -255,6 +262,13 @@ namespace Chep.Service
                 TpsNo = obj.TpsNo,
                 IslemTarihi = obj.IslemTarihi,
                 TpsTarih = obj.TpsTarih,
+                GtbReferenceNo = obj.GtbReferenceNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceCurrency = obj.InvoiceCurrency,
+                InvoiceDate = obj.InvoiceDate,
+                InvoiceId = obj.InvoiceId,
+                InvoiceNo = obj.InvoiceNo,
+                WorkOrderMasterId = obj.WorkOrderMasterId,
 
                 ChepStokCikisDetay = details,
             };
@@ -273,7 +287,10 @@ namespace Chep.Service
                 Kg = (int)obj.Kg,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
-                StokGirisDetayId = obj.StokGirisDetayId
+                StokGirisDetayId = obj.StokGirisDetayId,
+                TpsCikisSiraNo = obj.TpsCikisSiraNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceDetailId = obj.InvoiceDetailId
             };
         }
 
@@ -291,6 +308,9 @@ namespace Chep.Service
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId,
+                TpsCikisSiraNo = obj.TpsCikisSiraNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceDetailId = obj.InvoiceDetailId
             };
         }
 
@@ -318,6 +338,13 @@ namespace Chep.Service
                 TpsNo = obj.TpsNo,
                 IslemTarihi = obj.IslemTarihi,
                 TpsTarih = obj.TpsTarih,
+                GtbReferenceNo = obj.GtbReferenceNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceCurrency = obj.InvoiceCurrency,
+                InvoiceDate = obj.InvoiceDate,
+                InvoiceId = obj.InvoiceId,
+                InvoiceNo = obj.InvoiceNo,
+                WorkOrderMasterId = obj.WorkOrderMasterId,
 
                 ChepStokCikisDetayList = details
             };

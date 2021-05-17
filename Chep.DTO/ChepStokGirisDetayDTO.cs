@@ -8,6 +8,8 @@ namespace Chep.DTO
         public int StokGirisDetayId { get; set; }
         public int StokGirisId { get; set; }
         public int? TpsSiraNo { get; set; }
+        public int? TpsCikisSiraNo { get; set; }
+        public int? BeyannameKalemNo { get; set; }
         public string TpsBeyan { get; set; }
         public string EsyaCinsi { get; set; }
         public string EsyaGtip { get; set; }

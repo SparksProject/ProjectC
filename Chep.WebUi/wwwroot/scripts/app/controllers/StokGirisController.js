@@ -117,7 +117,13 @@
                     columns: [
                         {
                             dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number", width: 100,
-                            format: { type: "fixedPoint", precision: 0 },
+                            format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
+                        },
+                        {
+                            dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 120,
+                        },
+                        {
+                            dataField: "beyannameKalemNo", caption: "Beyanname Kalem No", dataType: "number", width: 150,
                         },
                         { dataField: "tpsBeyan", caption: "TPS Beyan", width: 100, },
                         {
@@ -145,7 +151,7 @@
                             },
                         },
                         {
-                            dataField: "Miktar", caption: "Miktar", dataType: "number", width: 100,
+                            dataField: "miktar", caption: "Miktar", dataType: "number", width: 100,
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
@@ -267,6 +273,12 @@
                             e.data.tpsSiraNo = $(ds._items).last()[0].tpsSiraNo + 1;
                         } else {
                             e.data.tpsSiraNo = 1;
+                        }
+
+                        if (ds._items.length) {
+                            e.data.tpsCikisSiraNo = $(ds._items).last()[0].tpsCikisSiraNo + 1;
+                        } else {
+                            e.data.tpsCikisSiraNo = 2;
                         }
                     },
                     onEditorPreparing: function (e) {//her değişiklikte her satıra bakar 
