@@ -2,6 +2,7 @@
     [StokGirisDetayId] INT             IDENTITY (1, 1) NOT NULL,
     [StokGirisId]      INT             NOT NULL,
     [TpsSiraNo]        INT             NULL,
+    [TpsCikisSiraNo]   INT             NULL,
     [TpsBeyan]         NVARCHAR (20)   NULL,
     [EsyaCinsi]        NVARCHAR (20)   NULL,
     [EsyaGtip]         NVARCHAR (12)   NULL,
@@ -23,6 +24,8 @@
     CONSTRAINT [PK__ChepStok__5F1F65B0F75ADB99] PRIMARY KEY CLUSTERED ([StokGirisDetayId] ASC),
     CONSTRAINT [FK_ChepStokGirisDetay_ChepStokGiris] FOREIGN KEY ([StokGirisId]) REFERENCES [dbo].[ChepStokGiris] ([StokGirisId])
 );
+
+
 
 
 
