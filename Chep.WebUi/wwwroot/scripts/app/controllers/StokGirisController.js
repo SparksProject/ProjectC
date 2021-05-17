@@ -269,6 +269,24 @@
                             e.data.tpsSiraNo = 1;
                         }
                     },
+                    onEditorPreparing: function (e) {//her değişiklikte her satıra bakar 
+                        //Stok Giriş Detay Kısmında Ürün kodu Seçildiğinde Eşya Gitp,Eşya cinsi otomatik Doldurulma İşlemi
+                        if (e.dataField == "urunKod") {//eğer satır urunKod ise
+                            e.editorOptions.onValueChanged = function (args) {
+                                e.setValue(args.value);
+
+                                var ds = args.element.dxSelectBox("instance").getDataSource(),
+                                    items = ds._items,
+                                    selectedData = $(items).filter(function (i, el) {
+                                        return el.productNo == args.value;
+                                    });
+
+                                e.component.cellValue(e.row.rowIndex, "esyaGtip", selectedData[0].hsCode);
+                                e.component.cellValue(e.row.rowIndex, "esyaCinsi", selectedData[0].productNameTr);
+
+                            }
+                        } 
+                    },
                     editing: {
                         mode: "row",
                         allowUpdating: true,
