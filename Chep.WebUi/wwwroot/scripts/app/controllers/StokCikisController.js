@@ -179,12 +179,12 @@
                             format: { type: "fixedPoint", precision: 2 },
                         },
                         {
-                            dataField: "invoiceDetailId", caption: "Fatura Detay", dataType: "number", width: 130,
-                            format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
-                        },
-                        {
                             dataField: "invoiceAmount", caption: "Fatura Tutar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "invoiceDetailId", caption: "Fatura Detay Id", dataType: "text", width: 130,
+                            format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
                     onContextMenuPreparing: function (e) {
