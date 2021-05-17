@@ -1,4 +1,6 @@
-﻿namespace Chep.DTO
+﻿using System;
+
+namespace Chep.DTO
 {
     public class ChepStokCikisDetayDTO
     {
@@ -7,5 +9,8 @@
         public int StokGirisDetayId { get; set; }
         public int? Miktar { get; set; }
         public decimal? Kg { get; set; }
+        public Guid? InvoiceDetailId { get; set; }
+        public decimal? InvoiceAmount { get; set; }
+        public int? TpsCikisSiraNo { get; set; }
     }
 }

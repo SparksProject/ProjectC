@@ -60,26 +60,26 @@ namespace Chep.Service
         {
             try
             {
+
+
+                //if (obj.ChepStokGirisDetayList != null)
+                //{
+                //    foreach (var item in obj.ChepStokGirisDetayList)
+                //    {
+                //        //item.StokGirisId = obj.StokGirisId;
+
+                //        if (item.StokGirisDetayId > 0)
+                //        {
+                //            var rr = _uow.ChepStokGirisDetay.Update(Map(item));
+                //        }
+                //        else
+                //        {
+                //            var rr = _uow.ChepStokGirisDetay.Add(Map(item));
+                //        }
+                //    }
+                //}
                 var entity = Map(obj);
-
                 var result = _uow.ChepStokGiris.Update(entity);
-
-                if (obj.ChepStokGirisDetayList != null)
-                {
-                    foreach (var item in obj.ChepStokGirisDetayList)
-                    {
-                        item.StokGirisId = obj.StokGirisId;
-
-                        if (item.StokGirisDetayId > 0)
-                        {
-                            var rr = _uow.ChepStokGirisDetay.Update(Map(item));
-                        }
-                        else
-                        {
-                            var rr = _uow.ChepStokGirisDetay.Add(Map(item));
-                        }
-                    }
-                }
 
                 if (obj.DeletedChepStokGirisDetayIdList != null)
                 {
@@ -197,7 +197,12 @@ namespace Chep.Service
             {
                 return default;
             }
+            var details = new List<ChepStokGirisDetay>();
 
+            if (obj.ChepStokGirisDetayList != null && obj.ChepStokGirisDetayList.Count > 0)
+            {
+                details.AddRange(obj.ChepStokGirisDetayList.Select(item => Map(item)));
+            }
             return new ChepStokGiris
             {
                 BasvuruTarihi = obj.BasvuruTarihi,
@@ -215,6 +220,8 @@ namespace Chep.Service
                 TpsAciklama = obj.TpsAciklama,
                 TpsDurum = obj.TpsDurum,
                 TpsNo = obj.TpsNo,
+
+                ChepStokGirisDetay = details,
             };
         }
 
@@ -243,11 +250,13 @@ namespace Chep.Service
                 PoNo = obj.PoNo,
                 Rejim = obj.Rejim,
                 SozlesmeUlke = obj.SozlesmeUlke,
-                StokGirisDetayId = obj.StokGirisDetayId,
-                StokGirisId = obj.StokGirisId,
                 TpsBeyan = obj.TpsBeyan,
                 TpsSiraNo = obj.TpsSiraNo,
                 UrunKod = obj.UrunKod,
+                TpsCikisSiraNo = obj.TpsCikisSiraNo,
+                StokGirisDetayId = obj.StokGirisDetayId,
+                StokGirisId = obj.StokGirisId,
+                BeyannameKalemNo = obj.BeyannameKalemNo
             };
         }
 
@@ -281,6 +290,9 @@ namespace Chep.Service
                 TpsBeyan = obj.TpsBeyan,
                 TpsSiraNo = obj.TpsSiraNo,
                 UrunKod = obj.UrunKod,
+                TpsCikisSiraNo = obj.TpsCikisSiraNo,
+                BeyannameKalemNo = obj.BeyannameKalemNo,
+
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
 
@@ -1194,7 +1206,7 @@ namespace Chep.Service
                             }
 
                         }
-                        
+
 
                         if (stokGirisInsertList.Any(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo))//INSERT
                         {
