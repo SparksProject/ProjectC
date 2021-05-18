@@ -87,6 +87,11 @@
     $scope.ModalDetail = function () {
         if ($modalDetail == null) {
             $modalDetail = $('#modalDetail').on({
+                "shown.bs.modal": function () {
+                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
+                        $scope.object.referansNo = data;
+                    });
+                },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
                     $scope.$apply();
@@ -100,11 +105,7 @@
                     $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
                     $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
                 },
-                "shown.bs.modal": function () {
-                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
-                        $scope.object.referansNo = data;
-                    });
-                }
+
             }).modal({
                 show: false,
                 keyboard: false
@@ -297,7 +298,7 @@
                                 e.component.cellValue(e.row.rowIndex, "esyaCinsi", selectedData[0].productNameTr);
 
                             }
-                        } 
+                        }
                     },
                     editing: {
                         mode: "row",
@@ -471,16 +472,18 @@
     }
 
     $scope.ModalImport = function () {
-        if ($modalImport == null) {
-            $modalImport = $('#modalImport').on({
-                "hidden.bs.modal": function () {
-
-                }
-            }).modal({
-                show: false,
-                keyboard: false
-            });
-        }
+        //if ($modalImport == null) {
+        $modalImport = $('#modalImport').on({
+            "hidden.bs.modal": function () {
+                $scope.object = {};
+                $scope.$apply();
+                $('#fileexcel').fileinput('clear');
+            }
+        }).modal({
+            show: false,
+            keyboard: false
+        });
+        //}
     }
 
     function ListData() {
@@ -632,7 +635,14 @@
             swal({
                 icon: "success",
                 title: "Başarılı!",
-                text: "Excel'den veri yükleme işlemi başarılı. " + data,
+                text: "Excel'den veri yükleme işlemi başarılı." + data,
+            }, function (result) {
+                if (result) {
+                    $modalImport.modal('hide');
+                }
+            });
+            $timeout(function () {
+                $state.go('stokgiris/list');
             });
         }).error(function (error) {
             swal({
