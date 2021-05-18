@@ -634,7 +634,12 @@
                 title: "Başarılı!",
                 text: "Excel'den veri yükleme işlemi başarılı. " + data,
             });
-
+        }).error(function (error) {
+            swal({
+                icon: "error",
+                title: "Başarısız!",
+                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu.",
+            });
         }).then(function (response) {
             $timeout(function () {
                 $state.go('stokgiris/list');
