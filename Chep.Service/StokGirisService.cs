@@ -440,7 +440,6 @@ namespace Chep.Service
                 {
                     var workbook = new HSSFWorkbook(stream); //This will read the Excel 97-2000 format
                     sheet = workbook.GetSheetAt(0); //get first sheet from workbook  
-                    logs.Add("excel dosyası okundu.Sheet 1 alındı.");
                 }
                 else
                 {
@@ -514,8 +513,6 @@ namespace Chep.Service
                     }
 
                     var cellValue = cell.ToString();
-
-                    logs.Add($"{cellValue} sütunu algılandı.Headers okunuyor.");
 
                     //eğer excelden gelen veri ve dışarıda tanımlanan isim eşit ise j değerini günceller.
                     if (cellValue.Equals(ExcelTpsNo) && importColumnNames.ContainsKey(ExcelTpsNo))
@@ -724,8 +721,6 @@ namespace Chep.Service
                             continue;
                         }
 
-                        logs.Add($"{i}. satır okunmaya başlandı.");
-
                         for (var j = row.FirstCellNum; j < cellCount; j++)
                         {   // satırdaki tüm sütunları okur
                             var cell = row.GetCell(j);
@@ -749,8 +744,6 @@ namespace Chep.Service
                             }
 
                             var cellValue = cell.ToString();
-
-                            logs.Add($"{i}. satırda cellerin içindeki veriler okunuyor.Şuan {j}. cell okunuyor. Ve Dto'lar ile eşleştiriliyor.");
 
                             //bu kontroller sütün sayısının içindeki isim ve dışarıda tanımlanan ExcelWarehouseName in karşılığına gelen isim eşit ise dto yu doldurmaya yarar.
                             if (j == importColumnNames[ExcelTpsNo])
@@ -916,10 +909,6 @@ namespace Chep.Service
                         var existStokGirisEntities = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo);
                         var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
 
-                        logs.Add($"Exceldeki alanlar Dto ile eşleştirildi! DB'ye olan verilerin daha önce kayıt edilmemesi için bakıldı.");
-
-
-
                         var customsEntities = _uow.Customs.Search(x => x.EdiCode == stokGirisDto.GumrukKod);
                         //eğer Customs tablosunda exceldeki GumrukKod ile eşleşen alan yoksa başa dön
                         if (customsEntities.Count != 1)
@@ -929,7 +918,7 @@ namespace Chep.Service
                             if (customsEntities.Count == 0) // beyanname no bulunmayınca
                             {
                                 tempList.Add($"Gumruk Kod Bulunamadı. Gumruk Kod:{stokGirisDto.GumrukKod}");
-                                logs.Add($"Gumruk Kod Bulunamadı. Gumruk Kod:{stokGirisDto.GumrukKod}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"Gumruk Kod Bulunamadı. Gumruk Kod:{stokGirisDto.GumrukKod}.");
 
                                 // dicitonary'den "GumrukKod bulunamadı" tipindeki listeyi getir.
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoFileMasterKey, out List<string> valueList);
@@ -953,7 +942,7 @@ namespace Chep.Service
                             else if (customsEntities.Count > 1) // birden çok beyanname no bulunnunca
                             {
                                 tempList.Add($"Gumruk Kod beklenenden fazla değer döndü. GumrukKod:{stokGirisDto.GumrukKod}");
-                                logs.Add($"Gumruk Kod beklenenden fazla değer döndü. GumrukKod:{stokGirisDto.GumrukKod}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"Gumruk Kod beklenenden fazla değer döndü. GumrukKod:{stokGirisDto.GumrukKod}.");
 
                                 // dicitonary'den "Beklenenden fazla değer döndü" tipindeki listeyi getir.
                                 var isKeyContains = informationDictionary.TryGetValue(ImportMultipleFileMasterKey, out List<string> valueList);
@@ -984,7 +973,7 @@ namespace Chep.Service
                             if (ithalatcıFirmaEntities.Count == 0)
                             {
                                 tempList.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}");
-                                logs.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}.");
 
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -1015,7 +1004,7 @@ namespace Chep.Service
                             if (ihracatciFirmaEntities.Count == 0)
                             {
                                 tempList.Add($"IhracatciFirmaName Bulunamadı. IhracatciFirmaName:{stokGirisDto.IhracatciFirmaName}");
-                                logs.Add($"IhracatciFirmaName Bulunamadı. IhracatciFirmaName:{stokGirisDto.IhracatciFirmaName}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"IhracatciFirmaName Bulunamadı. IhracatciFirmaName:{stokGirisDto.IhracatciFirmaName}.");
 
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -1047,7 +1036,7 @@ namespace Chep.Service
                             if (sozlesmeCounryEntities.Count == 0)
                             {
                                 tempList.Add($"SozlesmeUlke Bulunamadı. SozlesmeUlke:{detailDto.SozlesmeUlke}");
-                                logs.Add($"SozlesmeUlke Bulunamadı. SozlesmeUlke:{detailDto.SozlesmeUlke}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"SozlesmeUlke Bulunamadı. SozlesmeUlke:{detailDto.SozlesmeUlke}.");
 
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -1080,7 +1069,7 @@ namespace Chep.Service
                             if (gidecegiUlkeEntities.Count == 0)
                             {
                                 tempList.Add($"GidecegiUlke Bulunamadı. GidecegiUlke:{detailDto.GidecegiUlke}");
-                                logs.Add($"GidecegiUlke Bulunamadı. GidecegiUlke:{detailDto.GidecegiUlke}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"GidecegiUlke Bulunamadı. GidecegiUlke:{detailDto.GidecegiUlke}.");
 
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -1113,7 +1102,7 @@ namespace Chep.Service
                             if (menseUlkeEntities.Count == 0)
                             {
                                 tempList.Add($"MenseUlke Bulunamadı. MenseUlke:{detailDto.MenseUlke}");
-                                logs.Add($"MenseUlke Bulunamadı. MenseUlke:{detailDto.MenseUlke}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                                logs.Add($"MenseUlke Bulunamadı. MenseUlke:{detailDto.MenseUlke}.");
 
                                 // dicitonary'den "Sözleşme No Bulunamadı" tipindeki listeyi getir.
                                 var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
@@ -1149,7 +1138,7 @@ namespace Chep.Service
                             var ambiguousValues = string.Join(",", productEntities.Select(x => x.ProductNo));
 
                             tempList.Add($"TPS No: {stokGirisDto.TpsNo}.{detailDto.UrunKod} adlı \"Ürün\" için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}");
-                            logs.Add($"TPS No: {stokGirisDto.TpsNo}.{detailDto.UrunKod} adlı \"Ürün\" için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}. {i} satırındaki bilgiler kayıt edilmeyecek.");
+                            logs.Add($"TPS No: {stokGirisDto.TpsNo}.{detailDto.UrunKod} adlı \"Ürün\" için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}.");
 
                             var isKeyContains = informationDictionary.TryGetValue(ImportMultipleProductKey, out List<string> valueList);
 
@@ -1197,8 +1186,6 @@ namespace Chep.Service
 
                         if (stokGirisInsertList.Any(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo))//INSERT
                         {
-                            logs.Add($"{i} satırı için detay inserti yapılacak.");
-
                             var endDetayList = stokGirisInsertList.LastOrDefault().ChepStokGirisDetay.LastOrDefault();
                             //kayıt var ise ilk satırı alır
                             //TpsSira no alanı exceldeki önceki alanla eşit ise eklemeyi yapma
@@ -1243,15 +1230,11 @@ namespace Chep.Service
                                 });
                                 _uow.Commit();
 
-                                logs.Add($" {i} satırı için existItemMasterGiris'in detay listesine ekleme yapıldı.");
-
                             }
                         }
 
                         else if (stokGirisUpdateList.Any(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo) && existStokGirisEntities != null)
                         {
-                            logs.Add($"{i} satırı için detay update i yapılacak.");
-
                             var existStokGirisDetayEntities = _uow.ChepStokGirisDetay.Search(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
                             var existStokGirisDetayEntity = existStokGirisDetayEntities.FirstOrDefault();
 
@@ -1298,9 +1281,6 @@ namespace Chep.Service
                                 var addition83indetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetayList);
                                 _uow.Commit();
 
-                                logs.Add($" {i} satırı için oldEntityGirisDetayList listesine update için ekleme yapıldı.");
-
-
                                 continue;
                             }
 
@@ -1310,10 +1290,10 @@ namespace Chep.Service
                         //Excelde aynı fileMasterId var ise detay için devam eder.
                         if (existlistdeneme == false && existStokGirisEntities.Count == 0)
                         {
-                            logs.Add($"{i} satırı için veri tabanından gelen bir veri olmadığı için insert listesine kayıt atılacak.");
 
                             var stokGirisEntity = new ChepStokGiris
                             {
+                                ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Giris").Result) + stokGirisInsertList.Count,
                                 GumrukKod = customs?.EdiCode,
                                 BasvuruTarihi = stokGirisDto.BasvuruTarihi,
                                 BelgeAd = stokGirisDto.BelgeAd,
@@ -1324,13 +1304,11 @@ namespace Chep.Service
                                 TpsNo = stokGirisDto.TpsNo,
                                 KapAdet = stokGirisDto.KapAdet,
                                 IthalatciFirma = ithalatcıFirma?.CustomerId,
-                                ReferansNo = stokGirisDto.ReferansNo,
                                 SureSonuTarihi = stokGirisDto.SureSonuTarihi,
                                 TpsAciklama = stokGirisDto.TpsAciklama,
                                 TpsDurum = stokGirisDto.TpsDurum,
                             };
 
-                            logs.Add($"{i} satırı için veri tabanından gelen bir veri olmadığı için insert listesine kayıt atıldı. Detaya geçiliyor.");
 
                             stokGirisEntity.ChepStokGirisDetay = new List<ChepStokGirisDetay>();
                             //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki ifte atar. 
@@ -1365,13 +1343,10 @@ namespace Chep.Service
 
                             stokGirisInsertList.Add(stokGirisEntity);
 
-                            logs.Add($"{i} satırı için veri tabanından gelen bir veri olmadığı için insert listesine kayıt atıldı. Detaya içinde kayıt atıldı.");
-
                         }
                         //sadece exceldeki kırmızı alanları update eder.
                         else if (existStokGirisEntities.Count > 0)
                         {
-                            logs.Add($"{i} satırı için veri tabanında veri bulunduğu için update listesine ekleme yapıldacak.");
 
                             var oldEntityGirisDetay = _uow.ChepStokGirisDetay.Set()
                                              .Include(x => x.StokGiris)
@@ -1399,7 +1374,7 @@ namespace Chep.Service
 
                             if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
                             {
-                                existStokGirisEntity.ReferansNo = stokGirisDto.ReferansNo;
+                                existStokGirisEntity.ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Giris").Result) + stokGirisUpdateList.Count;
                                 existStokGirisEntity.KapAdet = stokGirisDto.KapAdet;
                                 existStokGirisEntity.GumrukKod = customs?.EdiCode;
                                 existStokGirisEntity.TpsAciklama = stokGirisDto.TpsAciklama;
@@ -1443,7 +1418,6 @@ namespace Chep.Service
                                     _uow.Commit();
                                 }
                                 stokGirisUpdateList.Add(existStokGirisEntity);
-                                logs.Add($"{i} satırı için veri tabanında veri bulunduğu için update listesine ekleme yapıldı..");
                             }
 
 
@@ -1474,7 +1448,6 @@ namespace Chep.Service
                             {
                                 informationDictionary.Add(ImportNoProductKey, tempList);
                             }
-                            logs.Add("Master için insert veya update yapılmadı. Detay için yapıldı.");
                             continue;
                         }
 
@@ -1489,7 +1462,6 @@ namespace Chep.Service
                 {
                     var resultInsert = _uow.ChepStokGiris.AddRange(stokGirisInsertList);
                     _uow.Commit();
-                    logs.Add("İnsert listesi insert edildi.");
                     if (resultInsert.Count > 0)
                     {
                         summaryList.Insert(0, $"{resultInsert.Count} adet yeni kayıt atıldı.");
@@ -1500,7 +1472,6 @@ namespace Chep.Service
                 {
                     var resultUpdate = _uow.ChepStokGiris.UpdateRange(stokGirisUpdateList);
                     _uow.Commit();
-                    logs.Add("Update listesi update edildi.");
                     if (resultUpdate.Count > 0)
                     {
                         summaryList.Insert(0, $"{resultUpdate.Count} adet güncelleme yapıldı.");
