@@ -29,7 +29,7 @@
                     <!--/span-->
                     <div class="col-md-9">
                         <div class="form-group">
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div id="fileexcel" class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="input-group input-large">
                                     <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
                                         <i class="fa fa-file fileinput-exists"></i>&nbsp;
@@ -40,7 +40,7 @@
                                         <span class="fileinput-exists"> Değiştir </span>
                                         <input type="file" name="ExcelFile" ngf-select accept=".xls" ng-model="object.ExcelFile">
                                     </span>
-                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Kaldır </a>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput" id="fileinputclose"> Kaldır </a>
                                 </div>
                             </div>
                         </div>
