@@ -625,7 +625,7 @@
 
     $scope.UploadFile = function (obj) {
         Upload.upload({
-            url: $rootScope.settings.serverPath + '/api/StokGiris/Import/?userId=' + $rootScope.user.userId,
+            url: $rootScope.settings.serverPath + '/api/StokGiris/Import?userId=' + $rootScope.user.userId,
             data: {},
             file: obj.ExcelFile
         }).success(function (data) {
@@ -634,7 +634,12 @@
                 title: "Başarılı!",
                 text: "Excel'den veri yükleme işlemi başarılı. " + data,
             });
-
+        }).error(function (error) {
+            swal({
+                icon: "error",
+                title: "Başarısız!",
+                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu.",
+            });
         }).then(function (response) {
             $timeout(function () {
                 $state.go('stokgiris/list');

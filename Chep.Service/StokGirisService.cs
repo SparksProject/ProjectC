@@ -870,6 +870,7 @@ namespace Chep.Service
                                 detailDto.UrunKod = cellValue;
                             }
                         }
+                        var existlistdeneme = stokGirisInsertList.Any(x => x.BeyannameNo == stokGirisDto.BeyannameNo && x.TpsNo == stokGirisDto.TpsNo);
                         var existStokGirisEntities = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo);
                         var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
 
@@ -1305,7 +1306,7 @@ namespace Chep.Service
 
 
                         //Excelde aynı fileMasterId var ise detay için devam eder.
-                        if (existStokGirisEntities.Count == 0)
+                        if (existlistdeneme == false && existStokGirisEntities.Count == 0)
                         {
                             var stokGirisEntity = new ChepStokGiris
                             {
@@ -1357,76 +1358,77 @@ namespace Chep.Service
                             stokGirisInsertList.Add(stokGirisEntity);
                         }
                         //sadece exceldeki kırmızı alanları update eder.
-                        else if (existStokGirisEntities.Count == 1)
+                        else if (existStokGirisEntities.Count > 0)
                         {
-                            var oldEntityGirisDetay = _uow.ChepStokGirisDetay.Set()
-                                             .Include(x => x.StokGiris)
-                                             .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
-                                             && x.TpsSiraNo == detailDto.TpsSiraNo && x.EsyaGtip == detailDto.EsyaGtip && x.FaturaNo == detailDto.FaturaNo
-                                             && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.Miktar == detailDto.Miktar
-                                             && x.OlcuBirimi == units.EdiCode && x.UrunKod == product.ProductNo);
+                            continue;
+                            //var oldEntityGirisDetay = _uow.ChepStokGirisDetay.Set()
+                            //                 .Include(x => x.StokGiris)
+                            //                 .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
+                            //                 && x.TpsSiraNo == detailDto.TpsSiraNo && x.EsyaGtip == detailDto.EsyaGtip && x.FaturaNo == detailDto.FaturaNo
+                            //                 && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.Miktar == detailDto.Miktar
+                            //                 && x.OlcuBirimi == units.EdiCode && x.UrunKod == product.ProductNo);
 
-                            ChepStokGiris oldGirisEntity = null;
+                            //ChepStokGiris oldGirisEntity = null;
 
-                            if (oldEntityGirisDetay == null) // giriş detay bulunamadı!
-                            {
-                                oldGirisEntity = _uow.ChepStokGiris.Set().AsNoTracking()
-                                    .Include(x => x.ChepStokGirisDetay)
-                                             .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
-                                if (oldGirisEntity == null)
-                                {
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                oldGirisEntity = oldEntityGirisDetay.StokGiris;
-                            }
+                            //if (oldEntityGirisDetay == null) // giriş detay bulunamadı!
+                            //{
+                            //    oldGirisEntity = _uow.ChepStokGiris.Set().AsNoTracking()
+                            //        .Include(x => x.ChepStokGirisDetay)
+                            //                 .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
+                            //    if (oldGirisEntity == null)
+                            //    {
+                            //        continue;
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    oldGirisEntity = oldEntityGirisDetay.StokGiris;
+                            //}
 
-                            if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
-                            {
-                                existStokGirisEntity.ReferansNo = stokGirisDto.ReferansNo;
-                                existStokGirisEntity.KapAdet = stokGirisDto.KapAdet;
-                                existStokGirisEntity.GumrukKod = units.EdiCode;
-                                existStokGirisEntity.TpsAciklama = stokGirisDto.TpsAciklama;
-                                existStokGirisEntity.SureSonuTarihi = stokGirisDto.SureSonuTarihi;
-                                existStokGirisEntity.TpsDurum = stokGirisDto.TpsDurum;
-                                existStokGirisEntity.IthalatciFirma = stokGirisDto.IthalatciFirma;
-                                existStokGirisEntity.TpsNo = stokGirisDto.TpsNo;
-                                existStokGirisEntity.IhracatciFirma = ihracatciFirma.CustomerId;
-                                existStokGirisEntity.BeyannameTarihi = stokGirisDto.BeyannameTarihi;
-                                existStokGirisEntity.BeyannameNo = stokGirisDto.BeyannameNo;
-                                existStokGirisEntity.BelgeSart = stokGirisDto.BelgeSart;
-                                existStokGirisEntity.BelgeAd = stokGirisDto.BelgeAd;
-                                existStokGirisEntity.BasvuruTarihi = stokGirisDto.BasvuruTarihi;
+                            //if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
+                            //{
+                            //    existStokGirisEntity.ReferansNo = stokGirisDto.ReferansNo;
+                            //    existStokGirisEntity.KapAdet = stokGirisDto.KapAdet;
+                            //    existStokGirisEntity.GumrukKod = units.EdiCode;
+                            //    existStokGirisEntity.TpsAciklama = stokGirisDto.TpsAciklama;
+                            //    existStokGirisEntity.SureSonuTarihi = stokGirisDto.SureSonuTarihi;
+                            //    existStokGirisEntity.TpsDurum = stokGirisDto.TpsDurum;
+                            //    existStokGirisEntity.IthalatciFirma = stokGirisDto.IthalatciFirma;
+                            //    existStokGirisEntity.TpsNo = stokGirisDto.TpsNo;
+                            //    existStokGirisEntity.IhracatciFirma = ihracatciFirma.CustomerId;
+                            //    existStokGirisEntity.BeyannameTarihi = stokGirisDto.BeyannameTarihi;
+                            //    existStokGirisEntity.BeyannameNo = stokGirisDto.BeyannameNo;
+                            //    existStokGirisEntity.BelgeSart = stokGirisDto.BelgeSart;
+                            //    existStokGirisEntity.BelgeAd = stokGirisDto.BelgeAd;
+                            //    existStokGirisEntity.BasvuruTarihi = stokGirisDto.BasvuruTarihi;
 
-                                if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisDetayId > 0)
-                                {
-                                    oldEntityGirisDetay.TpsSiraNo = oldEntityGirisDetay.TpsSiraNo;
-                                    oldEntityGirisDetay.EsyaGtip = oldEntityGirisDetay.EsyaGtip;
-                                    oldEntityGirisDetay.TpsBeyan = detailDto.TpsBeyan;
-                                    //oldEntityInDetail.StokGirisId = oldEntityInDetail.StokGirisId;
-                                    oldEntityGirisDetay.SozlesmeUlke = sozlesmeUlke;
-                                    oldEntityGirisDetay.Rejim = detailDto.Rejim;
-                                    oldEntityGirisDetay.OlcuBirimi = oldEntityGirisDetay.OlcuBirimi;
-                                    oldEntityGirisDetay.CikisRejimi = detailDto.CikisRejimi;
-                                    oldEntityGirisDetay.PoNo = detailDto.PoNo;
-                                    oldEntityGirisDetay.Miktar = oldEntityGirisDetay.Miktar;
-                                    oldEntityGirisDetay.Model = detailDto.Model;
-                                    oldEntityGirisDetay.MenseUlke = menseUlke;
-                                    oldEntityGirisDetay.Marka = detailDto.Marka;
-                                    oldEntityGirisDetay.GidecegiUlke = gidecegiUlke;
-                                    oldEntityGirisDetay.FaturaTutar = oldEntityGirisDetay.FaturaTutar;
-                                    oldEntityGirisDetay.EsyaCinsi = detailDto.EsyaCinsi;
-                                    oldEntityGirisDetay.FaturaDovizKod = oldEntityGirisDetay.FaturaDovizKod;
-                                    oldEntityGirisDetay.FaturaNo = oldEntityGirisDetay.FaturaNo;
-                                    oldEntityGirisDetay.FaturaTarih = detailDto.FaturaTarih;
+                            //    if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisDetayId > 0)
+                            //    {
+                            //        oldEntityGirisDetay.TpsSiraNo = oldEntityGirisDetay.TpsSiraNo;
+                            //        oldEntityGirisDetay.EsyaGtip = oldEntityGirisDetay.EsyaGtip;
+                            //        oldEntityGirisDetay.TpsBeyan = detailDto.TpsBeyan;
+                            //        //oldEntityInDetail.StokGirisId = oldEntityInDetail.StokGirisId;
+                            //        oldEntityGirisDetay.SozlesmeUlke = sozlesmeUlke;
+                            //        oldEntityGirisDetay.Rejim = detailDto.Rejim;
+                            //        oldEntityGirisDetay.OlcuBirimi = oldEntityGirisDetay.OlcuBirimi;
+                            //        oldEntityGirisDetay.CikisRejimi = detailDto.CikisRejimi;
+                            //        oldEntityGirisDetay.PoNo = detailDto.PoNo;
+                            //        oldEntityGirisDetay.Miktar = oldEntityGirisDetay.Miktar;
+                            //        oldEntityGirisDetay.Model = detailDto.Model;
+                            //        oldEntityGirisDetay.MenseUlke = menseUlke;
+                            //        oldEntityGirisDetay.Marka = detailDto.Marka;
+                            //        oldEntityGirisDetay.GidecegiUlke = gidecegiUlke;
+                            //        oldEntityGirisDetay.FaturaTutar = oldEntityGirisDetay.FaturaTutar;
+                            //        oldEntityGirisDetay.EsyaCinsi = detailDto.EsyaCinsi;
+                            //        oldEntityGirisDetay.FaturaDovizKod = oldEntityGirisDetay.FaturaDovizKod;
+                            //        oldEntityGirisDetay.FaturaNo = oldEntityGirisDetay.FaturaNo;
+                            //        oldEntityGirisDetay.FaturaTarih = detailDto.FaturaTarih;
 
-                                    var stokGirisDetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
-                                    _uow.Commit();
-                                }
-                                stokGirisUpdateList.Add(existStokGirisEntity);
-                            }
+                            //        var stokGirisDetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
+                            //        _uow.Commit();
+                            //    }
+                            //    stokGirisUpdateList.Add(existStokGirisEntity);
+                            //}
                         }
                         //bir hata var ise string tipinde virgül ile listeler ve yazdırır.
                         else
