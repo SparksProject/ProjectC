@@ -133,21 +133,16 @@ namespace Chep.WebApi.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
             }
 
-            switch (result.ResultMessage)
+            return result.ResultMessage switch
             {
-                case Enums.ResponseMessage.OK:
-                    return StatusCode(StatusCodes.Status200OK, result.Result);
-                case Enums.ResponseMessage.ERROR:
-                    return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
-                case Enums.ResponseMessage.NOTFOUND:
-                    return StatusCode(StatusCodes.Status404NotFound);
-                case Enums.ResponseMessage.UNAUTHORIZED:
-                    return StatusCode(StatusCodes.Status401Unauthorized);
-                case Enums.ResponseMessage.BADREQUEST:
-                    return StatusCode(StatusCodes.Status400BadRequest);
-                default:
-                    return StatusCode(StatusCodes.Status404NotFound);
-            }
+                Enums.ResponseMessage.OK => StatusCode(StatusCodes.Status200OK, result.Result),
+                Enums.ResponseMessage.ERROR => StatusCode(StatusCodes.Status500InternalServerError, result.Exception),
+                Enums.ResponseMessage.NOTFOUND => StatusCode(StatusCodes.Status404NotFound),
+                Enums.ResponseMessage.UNAUTHORIZED => StatusCode(StatusCodes.Status401Unauthorized),
+                Enums.ResponseMessage.BADREQUEST => StatusCode(StatusCodes.Status400BadRequest),
+                Enums.ResponseMessage.WARNING => StatusCode(StatusCodes.Status200OK, result),
+                _ => StatusCode(StatusCodes.Status500InternalServerError, result),
+            };
         }
 
     }
