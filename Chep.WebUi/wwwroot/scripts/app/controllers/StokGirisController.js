@@ -625,7 +625,7 @@
 
     $scope.UploadFile = function (obj) {
         Upload.upload({
-            url: $rootScope.settings.serverPath + '/api/StokGiris/Import/?userId=' + $rootScope.user.userId,
+            url: $rootScope.settings.serverPath + '/api/StokGiris/Import?userId=' + $rootScope.user.userId,
             data: {},
             file: obj.ExcelFile
         }).success(function (data) {
