@@ -399,7 +399,7 @@ namespace Chep.Service
         private const string ExcelMarka = "Marka";
         private const string ExcelModel = "Model";
         private const string ExcelUrunKod = "Ürün Kod";
-        private const string ExcelTPSCikisSiraNo = "TPS Cikis Sira No";
+        private const string ExcelTPSCikisSiraNo = "TPS Çıkış Sıra No";
         private const string ExcelBeyannameKalemNo = "Beyanname Kalem No";
 
         private const string ImportNoIndexKey = "NoIndex";
@@ -651,7 +651,7 @@ namespace Chep.Service
 
                     foreach (var item in importColumnNames.Where(x => x.Value < 0).ToList())
                     {
-                        list.Add($"{item.Key} isimli sütun bulunamadı!");
+                        list.Add($"\n\"{item.Key}\" isimli sütun bulunamadı!");
                     }
 
                     var isKeyContains = informationDictionary.TryGetValue(ImportNoIndexKey, out List<string> noIndexList);
@@ -1165,8 +1165,10 @@ namespace Chep.Service
                         //eğer product tablosunda tanım ile eşleşen yok ise tabloya insert atar.
                         if (product == null)
                         {
+                            var GuidKey = Guid.NewGuid();
                             product = _uow.Products.Add(new Product
                             {
+                                ProductId = GuidKey,
                                 ProductNo = detailDto.UrunKod.ToUpper(),
                                 HsCode = detailDto.EsyaGtip,
                                 CreatedDate = DateTime.Now,
@@ -1180,7 +1182,7 @@ namespace Chep.Service
                             {
                                 continue;
                             }
-                            logs.Add($"Product tablosuna ekleme yapıldı.Ekleme yapılan değer :{product.ProductNo}. {i} satırındaki kayıt işlemine devam ediliyor.");
+                            logs.Add($"Ürünler tablosuna da ekleme yapıldı.Ekleme yapılan değer : \"{product.ProductNo}\".");
                         }
 
 
@@ -1413,6 +1415,7 @@ namespace Chep.Service
                                     oldEntityGirisDetay.FaturaNo = oldEntityGirisDetay.FaturaNo;
                                     oldEntityGirisDetay.FaturaTarih = detailDto.FaturaTarih;
                                     oldEntityGirisDetay.TpsSiraNo = detailDto.TpsSiraNo;
+                                    oldEntityGirisDetay.UrunKod = product.ProductNo;
 
                                     var stokGirisDetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
                                     _uow.Commit();
