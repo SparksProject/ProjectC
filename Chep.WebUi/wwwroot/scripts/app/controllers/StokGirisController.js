@@ -45,7 +45,7 @@
     var storeProducts = new DevExpress.data.CustomStore({
         key: "productNo",
         method: "Get",
-        loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
+        //loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
         load: function () {
             var deferred = $.Deferred();
 
@@ -56,6 +56,14 @@
             });
 
             return deferred.promise();
+        },
+        byKey: function (key) {
+            var deferred = $.Deferred();
+            SparksXService.GetProducts().success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                deferred.reject("Data Loading Error");
+            });
         }
     });
 
@@ -494,6 +502,7 @@
         SparksXService.ListStokGirises(referansNo, beyannameNo, tpsNo).success(function (data) {
             $gridContainer.option("dataSource", data);
             $gridContainer.endCustomLoading();
+            storeProducts.load();
         }).error(function () {
             $gridContainer.option("dataSource", []);
             $gridContainer.endCustomLoading();
@@ -632,15 +641,25 @@
             data: {},
             file: obj.ExcelFile
         }).success(function (data) {
-            swal({
-                icon: "success",
-                title: "Başarılı!",
-                text: "Excel'den veri yükleme işlemi başarılı." + data,
-            }, function (result) {
-                if (result) {
-                    $modalImport.modal('hide');
-                }
-            });
+            if (data.isSuccesful == false) {
+                swal({
+                    icon: "error",
+                    title: "Başarısız!",
+                    text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. " + data.message,
+                });
+            }
+            else {
+                swal({
+                    icon: "success",
+                    title: "Başarılı!",
+                    text: "Excel'den veri yükleme işlemi başarılı. " + data,
+                }, function (result) {
+                    if (result) {
+                        $modalImport.modal('hide');
+                    }
+                });
+              
+            }
             $timeout(function () {
                 $state.go('stokgiris/list');
             });
@@ -648,7 +667,7 @@
             swal({
                 icon: "error",
                 title: "Başarısız!",
-                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu.",
+                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. ",
             });
         }).then(function (response) {
             $timeout(function () {
