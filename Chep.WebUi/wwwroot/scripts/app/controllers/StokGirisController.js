@@ -658,7 +658,7 @@
                         $modalImport.modal('hide');
                     }
                 });
-              
+
             }
             $timeout(function () {
                 $state.go('stokgiris/list');
@@ -667,7 +667,7 @@
             swal({
                 icon: "error",
                 title: "Başarısız!",
-                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. ",
+                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. " + error ,
             });
         }).then(function (response) {
             $timeout(function () {
