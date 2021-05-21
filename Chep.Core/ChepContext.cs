@@ -136,9 +136,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.TpsAciklama).HasMaxLength(250);
 
-                entity.Property(e => e.TpsDurum)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.TpsDurum).HasMaxLength(50);
 
                 entity.Property(e => e.TpsNo)
                     .IsRequired()
@@ -159,6 +157,10 @@ namespace Chep.Core
             {
                 entity.HasKey(e => e.StokGirisDetayId)
                     .HasName("PK__ChepStok__5F1F65B0F75ADB99");
+
+                entity.Property(e => e.BeyannameNo).HasMaxLength(16);
+
+                entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
                 entity.Property(e => e.CikisRejimi).HasMaxLength(4);
 
@@ -197,7 +199,6 @@ namespace Chep.Core
                 entity.HasOne(d => d.StokGiris)
                     .WithMany(p => p.ChepStokGirisDetay)
                     .HasForeignKey(d => d.StokGirisId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChepStokGirisDetay_ChepStokGiris");
             });
 
