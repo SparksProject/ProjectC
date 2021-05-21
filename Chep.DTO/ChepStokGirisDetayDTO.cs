@@ -28,9 +28,11 @@ namespace Chep.DTO
         public string Model { get; set; }
         public string UrunKod { get; set; }
         public string PoNo { get; set; }
-
-
         public string BeyannameNo { get; set; }
+        public DateTime? BeyannameTarihi { get; set; }
+
+
+        public string StokGirisBeyannameNo { get; set; }
         public string TpsNo { get; set; }
         public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }
 
