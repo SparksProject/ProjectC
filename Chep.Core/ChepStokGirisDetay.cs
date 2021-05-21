@@ -37,6 +37,8 @@ namespace Chep.Core
         public string Model { get; set; }
         public string UrunKod { get; set; }
         public string PoNo { get; set; }
+        public string BeyannameNo { get; set; }
+        public DateTime? BeyannameTarihi { get; set; }
 
         public virtual ChepStokGiris StokGiris { get; set; }
         public virtual ICollection<ChepStokCikisDetay> ChepStokCikisDetay { get; set; }

@@ -136,7 +136,7 @@ namespace Chep.WebApi.Controllers
             return result.ResultMessage switch
             {
                 Enums.ResponseMessage.OK => StatusCode(StatusCodes.Status200OK, result.Result),
-                Enums.ResponseMessage.ERROR => StatusCode(StatusCodes.Status500InternalServerError, result.Exception),
+                Enums.ResponseMessage.ERROR => StatusCode(StatusCodes.Status500InternalServerError, result.Exception.Message),
                 Enums.ResponseMessage.NOTFOUND => StatusCode(StatusCodes.Status404NotFound),
                 Enums.ResponseMessage.UNAUTHORIZED => StatusCode(StatusCodes.Status401Unauthorized),
                 Enums.ResponseMessage.BADREQUEST => StatusCode(StatusCodes.Status400BadRequest),
