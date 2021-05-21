@@ -14,6 +14,8 @@ using System.IO;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
+using System.Collections;
+using System.Globalization;
 
 namespace Chep.Service
 {
@@ -678,14 +680,16 @@ namespace Chep.Service
 
                 var stokGirisInsertList = new List<ChepStokGiris>();
                 var stokGirisUpdateList = new List<ChepStokGiris>();
-                var stokGirisDto = new ChepStokGirisDTO();
-                var detailDto = new ChepStokGirisDetayDTO();
+
 
 
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                 {   // exceli tek tek okumaya başla
                     try
                     {
+                        var stokGirisDto = new ChepStokGirisDTO();
+                        var detailDto = new ChepStokGirisDetayDTO();
+
                         if (i > 500)
                         {
                             var tempList = new List<string>();
@@ -905,10 +909,21 @@ namespace Chep.Service
                                 }
                             }
                         }
+
+
+                        if (stokGirisDto != null && stokGirisDto.BeyannameNo == null || stokGirisDto.TpsNo == null || stokGirisDto.TpsDurum == null)
+                        {
+                            continue;
+                        }
+                        if (detailDto != null && detailDto.TpsSiraNo == null)
+                        {
+                            continue;
+                        }
                         var existlistdeneme = stokGirisInsertList.Any(x => x.BeyannameNo == stokGirisDto.BeyannameNo && x.TpsNo == stokGirisDto.TpsNo);
                         var existStokGirisEntities = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.BeyannameNo == stokGirisDto.BeyannameNo);
                         var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
-                        var customs = new Customs();
+
+                        Customs customs = null;
                         if (stokGirisDto.GumrukKod != null)
                         {
                             var customsEntities = _uow.Customs.Search(x => x.EdiCode == stokGirisDto.GumrukKod);
@@ -969,7 +984,8 @@ namespace Chep.Service
                             customs = customsEntities.FirstOrDefault();
                         }
 
-                        var ithalatcıFirma = new Customer();
+                        //var ithalatcıFirma = new Customer();
+                        Customer ithalatcıFirma = null;
                         if (stokGirisDto.IthalatciFirmaName != null)
                         {
                             var ithalatcıFirmaEntities = _uow.Customers.Search(x => x.Name.Trim().ToUpper() == stokGirisDto.IthalatciFirmaName.Trim().ToUpper() || x.TaxNo.Trim().ToUpper() == stokGirisDto.IthalatciFirmaName.Trim().ToUpper());
@@ -1004,7 +1020,8 @@ namespace Chep.Service
 
                         }
 
-                        var ihracatciFirma = new Customer();
+                        //var ihracatciFirma = new Customer();
+                        Customer ihracatciFirma = null;
                         if (stokGirisDto.IhracatciFirmaName != null)
                         {
                             var ihracatciFirmaEntities = _uow.Customers.Search(x => x.Name.Trim().ToUpper() == stokGirisDto.IhracatciFirmaName.Trim().ToUpper() || x.TaxNo.Trim() == stokGirisDto.IhracatciFirmaName.Trim());
@@ -1148,7 +1165,7 @@ namespace Chep.Service
                             menseUlke = menseUlkeEntities.FirstOrDefault()?.EdiCode;
                         }
 
-                        var product = new Product();
+                        Product product = null;
                         var productEntities = new List<Product>();
                         if (detailDto.UrunKod != null)
                         {
@@ -1317,24 +1334,7 @@ namespace Chep.Service
                         //Excelde aynı fileMasterId var ise detay için devam eder.
                         if (existlistdeneme == false && existStokGirisEntities.Count == 0)
                         {
-                            Guid? ithalatcifirmaId = Guid.Empty;
-                            Guid? ihracatcifirmaId = Guid.Empty;
-                            if (ithalatcıFirma?.CustomerId != Guid.Empty)
-                            {
-                                ithalatcifirmaId = ithalatcıFirma?.CustomerId;
-                            }
-                            else
-                            {
-                                ithalatcifirmaId = null;
-                            }
-                            if (ihracatciFirma?.CustomerId != Guid.Empty)
-                            {
-                                ihracatcifirmaId = ihracatciFirma?.CustomerId;
-                            }
-                            else
-                            {
-                                ihracatcifirmaId = null;
-                            }
+
                             var stokGirisEntity = new ChepStokGiris
                             {
                                 ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Giris").Result) + stokGirisInsertList.Count,
@@ -1344,10 +1344,10 @@ namespace Chep.Service
                                 BelgeSart = stokGirisDto.BelgeSart,
                                 BeyannameNo = stokGirisDto.BeyannameNo,
                                 BeyannameTarihi = stokGirisDto.BeyannameTarihi,
-                                IhracatciFirma = ihracatcifirmaId,
+                                IhracatciFirma = ihracatciFirma?.CustomerId,
                                 TpsNo = stokGirisDto.TpsNo,
                                 KapAdet = stokGirisDto.KapAdet,
-                                IthalatciFirma = ithalatcifirmaId,
+                                IthalatciFirma = ithalatcıFirma?.CustomerId,
                                 SureSonuTarihi = stokGirisDto.SureSonuTarihi,
                                 TpsAciklama = stokGirisDto.TpsAciklama,
                                 TpsDurum = stokGirisDto.TpsDurum,
@@ -1358,7 +1358,7 @@ namespace Chep.Service
                             //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki ifte atar. 
                             var stokGirisDetay = new ChepStokGirisDetay
                             {
-                                UrunKod = product.ProductNo,
+                                UrunKod = product?.ProductNo,
                                 TpsSiraNo = detailDto.TpsSiraNo,
                                 TpsBeyan = detailDto.TpsBeyan,
                                 //StokGirisId = detailDto.StokGirisId,
@@ -1418,33 +1418,15 @@ namespace Chep.Service
 
                             if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
                             {
-                                Guid? ithalatcifirmaId = Guid.Empty;
-                                Guid? ihracatcifirmaId = Guid.Empty;
-                                if (ithalatcıFirma?.CustomerId != Guid.Empty)
-                                {
-                                    ithalatcifirmaId = ithalatcıFirma?.CustomerId;
-                                }
-                                else
-                                {
-                                    ithalatcifirmaId = null;
-                                }
-                                if (ihracatciFirma?.CustomerId != Guid.Empty)
-                                {
-                                    ihracatcifirmaId = ihracatciFirma?.CustomerId;
-                                }
-                                else
-                                {
-                                    ihracatcifirmaId = null;
-                                }
                                 existStokGirisEntity.ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Giris").Result) + stokGirisUpdateList.Count;
                                 existStokGirisEntity.KapAdet = stokGirisDto.KapAdet;
                                 existStokGirisEntity.GumrukKod = customs?.EdiCode;
                                 existStokGirisEntity.TpsAciklama = stokGirisDto.TpsAciklama;
                                 existStokGirisEntity.SureSonuTarihi = stokGirisDto.SureSonuTarihi;
                                 existStokGirisEntity.TpsDurum = stokGirisDto.TpsDurum;
-                                existStokGirisEntity.IthalatciFirma = ithalatcifirmaId;
+                                existStokGirisEntity.IthalatciFirma = ithalatcıFirma?.CustomerId;
                                 existStokGirisEntity.TpsNo = stokGirisDto.TpsNo;
-                                existStokGirisEntity.IhracatciFirma = ihracatcifirmaId;
+                                existStokGirisEntity.IhracatciFirma = ihracatciFirma?.CustomerId;
                                 existStokGirisEntity.BeyannameTarihi = stokGirisDto.BeyannameTarihi;
                                 existStokGirisEntity.BeyannameNo = stokGirisDto.BeyannameNo;
                                 existStokGirisEntity.BelgeSart = stokGirisDto.BelgeSart;
