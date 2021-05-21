@@ -1269,6 +1269,9 @@ namespace Chep.Service
                                     FaturaNo = detailDto.FaturaNo,
                                     FaturaTarih = detailDto.FaturaTarih,
                                     UrunKod = product.ProductNo,
+                                    BeyannameNo = detailDto.BeyannameNo,
+                                    BeyannameTarihi = detailDto.BeyannameTarihi,
+                                    
                                 });
 
                             }
