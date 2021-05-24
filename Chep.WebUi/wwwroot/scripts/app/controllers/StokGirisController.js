@@ -96,9 +96,6 @@
         if ($modalDetail == null) {
             $modalDetail = $('#modalDetail').on({
                 "shown.bs.modal": function () {
-                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
-                        $scope.object.referansNo = data;
-                    });
                 },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
@@ -130,6 +127,12 @@
                         },
                         {
                             dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 120,
+                        },
+                        {
+                            dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 150,
+                        },
+                        {
+                            dataField: "beyannameTarihi", caption: "Beyanname Tarihi", width: 130, dataType: "date", formatType: "shortDate" 
                         },
                         {
                             dataField: "beyannameKalemNo", caption: "Beyanname Kalem No", dataType: "number", width: 150,
@@ -403,6 +406,9 @@
                                 text: "Ekle",
                                 icon: "add",
                                 onItemClick: function () {
+                                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
+                                        $scope.object.referansNo = data;
+                                    });
                                     $scope.object.stokGirisId = 0;
                                     $modalDetail.modal('show');
                                 }
