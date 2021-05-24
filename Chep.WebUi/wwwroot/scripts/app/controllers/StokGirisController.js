@@ -129,7 +129,7 @@
                             dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 120,
                         },
                         {
-                            dataField: "beyannameNo", caption: "Beyanname No", dataType: "number", width: 130,
+                            dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 150,
                         },
                         {
                             dataField: "beyannameTarihi", caption: "Beyanname Tarihi", width: 130, dataType: "date", formatType: "shortDate" 

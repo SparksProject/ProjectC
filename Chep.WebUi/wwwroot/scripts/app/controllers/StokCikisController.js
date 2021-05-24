@@ -60,9 +60,7 @@
                     }
                 },
                 "shown.bs.modal": function () {
-                    SparksXService.GetNextReferenceNumber('Cikis').success(function (data) {
-                        $scope.object.referansNo = data;
-                    });
+                  
                 },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
@@ -426,6 +424,9 @@
                                     var today = new Date();
                                     $scope.object.stokCikisId = 0;
                                     //Bugünki Tarihi Alması için
+                                    SparksXService.GetNextReferenceNumber('Cikis').success(function (data) {
+                                        $scope.object.referansNo = data;
+                                    });
                                     $scope.object.islemTarihi = today.toISOString();
                                     $modalDetail.modal('show');
                                 }

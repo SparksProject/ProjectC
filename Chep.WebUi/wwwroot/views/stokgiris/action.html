@@ -148,11 +148,11 @@
                                     </div>
 
                                     <div class="form-group" ng-class="{'has-error': form.ithalatciFirma.$invalid && form.ithalatciFirma.$dirty, 'has-success': form.ithalatciFirma.$valid }">
-                                        <label class="control-label col-md-4">İthalatçı Firma <span class="required">*</span></label>
+                                        <label class="control-label col-md-4">İthalatçı Firma</label>
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <ui-select ng-model="object.ithalatciFirma" name="IthalatciFirma" theme="bootstrap" ng-required="true">
+                                                <ui-select ng-model="object.ithalatciFirma" name="IthalatciFirma" theme="bootstrap">
                                                     <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
                                                     <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
                                                         <div ng-bind-html="item.name | highlight: $select.search"></div>
