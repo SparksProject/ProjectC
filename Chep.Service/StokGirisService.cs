@@ -258,7 +258,9 @@ namespace Chep.Service
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 StokGirisDetayId = obj.StokGirisDetayId,
                 StokGirisId = obj.StokGirisId,
-                BeyannameKalemNo = obj.BeyannameKalemNo
+                BeyannameKalemNo = obj.BeyannameKalemNo,
+                BeyannameNo = obj.BeyannameNo,
+                BeyannameTarihi = obj.BeyannameTarihi
             };
         }
 
@@ -294,6 +296,8 @@ namespace Chep.Service
                 UrunKod = obj.UrunKod,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 BeyannameKalemNo = obj.BeyannameKalemNo,
+                BeyannameTarihi = obj.BeyannameTarihi,
+                BeyannameNo = obj.BeyannameNo,
 
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
@@ -915,7 +919,7 @@ namespace Chep.Service
                         {
                             continue;
                         }
-                        if ( detailDto.TpsSiraNo == null)
+                        if (detailDto.TpsSiraNo == null)
                         {
                             continue;
                         }
@@ -1235,8 +1239,7 @@ namespace Chep.Service
                             //TpsSira no alanı exceldeki önceki alanla eşit ise eklemeyi yapma
                             if (endDetayList.TpsSiraNo == detailDto.TpsSiraNo && endDetayList.FaturaNo == detailDto.FaturaNo
                                 && endDetayList.BeyannameNo == detailDto.BeyannameNo && endDetayList.BeyannameTarihi == detailDto.BeyannameTarihi && endDetayList.BeyannameKalemNo == detailDto.BeyannameKalemNo
-                                             && endDetayList.FaturaTutar == detailDto.FaturaTutar && endDetayList.FaturaDovizKod == detailDto.FaturaDovizKod
-                                             && endDetayList.Miktar == detailDto.Miktar
+                                             && endDetayList.FaturaTutar == detailDto.FaturaTutar && endDetayList.FaturaDovizKod == detailDto.FaturaDovizKod && detailDto.Miktar == null//yeni alandan gelen miktar boş değil ise devam etmeli
                                              && endDetayList.OlcuBirimi == detailDto.OlcuBirimi && endDetayList.UrunKod == product.ProductNo)
                             {
                                 continue;
@@ -1244,7 +1247,10 @@ namespace Chep.Service
 
                             var existItemMasterGiris = stokGirisInsertList.FirstOrDefault(x => x.TpsNo == stokGirisDto.TpsNo);
 
-                            if (existItemMasterGiris != null && existItemMasterGiris.ChepStokGirisDetay != null && existItemMasterGiris.ChepStokGirisDetay.Count > 0)
+                            if (existItemMasterGiris != null && existItemMasterGiris.ChepStokGirisDetay != null && existItemMasterGiris.ChepStokGirisDetay.Count > 0
+                                && existItemMasterGiris.ChepStokGirisDetay.Any(x => x.BeyannameKalemNo == detailDto.BeyannameKalemNo && x.BeyannameNo == detailDto.BeyannameNo
+                                && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo && x.OlcuBirimi == detailDto.OlcuBirimi
+                                && x.MenseUlke == menseUlke && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.TpsSiraNo == detailDto.TpsSiraNo && x.FaturaTutar == detailDto.FaturaTutar && x.UrunKod == product.ProductNo) == false)
                             {
                                 existItemMasterGiris.ChepStokGirisDetay.Add(new ChepStokGirisDetay
                                 {
@@ -1271,9 +1277,24 @@ namespace Chep.Service
                                     UrunKod = product.ProductNo,
                                     BeyannameNo = detailDto.BeyannameNo,
                                     BeyannameTarihi = detailDto.BeyannameTarihi,
-                                    
+
                                 });
 
+                            }
+                            else
+                            {
+                                var insertListDetailUpdate = existItemMasterGiris.ChepStokGirisDetay.FirstOrDefault(x => x.BeyannameKalemNo == detailDto.BeyannameKalemNo && x.BeyannameNo == detailDto.BeyannameNo
+                                && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo && x.OlcuBirimi == detailDto.OlcuBirimi
+                                && x.MenseUlke == menseUlke && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.TpsSiraNo == detailDto.TpsSiraNo && x.FaturaTutar == detailDto.FaturaTutar && x.UrunKod == product.ProductNo);
+
+                                if (insertListDetailUpdate != null && insertListDetailUpdate.Miktar != null && detailDto.Miktar != null)//detaildto null olduğu durumda diğerini de null yapıyor.
+                                {
+                                    insertListDetailUpdate.Miktar += detailDto.Miktar;
+                                }
+                                else if (insertListDetailUpdate != null && insertListDetailUpdate.Miktar == null && detailDto.Miktar != null)
+                                {
+                                    insertListDetailUpdate.Miktar = detailDto.Miktar;
+                                }
                             }
                         }
 
@@ -1338,17 +1359,17 @@ namespace Chep.Service
 
                             if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisId > 0 && detailDto.Miktar.HasValue)
                             {
-                                if (oldEntityGirisDetay.Miktar != null)
+                                if (oldEntityGirisDetay.Miktar != null && detailDto.Miktar != null)
                                 {
                                     oldEntityGirisDetay.Miktar += detailDto.Miktar;
                                 }
-                                else
+                                else if (oldEntityGirisDetay.Miktar == null && detailDto.Miktar != null)
                                 {
                                     oldEntityGirisDetay.Miktar = detailDto.Miktar;
                                 }
                                 var addition83indetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
                                 _uow.Commit();
-                                
+
                                 continue;
                             }
 
@@ -1372,6 +1393,7 @@ namespace Chep.Service
                                 SureSonuTarihi = stokGirisDto.SureSonuTarihi,
                                 TpsAciklama = stokGirisDto.TpsAciklama,
                                 TpsDurum = stokGirisDto.TpsDurum,
+                                BasvuruTarihi = stokGirisDto.BasvuruTarihi,
                             };
 
 
@@ -1477,11 +1499,11 @@ namespace Chep.Service
 
                                 if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisDetayId > 0 && detailDto.Miktar.HasValue)
                                 {
-                                    if (oldEntityGirisDetay.Miktar.HasValue)
+                                    if (oldEntityGirisDetay.Miktar.HasValue && detailDto.Miktar != null)
                                     {
                                         oldEntityGirisDetay.Miktar += detailDto.Miktar;
                                     }
-                                    else
+                                    else if (!oldEntityGirisDetay.Miktar.HasValue && detailDto.Miktar != null)
                                     {
                                         oldEntityGirisDetay.Miktar = detailDto.Miktar;
                                     }
@@ -1498,7 +1520,7 @@ namespace Chep.Service
 
                             var ambiguousValues = string.Join(",", productEntities.Select(x => x.ProductNo));
 
-                            tempList.Add($"Beyanname No: {stokGirisDto.TpsNo} için birden fazla değer döndü. Kararsız kalınan değerler: {ambiguousValues}");
+                            tempList.Add($"Aynı TPS No için {i}. satırda veri bulundu. Detaya kayıt atılacak ya da güncelleme işlemi yapılacak. TPS No: {stokGirisDto.TpsNo}");
 
                             var isKeyContains = informationDictionary.TryGetValue(ImportNoProductKey, out List<string> valueList);
 
