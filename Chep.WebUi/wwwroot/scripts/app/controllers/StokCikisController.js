@@ -694,7 +694,7 @@
             .validate()
             .then(function (validGrid) {
                 if (validGrid) {
-                    if (obj.chepStokCikisDetayList.length > 0) {
+                    //if (obj.chepStokCikisDetayList.length > 0) {
                         if (obj.stokCikisId == 0) {
                             // Insert
                             SparksXService.AddStokCikis(obj).success(function (data) {
@@ -744,14 +744,14 @@
                                 App.stopPageLoading();
                             });
                         }
-                    }
-                    else {
-                        swal({
-                            icon: "warning",
-                            title: "Detay Alanı Giriniz!",
-                            text: "Detay alanına satır eklemeden kayıt yapılamaz!",
-                        });
-                    }
+                    //}
+                    //else {
+                    //    swal({
+                    //        icon: "warning",
+                    //        title: "Detay Alanı Giriniz!",
+                    //        text: "Detay alanına satır eklemeden kayıt yapılamaz!",
+                    //    });
+                    //}
 
 
                 }
