@@ -1495,7 +1495,6 @@ namespace Chep.Service
 
                             if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
                             {
-                                existStokGirisEntity.ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Giris").Result) + stokGirisUpdateList.Count;
 
                                 if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisDetayId > 0 && detailDto.Miktar.HasValue)
                                 {
