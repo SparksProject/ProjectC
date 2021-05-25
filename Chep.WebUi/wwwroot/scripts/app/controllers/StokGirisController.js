@@ -123,7 +123,7 @@
                     columns: [
                         {
                             dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number", width: 100,
-                            format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
+                            format: { type: "fixedPoint", precision: 0 },
                         },
                         {
                             dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 120,
