@@ -63,6 +63,8 @@ namespace Chep.Service
 
                 var entity = Map(obj);
 
+                entity.ChepStokCikisDetay = null;
+
                 var result = _uow.ChepStokCikis.Update(entity);
 
                 if (obj.DeletedChepStokCikisDetayIdList != null)
@@ -72,6 +74,26 @@ namespace Chep.Service
                         _uow.ChepStokCikisDetay.Delete(new ChepStokCikisDetay { StokCikisDetayId = item });
                     }
                 }
+
+                if (obj.ChepStokCikisDetayList != null)
+                {
+                    foreach (var item in obj.ChepStokCikisDetayList)
+                    {
+                        item.StokCikisId = obj.StokCikisId;
+
+                        var detailEntity = Map(item);
+
+                        if (detailEntity.StokCikisDetayId > 0)
+                        {
+                            _uow.ChepStokCikisDetay.Update(detailEntity);
+                        }
+                        else
+                        {
+                            _uow.ChepStokCikisDetay.Add(detailEntity);
+                        }
+                    }
+                }
+
                 _uow.Commit();
 
                 return Success(result.StokCikisId);
@@ -88,6 +110,7 @@ namespace Chep.Service
             {
                 var entity = _uow.ChepStokCikis.Set()
                                                .Include(x => x.ChepStokCikisDetay)
+                                               .AsNoTracking()
                                                .FirstOrDefault(x => x.StokCikisId == id);
 
                 var result = Map(entity);
@@ -284,7 +307,7 @@ namespace Chep.Service
             return new ChepStokCikisDetay
             {
                 Miktar = obj.Miktar,
-                Kg = (int)obj.Kg,
+                Kg = obj.Kg,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId,

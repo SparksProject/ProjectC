@@ -814,7 +814,7 @@ namespace Chep.Core
 
                 entity.ToView("vw_StokCikisDetayListe");
 
-                entity.Property(e => e.BeyannameNo).HasMaxLength(20);
+                entity.Property(e => e.BeyannameNo).HasMaxLength(16);
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
@@ -904,7 +904,6 @@ namespace Chep.Core
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Tpsdurum)
-                    .IsRequired()
                     .HasColumnName("TPSDurum")
                     .HasMaxLength(50);
 
@@ -1007,7 +1006,6 @@ namespace Chep.Core
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Tpsdurum)
-                    .IsRequired()
                     .HasColumnName("TPSDurum")
                     .HasMaxLength(50);
 
@@ -1082,7 +1080,6 @@ namespace Chep.Core
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Tpsdurum)
-                    .IsRequired()
                     .HasColumnName("TPSDurum")
                     .HasMaxLength(50);
 
