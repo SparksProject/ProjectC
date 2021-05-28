@@ -18,12 +18,12 @@ namespace Chep.Service
                 return target;
             }
 
-            var userIdExists = dataTable.Columns.Contains(UserIdColumnName);
+            //var userIdExists = dataTable.Columns.Contains(UserIdColumnName);
 
-            if (!userIdExists)
-            {
-                throw new ArgumentException($"Raporda {UserIdColumnName} alanı eksik!");
-            }
+            //if (!userIdExists)
+            //{
+            //    throw new ArgumentException($"Raporda {UserIdColumnName} alanı eksik!");
+            //}
 
             foreach (DataRow row in dataTable.Rows)
             {
@@ -47,7 +47,16 @@ namespace Chep.Service
                     var columnValues = (IDictionary<string, dynamic>)dic[newColumnName];
 
                     columnValues.Add("DataType", column.DataType.Name);
-                    columnValues.Add("Value", row[column]);
+
+                    if (row[column] == DBNull.Value)
+                    {
+                        columnValues.Add("Value", null);
+                    }
+                    else
+                    {
+                        columnValues.Add("Value", row[column]);
+                    }
+
                     columnValues.Add("Caption", column.ColumnName);
                 }
 

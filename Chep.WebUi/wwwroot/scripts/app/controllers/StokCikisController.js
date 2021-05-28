@@ -139,7 +139,9 @@
                                                         if (rowValue != undefined) {
                                                             cellInfo.row.cells.forEach(function (cell) {
                                                                 if (cell.column.dataField == rowColumn && cell.columnIndex != cellInfo.columnIndex) {
-                                                                    cellInfo.component.cellValue(cell.rowIndex, cell.columnIndex, rowValue);
+                                                                    if (cell.column.dataField != "miktar") {
+                                                                        cellInfo.component.cellValue(cell.rowIndex, cell.columnIndex, rowValue);
+                                                                    }
                                                                 }
                                                             });
                                                         }
