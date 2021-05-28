@@ -60,7 +60,7 @@
                             }
                         }).then(function () {
                             workbook.xlsx.writeBuffer().then(function (buffer) {
-                                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), data.GenericReportName + '.xlsx');
+                                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), data.genericReportName + '.xlsx');
                             });
                         });
                         e.cancel = true;
@@ -182,6 +182,13 @@
         });
     };
 
+    $scope.GetResultSet = function (obj) {
+        SparksXService.EditGenericReport(obj).success(function (data) {
+            $state.go('genericreports/List', { id: data });
+        });
+
+    };
+
     $scope.BindEditFields = function () {
         SparksXService.GetParameterTypes().success(function (data) {
             $scope.parameterTypes = data;
@@ -201,14 +208,16 @@
     };
 
     $scope.GetResultSet = function (isPivot) {
+
+        var args = {
+            genericReportId: parseInt($stateParams.id),
+            genericReportParameterList: $scope.object.genericReportParameterList,
+            userId: $rootScope.user.userId
+        };
         $.ajax({
             url: $rootScope.settings.serverPath + '/api/GenericReport/GetResultSet',
             type: "post",
-            data: JSON.stringify({
-                GenericReportId: $stateParams.id,
-                GenericReportParameterList: $scope.object.genericReportParameterList,
-                UserId: $rootScope.user.userId
-            }),
+            data: JSON.stringify(args),
             contentType: "application/json",
             dataType: "json",
             beforeSend: function () {
@@ -216,8 +225,8 @@
                 $scope.IsOnAir = true;
             },
             success: function (data) {
-                var response = data.Result;
-
+                var response = data.result;
+                console.log(response);
                 if (response != null && response != undefined && response.length > 0) {
                     if (!isPivot) {
                         // Grid ise
@@ -226,9 +235,9 @@
 
                         $.each(response[0], function (key, element) {
                             var column = {
-                                dataField: key + ".value",
-                                caption: element.caption,
-                                dataType: element.dataType.toLowerCase(),
+                                dataField: key + ".Value",
+                                caption: element.Caption,
+                                dataType: element.DataType.toLowerCase(),
                             };
 
                             var numberFormats = ["decimal", "double", "int16", "int32", "int64", "byte", "sbyte", "single"];
@@ -266,17 +275,77 @@
 
                                 if (obj.dataType == "Decimal") {
                                     value = parseFloat(obj.Value);
-                                } else if (obj.dataType == "Int32" || obj.dataType == "Int16") {
-                                    value = parseInt(obj.value);
-                                } else if (obj.dataType == "DateTime") {
+                                } else if (obj.DataType == "Int32" || obj.DataType == "Int16") {
+                                    value = parseInt(obj.Value);
+                                } else if (obj.DataType == "DateTime") {
                                     value = new Date(obj.Value);
                                 }
 
-                                object[obj.caption] = value;
+                                object[obj.Caption] = value;
                             });
 
                             objectList.push(object);
                         });
+
+                        //var fields = [];
+                        //if (response.length) {
+                        //    var hasDate = false;
+
+                        //    $.each(response[0], function (key, obj) {
+                        //        //console.log(key, obj);
+
+                        //        if (obj.DataType == "DateTime") {
+                        //            fields.push({
+                        //                caption: obj.Caption,
+                        //                dataField: obj.Caption.replace(" ", "_"),
+                        //                dataType: "date",
+                        //                //groupName: "Date",
+                        //            });
+
+                        //            //if (!hasDate) {
+                        //            //    fields.push({
+                        //            //        groupName: "Date", groupInterval: "year", groupIndex: 0
+                        //            //    });
+
+                        //            //    fields.push({
+                        //            //        groupName: "Date", groupInterval: "month", groupIndex: 1
+                        //            //    });
+                        //            //}
+
+                        //            hasDate = true;
+                        //        }
+
+                        //        if (obj.DataType == "Decimal") {
+                        //            fields.push({
+                        //                caption: obj.Caption,
+                        //                dataField: obj.Caption.replace(" ", "_"),
+                        //                dataType: "number",
+                        //                summaryType: "sum",
+                        //                format: {
+                        //                    type: "fixedPoint",
+                        //                    precision: 2
+                        //                },
+                        //            });
+                        //        }
+
+                        //        if (obj.DataType == "Int32" || obj.DataType == "Int16") {
+                        //            fields.push({
+                        //                caption: obj.Caption,
+                        //                dataField: obj.Caption.replace(" ", "_"),
+                        //                dataType: "number",
+                        //                summaryType: "sum",
+                        //                format: {
+                        //                    type: "fixedPoint",
+                        //                    precision: 0
+                        //                },
+                        //            });
+                        //        }
+                        //    });
+
+                        //    $pivotContainer.option('dataSource.fields', fields);
+                        //}
+
+                        //console.log(fields, objectList);
 
                         $pivotContainer.option('dataSource.store', objectList);
                     }
