@@ -28,6 +28,8 @@ namespace Chep.Core
         public int? ModifiedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
         public int? DeletedBy { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public string CurrencyType { get; set; }
 
         public virtual User CreatedByNavigation { get; set; }
         public virtual Customer Customer { get; set; }

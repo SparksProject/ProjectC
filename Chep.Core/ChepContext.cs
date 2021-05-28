@@ -71,6 +71,8 @@ namespace Chep.Core
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
+                entity.Property(e => e.CikisGumruk).HasMaxLength(6);
+
                 entity.Property(e => e.GtbReferenceNo).HasMaxLength(25);
 
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
@@ -82,6 +84,10 @@ namespace Chep.Core
                 entity.Property(e => e.InvoiceNo).HasMaxLength(50);
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.OdemeSekli).HasMaxLength(2);
+
+                entity.Property(e => e.TeslimSekli).HasMaxLength(3);
 
                 entity.Property(e => e.TpsNo).HasMaxLength(50);
 
@@ -98,9 +104,15 @@ namespace Chep.Core
                 entity.HasKey(e => e.StokCikisDetayId)
                     .HasName("PK__ChepStok__7A5C97E41CA2F026");
 
+                entity.Property(e => e.BirimTutar).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.BrutKg).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Kg).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.Kg).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.NetKg).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.StokCikis)
                     .WithMany(p => p.ChepStokCikisDetay)
@@ -292,17 +304,11 @@ namespace Chep.Core
             {
                 entity.Property(e => e.CustomerId).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Adress)
-                    .IsRequired()
-                    .HasMaxLength(500);
+                entity.Property(e => e.Adress).HasMaxLength(500);
 
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.City).HasMaxLength(100);
 
-                entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.Country).HasMaxLength(100);
 
                 entity.Property(e => e.CreatedDate)
                     .HasColumnType("datetime")
@@ -322,13 +328,9 @@ namespace Chep.Core
 
                 entity.Property(e => e.RecordStatusId).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.TaxName)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.TaxName).HasMaxLength(100);
 
-                entity.Property(e => e.TaxNo)
-                    .IsRequired()
-                    .HasMaxLength(20);
+                entity.Property(e => e.TaxNo).HasMaxLength(20);
 
                 entity.Property(e => e.Telephone).HasMaxLength(100);
 
@@ -507,6 +509,8 @@ namespace Chep.Core
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
+                entity.Property(e => e.CurrencyType).HasMaxLength(3);
+
                 entity.Property(e => e.DeletedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.HsCode)
@@ -528,6 +532,8 @@ namespace Chep.Core
                     .HasMaxLength(50);
 
                 entity.Property(e => e.SapCode).HasMaxLength(50);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Uom)
                     .HasMaxLength(3)
