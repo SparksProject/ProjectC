@@ -10,7 +10,7 @@ namespace Chep.Data.Repository
     {
         DbSet<T> Set();
         T Add(T entity);
-        void AddRange(List<T> obj);
+        List<T> AddRange(List<T> obj);
         T Update(T entity);
         List<T> GetAll();
         T Single(Expression<Func<T, bool>> predicate);
@@ -19,5 +19,6 @@ namespace Chep.Data.Repository
         void Delete(Expression<Func<T, bool>> predicate);
         bool Any(Expression<Func<T, bool>> predicate);
         void Dispose();
+        List<T> UpdateRange(List<T> obj);
     }
 }

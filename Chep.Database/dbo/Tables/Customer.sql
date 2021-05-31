@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [dbo].[Customer] (
     [CustomerId]     UNIQUEIDENTIFIER CONSTRAINT [DF_Customer_CustomerId] DEFAULT (newid()) NOT NULL,
     [Name]           NVARCHAR (100)   NOT NULL,
-    [TaxNo]          NVARCHAR (20)    NOT NULL,
-    [TaxName]        NVARCHAR (100)   NOT NULL,
-    [Adress]         NVARCHAR (500)   NOT NULL,
-    [City]           NVARCHAR (100)   NOT NULL,
-    [Country]        NVARCHAR (100)   NOT NULL,
+    [TaxNo]          NVARCHAR (20)    NULL,
+    [TaxName]        NVARCHAR (100)   NULL,
+    [Adress]         NVARCHAR (500)   NULL,
+    [City]           NVARCHAR (100)   NULL,
+    [Country]        NVARCHAR (100)   NULL,
     [Telephone]      NVARCHAR (100)   NULL,
     [OtherId]        NVARCHAR (20)    NULL,
     [UserNameWs]     NVARCHAR (20)    NULL,
@@ -25,6 +25,8 @@
     CONSTRAINT [FK_Customer_Users1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[User] ([UserId]),
     CONSTRAINT [FK_Customer_Users2] FOREIGN KEY ([DeletedBy]) REFERENCES [dbo].[User] ([UserId])
 );
+
+
 
 
 

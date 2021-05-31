@@ -63,7 +63,36 @@ namespace Chep.Service
 
                 var entity = Map(obj);
 
+                entity.ChepStokCikisDetay = null;
+
                 var result = _uow.ChepStokCikis.Update(entity);
+
+                if (obj.DeletedChepStokCikisDetayIdList != null)
+                {
+                    foreach (var item in obj.DeletedChepStokCikisDetayIdList)
+                    {
+                        _uow.ChepStokCikisDetay.Delete(new ChepStokCikisDetay { StokCikisDetayId = item });
+                    }
+                }
+
+                if (obj.ChepStokCikisDetayList != null)
+                {
+                    foreach (var item in obj.ChepStokCikisDetayList)
+                    {
+                        item.StokCikisId = obj.StokCikisId;
+
+                        var detailEntity = Map(item);
+
+                        if (detailEntity.StokCikisDetayId > 0)
+                        {
+                            _uow.ChepStokCikisDetay.Update(detailEntity);
+                        }
+                        else
+                        {
+                            _uow.ChepStokCikisDetay.Add(detailEntity);
+                        }
+                    }
+                }
 
                 _uow.Commit();
 
@@ -81,6 +110,7 @@ namespace Chep.Service
             {
                 var entity = _uow.ChepStokCikis.Set()
                                                .Include(x => x.ChepStokCikisDetay)
+                                               .AsNoTracking()
                                                .FirstOrDefault(x => x.StokCikisId == id);
 
                 var result = Map(entity);
@@ -255,6 +285,13 @@ namespace Chep.Service
                 TpsNo = obj.TpsNo,
                 IslemTarihi = obj.IslemTarihi,
                 TpsTarih = obj.TpsTarih,
+                GtbReferenceNo = obj.GtbReferenceNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceCurrency = obj.InvoiceCurrency,
+                InvoiceDate = obj.InvoiceDate,
+                InvoiceId = obj.InvoiceId,
+                InvoiceNo = obj.InvoiceNo,
+                WorkOrderMasterId = obj.WorkOrderMasterId,
 
                 ChepStokCikisDetay = details,
             };
@@ -270,10 +307,13 @@ namespace Chep.Service
             return new ChepStokCikisDetay
             {
                 Miktar = obj.Miktar,
-                Kg = (int)obj.Kg,
+                Kg = obj.Kg,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
-                StokGirisDetayId = obj.StokGirisDetayId
+                StokGirisDetayId = obj.StokGirisDetayId,
+                TpsCikisSiraNo = obj.TpsCikisSiraNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceDetailId = obj.InvoiceDetailId
             };
         }
 
@@ -291,6 +331,9 @@ namespace Chep.Service
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId,
+                TpsCikisSiraNo = obj.TpsCikisSiraNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceDetailId = obj.InvoiceDetailId
             };
         }
 
@@ -318,6 +361,13 @@ namespace Chep.Service
                 TpsNo = obj.TpsNo,
                 IslemTarihi = obj.IslemTarihi,
                 TpsTarih = obj.TpsTarih,
+                GtbReferenceNo = obj.GtbReferenceNo,
+                InvoiceAmount = obj.InvoiceAmount,
+                InvoiceCurrency = obj.InvoiceCurrency,
+                InvoiceDate = obj.InvoiceDate,
+                InvoiceId = obj.InvoiceId,
+                InvoiceNo = obj.InvoiceNo,
+                WorkOrderMasterId = obj.WorkOrderMasterId,
 
                 ChepStokCikisDetayList = details
             };

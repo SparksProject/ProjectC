@@ -29,6 +29,11 @@ namespace Chep.Core
         public decimal? InvoiceAmount { get; set; }
         public string InvoiceCurrency { get; set; }
         public string GtbReferenceNo { get; set; }
+        public Guid? AliciFirma { get; set; }
+        public string TeslimSekli { get; set; }
+        public string CikisGumruk { get; set; }
+        public string OdemeSekli { get; set; }
+        public Guid? NakliyeciFirma { get; set; }
 
         public virtual Customer IhracatciFirmaNavigation { get; set; }
         public virtual ICollection<ChepStokCikisDetay> ChepStokCikisDetay { get; set; }

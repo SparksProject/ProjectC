@@ -116,7 +116,7 @@ namespace Chep.WebApi.Controllers
         }
 
         [HttpPost("Import")]
-        public IActionResult Import()
+        public IActionResult Import([FromQuery] int userId)
         {
             var result = new ResponseDTO();
 
@@ -125,7 +125,7 @@ namespace Chep.WebApi.Controllers
                 var file = Request.Form.Files[0];
                 if (file.Length > 0)
                 {
-                    result = _service.Import(file);
+                    result = _service.Import(file, userId);
                 }
             }
             else
@@ -133,21 +133,16 @@ namespace Chep.WebApi.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
             }
 
-            switch (result.ResultMessage)
+            return result.ResultMessage switch
             {
-                case Enums.ResponseMessage.OK:
-                    return StatusCode(StatusCodes.Status200OK, result.Result);
-                case Enums.ResponseMessage.ERROR:
-                    return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
-                case Enums.ResponseMessage.NOTFOUND:
-                    return StatusCode(StatusCodes.Status404NotFound);
-                case Enums.ResponseMessage.UNAUTHORIZED:
-                    return StatusCode(StatusCodes.Status401Unauthorized);
-                case Enums.ResponseMessage.BADREQUEST:
-                    return StatusCode(StatusCodes.Status400BadRequest);
-                default:
-                    return StatusCode(StatusCodes.Status404NotFound);
-            }
+                Enums.ResponseMessage.OK => StatusCode(StatusCodes.Status200OK, result.Result),
+                Enums.ResponseMessage.ERROR => StatusCode(StatusCodes.Status500InternalServerError, result.Exception.Message),
+                Enums.ResponseMessage.NOTFOUND => StatusCode(StatusCodes.Status404NotFound),
+                Enums.ResponseMessage.UNAUTHORIZED => StatusCode(StatusCodes.Status401Unauthorized),
+                Enums.ResponseMessage.BADREQUEST => StatusCode(StatusCodes.Status400BadRequest),
+                Enums.ResponseMessage.WARNING => StatusCode(StatusCodes.Status200OK, result),
+                _ => StatusCode(StatusCodes.Status500InternalServerError, result),
+            };
         }
 
     }

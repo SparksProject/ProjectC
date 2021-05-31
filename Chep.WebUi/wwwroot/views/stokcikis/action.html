@@ -66,7 +66,42 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">İş Emri Id</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <input type="text" ng-model="object.workOrderMasterId" name="WorkOrderMasterId" class="form-control" placeholder="İş Emri" ng-disabled="true">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Fatura Id</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <input type="text" ng-model="object.invoiceId" name="InvoiceId" class="form-control" placeholder="Fatura" ng-disabled="true">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{'has-error': form.invoiceCurrency.$invalid && form.invoiceCurrency.$dirty, 'has-success': form.invoiceCurrency.$valid }">
+                                        <label class="control-label col-md-4">Fatura Döviz Türü</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <ui-select ng-model="object.invoiceCurrency" name="InvoiceCurrency" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.currencyTypeName}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.ediCode as item in currencytypes | filter: $select.search">
+                                                        <div ng-bind-html="(item.ediCode + ' - ' + item.currencyTypeName) | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                              
                                 <div class="col-md-6">
 
                                     <div class="form-group">
@@ -94,17 +129,7 @@
                                         </div>
                                     </div>
 
-                                    <!--<div class="form-group">
-                                        <label class="control-label col-md-4">İthalatçı Firma</label>
-                                        <div class="col-md-8">
-                                            <div class="input-icon right">
-                                                <i class="fa"></i>
-                                                <input type="text" ng-model="object.IthalatciFirma" name="IthalatciFirma" class="form-control" placeholder="İthalatçı Firma">
-                                            </div>
-                                        </div>
-                                    </div>-->
-
-                                    <div class="form-group" ng-class="{'has-error': form.CustomerId.$invalid && form.CustomerId.$dirty, 'has-success': form.CustomerId.$valid }">
+                                    <div class="form-group" ng-class="{'has-error': form.customerId.$invalid && form.customerId.$dirty, 'has-success': form.customerId.$valid }">
                                         <label class="control-label col-md-4">İhracatcı Firma</label>
                                         <div class="col-md-8">
                                             <div class="input-icon right">
@@ -119,6 +144,51 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Fatura No</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <input type="text" ng-model="object.invoiceNo" name="InvoiceNo" class="form-control" placeholder="Fatura No" maxlength="50">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Fatura Tarihi</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-calendar"></i>
+                                                </span>
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="text" ng-model="object.invoiceDate" name="InvoiceDate" class="form-control" placeholder="Fatura Tarihi" datetime>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Fatura Tutar</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <input type="number" ng-model="object.invoiceAmount" name="InvoiceAmount" class="form-control" placeholder="Fatura Tutar">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Gtb Referans No</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <input type="text" ng-model="object.gtbReferenceNo" name="GtbReferenceNo" class="form-control" placeholder="Gtb Referans No">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group row">
                                         <div class="col-sm-4">
                                             <button id="btnArchive" type="button" class="btn btn-default btn-block hidden">Arşiv</button>
@@ -127,11 +197,8 @@
                                             <button id="btnJobOrder" type="button" class="btn btn-default btn-block hidden">İş Emri Gönder</button>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button id="btnDrop" type="button" class="btn btn-default btn-block hidden" data-toggle="modal" data-target="#modalDrop">Düşüm</button>
+                                            <button id="btnDrop" type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modalDrop">Düşüm</button>
                                         </div>
-                                        <!--<div class="col-sm-4">
-                                            <button id="btnDrop1" type="button" class="btn btn-default btn-block hidden" data-toggle="modal" data-target="#modalDrop1">Düşüm</button>
-                                        </div>-->
                                     </div>
 
                                 </div>

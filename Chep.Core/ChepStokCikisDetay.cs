@@ -16,6 +16,10 @@ namespace Chep.Core
         public decimal? Kg { get; set; }
         public Guid? InvoiceDetailId { get; set; }
         public decimal? InvoiceAmount { get; set; }
+        public int? TpsCikisSiraNo { get; set; }
+        public decimal? NetKg { get; set; }
+        public decimal? BrutKg { get; set; }
+        public decimal? BirimTutar { get; set; }
 
         public virtual ChepStokCikis StokCikis { get; set; }
         public virtual ChepStokGirisDetay StokGirisDetay { get; set; }

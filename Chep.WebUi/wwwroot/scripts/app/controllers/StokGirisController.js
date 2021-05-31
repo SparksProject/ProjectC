@@ -45,7 +45,7 @@
     var storeProducts = new DevExpress.data.CustomStore({
         key: "productNo",
         method: "Get",
-        loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
+        //loadMode: "raw", // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
         load: function () {
             var deferred = $.Deferred();
 
@@ -56,6 +56,14 @@
             });
 
             return deferred.promise();
+        },
+        byKey: function (key) {
+            var deferred = $.Deferred();
+            SparksXService.GetProducts().success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                deferred.reject("Data Loading Error");
+            });
         }
     });
 
@@ -87,6 +95,8 @@
     $scope.ModalDetail = function () {
         if ($modalDetail == null) {
             $modalDetail = $('#modalDetail').on({
+                "shown.bs.modal": function () {
+                },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
                     $scope.$apply();
@@ -100,11 +110,7 @@
                     $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
                     $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
                 },
-                "shown.bs.modal": function () {
-                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
-                        $scope.object.referansNo = data;
-                    });
-                }
+
             }).modal({
                 show: false,
                 keyboard: false
@@ -118,6 +124,18 @@
                         {
                             dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number", width: 100,
                             format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 120,
+                        },
+                        {
+                            dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 150,
+                        },
+                        {
+                            dataField: "beyannameTarihi", caption: "Beyanname Tarihi", width: 130, dataType: "date", formatType: "shortDate" 
+                        },
+                        {
+                            dataField: "beyannameKalemNo", caption: "Beyanname Kalem No", dataType: "number", width: 150,
                         },
                         { dataField: "tpsBeyan", caption: "TPS Beyan", width: 100, },
                         {
@@ -145,7 +163,7 @@
                             },
                         },
                         {
-                            dataField: "Miktar", caption: "Miktar", dataType: "number", width: 100,
+                            dataField: "miktar", caption: "Miktar", dataType: "number", width: 100,
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
@@ -268,6 +286,12 @@
                         } else {
                             e.data.tpsSiraNo = 1;
                         }
+
+                        if (ds._items.length) {
+                            e.data.tpsCikisSiraNo = $(ds._items).last()[0].tpsCikisSiraNo + 1;
+                        } else {
+                            e.data.tpsCikisSiraNo = 2;
+                        }
                     },
                     onEditorPreparing: function (e) {//her değişiklikte her satıra bakar 
                         //Stok Giriş Detay Kısmında Ürün kodu Seçildiğinde Eşya Gitp,Eşya cinsi otomatik Doldurulma İşlemi
@@ -285,7 +309,7 @@
                                 e.component.cellValue(e.row.rowIndex, "esyaCinsi", selectedData[0].productNameTr);
 
                             }
-                        } 
+                        }
                     },
                     editing: {
                         mode: "row",
@@ -382,6 +406,9 @@
                                 text: "Ekle",
                                 icon: "add",
                                 onItemClick: function () {
+                                    SparksXService.GetNextReferenceNumber('Giris').success(function (data) {
+                                        $scope.object.referansNo = data;
+                                    });
                                     $scope.object.stokGirisId = 0;
                                     $modalDetail.modal('show');
                                 }
@@ -459,16 +486,18 @@
     }
 
     $scope.ModalImport = function () {
-        if ($modalImport == null) {
-            $modalImport = $('#modalImport').on({
-                "hidden.bs.modal": function () {
-
-                }
-            }).modal({
-                show: false,
-                keyboard: false
-            });
-        }
+        //if ($modalImport == null) {
+        $modalImport = $('#modalImport').on({
+            "hidden.bs.modal": function () {
+                $scope.object = {};
+                $scope.$apply();
+                $('#fileexcel').fileinput('clear');
+            }
+        }).modal({
+            show: false,
+            keyboard: false
+        });
+        //}
     }
 
     function ListData() {
@@ -479,6 +508,7 @@
         SparksXService.ListStokGirises(referansNo, beyannameNo, tpsNo).success(function (data) {
             $gridContainer.option("dataSource", data);
             $gridContainer.endCustomLoading();
+            storeProducts.load();
         }).error(function () {
             $gridContainer.option("dataSource", []);
             $gridContainer.endCustomLoading();
@@ -611,41 +641,82 @@
             });
     };
 
-    // UploadFile
     $scope.UploadFile = function (obj) {
-        $scope.HasMessage = false;
-        $scope.ResultMessage = undefined;
-        //console.log($scope.object.ExcelFile);-- obj.ExcelFile Aynı şey
-        if (obj.ExcelFile == null) {
-            return false;
-        }
+        Upload.upload({
+            url: $rootScope.settings.serverPath + '/api/StokGiris/Import?userId=' + $rootScope.user.userId,
+            data: {},
+            file: obj.ExcelFile
+        }).success(function (data) {
+            if (data.isSuccesful == false) {
+                swal({
+                    icon: "error",
+                    title: "Başarısız!",
+                    text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. " + data.message,
+                });
+            }
+            else {
+                swal({
+                    icon: "success",
+                    title: "Başarılı!",
+                    text: "Excel'den veri yükleme işlemi başarılı. " + data,
+                }, function (result) {
+                    if (result) {
+                        $modalImport.modal('hide');
+                    }
+                });
 
-        var reader = new FileReader();
-        reader.readAsBinaryString(obj.ExcelFile);
-        reader.onload = function () {
-            var files = btoa(reader.result);
-
-            SparksXService.ImportStokGiris(files).success(function (data) {
-                if (data.Message != null && data.Message != undefined && data.Message.length > 0) {
-                    $scope.ResultMessage = data.Message;
-                    $scope.HasMessage = true;
-
-                    var content = '<button class="close" data-close="alert"></button>';
-                    content += data.Message;
-
-                    $('#divMessage').html(content).removeClass('display-none');
-                } else {
-                    $state.go('stokgiris/list');
-                }
-            }).error(function () {
-                $scope.ResultMessage = "HATA";
-                $scope.HasMessage = true;
+            }
+            $timeout(function () {
+                $state.go('stokgiris/list');
             });
-        };
-        reader.onerror = function () {
-            console.log("error");
-            return false;
-        };
-    };
+        }).error(function (error) {
+            swal({
+                icon: "error",
+                title: "Başarısız!",
+                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. " + error ,
+            });
+        }).then(function (response) {
+            $timeout(function () {
+                $state.go('stokgiris/list');
+            });
+        });
+    }
+
+    //// UploadFile
+    //$scope.UploadFile = function (obj) {
+    //    $scope.HasMessage = false;
+    //    $scope.ResultMessage = undefined;
+    //    //console.log($scope.object.ExcelFile);-- obj.ExcelFile Aynı şey
+    //    if (obj.ExcelFile == null) {
+    //        return false;
+    //    }
+
+    //    var reader = new FileReader();
+    //    reader.readAsBinaryString(obj.ExcelFile);
+    //    reader.onload = function () {
+    //        var files = btoa(reader.result);
+
+    //        SparksXService.ImportStokGiris(files).success(function (data) {
+    //            if (data.Message != null && data.Message != undefined && data.Message.length > 0) {
+    //                $scope.ResultMessage = data.Message;
+    //                $scope.HasMessage = true;
+
+    //                var content = '<button class="close" data-close="alert"></button>';
+    //                content += data.Message;
+
+    //                $('#divMessage').html(content).removeClass('display-none');
+    //            } else {
+    //                $state.go('stokgiris/list');
+    //            }
+    //        }).error(function () {
+    //            $scope.ResultMessage = "HATA";
+    //            $scope.HasMessage = true;
+    //        });
+    //    };
+    //    reader.onerror = function () {
+    //        console.log("error");
+    //        return false;
+    //    };
+    //};
 
 }]);

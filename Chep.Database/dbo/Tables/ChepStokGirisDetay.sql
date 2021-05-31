@@ -2,6 +2,8 @@
     [StokGirisDetayId] INT             IDENTITY (1, 1) NOT NULL,
     [StokGirisId]      INT             NOT NULL,
     [TpsSiraNo]        INT             NULL,
+    [TpsCikisSiraNo]   INT             NULL,
+    [BeyannameKalemNo] INT             NULL,
     [TpsBeyan]         NVARCHAR (20)   NULL,
     [EsyaCinsi]        NVARCHAR (20)   NULL,
     [EsyaGtip]         NVARCHAR (12)   NULL,
@@ -20,9 +22,15 @@
     [Model]            NVARCHAR (50)   NULL,
     [UrunKod]          NVARCHAR (50)   NULL,
     [PoNo]             NVARCHAR (50)   NULL,
+    [BeyannameNo]      NVARCHAR (16)   NULL,
+    [BeyannameTarihi]  DATETIME        NULL,
     CONSTRAINT [PK__ChepStok__5F1F65B0F75ADB99] PRIMARY KEY CLUSTERED ([StokGirisDetayId] ASC),
-    CONSTRAINT [FK_ChepStokGirisDetay_ChepStokGiris] FOREIGN KEY ([StokGirisId]) REFERENCES [dbo].[ChepStokGiris] ([StokGirisId])
+    CONSTRAINT [FK_ChepStokGirisDetay_ChepStokGiris] FOREIGN KEY ([StokGirisId]) REFERENCES [dbo].[ChepStokGiris] ([StokGirisId]) ON DELETE CASCADE
 );
+
+
+
+
 
 
 

@@ -2,22 +2,16 @@
 
     DevExpress.localization.locale("tr-TR");
 
-    var bodyModalPadding = 0;
     var $gridContainer = null;
     var $gridDetail = null;
     var $gridDrop = null;
-    var $gridDrop1 = null;
     var $modalDetail = null;
     var $modalImport = null;
     var $modalDrop = null;
-    //var $modalDrop1 = null;
     var DeletedChepStokCikisDetayIdList = [];
     var $btnArchive = null;
     var $btnJobOrder = null;
-    var $btnDrop = null;
-    //var $btnDrop1 = null;
     var $btnDropSubmit = null;
-    //var $btnDropSubmit1 = null;
 
     var storeStokGiris = new DevExpress.data.CustomStore({
         key: "stokGirisDetayId",
@@ -48,8 +42,6 @@
         if ($modalDetail == null) {
             $btnArchive = $('#btnArchive');
             $btnJobOrder = $('#btnJobOrder');
-            $btnDrop = $('#btnDrop');
-            //$btnDrop1 = $('#btnDrop1');
 
             $modalDetail = $('#modalDetail').on({
                 "hide.bs.modal": function (e) {
@@ -60,9 +52,7 @@
                     }
                 },
                 "shown.bs.modal": function () {
-                    SparksXService.GetNextReferenceNumber('Cikis').success(function (data) {
-                        $scope.object.referansNo = data;
-                    });
+
                 },
                 "hidden.bs.modal": function () {
                     $scope.object = {};
@@ -79,7 +69,6 @@
 
                     $btnArchive.addClass('hidden');
                     $btnJobOrder.addClass('hidden');
-                    $btnDrop.addClass('hidden');
                 }
             }).modal({
                 show: false,
@@ -92,7 +81,7 @@
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No - TPS Sıra No",
+                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No",
                             lookup: {
                                 dataSource: storeStokGiris, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -121,6 +110,7 @@
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                     format: { type: "fixedPoint", precision: 0 },
                                                 },
+                                                { dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", },
                                                 { dataField: "tpsBeyan", caption: "TPS Beyan", },
                                                 { dataField: "faturaNo", caption: "Fatura No", },
                                                 { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
@@ -129,10 +119,7 @@
                                                     format: { type: "fixedPoint", precision: 2 },
                                                 },
                                                 { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
-                                                {
-                                                    dataField: "miktar", caption: "Miktar", dataType: "number",
-                                                    format: { type: "fixedPoint", precision: 0 },
-                                                },
+
                                             ],
                                             hoverStateEnabled: true,
                                             scrolling: { mode: "virtual" },
@@ -152,7 +139,9 @@
                                                         if (rowValue != undefined) {
                                                             cellInfo.row.cells.forEach(function (cell) {
                                                                 if (cell.column.dataField == rowColumn && cell.columnIndex != cellInfo.columnIndex) {
-                                                                    cellInfo.component.cellValue(cell.rowIndex, cell.columnIndex, rowValue);
+                                                                    if (cell.column.dataField != "miktar") {
+                                                                        cellInfo.component.cellValue(cell.rowIndex, cell.columnIndex, rowValue);
+                                                                    }
                                                                 }
                                                             });
                                                         }
@@ -169,12 +158,24 @@
                             }
                         },
                         {
+                            dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 130,
+                            format: { type: "fixedPoint", precision: 0 }
+                        },
+                        {
                             dataField: "miktar", caption: "Miktar", dataType: "number",
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
                             dataField: "kg", caption: "Kg", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
+                            dataField: "invoiceAmount", caption: "Fatura Tutar", dataType: "number",
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "invoiceDetailId", caption: "Fatura Detay Id", dataType: "text", width: 130,
+                            format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
                     onContextMenuPreparing: function (e) {
@@ -416,6 +417,9 @@
                                     var today = new Date();
                                     $scope.object.stokCikisId = 0;
                                     //Bugünki Tarihi Alması için
+                                    SparksXService.GetNextReferenceNumber('Cikis').success(function (data) {
+                                        $scope.object.referansNo = data;
+                                    });
                                     $scope.object.islemTarihi = today.toISOString();
                                     $modalDetail.modal('show');
                                 }
@@ -458,7 +462,6 @@
 
                         $btnArchive.removeClass('hidden');
                         $btnJobOrder.removeClass('hidden');
-                        $btnDrop.removeClass('hidden');
 
                         $modalDetail.modal('show');
                     });
@@ -490,95 +493,6 @@
                 focusedRowEnabled: true,
             }).dxDataGrid('instance');
         }
-        //if ($modalDrop1 == null) {
-        //    $btnDropSubmit1 = $('#btnDropSubmit1');
-
-        //    $modalDrop1 = $('#modalDrop1').on({
-        //        "hide.bs.modal": function (e) {
-        //            if ($('.modal:visible').length > 1) {
-        //                bodyModalPadding = $('body').css('paddingRight');
-        //            } else {
-        //                bodyModalPadding = 0;
-        //            }
-        //        },
-        //        "hidden.bs.modal": function (e) {
-        //            $btnDropSubmit.prop('disabled', true);
-        //            $scope.object.Drop = {};
-
-        //            $gridDrop.option("dataSource", []);
-
-        //            $modalDrop1.find('form .form-group').removeClass('has-success').removeClass('has-error');
-        //            $modalDrop1.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
-        //            $modalDrop1.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
-
-        //            $scope.$apply();
-        //        }
-        //    }).modal({
-        //        show: true,
-        //        keyboard: false,
-        //        backdrop: false
-        //    });
-
-        //    //if ($gridDrop1 == null) {
-        //    //    $gridDrop1 = $("#gridDrop1").dxDataGrid({
-        //    //        keyExpr: "stokGirisDetayId",
-        //    //        dataSource: [],
-        //    //        columns: [
-        //    //            { dataField: "girisBeyannameNo", caption: "Beyanname No", width: 150, },
-        //    //            { dataField: "tpsNo", caption: "TPS No", width: 150, },
-        //    //            { dataField: "urunKod", caption: "Ürün Kodu", },
-        //    //            {
-        //    //                dataField: "girisMiktar", caption: "Giriş Adet", dataType: "number",
-        //    //                format: { type: "fixedPoint", precision: 0 },
-        //    //            },
-        //    //            {
-        //    //                dataField: "kalanMiktar", caption: "Kalan Adet", dataType: "number",
-        //    //                format: { type: "fixedPoint", precision: 0 },
-        //    //            },
-        //    //            {
-        //    //                dataField: "dusulenMiktar", caption: "Düşülen Adet", dataType: "number",
-        //    //                format: { type: "fixedPoint", precision: 0 },
-        //    //            },
-        //    //            {
-        //    //                dataField: "bakiyeMiktar", caption: "Bakiye Adet", dataType: "number",
-        //    //                format: { type: "fixedPoint", precision: 0 },
-        //    //            },
-        //    //        ],
-        //    //        summary: {
-        //    //            totalItems: [
-        //    //                {
-        //    //                    column: "dusulenMiktar",
-        //    //                    summaryType: "sum",
-        //    //                },
-        //    //                {
-        //    //                    column: "bakiyeMiktar",
-        //    //                    summaryType: "sum",
-        //    //                }
-        //    //            ]
-        //    //        },
-        //    //        onCellPrepared: function (e) {
-        //    //            if (e.rowType == "data" && e.data.DusulenMiktar > 0) {
-        //    //                $(e.cellElement).css('backgroundColor', '#e8f0fe');
-        //    //            }
-        //    //        },
-        //    //        filterRow: {
-        //    //            visible: false,
-        //    //        },
-        //    //        groupPanel: {
-        //    //            visible: false,
-        //    //        },
-        //    //        showBorders: true,
-        //    //        showRowLines: true,
-        //    //        sorting: {
-        //    //            mode: "none"
-        //    //        },
-        //    //    }).dxDataGrid('instance');
-        //    //}
-        //}
-        //$gridContainer.beginCustomLoading();
-
-        //ListData();
-        //}
     }
 
 
@@ -640,6 +554,9 @@
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
         });
+        SparksXService.GetCurrencyTypes().success(function (data) {
+            $scope.currencytypes = data;
+        });
     };
 
     $scope.Action = function (obj) {
@@ -655,7 +572,15 @@
             obj.tpsTarih = null;
         }
 
+        if (obj.invoiceDate == "") {
+            obj.invoiceDate = null;
+        }
+
         obj.referansNo = parseInt(obj.referansNo);
+
+        if (obj.gtbReferenceNo != null) {
+            obj.gtbReferenceNo = obj.gtbReferenceNo.toString();
+        }
 
         App.startPageLoading();
 
@@ -666,6 +591,7 @@
                 ds._items[i].stokCikisDetayId = 0;
             }
         }
+
         obj.chepStokCikisDetayList = ds._items;
         obj.deletedChepStokCikisDetayIdList = DeletedChepStokCikisDetayIdList;
 
@@ -674,65 +600,65 @@
             .validate()
             .then(function (validGrid) {
                 if (validGrid) {
-                    if (obj.chepStokCikisDetayList.length > 0) {
-                        if (obj.stokCikisId == 0) {
-                            // Insert
-                            SparksXService.AddStokCikis(obj).success(function (data) {
-                                swal({
-                                    icon: "success",
-                                    title: "Başarılı!",
-                                    text: "Ekleme işlemi başarılı.",
-                                }, function (result) {
-                                    if (result) {
-                                        $modalDetail.modal('hide');
-                                    }
-                                });
-
-                                ListData();
-
-                                App.stopPageLoading();
-                            }).error(function () {
-                                swal({
-                                    icon: "error",
-                                    title: "Hata!",
-                                    text: "Ekleme işlemi yapılamadı. Lütfen tekrar deneyin.",
-                                });
-
-                                App.stopPageLoading();
+                    //if (obj.chepStokCikisDetayList.length > 0) {
+                    if (obj.stokCikisId == 0) {
+                        // Insert
+                        SparksXService.AddStokCikis(obj).success(function (data) {
+                            swal({
+                                icon: "success",
+                                title: "Başarılı!",
+                                text: "Ekleme işlemi başarılı.",
+                            }, function (result) {
+                                if (result) {
+                                    $modalDetail.modal('hide');
+                                }
                             });
-                        } else {
-                            // Update
-                            SparksXService.EditStokCikis(obj).success(function (data) {
-                                swal({
-                                    icon: "success",
-                                    title: "Başarılı!",
-                                    text: "Güncelleme işlemi başarılı.",
-                                }, function (result) {
-                                    if (result) {
-                                        $modalDetail.modal('hide');
-                                    }
-                                });
 
-                                ListData();
-                                App.stopPageLoading();
-                            }).error(function () {
-                                swal({
-                                    icon: "error",
-                                    title: "Hata!",
-                                    text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
-                                });
-                                App.stopPageLoading();
+                            ListData();
+
+                            App.stopPageLoading();
+                        }).error(function () {
+                            swal({
+                                icon: "error",
+                                title: "Hata!",
+                                text: "Ekleme işlemi yapılamadı. Lütfen tekrar deneyin.",
                             });
-                        }
-                    }
-                    else {
-                        swal({
-                            icon: "warning",
-                            title: "Detay Alanı Giriniz!",
-                            text: "Detay alanına satır eklemeden kayıt yapılamaz!",
+
+                            App.stopPageLoading();
+                        });
+                    } else {
+                        // Update
+                        SparksXService.EditStokCikis(obj).success(function (data) {
+                            swal({
+                                icon: "success",
+                                title: "Başarılı!",
+                                text: "Güncelleme işlemi başarılı.",
+                            }, function (result) {
+                                if (result) {
+                                    $modalDetail.modal('hide');
+                                }
+                            });
+
+                            ListData();
+                            App.stopPageLoading();
+                        }).error(function () {
+                            swal({
+                                icon: "error",
+                                title: "Hata!",
+                                text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                            });
+                            App.stopPageLoading();
                         });
                     }
-                    
+                    //}
+                    //else {
+                    //    swal({
+                    //        icon: "warning",
+                    //        title: "Detay Alanı Giriniz!",
+                    //        text: "Detay alanına satır eklemeden kayıt yapılamaz!",
+                    //    });
+                    //}
+
 
                 }
             });
@@ -789,16 +715,42 @@
             return false;
         }
 
-        SparksXService.InsertStokCikisFromStokDusumListe(id, obj.itemNo, obj.dropCount).success(function (data) {
-            if (data.result) {
-                swal({
-                    icon: "success",
-                    title: "İşlem başarlı!",
-                }, function () {
-                    $modalDrop.modal('hide');
+        if (id > 0) {
+            SparksXService.InsertStokCikisFromStokDusumListe(id, obj.itemNo, obj.dropCount).success(function (data) {
+                if (data.result) {
+                    swal({
+                        icon: "success",
+                        title: "İşlem başarlı!",
+                    }, function () {
+                        $modalDrop.modal('hide');
+                    });
+                }
+            });
+        } else {
+            var dsDrop = $gridDrop.getDataSource(),
+                dsDetail = $gridDetail.getDataSource(),
+                itemsDetail = dsDetail._items;
+
+            $.each(dsDrop._items, function (index, elem) {
+                var obj = $.extend({}, elem, {
+                    stokCikisDetayId: $.newguid(),
+                    miktar: elem.dusulenMiktar,
                 });
-            }
-        });
+
+                itemsDetail.push(obj);
+            });
+
+            $modalDrop.modal('hide');
+            $gridDetail.option("dataSource", itemsDetail);
+        }
     }
+
+    $.newguid = function () {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+            function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : r & 0x3 | 0x8;
+                return v.toString(16);
+            });
+    };
 
 }]);

@@ -12,6 +12,6 @@ namespace Chep.Service.Interface
         ResponseDTO Get(int id);
 
         ResponseDTO ListDetails();
-        ResponseDTO Import(IFormFile files);
+        ResponseDTO Import(IFormFile files, int userId);
     }
 }
