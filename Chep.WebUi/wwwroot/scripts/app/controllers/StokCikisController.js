@@ -113,18 +113,16 @@
                                             remoteOperations: true,
                                             columns: [
                                                 {
+                                                    dataField: "tpsNo", caption: "TPS No", dataType: "number",
+                                                }, {
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
-                                                    format: { type: "fixedPoint", precision: 0 },
+                                                }, {
+                                                    dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number",
+                                                },{
+                                                    dataField: "urunKod", caption: "Ürün Kodu", dataType: "string",
+                                                },{
+                                                    dataField: "esyaCinsi", caption: "Eşya Cinsi", dataType: "string",
                                                 },
-                                                { dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", },
-                                                { dataField: "tpsBeyan", caption: "TPS Beyan", },
-                                                { dataField: "faturaNo", caption: "Fatura No", },
-                                                { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
-                                                {
-                                                    dataField: "faturaTutar", caption: "Fatura Tutar", dataType: "number",
-                                                    format: { type: "fixedPoint", precision: 2 },
-                                                },
-                                                { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
 
                                             ],
                                             hoverStateEnabled: true,
@@ -164,6 +162,9 @@
                             }
                         },
                         {
+                            dataField: "urunKod", caption: "Ürün Kodu", dataType: "string", width: 100,
+                        },
+                        {
                             dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 130,
                             format: { type: "fixedPoint", precision: 0 }
                         },
@@ -177,10 +178,6 @@
                         },
                         {
                             dataField: "invoiceAmount", caption: "Fatura Tutar", dataType: "number",
-                            format: { type: "fixedPoint", precision: 2 },
-                        },
-                        {
-                            dataField: "kg", caption: "Kg", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
                         {
@@ -232,7 +229,7 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 amountValue = args.value;
                                 e.setValue(args.value);
-                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue + vatAmountValue);
+                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
 
                             }
                         }
@@ -240,7 +237,7 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 vatAmountValue = args.value;
                                 e.setValue(args.value);
-                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue + vatAmountValue);
+                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
                             }
                         }
                     },

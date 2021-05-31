@@ -15,6 +15,7 @@ namespace Chep.DTO
         public decimal? NetKg { get; set; }
         public decimal? BrutKg { get; set; }
         public decimal? BirimTutar { get; set; }
+        public string UrunKod { get; set; }
 
     }
 }

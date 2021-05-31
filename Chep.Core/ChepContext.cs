@@ -52,6 +52,9 @@ namespace Chep.Core
         public virtual DbSet<VwStokDusumListe> VwStokDusumListe { get; set; }
         public virtual DbSet<VwStokGirisDetayListe> VwStokGirisDetayListe { get; set; }
         public virtual DbSet<VwSureTakipListe> VwSureTakipListe { get; set; }
+        public virtual DbSet<VwWorkOrderInvoice> VwWorkOrderInvoice { get; set; }
+        public virtual DbSet<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get; set; }
+        public virtual DbSet<VwWorkOrderMaster> VwWorkOrderMaster { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -953,6 +956,8 @@ namespace Chep.Core
 
                 entity.ToView("vw_StokDusumListe");
 
+                entity.Property(e => e.BirimFiyat).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.GirisBeyannameNo).HasMaxLength(16);
 
                 entity.Property(e => e.GirisBeyannameTarihi).HasColumnType("datetime");
@@ -1121,6 +1126,212 @@ namespace Chep.Core
                 entity.Property(e => e.TpssiraNo).HasColumnName("TPSSiraNo");
 
                 entity.Property(e => e.UrunKod).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<VwWorkOrderInvoice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WorkOrderInvoice");
+
+                entity.Property(e => e.AgentName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AwbNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Blno)
+                    .IsRequired()
+                    .HasColumnName("BLNo")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnAddress)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnCity)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnCountry)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ContainerNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Customs)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeliveryLocation)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EntryExitCustoms).HasMaxLength(6);
+
+                entity.Property(e => e.FreightCurrency)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.GtbReferenceNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Incoterms).HasMaxLength(3);
+
+                entity.Property(e => e.InsuranceCurrency)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.InvoiceCurrency).HasMaxLength(3);
+
+                entity.Property(e => e.PaymentMethod).HasMaxLength(2);
+
+                entity.Property(e => e.PlateNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderAddress)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderCity)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderCountry)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.TransptrName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VesselName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwWorkOrderInvoiceDetails>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WorkOrderInvoiceDetails");
+
+                entity.Property(e => e.CommclDesc)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CountryOfOrigin).HasMaxLength(20);
+
+                entity.Property(e => e.DescGoods).HasMaxLength(20);
+
+                entity.Property(e => e.GrossWeight).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.HsCode).HasMaxLength(12);
+
+                entity.Property(e => e.IncentiveLineNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IntrnlAgmt)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.InvoiceDate).HasColumnType("date");
+
+                entity.Property(e => e.InvoiceNo).HasMaxLength(50);
+
+                entity.Property(e => e.NetWeight).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.NumberOfPackages)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PkgType)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProducerCompany)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProducerCompanyNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProductNo).HasMaxLength(50);
+
+                entity.Property(e => e.Uom).HasMaxLength(5);
+            });
+
+            modelBuilder.Entity<VwWorkOrderMaster>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WorkOrderMaster");
+
+                entity.Property(e => e.DeclarationType)
+                    .IsRequired()
+                    .HasMaxLength(2)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();
             });
 
             OnModelCreatingPartial(modelBuilder);

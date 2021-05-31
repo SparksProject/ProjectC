@@ -298,6 +298,7 @@ namespace Chep.Service
                 BeyannameKalemNo = obj.BeyannameKalemNo,
                 BeyannameTarihi = obj.BeyannameTarihi,
                 BeyannameNo = obj.BeyannameNo,
+                TpsNo = obj.StokGiris.TpsNo,
 
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };

@@ -110,6 +110,7 @@ namespace Chep.Service
             {
                 var entity = _uow.ChepStokCikis.Set()
                                                .Include(x => x.ChepStokCikisDetay)
+                                               .ThenInclude(x => x.StokGirisDetay)
                                                .AsNoTracking()
                                                .FirstOrDefault(x => x.StokCikisId == id);
 
@@ -185,6 +186,8 @@ namespace Chep.Service
                         StokCikisId = stokCikisId,
                         Miktar = item.DusulenMiktar,
                         StokGirisDetayId = item.StokGirisDetayId,
+                        InvoiceAmount = item.FaturaTutar,
+                        BirimTutar = item.BirimTutar
                     });
                 }
 
@@ -226,7 +229,6 @@ namespace Chep.Service
                     var farkCikis = toplamCikisAdet - cikisAltToplam;
 
                     var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
-
                     if (farkCikis > 0)
                     {
                         if (obj.KalanMiktar.HasValue && farkCikis >= obj.KalanMiktar)
@@ -240,7 +242,8 @@ namespace Chep.Service
                             cikisAltToplam += farkCikis;
                         }
                     }
-
+                    obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
+                    obj.BirimTutar = item.BirimFiyat;
                     target.Add(obj);
                 }
 
@@ -344,7 +347,8 @@ namespace Chep.Service
                 InvoiceDetailId = obj.InvoiceDetailId,
                 BirimTutar = obj.BirimTutar,
                 BrutKg = obj.BrutKg,
-                NetKg = obj.NetKg
+                NetKg = obj.NetKg,
+                UrunKod = obj.StokGirisDetay?.UrunKod,
             };
         }
 
