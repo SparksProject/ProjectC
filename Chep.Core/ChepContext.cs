@@ -28,6 +28,7 @@ namespace Chep.Core
         public virtual DbSet<CurrencyType> CurrencyType { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Customs> Customs { get; set; }
+        public virtual DbSet<DeliveryTerms> DeliveryTerms { get; set; }
         public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }
         public virtual DbSet<GenericReport> GenericReport { get; set; }
         public virtual DbSet<GenericReportParameter> GenericReportParameter { get; set; }
@@ -35,6 +36,7 @@ namespace Chep.Core
         public virtual DbSet<MailDefinition> MailDefinition { get; set; }
         public virtual DbSet<MailReport> MailReport { get; set; }
         public virtual DbSet<MailReportUser> MailReportUser { get; set; }
+        public virtual DbSet<PaymentMethod> PaymentMethod { get; set; }
         public virtual DbSet<PeriodType> PeriodType { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<RecordStatus> RecordStatus { get; set; }
@@ -369,6 +371,17 @@ namespace Chep.Core
                     .HasMaxLength(6);
             });
 
+            modelBuilder.Entity<DeliveryTerms>(entity =>
+            {
+                entity.Property(e => e.EdiCode)
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<ExceptionLog>(entity =>
             {
                 entity.Property(e => e.ExceptionDate).HasColumnType("datetime");
@@ -492,6 +505,17 @@ namespace Chep.Core
                     .HasForeignKey(d => d.MailReportId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MailReportUser_MailReport");
+            });
+
+            modelBuilder.Entity<PaymentMethod>(entity =>
+            {
+                entity.Property(e => e.EdiCode)
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<PeriodType>(entity =>

@@ -220,6 +220,34 @@ namespace Chep.Service
             return Success(list);
         }
 
+        public ResponseDTO GetPaymentMethods()
+        {
+            var entities = _uow.PaymentMethod.GetAll();
+
+            var list = entities.Select(item => new PaymentMethodDTO
+            {
+                EdiCode = item.EdiCode,
+                Name = item.Name,
+                PaymentMethodId = item.PaymentMethodId
+            });
+
+            return Success(list);
+        }
+
+        public ResponseDTO GetDeliveryTerms()
+        {
+            var entities = _uow.DeliveryTerms.GetAll();
+
+            var list = entities.Select(item => new DeliveryTermsDTO
+            {
+                EdiCode = item.EdiCode,
+                Name = item.Name,
+                DeliveryTermsId = item.DeliveryTermsId
+            });
+
+            return Success(list);
+        }
+
         public ResponseDTO GetNextReferenceNumber(string stockType)
         {
             try

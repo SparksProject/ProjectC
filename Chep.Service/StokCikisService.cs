@@ -292,6 +292,11 @@ namespace Chep.Service
                 InvoiceId = obj.InvoiceId,
                 InvoiceNo = obj.InvoiceNo,
                 WorkOrderMasterId = obj.WorkOrderMasterId,
+                AliciFirma = obj.AliciFirma,
+                CikisGumruk = obj.CikisGumruk,
+                NakliyeciFirma = obj.NakliyeciFirma,
+                OdemeSekli = obj.OdemeSekli,
+                TeslimSekli = obj.TeslimSekli,
 
                 ChepStokCikisDetay = details,
             };
@@ -313,7 +318,10 @@ namespace Chep.Service
                 StokGirisDetayId = obj.StokGirisDetayId,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 InvoiceAmount = obj.InvoiceAmount,
-                InvoiceDetailId = obj.InvoiceDetailId
+                InvoiceDetailId = obj.InvoiceDetailId,
+                BirimTutar = obj.BirimTutar,
+                BrutKg = obj.BrutKg,
+                NetKg = obj.NetKg,
             };
         }
 
@@ -333,7 +341,10 @@ namespace Chep.Service
                 StokGirisDetayId = obj.StokGirisDetayId,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 InvoiceAmount = obj.InvoiceAmount,
-                InvoiceDetailId = obj.InvoiceDetailId
+                InvoiceDetailId = obj.InvoiceDetailId,
+                BirimTutar = obj.BirimTutar,
+                BrutKg = obj.BrutKg,
+                NetKg = obj.NetKg
             };
         }
 
@@ -368,6 +379,11 @@ namespace Chep.Service
                 InvoiceId = obj.InvoiceId,
                 InvoiceNo = obj.InvoiceNo,
                 WorkOrderMasterId = obj.WorkOrderMasterId,
+                AliciFirma = obj.AliciFirma,
+                CikisGumruk = obj.CikisGumruk,
+                NakliyeciFirma = obj.NakliyeciFirma,
+                OdemeSekli = obj.OdemeSekli,
+                TeslimSekli = obj.TeslimSekli,
 
                 ChepStokCikisDetayList = details
             };

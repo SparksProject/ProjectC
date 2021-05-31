@@ -174,6 +174,18 @@
                             format: { type: "fixedPoint", precision: 0 },
                         },
                         {
+                            dataField: "brutKg", caption: "Brüt Kg", dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
+                            dataField: "netKg", caption: "Net Kg", dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
+                            dataField: "birimTutar", caption: "Birim Tutar", dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
                             dataField: "invoiceDetailId", caption: "Fatura Detay Id", dataType: "text", width: 130,
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
@@ -554,8 +566,21 @@
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
         });
+
+        SparksXService.GetCustoms().success(function (data) {
+            $scope.customs = data;
+        });
+
         SparksXService.GetCurrencyTypes().success(function (data) {
             $scope.currencytypes = data;
+        });
+
+        SparksXService.GetPaymentMethods().success(function (data) {
+            $scope.paymentmethods = data;
+        });
+
+        SparksXService.GetDeliveryTerms().success(function (data) {
+            $scope.deliveryterms = data;
         });
     };
 

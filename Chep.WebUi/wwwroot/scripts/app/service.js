@@ -95,6 +95,14 @@
         return GetDefinitionRequestJson('GetCurrencyTypes');
     };
 
+    this.GetDeliveryTerms = function () {
+        return GetDefinitionRequestJson('GetDeliveryTerms');
+    };
+
+    this.GetPaymentMethods = function () {
+        return GetDefinitionRequestJson('GetPaymentMethods');
+    };
+
     this.GetCustoms = function () {
         return GetDefinitionRequestJson('GetCustoms');
     };
