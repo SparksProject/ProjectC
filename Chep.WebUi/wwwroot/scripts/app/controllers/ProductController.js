@@ -17,6 +17,14 @@
     };
 
     $scope.BindAddFields = function () {
+        SparksXService.GetCurrencyTypes().success(function (data) {
+            $scope.currencytypes = data;
+        });
+
+        SparksXService.GetCustomers().success(function (data) {
+            $scope.customers = data;
+        });
+
         $scope.object = {};
 
         if ($rootScope.SelectedCustomerId == undefined) {
@@ -24,24 +32,23 @@
             $scope.object.customerId = $rootScope.SelectedCustomerId;
             $scope.hasCustomerSelected = true;
         }
+    };
+
+    $scope.BindEditFields = function () {
+        SparksXService.GetCurrencyTypes().success(function (data) {
+            $scope.currencytypes = data;
+        });
 
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
         });
-    };
 
-    $scope.BindEditFields = function () {
+        SparksXService.GetRecordStatuses().success(function (data) {
+            $scope.recordStatuses = data;
+        });
 
         SparksXService.GetProduct($stateParams.id).success(function (obj) {
             $scope.object = obj;
-
-            SparksXService.GetCustomers().success(function (data) {
-                $scope.customers = data;
-            });
-
-            SparksXService.GetRecordStatuses().success(function (data) {
-                $scope.recordStatuses = data;
-            });
         });
     };
 

@@ -23,6 +23,8 @@ namespace Chep.DTO
         public int? ModifiedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
         public int? DeletedBy { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public string CurrencyType { get; set; }
 
         public string CustomerName { get; set; }
         public string RecordStatusName { get; set; }
