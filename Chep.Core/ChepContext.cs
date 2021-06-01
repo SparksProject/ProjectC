@@ -76,6 +76,8 @@ namespace Chep.Core
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
+                entity.Property(e => e.CikisAracKimligi).HasMaxLength(35);
+
                 entity.Property(e => e.CikisGumruk).HasMaxLength(6);
 
                 entity.Property(e => e.GtbReferenceNo).HasMaxLength(25);

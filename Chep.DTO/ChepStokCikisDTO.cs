@@ -25,6 +25,7 @@ namespace Chep.DTO
         public string CikisGumruk { get; set; }
         public string OdemeSekli { get; set; }
         public Guid? NakliyeciFirma { get; set; }
+        public string CikisAracKimligi { get; set; }
 
         public string IhracatciFirmaName { get; set; }
         public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";

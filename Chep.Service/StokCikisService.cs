@@ -300,6 +300,7 @@ namespace Chep.Service
                 NakliyeciFirma = obj.NakliyeciFirma,
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
+                CikisAracKimligi = obj.CikisAracKimligi,
 
                 ChepStokCikisDetay = details,
             };
@@ -388,6 +389,7 @@ namespace Chep.Service
                 NakliyeciFirma = obj.NakliyeciFirma,
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
+                CikisAracKimligi = obj.CikisAracKimligi,
 
                 ChepStokCikisDetayList = details
             };
