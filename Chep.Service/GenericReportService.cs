@@ -253,7 +253,10 @@ namespace Chep.Service
                     return Unauthorized();
                 }
 
-                var entity = _uow.GenericReports.Single(x => x.GenericReportId == id);
+                var entity = _uow.GenericReports.Set()
+                            .Include(x => x.GenericReportParameter)
+                            .Include(x => x.GenericReportUser)
+                            .FirstOrDefault(x => x.GenericReportId == id);
 
                 if (entity == null)
                 {
@@ -270,10 +273,17 @@ namespace Chep.Service
                         }
 
                         var parameter = entity.GenericReportParameter.FirstOrDefault(x => x.GenericReportParameterName == item.GenericReportParameterName);
-
                         if (parameter != null)
                         {
-                            entity.SqlScript = entity.SqlScript.Replace(parameter.GenericReportParameterName, item.GenericReportParameterValue);
+                            if (item.ParameterType == Convert.ToInt16(Enums.ParameterType.Tarih) && DateTime.TryParse(item.GenericReportParameterValue, out DateTime parsedDate))
+                            {
+                                var valueDate = $"CAST('{parsedDate:yyyy-MM-dd}' as date)";
+                                entity.SqlScript = entity.SqlScript.Replace(parameter.GenericReportParameterName, valueDate);
+                            }
+                            else
+                            {
+                                entity.SqlScript = entity.SqlScript.Replace(parameter.GenericReportParameterName, item.GenericReportParameterValue);
+                            }
                         }
                     }
                 }
@@ -281,15 +291,13 @@ namespace Chep.Service
                 try
                 {
                     using (var sqlDataAdapter = new SqlDataAdapter(entity.SqlScript, _sparksConfig.Value.ConnectionString))
+                    using (DataTable dataTable = new DataTable())
                     {
-                        using (DataTable dataTable = new DataTable())
-                        {
-                            sqlDataAdapter.Fill(dataTable);
+                        sqlDataAdapter.Fill(dataTable);
 
-                            var result = dataTable.ToDynamicList(userId);
+                        var result = dataTable.ToDynamicList(userId);
 
-                            return Success(result);
-                        }
+                        return Success(result);
                     }
                 }
                 catch (SqlException ex)

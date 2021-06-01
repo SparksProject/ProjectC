@@ -20,6 +20,12 @@ namespace Chep.DTO
         public decimal? InvoiceAmount { get; set; }
         public string InvoiceCurrency { get; set; }
         public string GtbReferenceNo { get; set; }
+        public Guid? AliciFirma { get; set; }
+        public string TeslimSekli { get; set; }
+        public string CikisGumruk { get; set; }
+        public string OdemeSekli { get; set; }
+        public Guid? NakliyeciFirma { get; set; }
+        public string CikisAracKimligi { get; set; }
 
         public string IhracatciFirmaName { get; set; }
         public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";

@@ -39,6 +39,9 @@
     });
 
     $scope.ModalDetail = function () {
+        var amountValue = 0.00;
+        var vatAmountValue = 0.00;
+
         if ($modalDetail == null) {
             $btnArchive = $('#btnArchive');
             $btnJobOrder = $('#btnJobOrder');
@@ -58,6 +61,9 @@
                     $scope.object = {};
                     $scope.$apply();
 
+                    amountValue = 0.00;
+                    vatAmountValue = 0.00;
+
                     $gridDetail.option("dataSource", []);
                     $gridDetail.cancelEditData();
 
@@ -66,7 +72,7 @@
                     $modalDetail.find('form .form-group').removeClass('has-success').removeClass('has-error');
                     $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
                     $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
-
+                  
                     $btnArchive.addClass('hidden');
                     $btnJobOrder.addClass('hidden');
                 }
@@ -107,18 +113,16 @@
                                             remoteOperations: true,
                                             columns: [
                                                 {
+                                                    dataField: "tpsNo", caption: "TPS No", dataType: "number",
+                                                }, {
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
-                                                    format: { type: "fixedPoint", precision: 0 },
+                                                }, {
+                                                    dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number",
+                                                },{
+                                                    dataField: "urunKod", caption: "Ürün Kodu", dataType: "string",
+                                                },{
+                                                    dataField: "esyaCinsi", caption: "Eşya Cinsi", dataType: "string",
                                                 },
-                                                { dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", },
-                                                { dataField: "tpsBeyan", caption: "TPS Beyan", },
-                                                { dataField: "faturaNo", caption: "Fatura No", },
-                                                { dataField: "faturaTarih", caption: "Fatura Tarihi", dataType: "date", formatType: "shortDate" },
-                                                {
-                                                    dataField: "faturaTutar", caption: "Fatura Tutar", dataType: "number",
-                                                    format: { type: "fixedPoint", precision: 2 },
-                                                },
-                                                { dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", },
 
                                             ],
                                             hoverStateEnabled: true,
@@ -158,21 +162,33 @@
                             }
                         },
                         {
+                            dataField: "urunKod", caption: "Ürün Kodu", dataType: "string", width: 100,
+                        },
+                        {
                             dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 130,
                             format: { type: "fixedPoint", precision: 0 }
                         },
                         {
                             dataField: "miktar", caption: "Miktar", dataType: "number",
-                            format: { type: "fixedPoint", precision: 0 },
+                            format: { type: "fixedPoint", precision: 2 },
                         },
                         {
-                            dataField: "kg", caption: "Kg", dataType: "number",
+                            dataField: "birimTutar", caption: "Birim Tutar", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
                         {
                             dataField: "invoiceAmount", caption: "Fatura Tutar", dataType: "number",
-                            format: { type: "fixedPoint", precision: 0 },
+                            format: { type: "fixedPoint", precision: 2 },
                         },
+                        {
+                            dataField: "brutKg", caption: "Brüt Kg", dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
+                            dataField: "netKg", caption: "Net Kg", dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
+                        },
+                      
                         {
                             dataField: "invoiceDetailId", caption: "Fatura Detay Id", dataType: "text", width: 130,
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
@@ -205,6 +221,23 @@
                                         }
                                     }
                                 });
+                            }
+                        }
+                    },
+                    onEditorPreparing: function (e) {//her değişiklikte her satıra bakar 
+                        if (e.dataField == "miktar") {
+                            e.editorOptions.onValueChanged = function (args) {
+                                amountValue = args.value;
+                                e.setValue(args.value);
+                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
+
+                            }
+                        }
+                        if (e.dataField == "birimTutar") {
+                            e.editorOptions.onValueChanged = function (args) {
+                                vatAmountValue = args.value;
+                                e.setValue(args.value);
+                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
                             }
                         }
                     },
@@ -554,8 +587,21 @@
         SparksXService.GetCustomers().success(function (data) {
             $scope.customers = data;
         });
+
+        SparksXService.GetCustoms().success(function (data) {
+            $scope.customs = data;
+        });
+
         SparksXService.GetCurrencyTypes().success(function (data) {
             $scope.currencytypes = data;
+        });
+
+        SparksXService.GetPaymentMethods().success(function (data) {
+            $scope.paymentmethods = data;
+        });
+
+        SparksXService.GetDeliveryTerms().success(function (data) {
+            $scope.deliveryterms = data;
         });
     };
 

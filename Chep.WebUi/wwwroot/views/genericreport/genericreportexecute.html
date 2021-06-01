@@ -26,24 +26,24 @@
     <div class="portlet-body form">
         <!-- BEGIN FORM-->
         <form class="form-horizontal" name="form" valid-submit="GetResultSet()" novalidate>
-            <div class="form-body" ng-show="object.GenericReportParameterList.length > 0">
-                <div ng-repeat="x in object.GenericReportParameterList">
+            <div class="form-body" ng-show="object.genericReportParameterList.length > 0">
+                <div ng-repeat="x in object.genericReportParameterList">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label col-md-3">
-                                    {{x.ParameterLabel}}
+                                    {{x.parameterLabel}}
                                 </label>
                                 <div class="col-md-9">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="icon-book-open"></i>
                                         </span>
-                                        <div class="input-icon right" ng-show="x.ParameterType==0">
+                                        <div class="input-icon right" ng-show="x.parameterType==0">
                                             <i class="fa"></i>
                                             <input type="text" class="form-control" placeholder="Değer" ng-model="x.genericReportParameterValue" name="GenericReportParameterValue">
                                         </div>
-                                        <div class="input-icon right" ng-show="x.ParameterType==1">
+                                        <div class="input-icon right" ng-show="x.parameterType==1">
                                             <i class="fa"></i>
                                             <input type="text" datetime readonly class="form-control" placeholder="Değer" ng-model="x.genericReportParameterValue" name="GenericReportParameterValue">
                                         </div>

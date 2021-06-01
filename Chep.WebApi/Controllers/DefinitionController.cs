@@ -155,5 +155,21 @@ namespace Chep.WebApi.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
+        [HttpGet("GetPaymentMethods")]
+        public IActionResult GetPaymentMethods()
+        {
+            var result = _service.GetPaymentMethods().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("GetDeliveryTerms")]
+        public IActionResult GetDeliveryTerms()
+        {
+            var result = _service.GetDeliveryTerms().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
     }
 }

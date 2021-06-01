@@ -28,6 +28,7 @@ namespace Chep.Core
         public virtual DbSet<CurrencyType> CurrencyType { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Customs> Customs { get; set; }
+        public virtual DbSet<DeliveryTerms> DeliveryTerms { get; set; }
         public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }
         public virtual DbSet<GenericReport> GenericReport { get; set; }
         public virtual DbSet<GenericReportParameter> GenericReportParameter { get; set; }
@@ -35,6 +36,7 @@ namespace Chep.Core
         public virtual DbSet<MailDefinition> MailDefinition { get; set; }
         public virtual DbSet<MailReport> MailReport { get; set; }
         public virtual DbSet<MailReportUser> MailReportUser { get; set; }
+        public virtual DbSet<PaymentMethod> PaymentMethod { get; set; }
         public virtual DbSet<PeriodType> PeriodType { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<RecordStatus> RecordStatus { get; set; }
@@ -50,6 +52,9 @@ namespace Chep.Core
         public virtual DbSet<VwStokDusumListe> VwStokDusumListe { get; set; }
         public virtual DbSet<VwStokGirisDetayListe> VwStokGirisDetayListe { get; set; }
         public virtual DbSet<VwSureTakipListe> VwSureTakipListe { get; set; }
+        public virtual DbSet<VwWorkOrderInvoice> VwWorkOrderInvoice { get; set; }
+        public virtual DbSet<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get; set; }
+        public virtual DbSet<VwWorkOrderMaster> VwWorkOrderMaster { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -71,6 +76,10 @@ namespace Chep.Core
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
+                entity.Property(e => e.CikisAracKimligi).HasMaxLength(35);
+
+                entity.Property(e => e.CikisGumruk).HasMaxLength(6);
+
                 entity.Property(e => e.GtbReferenceNo).HasMaxLength(25);
 
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
@@ -82,6 +91,10 @@ namespace Chep.Core
                 entity.Property(e => e.InvoiceNo).HasMaxLength(50);
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.OdemeSekli).HasMaxLength(2);
+
+                entity.Property(e => e.TeslimSekli).HasMaxLength(3);
 
                 entity.Property(e => e.TpsNo).HasMaxLength(50);
 
@@ -98,9 +111,15 @@ namespace Chep.Core
                 entity.HasKey(e => e.StokCikisDetayId)
                     .HasName("PK__ChepStok__7A5C97E41CA2F026");
 
+                entity.Property(e => e.BirimTutar).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.BrutKg).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Kg).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.Kg).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.NetKg).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.StokCikis)
                     .WithMany(p => p.ChepStokCikisDetay)
@@ -292,17 +311,11 @@ namespace Chep.Core
             {
                 entity.Property(e => e.CustomerId).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Adress)
-                    .IsRequired()
-                    .HasMaxLength(500);
+                entity.Property(e => e.Adress).HasMaxLength(500);
 
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.City).HasMaxLength(100);
 
-                entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.Country).HasMaxLength(100);
 
                 entity.Property(e => e.CreatedDate)
                     .HasColumnType("datetime")
@@ -322,13 +335,9 @@ namespace Chep.Core
 
                 entity.Property(e => e.RecordStatusId).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.TaxName)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.TaxName).HasMaxLength(100);
 
-                entity.Property(e => e.TaxNo)
-                    .IsRequired()
-                    .HasMaxLength(20);
+                entity.Property(e => e.TaxNo).HasMaxLength(20);
 
                 entity.Property(e => e.Telephone).HasMaxLength(100);
 
@@ -365,6 +374,17 @@ namespace Chep.Core
                 entity.Property(e => e.EdiCode)
                     .IsRequired()
                     .HasMaxLength(6);
+            });
+
+            modelBuilder.Entity<DeliveryTerms>(entity =>
+            {
+                entity.Property(e => e.EdiCode)
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<ExceptionLog>(entity =>
@@ -492,6 +512,17 @@ namespace Chep.Core
                     .HasConstraintName("FK_MailReportUser_MailReport");
             });
 
+            modelBuilder.Entity<PaymentMethod>(entity =>
+            {
+                entity.Property(e => e.EdiCode)
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<PeriodType>(entity =>
             {
                 entity.Property(e => e.PeriodTypeName)
@@ -506,6 +537,8 @@ namespace Chep.Core
                 entity.Property(e => e.CountryOfOrigin).HasMaxLength(3);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CurrencyType).HasMaxLength(3);
 
                 entity.Property(e => e.DeletedDate).HasColumnType("datetime");
 
@@ -528,6 +561,8 @@ namespace Chep.Core
                     .HasMaxLength(50);
 
                 entity.Property(e => e.SapCode).HasMaxLength(50);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Uom)
                     .HasMaxLength(3)
@@ -923,6 +958,8 @@ namespace Chep.Core
 
                 entity.ToView("vw_StokDusumListe");
 
+                entity.Property(e => e.BirimFiyat).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.GirisBeyannameNo).HasMaxLength(16);
 
                 entity.Property(e => e.GirisBeyannameTarihi).HasColumnType("datetime");
@@ -1091,6 +1128,212 @@ namespace Chep.Core
                 entity.Property(e => e.TpssiraNo).HasColumnName("TPSSiraNo");
 
                 entity.Property(e => e.UrunKod).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<VwWorkOrderInvoice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WorkOrderInvoice");
+
+                entity.Property(e => e.AgentName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AwbNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Blno)
+                    .IsRequired()
+                    .HasColumnName("BLNo")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnAddress)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnCity)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnCountry)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ConsgnNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ContainerNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Customs)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeliveryLocation)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EntryExitCustoms).HasMaxLength(6);
+
+                entity.Property(e => e.FreightCurrency)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.GtbReferenceNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Incoterms).HasMaxLength(3);
+
+                entity.Property(e => e.InsuranceCurrency)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.InvoiceCurrency).HasMaxLength(3);
+
+                entity.Property(e => e.PaymentMethod).HasMaxLength(2);
+
+                entity.Property(e => e.PlateNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderAddress)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderCity)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderCountry)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SenderNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.TransptrName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VesselName)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwWorkOrderInvoiceDetails>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WorkOrderInvoiceDetails");
+
+                entity.Property(e => e.CommclDesc)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CountryOfOrigin).HasMaxLength(20);
+
+                entity.Property(e => e.DescGoods).HasMaxLength(20);
+
+                entity.Property(e => e.GrossWeight).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.HsCode).HasMaxLength(12);
+
+                entity.Property(e => e.IncentiveLineNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IntrnlAgmt)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.InvoiceDate).HasColumnType("date");
+
+                entity.Property(e => e.InvoiceNo).HasMaxLength(50);
+
+                entity.Property(e => e.NetWeight).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.NumberOfPackages)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PkgType)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProducerCompany)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProducerCompanyNo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProductNo).HasMaxLength(50);
+
+                entity.Property(e => e.Uom).HasMaxLength(5);
+            });
+
+            modelBuilder.Entity<VwWorkOrderMaster>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WorkOrderMaster");
+
+                entity.Property(e => e.DeclarationType)
+                    .IsRequired()
+                    .HasMaxLength(2)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();
             });
 
             OnModelCreatingPartial(modelBuilder);

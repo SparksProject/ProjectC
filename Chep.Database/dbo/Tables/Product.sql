@@ -18,6 +18,8 @@
     [ModifiedBy]      INT              NULL,
     [DeletedDate]     DATETIME         NULL,
     [DeletedBy]       INT              NULL,
+    [UnitPrice]       DECIMAL (18, 2)  NULL,
+    [CurrencyType]    NVARCHAR (3)     NULL,
     CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED ([ProductId] ASC),
     CONSTRAINT [FK_Product_Customer] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customer] ([CustomerId]),
     CONSTRAINT [FK_Product_RecordStatuses] FOREIGN KEY ([RecordStatusId]) REFERENCES [dbo].[RecordStatus] ([RecordStatusId]),
@@ -25,6 +27,8 @@
     CONSTRAINT [FK_Product_Users1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[User] ([UserId]),
     CONSTRAINT [FK_Product_Users2] FOREIGN KEY ([DeletedBy]) REFERENCES [dbo].[User] ([UserId])
 );
+
+
 
 
 

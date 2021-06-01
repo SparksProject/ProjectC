@@ -25,7 +25,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">TPS No</label>
                                         <div class="col-md-8">
@@ -35,7 +34,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">İşlem Tarihi</label>
                                         <div class="col-md-8">
@@ -50,7 +48,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">TPS Tarihi</label>
                                         <div class="col-md-8">
@@ -75,7 +72,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Fatura Id</label>
                                         <div class="col-md-8">
@@ -85,7 +81,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group" ng-class="{'has-error': form.invoiceCurrency.$invalid && form.invoiceCurrency.$dirty, 'has-success': form.invoiceCurrency.$valid }">
                                         <label class="control-label col-md-4">Fatura Döviz Türü</label>
                                         <div class="col-md-8">
@@ -100,10 +95,50 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group" ng-class="{'has-error': form.aliciFirma.$invalid && form.aliciFirma.$dirty, 'has-success': form.aliciFirma.$valid }">
+                                        <label class="control-label col-md-4">Alıcı Firma</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <ui-select ng-model="object.aliciFirma" name="aliciFirma" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': form.teslimSekli.$invalid && form.teslimSekli.$dirty, 'has-success': form.teslimSekli.$valid }">
+                                        <label class="control-label col-md-4">Teslim Şekli</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <ui-select ng-model="object.teslimSekli" name="teslimSekli" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.ediCode}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.ediCode as item in deliveryterms | filter: $select.search">
+                                                        <div ng-bind-html="(item.ediCode + ' - ' + item.name) | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': form.cikisGumruk.$invalid && form.cikisGumruk.$dirty, 'has-success': form.cikisGumruk.$valid }">
+                                        <label class="control-label col-md-4">Gümrük</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <ui-select ng-model="object.cikisGumruk" name="cikisGumruk" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.ediCode}}-{{$select.selected.customsName}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.ediCode as item in customs | filter: $select.search">
+                                                        <div ng-bind-html="(item.ediCode + ' - ' + item.customsName) | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                              
                                 <div class="col-md-6">
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Beyanname No</label>
                                         <div class="col-md-8">
@@ -113,7 +148,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Beyanname Tarihi</label>
                                         <div class="col-md-8">
@@ -128,13 +162,12 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group" ng-class="{'has-error': form.customerId.$invalid && form.customerId.$dirty, 'has-success': form.customerId.$valid }">
                                         <label class="control-label col-md-4">İhracatcı Firma</label>
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <ui-select ng-model="object.ihracatciFirma" name="ihracatciFirma" theme="bootstrap" ng-required="true">
+                                                <ui-select ng-model="object.ihracatciFirma" name="ihracatciFirma" theme="bootstrap">
                                                     <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
                                                     <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
                                                         <div ng-bind-html="item.name | highlight: $select.search"></div>
@@ -143,7 +176,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Fatura No</label>
                                         <div class="col-md-8">
@@ -167,7 +199,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Fatura Tutar</label>
                                         <div class="col-md-8">
@@ -177,7 +208,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="control-label col-md-4">Gtb Referans No</label>
                                         <div class="col-md-8">
@@ -187,8 +217,43 @@
                                             </div>
                                         </div>
                                     </div>
-
-
+                                    <div class="form-group" ng-class="{'has-error': form.odemeSekli.$invalid && form.odemeSekli.$dirty, 'has-success': form.odemeSekli.$valid }">
+                                        <label class="control-label col-md-4">Ödeme Şekli</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <ui-select ng-model="object.odemeSekli" name="odemeSekli" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.ediCode}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.ediCode as item in paymentmethods | filter: $select.search">
+                                                        <div ng-bind-html="(item.ediCode + ' - ' + item.name) | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': form.nakliyeciFirma.$invalid && form.nakliyeciFirma.$dirty, 'has-success': form.nakliyeciFirma.$valid }">
+                                        <label class="control-label col-md-4">Nakliyeci Firma</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <ui-select ng-model="object.nakliyeciFirma" name="nakliyeciFirma" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                                    <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Araç Kimliği</label>
+                                        <div class="col-md-8">
+                                            <div class="input-icon right">
+                                                <i class="fa"></i>
+                                                <input type="text" ng-model="object.cikisAracKimligi" name="CikisAracKimligi" class="form-control" placeholder="Araç Kimliği" maxlength="35">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-4">
                                             <button id="btnArchive" type="button" class="btn btn-default btn-block hidden">Arşiv</button>
@@ -200,7 +265,6 @@
                                             <button id="btnDrop" type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modalDrop">Düşüm</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -280,46 +344,46 @@
                 <h4 class="modal-title">CHEP Depo Düşüm</h4>
             </div>
             <div class="modal-body">-->
-                <!-- BEGIN FORM-->
-                <!--<div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label class="control-label col-md-5">Ürün Kodu</label>
-                                <div class="col-md-7">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <input type="text" ng-required="true" ng-model="object.Drop.itemNo" name="ItemNo" class="form-control" placeholder="Ürün Kodu" maxlength="16">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-5">Çıkış Adet</label>
-                                <div class="col-md-7">
-                                    <div class="input-icon right">
-                                        <i class="fa"></i>
-                                        <input type="text" ng-required="true" ng-model="object.Drop.dropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.itemNo, object.Drop.dropCount)">Giriş Kayıtlarını Bul</button>
-                        </div>
+<!-- BEGIN FORM-->
+<!--<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label class="control-label col-md-5">Ürün Kodu</label>
+                <div class="col-md-7">
+                    <div class="input-icon right">
+                        <i class="fa"></i>
+                        <input type="text" ng-required="true" ng-model="object.Drop.itemNo" name="ItemNo" class="form-control" placeholder="Ürün Kodu" maxlength="16">
                     </div>
                 </div>
-                <div id="gridDrop1" style="min-height: 200px;"></div>-->
-                <!-- END FORM-->
-            <!--</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-                <button id="btnDropSubmit1" type="button" class="btn blue" ng-click="InsertStokCikisFromStokDusumListe(object.stokCikisId,object.Drop)" disabled>Çıkış İşlemlerini Yap</button>
             </div>
-        </form>-->
-        <!-- /.modal-content -->
-    <!--</div>-->
-    <!-- /.modal-dialog -->
-    <!--<div class="modal-backdrop fade in" style="z-index: -1;"></div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-5">Çıkış Adet</label>
+                <div class="col-md-7">
+                    <div class="input-icon right">
+                        <i class="fa"></i>
+                        <input type="text" ng-required="true" ng-model="object.Drop.dropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.itemNo, object.Drop.dropCount)">Giriş Kayıtlarını Bul</button>
+        </div>
+    </div>
+</div>
+<div id="gridDrop1" style="min-height: 200px;"></div>-->
+<!-- END FORM-->
+<!--</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+        <button id="btnDropSubmit1" type="button" class="btn blue" ng-click="InsertStokCikisFromStokDusumListe(object.stokCikisId,object.Drop)" disabled>Çıkış İşlemlerini Yap</button>
+    </div>
+</form>-->
+<!-- /.modal-content -->
+<!--</div>-->
+<!-- /.modal-dialog -->
+<!--<div class="modal-backdrop fade in" style="z-index: -1;"></div>
 </div>-->
