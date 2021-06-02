@@ -72,7 +72,7 @@
                     $modalDetail.find('form .form-group').removeClass('has-success').removeClass('has-error');
                     $modalDetail.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
                     $modalDetail.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
-                  
+
                     $btnArchive.addClass('hidden');
                     $btnJobOrder.addClass('hidden');
                 }
@@ -87,7 +87,7 @@
                     dataSource: [],
                     columns: [
                         {
-                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No",
+                            dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No", width: 250,
                             lookup: {
                                 dataSource: storeStokGiris, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -118,9 +118,9 @@
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                 }, {
                                                     dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number",
-                                                },{
+                                                }, {
                                                     dataField: "urunKod", caption: "Ürün Kodu", dataType: "string",
-                                                },{
+                                                }, {
                                                     dataField: "esyaCinsi", caption: "Eşya Cinsi", dataType: "string",
                                                 },
 
@@ -188,7 +188,7 @@
                             dataField: "netKg", caption: "Net Kg", dataType: "number",
                             format: { type: "fixedPoint", precision: 2 },
                         },
-                      
+
                         {
                             dataField: "invoiceDetailId", caption: "Fatura Detay Id", dataType: "text", width: 130,
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
@@ -781,9 +781,11 @@
                 var obj = $.extend({}, elem, {
                     stokCikisDetayId: $.newguid(),
                     miktar: elem.dusulenMiktar,
+                    invoiceAmount: elem.dusulenMiktar * elem.birimTutar,
                 });
-
-                itemsDetail.push(obj);
+                if (elem.dusulenMiktar > 0) {
+                    itemsDetail.push(obj);
+                }
             });
 
             $modalDrop.modal('hide');
