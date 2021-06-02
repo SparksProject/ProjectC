@@ -727,24 +727,64 @@
             }, this);
 
             $gridDrop.beginCustomLoading();
+            var data = $scope.object.Drop; // CHEP Depo Düşüm master verileri
+            var stokCikisDetail = $gridDetail.getDataSource(); // Stok Çıkış modal satırları
+            var deneme2 = $gridDrop.getDataSource(); // CHEP Depo Düşüm modal satırları
 
-            SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
-                if (data.result != null) {
-                    $gridDrop.option("dataSource", data.result);
-
-                    $btnDropSubmit.prop('disabled', false);
+            var liste = [];
+            for (var i = 0; i < stokCikisDetail._items.length; i++) {
+                var id = parseInt(stokCikisDetail._items[i].stokCikisDetayId);
+                console.log(id);
+                if (isNaN(id) || stokCikisDetail._items[i].stokCikisDetayId.length > 10 || stokCikisDetail._items[i].stokCikisDetayId == 0) { // Guid ise veya 0 ise
+                    stokCikisDetail._items[i].stokCikisDetayId = 0;
+                    liste.push(stokCikisDetail._items[i]);
                 }
-                if (data.message != null) {
-                    swal({
-                        icon: "error",
-                        title: data.message,
-                    });
+            }
+            console.log(liste);
+            if (liste.length > 0) {
+                var obj = {
+                    ChepStokCikisDetayList: liste,
+                    itemNo: data.itemNo,
+                    dropCount: parseInt(data.dropCount)
                 }
+                SparksXService.GetStokDusumListeAdd(obj).success(function (data) {
+                    if (data.result != null) {
+                        console.log(data);
+                        $gridDrop.option("dataSource", data.result);
 
-                $gridDrop.endCustomLoading();
-            }).error(function (err) {
-                $gridDrop.endCustomLoading();
-            });
+                        $btnDropSubmit.prop('disabled', false);
+                    }
+                    if (data.message != null) {
+                        swal({
+                            icon: "error",
+                            title: data.message,
+                        });
+                    }
+                    $gridDrop.endCustomLoading();
+
+                }).error(function (err) {
+                    $gridDrop.endCustomLoading();
+                });
+            }
+            else {
+                SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
+                    if (data.result != null) {
+                        $gridDrop.option("dataSource", data.result);
+
+                        $btnDropSubmit.prop('disabled', false);
+                    }
+                    if (data.message != null) {
+                        swal({
+                            icon: "error",
+                            title: data.message,
+                        });
+                    }
+
+                    $gridDrop.endCustomLoading();
+                }).error(function (err) {
+                    $gridDrop.endCustomLoading();
+                });
+            }
         } else {
             angular.forEach(input, function (formElement, fieldName) {
                 if ($(formElement).hasClass("ng-invalid")) {

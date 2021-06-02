@@ -262,6 +262,78 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO StokDusumListeAdd(string itemNo, int toplamCikisAdet, List<ChepStokCikisDetayDTO> details)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(itemNo))
+                {
+                    return Warning("Geçersiz Ürün Kodu!");
+                }
+                if (toplamCikisAdet < 1)
+                {
+                    return Warning("Çıkış yapılacak ürün sayısı girilmedi!");
+                }
+
+                itemNo = itemNo.ToLower();
+
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
+
+                var target = new List<ViewStokDusumListeDto>();
+
+                var cikisAltToplam = 0;
+                foreach (var item in entities.OrderBy(x => x.SureSonuTarihi))
+                {
+                    var farkCikis = toplamCikisAdet - cikisAltToplam;
+                    var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
+                    if (details.Count > 0)
+                    {
+                        foreach (var item2 in details)
+                        {
+                            if (farkCikis > 0)
+                            {
+                                if (item2.Miktar.HasValue)
+                                {
+                                    obj.KalanMiktar = obj.KalanMiktar - item2.Miktar;
+                                }
+                            }
+                        }
+                    }
+
+                    if (farkCikis > 0)
+                    {
+                        if (obj.KalanMiktar.HasValue && farkCikis >= obj.KalanMiktar)
+                        {
+                            obj.DusulenMiktar = obj.KalanMiktar.Value;
+                            cikisAltToplam += obj.KalanMiktar.Value;
+                        }
+                        else
+                        {
+                            obj.DusulenMiktar = farkCikis;
+                            cikisAltToplam += farkCikis;
+                        }
+                    }
+
+                    obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
+                    obj.BirimTutar = item.BirimFiyat;
+                    target.Add(obj);
+                }
+
+                if (toplamCikisAdet - cikisAltToplam > 0)
+                {
+                    var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {toplamCikisAdet - cikisAltToplam}";
+
+                    return Success(target, message);
+                }
+
+                return Success(target);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
 
 
         private ChepStokCikis Map(ChepStokCikisDTO obj)

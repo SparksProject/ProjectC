@@ -108,6 +108,21 @@ namespace Chep.WebApi.Controllers
             }
         }
 
+        [HttpPost("StokDusumListeAdd")]
+        public IActionResult StokDusumListeAdd([FromBody] ChepStokCikisDTO obj)
+        {
+            try
+            {
+                var result = _service.StokDusumListeAdd(obj.ItemNo, obj.DropCount, obj.ChepStokCikisDetayList);
+
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         [HttpGet("InsertStokCikisFromStokDusumListe")]
         public IActionResult InsertStokCikisFromStokDusumListe([FromQuery] int stokCikisId, [FromQuery] string itemNo, [FromQuery] int cikisAdet)
         {
