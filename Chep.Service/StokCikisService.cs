@@ -262,7 +262,7 @@ namespace Chep.Service
             }
         }
 
-        public ResponseDTO StokDusumListeAdd(string itemNo, int toplamCikisAdet, List<ChepStokCikisDetayDTO> details)
+        public ResponseDTO StokDusumListeAdd(string itemNo, int dusulenMiktar, List<ChepStokCikisDetayDTO> details)
         {
             try
             {
@@ -270,7 +270,7 @@ namespace Chep.Service
                 {
                     return Warning("Geçersiz Ürün Kodu!");
                 }
-                if (toplamCikisAdet < 1)
+                if (dusulenMiktar < 1)
                 {
                     return Warning("Çıkış yapılacak ürün sayısı girilmedi!");
                 }
@@ -279,49 +279,63 @@ namespace Chep.Service
 
                 var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
 
-                var target = new List<ViewStokDusumListeDto>();
+                var detaylarToplamMiktar = 0;
 
-                var cikisAltToplam = 0;
-                foreach (var item in entities.OrderBy(x => x.SureSonuTarihi))
+                if (details != null)
                 {
-                    var farkCikis = toplamCikisAdet - cikisAltToplam;
-                    var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
-                    if (details.Count > 0)
+                    foreach (var item in details.Where(x => !string.IsNullOrEmpty(x.UrunKod) && x.Miktar.HasValue).Where(x => x.UrunKod.ToLower().Equals(itemNo)))
                     {
-                        foreach (var item2 in details)
+                        detaylarToplamMiktar += item.Miktar.Value;
+                    }
+                }
+
+                var target = new List<ViewStokDusumListeDto>();
+                var dusulenToplamMiktar = 0;
+
+
+                var kalanlarDusulenToplam = 0;
+                foreach (var item in entities.Where(x => x.KalanMiktar.HasValue).OrderBy(x => x.SureSonuTarihi))
+                {
+                    var farkCikis = dusulenMiktar - dusulenToplamMiktar;
+                    var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
+
+                    if (detaylarToplamMiktar > 0 && kalanlarDusulenToplam < detaylarToplamMiktar)
+                    {
+                        if (obj.KalanMiktar >= detaylarToplamMiktar)
                         {
-                            if (farkCikis > 0)
-                            {
-                                if (item2.Miktar.HasValue)
-                                {
-                                    obj.KalanMiktar = obj.KalanMiktar - item2.Miktar;
-                                }
-                            }
+                            obj.KalanMiktar -= detaylarToplamMiktar;
+                            kalanlarDusulenToplam += detaylarToplamMiktar;
+                        }
+                        else
+                        {
+                            obj.KalanMiktar -= obj.KalanMiktar;
+                            kalanlarDusulenToplam += obj.KalanMiktar.Value;
                         }
                     }
 
                     if (farkCikis > 0)
                     {
-                        if (obj.KalanMiktar.HasValue && farkCikis >= obj.KalanMiktar)
+                        if (farkCikis >= obj.KalanMiktar)
                         {
                             obj.DusulenMiktar = obj.KalanMiktar.Value;
-                            cikisAltToplam += obj.KalanMiktar.Value;
+                            dusulenToplamMiktar += obj.KalanMiktar.Value;
                         }
                         else
                         {
                             obj.DusulenMiktar = farkCikis;
-                            cikisAltToplam += farkCikis;
+                            dusulenToplamMiktar += farkCikis;
                         }
                     }
 
                     obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
                     obj.BirimTutar = item.BirimFiyat;
+
                     target.Add(obj);
                 }
 
-                if (toplamCikisAdet - cikisAltToplam > 0)
+                if (dusulenMiktar - dusulenToplamMiktar > 0)
                 {
-                    var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {toplamCikisAdet - cikisAltToplam}";
+                    var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {dusulenMiktar - dusulenToplamMiktar}";
 
                     return Success(target, message);
                 }
