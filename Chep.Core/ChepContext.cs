@@ -63,7 +63,6 @@ namespace Chep.Core
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
-                
             }
         }
 
@@ -839,7 +838,6 @@ namespace Chep.Core
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Tpsdurum)
-                    .IsRequired()
                     .HasColumnName("TPSDurum")
                     .HasMaxLength(50);
 

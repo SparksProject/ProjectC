@@ -14,10 +14,13 @@
     [IthalatciFirma]  UNIQUEIDENTIFIER NULL,
     [IhracatciFirma]  UNIQUEIDENTIFIER NULL,
     [KapAdet]         INT              NULL,
+    [AktarimTarihi]   DATE             NULL,
     CONSTRAINT [PK__ChepStok__41A2AA5533234034] PRIMARY KEY CLUSTERED ([StokGirisId] ASC),
     CONSTRAINT [FK_ChepStokGiris_Customer] FOREIGN KEY ([IthalatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId]),
     CONSTRAINT [FK_ChepStokGiris_Customer1] FOREIGN KEY ([IhracatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId])
 );
+
+
 
 
 
