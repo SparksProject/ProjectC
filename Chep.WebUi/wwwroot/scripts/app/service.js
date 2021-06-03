@@ -326,6 +326,10 @@
         return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
     };
 
+    this.GetStokDusumListeAdd = function (obj) {
+        return GetBaseRequestPostJson("StokCikis", "StokDusumListeAdd", obj);
+    };
+
     this.InsertStokCikisFromStokDusumListe = function (stokCikisId, itemNo, cikisAdet) {
         return GetBaseRequestJson("StokCikis", "InsertStokCikisFromStokDusumListe", undefined, 'stokCikisId=' + stokCikisId + '&itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
     };

@@ -48,13 +48,14 @@ namespace Chep.Core
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<VwGenelListe> VwGenelListe { get; set; }
         public virtual DbSet<VwStokCikisDetayListe> VwStokCikisDetayListe { get; set; }
+        public virtual DbSet<VwStokCikisFordListe> VwStokCikisFordListe { get; set; }
         public virtual DbSet<VwStokDurumListe> VwStokDurumListe { get; set; }
         public virtual DbSet<VwStokDusumListe> VwStokDusumListe { get; set; }
         public virtual DbSet<VwStokGirisDetayListe> VwStokGirisDetayListe { get; set; }
         public virtual DbSet<VwSureTakipListe> VwSureTakipListe { get; set; }
-        public virtual DbSet<VwWorkOrderInvoice> VwWorkOrderInvoice { get; set; }
-        public virtual DbSet<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get; set; }
-        public virtual DbSet<VwWorkOrderMaster> VwWorkOrderMaster { get; set; }
+        public virtual DbSet<VwWsWorkOrderInvoice> VwWsWorkOrderInvoice { get; set; }
+        public virtual DbSet<VwWsWorkOrderInvoiceDetails> VwWsWorkOrderInvoiceDetails { get; set; }
+        public virtual DbSet<VwWsWorkOrderMaster> VwWsWorkOrderMaster { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -124,7 +125,6 @@ namespace Chep.Core
                 entity.HasOne(d => d.StokCikis)
                     .WithMany(p => p.ChepStokCikisDetay)
                     .HasForeignKey(d => d.StokCikisId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChepStokCikisDetay_ChepStokCikis");
 
                 entity.HasOne(d => d.StokGirisDetay)
@@ -138,6 +138,8 @@ namespace Chep.Core
             {
                 entity.HasKey(e => e.StokGirisId)
                     .HasName("PK__ChepStok__41A2AA5533234034");
+
+                entity.Property(e => e.AktarimTarihi).HasColumnType("date");
 
                 entity.Property(e => e.BasvuruTarihi).HasColumnType("datetime");
 
@@ -337,7 +339,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.TaxName).HasMaxLength(100);
 
-                entity.Property(e => e.TaxNo).HasMaxLength(20);
+                entity.Property(e => e.TaxNo).HasMaxLength(50);
 
                 entity.Property(e => e.Telephone).HasMaxLength(100);
 
@@ -836,7 +838,6 @@ namespace Chep.Core
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Tpsdurum)
-                    .IsRequired()
                     .HasColumnName("TPSDurum")
                     .HasMaxLength(50);
 
@@ -876,6 +877,57 @@ namespace Chep.Core
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.UrunKod).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<VwStokCikisFordListe>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_StokCikisFordListe");
+
+                entity.Property(e => e.Gtİp)
+                    .HasColumnName("GTİP")
+                    .HasMaxLength(12);
+
+                entity.Property(e => e.Menşeİ)
+                    .HasColumnName("MENŞEİ")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.ParçaAdedİ).HasColumnName("PARÇA ADEDİ");
+
+                entity.Property(e => e.ParçaNo)
+                    .HasColumnName("PARÇA NO")
+                    .HasMaxLength(57);
+
+                entity.Property(e => e.ÇıkışReferansNo).HasColumnName("Çıkış ReferansNo");
+
+                entity.Property(e => e.İhracatBeyannameNumarasi)
+                    .HasColumnName("İHRACAT BEYANNAME NUMARASI")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.İhracatBeyannameTarİhİ)
+                    .HasColumnName("İHRACAT BEYANNAME TARİHİ")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.İhracatTpsNo)
+                    .HasColumnName("İHRACAT TPS NO")
+                    .HasMaxLength(34);
+
+                entity.Property(e => e.İhracatTpsTarİhİ)
+                    .HasColumnName("İHRACAT TPS TARİHİ")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.İthalatBeyannameNo)
+                    .HasColumnName("İTHALAT BEYANNAME NO")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.İthalatBeyannameTarİhİ)
+                    .HasColumnName("İTHALAT BEYANNAME TARİHİ")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.İthalİşlemTürü)
+                    .HasColumnName("İTHAL İŞLEM TÜRÜ")
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<VwStokDurumListe>(entity =>
@@ -1130,11 +1182,11 @@ namespace Chep.Core
                 entity.Property(e => e.UrunKod).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<VwWorkOrderInvoice>(entity =>
+            modelBuilder.Entity<VwWsWorkOrderInvoice>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_WorkOrderInvoice");
+                entity.ToView("vw_WsWorkOrderInvoice");
 
                 entity.Property(e => e.AgentName)
                     .IsRequired()
@@ -1260,11 +1312,11 @@ namespace Chep.Core
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<VwWorkOrderInvoiceDetails>(entity =>
+            modelBuilder.Entity<VwWsWorkOrderInvoiceDetails>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_WorkOrderInvoiceDetails");
+                entity.ToView("vw_WsWorkOrderInvoiceDetails");
 
                 entity.Property(e => e.CommclDesc)
                     .IsRequired()
@@ -1322,18 +1374,20 @@ namespace Chep.Core
                 entity.Property(e => e.Uom).HasMaxLength(5);
             });
 
-            modelBuilder.Entity<VwWorkOrderMaster>(entity =>
+            modelBuilder.Entity<VwWsWorkOrderMaster>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vw_WorkOrderMaster");
+                entity.ToView("vw_WsWorkOrderMaster");
 
-                entity.Property(e => e.DeclarationType)
+                entity.Property(e => e.DeclarationTypei)
                     .IsRequired()
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();
+                entity.Property(e => e.PasswordWs).HasMaxLength(20);
+
+                entity.Property(e => e.UserNameWs).HasMaxLength(20);
             });
 
             OnModelCreatingPartial(modelBuilder);

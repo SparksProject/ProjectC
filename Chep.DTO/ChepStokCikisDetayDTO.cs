@@ -17,5 +17,7 @@ namespace Chep.DTO
         public decimal? BirimTutar { get; set; }
         public string UrunKod { get; set; }
 
+   
+
     }
 }

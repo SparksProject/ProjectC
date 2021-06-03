@@ -27,6 +27,8 @@ namespace Chep.DTO
         public Guid? NakliyeciFirma { get; set; }
         public string CikisAracKimligi { get; set; }
 
+        public string ItemNo { get; set; }
+        public int DropCount { get; set; }
         public string IhracatciFirmaName { get; set; }
         public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";
         public string TpsTarihDisplay => $"{TpsTarih:dd.MM.yyyy}";

@@ -29,6 +29,7 @@ namespace Chep.Core
         public Guid? IthalatciFirma { get; set; }
         public Guid? IhracatciFirma { get; set; }
         public int? KapAdet { get; set; }
+        public DateTime? AktarimTarihi { get; set; }
 
         public virtual Customer IhracatciFirmaNavigation { get; set; }
         public virtual Customer IthalatciFirmaNavigation { get; set; }

@@ -20,6 +20,7 @@ namespace Chep.DTO
         public int ReferansNo { get; set; }
         public string TpsNo { get; set; }
         public string TpsDurum { get; set; }
+        public DateTime? AktarimTarihi { get; set; }
 
         public string IthalatciFirmaName { get; set; }
         public string IhracatciFirmaName { get; set; }
