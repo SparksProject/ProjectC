@@ -95,6 +95,12 @@
     </Build>
     <Build Include="dbo\Tables\Units.sql" />
     <Build Include="dbo\Tables\CurrencyType.sql" />
+    <Build Include="dbo\Tables\PaymentMethod.sql" />
+    <Build Include="dbo\Tables\DeliveryTerms.sql" />
+    <Build Include="dbo\Views\vw_WsWorkOrderMaster.sql" />
+    <Build Include="dbo\Views\vw_WsWorkOrderInvoiceDetails.sql" />
+    <Build Include="dbo\Views\vw_WsWorkOrderInvoice.sql" />
+    <Build Include="dbo\Views\vw_StokCikisFordListe.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="projectToAmazon.scmp" />

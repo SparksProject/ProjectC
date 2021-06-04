@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE View [dbo].[vw_GenelListe]
 as
 -- Genel Rapor
@@ -10,7 +11,7 @@ select
 	GirisDetay.TPSSiraNo as GirisTPSSiraNo,TPSBeyan,EsyaCinsi,EsyaGtip,GirisDetay.FaturaNo as GirisFaturaNo,GirisDetay.FaturaTarih as GirisFaturaTarih,FaturaTutar,FaturaDovizKod,
 	GirisDetay.Miktar as GirisMiktar,OlcuBirimi,Rejim,CikisRejimi,GidecegiUlke,MenseUlke,SozlesmeUlke,Marka,Model,UrunKod,PONo,Cikis.StokCikisId,Cikis.ReferansNo as CikisReferansNo,
 	Cikis.IslemTarihi as CikisIslemTarihi,Cikis.BeyannameNo as CikisBeyannameNo,Cikis.BeyannameTarihi as CikisBeyannameTarihi,Cikis.IhracatciFirma as CikisIhracatciFirma,
-	Cikis.TPSNo as CikisTPSNo,Cikis.TPSTarih as CikisTPSTarih,CikisDetay.Miktar as CikisMiktar ,1 as UserId
+	Cikis.TPSNo as CikisTPSNo,Cikis.TPSTarih as CikisTPSTarih,CikisDetay.Miktar as CikisMiktar --,1 as UserId
 from ChepStokGiris Giris
 	join ChepStokGirisDetay GirisDetay on Giris.StokGirisId=GirisDetay.StokGirisId
 	left outer join ChepStokCikisDetay CikisDetay on GirisDetay.StokGirisDetayId=CikisDetay.StokGirisDetayId
