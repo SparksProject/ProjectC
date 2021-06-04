@@ -66,5 +66,8 @@ namespace Chep.Data.Repository
 
         // views
         public Repository<VwStokDusumListe> ViewStokDusumListe { get { return new Repository<VwStokDusumListe>(_context); } }
+        public Repository<VwWorkOrderMaster> VwWorkOrderMaster { get { return new Repository<VwWorkOrderMaster>(_context); } }
+        public Repository<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get { return new Repository<VwWorkOrderInvoiceDetails>(_context); } }
+        public Repository<VwWorkOrderInvoice> VwWorkOrderInvoice { get { return new Repository<VwWorkOrderInvoice>(_context); } }
     }
 }

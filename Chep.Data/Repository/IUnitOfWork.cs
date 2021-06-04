@@ -42,5 +42,8 @@ namespace Chep.Data.Repository
 
         // Views
         Repository<VwStokDusumListe> ViewStokDusumListe { get; }
+        Repository<VwWorkOrderMaster> VwWorkOrderMaster { get; }
+        Repository<VwWorkOrderInvoice> VwWorkOrderInvoice { get; }
+        Repository<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get; }
     }
 }

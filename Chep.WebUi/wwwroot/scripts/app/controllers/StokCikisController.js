@@ -834,42 +834,49 @@
         }
     };
 
+    $scope.SetWorkOrderService = function (id) {
+        SparksXService.SetWorkOrderService(id)
+            .success(function (data) {
+            if (data.result != null) {
+                console.log(data);
+            }
+            if (data.message != null) {
+                swal({
+                    icon: "error",
+                    title: data.message,
+                });
+            }
+        }).error(function (er) {
+            swal({
+                icon: "error",
+                title: er.message,
+            });
+        });
+
+    };
+
     $scope.InsertStokCikisFromStokDusumListe = function (id, obj) {
         if (obj.itemNo == undefined || obj.dropCount == undefined) {
             alert('Ürün Kodu ve Çıkış Adet zorunludur!');
             return false;
         }
+        var dsDrop = $gridDrop.getDataSource(),
+            dsDetail = $gridDetail.getDataSource(),
+            itemsDetail = dsDetail._items;
 
-        //if (id > 0) {
-        //    //SparksXService.InsertStokCikisFromStokDusumListe(id, obj.itemNo, obj.dropCount).success(function (data) {
-        //    //    if (data.result) {
-        //    //        swal({
-        //    //            icon: "success",
-        //    //            title: "İşlem başarlı!",
-        //    //        }, function () {
-        //    //            $modalDrop.modal('hide');
-        //    //        });
-        //    //    }
-        //    //});
-        //} else {
-            var dsDrop = $gridDrop.getDataSource(),
-                dsDetail = $gridDetail.getDataSource(),
-                itemsDetail = dsDetail._items;
-
-            $.each(dsDrop._items, function (index, elem) {
-                var obj = $.extend({}, elem, {
-                    stokCikisDetayId: $.newguid(),
-                    miktar: elem.dusulenMiktar,
-                    invoiceAmount: elem.dusulenMiktar * elem.birimTutar,
-                });
-                if (elem.dusulenMiktar > 0) {
-                    itemsDetail.push(obj);
-                }
+        $.each(dsDrop._items, function (index, elem) {
+            var obj = $.extend({}, elem, {
+                stokCikisDetayId: $.newguid(),
+                miktar: elem.dusulenMiktar,
+                invoiceAmount: elem.dusulenMiktar * elem.birimTutar,
             });
+            if (elem.dusulenMiktar > 0) {
+                itemsDetail.push(obj);
+            }
+        });
 
-            $modalDrop.modal('hide');
-            $gridDetail.option("dataSource", itemsDetail);
-        //}
+        $modalDrop.modal('hide');
+        $gridDetail.option("dataSource", itemsDetail);
     }
 
     $.newguid = function () {

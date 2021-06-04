@@ -14,6 +14,7 @@ namespace Chep.WebApi.Controllers
     public class StokCikisController : Controller
     {
         private readonly IStokCikisService _service;
+        private readonly Service.WorkOrderService _workOrderService;
         private readonly IStokGirisService _serviceGiris;
 
         public StokCikisController(IStokCikisService service, IStokGirisService serviceGiris)
@@ -143,6 +144,15 @@ namespace Chep.WebApi.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
+        }
+
+
+        [HttpGet("SetWorkOrderService/{id}")]
+        public IActionResult SetWorkOrderService(int id)
+        {
+            var result = _workOrderService.SetWorkOrderMastersModel(id);
+
+            return StatusCode(StatusCodes.Status200OK, result);
         }
 
     }
