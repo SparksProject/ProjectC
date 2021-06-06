@@ -313,6 +313,10 @@
     this.GetStokCikis = function (id) {
         return GetBaseRequestJson("StokCikis", "Get", id);
     };
+    
+    this.SetWorkOrderService = function (id) {
+        return GetBaseRequestJson("StokCikis", "SetWorkOrderService", id);
+    };
 
     this.AddStokCikis = function (obj) {
         return GetBaseRequestPostJson("StokCikis", "Add", obj);

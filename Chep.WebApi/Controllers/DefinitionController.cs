@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Chep.Service.Interface;
 using System;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
 
 namespace Chep.WebApi.Controllers
 {

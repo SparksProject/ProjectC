@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Core;
 
 using Chep.DTO;
 using Chep.Service.Interface;
-using System.Collections.Generic;
 
 namespace Chep.WebApi.Controllers
 {
