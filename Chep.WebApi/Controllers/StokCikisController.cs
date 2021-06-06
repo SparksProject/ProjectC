@@ -14,13 +14,12 @@ namespace Chep.WebApi.Controllers
     public class StokCikisController : Controller
     {
         private readonly IStokCikisService _service;
-        private readonly Service.WorkOrderService _workOrderService;
-        private readonly IStokGirisService _serviceGiris;
+        private readonly IWorkOrderService _workOrderService;
 
-        public StokCikisController(IStokCikisService service, IStokGirisService serviceGiris)
+        public StokCikisController(IStokCikisService service, IWorkOrderService workOrderService)
         {
             _service = service;
-            _serviceGiris = serviceGiris;
+            _workOrderService = workOrderService;
         }
 
 
@@ -146,7 +145,6 @@ namespace Chep.WebApi.Controllers
             }
         }
 
-
         [HttpGet("SetWorkOrderService/{id}")]
         public IActionResult SetWorkOrderService(int id)
         {
@@ -154,6 +152,5 @@ namespace Chep.WebApi.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
-
     }
 }

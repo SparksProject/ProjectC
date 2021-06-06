@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.IO;
 
 using Microsoft.AspNetCore.Http;
@@ -8,9 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 //using Chep.Api.Models;
 using Chep.DTO;
 using Chep.Service.Interface;
-
-//using Syncfusion.XlsIO;
-
 
 namespace Chep.WebApi.Controllers
 {
