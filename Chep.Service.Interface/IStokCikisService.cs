@@ -12,5 +12,6 @@ namespace Chep.Service.Interface
         ResponseDTO Get(int id);
         ResponseDTO AddDetail(int stokCikisId, List<ViewStokDusumListeDto> details);
         ResponseDTO GetStokDusumListe(string itemNo, int cikisAdet);
+        ResponseDTO StokDusumListeAdd(string itemNo, int cikisAdet, List<ChepStokCikisDetayDTO> details);
     }
 }

@@ -60,10 +60,10 @@ namespace Chep.Service
                     columnValues.Add("Caption", column.ColumnName);
                 }
 
-                if (!((int)row[UserIdColumnName]).Equals(userId)) // herkes yalnızca kendi UserId'sine ait veriyi görsün.
-                {
-                    continue;
-                }
+                //if (!((int)row[UserIdColumnName]).Equals(userId)) // herkes yalnızca kendi UserId'sine ait veriyi görsün.
+                //{
+                //    continue;
+                //}
 
                 target.Add(dyn);
             }

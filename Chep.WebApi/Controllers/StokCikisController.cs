@@ -14,12 +14,12 @@ namespace Chep.WebApi.Controllers
     public class StokCikisController : Controller
     {
         private readonly IStokCikisService _service;
-        private readonly IStokGirisService _serviceGiris;
+        private readonly IWorkOrderService _workOrderService;
 
-        public StokCikisController(IStokCikisService service, IStokGirisService serviceGiris)
+        public StokCikisController(IStokCikisService service, IWorkOrderService workOrderService)
         {
             _service = service;
-            _serviceGiris = serviceGiris;
+            _workOrderService = workOrderService;
         }
 
 
@@ -108,6 +108,21 @@ namespace Chep.WebApi.Controllers
             }
         }
 
+        [HttpPost("StokDusumListeAdd")]
+        public IActionResult StokDusumListeAdd([FromBody] ChepStokCikisDTO obj)
+        {
+            try
+            {
+                var result = _service.StokDusumListeAdd(obj.ItemNo, obj.DropCount, obj.ChepStokCikisDetayList);
+
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         [HttpGet("InsertStokCikisFromStokDusumListe")]
         public IActionResult InsertStokCikisFromStokDusumListe([FromQuery] int stokCikisId, [FromQuery] string itemNo, [FromQuery] int cikisAdet)
         {
@@ -130,5 +145,12 @@ namespace Chep.WebApi.Controllers
             }
         }
 
+        [HttpGet("SetWorkOrderService/{id}")]
+        public IActionResult SetWorkOrderService(int id)
+        {
+            var result = _workOrderService.SetWorkOrderMastersModel(id);
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
     }
 }

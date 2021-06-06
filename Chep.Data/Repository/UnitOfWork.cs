@@ -55,6 +55,8 @@ namespace Chep.Data.Repository
         public Repository<Units> Units { get { return new Repository<Units>(_context); } }
         public Repository<Country> Country { get { return new Repository<Country>(_context); } }
         public Repository<CurrencyType> CurrencyType { get { return new Repository<CurrencyType>(_context); } }
+        public Repository<DeliveryTerms> DeliveryTerms { get { return new Repository<DeliveryTerms>(_context); } }
+        public Repository<PaymentMethod> PaymentMethod { get { return new Repository<PaymentMethod>(_context); } }
 
         // chep
         public Repository<ChepStokGiris> ChepStokGiris { get { return new Repository<ChepStokGiris>(_context); } }
@@ -64,5 +66,8 @@ namespace Chep.Data.Repository
 
         // views
         public Repository<VwStokDusumListe> ViewStokDusumListe { get { return new Repository<VwStokDusumListe>(_context); } }
+        public Repository<VwWorkOrderMaster> VwWorkOrderMaster { get { return new Repository<VwWorkOrderMaster>(_context); } }
+        public Repository<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get { return new Repository<VwWorkOrderInvoiceDetails>(_context); } }
+        public Repository<VwWorkOrderInvoice> VwWorkOrderInvoice { get { return new Repository<VwWorkOrderInvoice>(_context); } }
     }
 }

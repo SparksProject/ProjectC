@@ -37,8 +37,13 @@ namespace Chep.Data.Repository
         Repository<Units> Units { get; }
         Repository<Country> Country { get; }
         Repository<CurrencyType> CurrencyType { get; }
+        Repository<PaymentMethod> PaymentMethod { get; }
+        Repository<DeliveryTerms> DeliveryTerms { get; }
 
         // Views
         Repository<VwStokDusumListe> ViewStokDusumListe { get; }
+        Repository<VwWorkOrderMaster> VwWorkOrderMaster { get; }
+        Repository<VwWorkOrderInvoice> VwWorkOrderInvoice { get; }
+        Repository<VwWorkOrderInvoiceDetails> VwWorkOrderInvoiceDetails { get; }
     }
 }

@@ -23,6 +23,7 @@ namespace Chep.Core
         public int? GirisMiktar { get; set; }
         public int CikisMiktar { get; set; }
         public int? KalanMiktar { get; set; }
-        public int UserId { get; set; }
+        public int? TpsCikisSiraNo { get; set; }
+        public decimal? BirimFiyat { get; set; }
     }
 }

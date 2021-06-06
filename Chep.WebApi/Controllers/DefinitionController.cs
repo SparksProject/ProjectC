@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Chep.Service.Interface;
 using System;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
 
 namespace Chep.WebApi.Controllers
 {
@@ -152,6 +151,22 @@ namespace Chep.WebApi.Controllers
         public IActionResult GetProducts()
         {
             var result = _service.GetProducts().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("GetPaymentMethods")]
+        public IActionResult GetPaymentMethods()
+        {
+            var result = _service.GetPaymentMethods().Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
+        [HttpGet("GetDeliveryTerms")]
+        public IActionResult GetDeliveryTerms()
+        {
+            var result = _service.GetDeliveryTerms().Result;
 
             return StatusCode(StatusCodes.Status200OK, result);
         }

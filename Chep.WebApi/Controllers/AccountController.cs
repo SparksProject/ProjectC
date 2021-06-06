@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Chep.DTO;
 using Chep.Service.Interface;
 using Microsoft.AspNetCore.Http;

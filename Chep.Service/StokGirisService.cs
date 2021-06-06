@@ -222,6 +222,7 @@ namespace Chep.Service
                 TpsAciklama = obj.TpsAciklama,
                 TpsDurum = obj.TpsDurum,
                 TpsNo = obj.TpsNo,
+                AktarimTarihi = obj.AktarimTarihi,
 
                 ChepStokGirisDetay = details,
             };
@@ -298,6 +299,7 @@ namespace Chep.Service
                 BeyannameKalemNo = obj.BeyannameKalemNo,
                 BeyannameTarihi = obj.BeyannameTarihi,
                 BeyannameNo = obj.BeyannameNo,
+                TpsNo = obj.StokGiris.TpsNo,
 
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
@@ -357,6 +359,7 @@ namespace Chep.Service
                 TpsAciklama = obj.TpsAciklama,
                 TpsDurum = obj.TpsDurum,
                 TpsNo = obj.TpsNo,
+                AktarimTarihi = obj.AktarimTarihi,
 
                 ChepStokGirisDetayList = details
             };
@@ -407,6 +410,7 @@ namespace Chep.Service
         private const string ExcelUrunKod = "Ürün Kod";
         private const string ExcelTPSCikisSiraNo = "TPS Çıkış Sıra No";
         private const string ExcelBeyannameKalemNo = "Beyanname Kalem No";
+        private const string ExcelAktarimTarihi = "Aktarım Tarihi";
 
         private const string ImportNoIndexKey = "NoIndex";
         private const string ImportNoFileMasterKey = "NoFileMaster";
@@ -493,6 +497,7 @@ namespace Chep.Service
                         { ExcelUrunKod, -1 },
                         { ExcelTPSCikisSiraNo, -1 },
                         { ExcelBeyannameKalemNo, -1 },
+                        { ExcelAktarimTarihi, -1 },
                     };
 
 
@@ -649,6 +654,10 @@ namespace Chep.Service
                     {
                         importColumnNames[ExcelBeyannameKalemNo] = j;
                     }
+                    else if (cellValue.Equals(ExcelAktarimTarihi) && importColumnNames.ContainsKey(ExcelAktarimTarihi))
+                    {
+                        importColumnNames[ExcelAktarimTarihi] = j;
+                    }
                 }
 
                 if (importColumnNames.Select(x => x.Value).Any(x => x < 0)) // index'i bulunamayan bir kolon bile varsa
@@ -685,7 +694,29 @@ namespace Chep.Service
                 var stokGirisInsertList = new List<ChepStokGiris>();
                 var stokGirisUpdateList = new List<ChepStokGiris>();
 
+                for (int i = sheet.FirstRowNum + 1; i < sheet.LastRowNum; i++)
+                {
+                    var row = sheet.GetRow(i);
 
+                    var cell = row.GetCell(importColumnNames[ExcelAktarimTarihi]);
+
+                    if (cell == null)
+                    {   // boş satırları es geç
+                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                    }
+
+                    var cellValue = cell.ToString();
+
+                    if (string.IsNullOrEmpty(cellValue))
+                    {
+                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                    }
+
+                    if (!DateTime.TryParse(cellValue, out DateTime _))
+                    {
+                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                    }
+                }
 
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                 {   // exceli tek tek okumaya başla
@@ -912,6 +943,13 @@ namespace Chep.Service
                                     detailDto.BeyannameKalemNo = beyannameKalemNo;
                                 }
                             }
+                            else if (j == importColumnNames[ExcelAktarimTarihi])
+                            {
+                                if (!string.IsNullOrEmpty(cellValue.Trim()))
+                                {
+                                    stokGirisDto.AktarimTarihi = cell.DateCellValue;
+                                }
+                            }
                         }
 
 
@@ -926,7 +964,15 @@ namespace Chep.Service
                         var existlistdeneme = stokGirisInsertList.Any(x => x.TpsNo == stokGirisDto.TpsNo);
                         var existStokGirisEntities = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo);
                         var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
-
+                        if (existStokGirisEntity != null)
+                        {
+                            var deneme = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.AktarimTarihi != null && x.AktarimTarihi >= stokGirisDto.AktarimTarihi);
+                            var denemefirst = deneme.FirstOrDefault();
+                            if (denemefirst != null)
+                            {
+                                continue;
+                            }
+                        }
                         Customs customs = null;
                         if (stokGirisDto.GumrukKod != null)
                         {
@@ -1298,7 +1344,7 @@ namespace Chep.Service
                             }
                         }
 
-                        else if (stokGirisUpdateList.Any(x => x.TpsNo == stokGirisDto.TpsNo) && existStokGirisEntities != null)
+                        else if (stokGirisUpdateList.Any(x => x.TpsNo == stokGirisDto.TpsNo) && existStokGirisEntity != null)
                         {
                             var existStokGirisDetayEntities = _uow.ChepStokGirisDetay.Search(x => x.StokGirisId == existStokGirisEntity.StokGirisId);
                             var existStokGirisDetayEntity = existStokGirisDetayEntities.FirstOrDefault();
@@ -1394,6 +1440,7 @@ namespace Chep.Service
                                 TpsAciklama = stokGirisDto.TpsAciklama,
                                 TpsDurum = stokGirisDto.TpsDurum,
                                 BasvuruTarihi = stokGirisDto.BasvuruTarihi,
+                                AktarimTarihi = stokGirisDto.AktarimTarihi,
                             };
 
 
@@ -1495,7 +1542,7 @@ namespace Chep.Service
 
                             if (!stokGirisUpdateList.Any(x => x.StokGirisId == existStokGirisEntity.StokGirisId))
                             {
-
+                                existStokGirisEntity.AktarimTarihi = stokGirisDto.AktarimTarihi;
                                 if (oldEntityGirisDetay != null && oldEntityGirisDetay.StokGirisDetayId > 0 && detailDto.Miktar.HasValue)
                                 {
                                     if (oldEntityGirisDetay.Miktar.HasValue && detailDto.Miktar != null)

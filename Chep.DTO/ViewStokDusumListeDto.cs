@@ -20,6 +20,7 @@ namespace Chep.DTO
         public int? KalanMiktar { get; set; }
         public int UserId { get; set; }
         public int DusulenMiktar { get; set; }
+        public decimal? BirimTutar { get; set; }
         public int BakiyeMiktar
         {
             get
@@ -32,5 +33,8 @@ namespace Chep.DTO
                 return KalanMiktar.Value - DusulenMiktar;
             }
         }
+
+        public decimal? FaturaTutar { get; set; }
+      
     }
 }

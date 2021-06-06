@@ -19,9 +19,12 @@
     [CikisGumruk]       NVARCHAR (6)     NULL,
     [OdemeSekli]        NVARCHAR (2)     NULL,
     [NakliyeciFirma]    UNIQUEIDENTIFIER NULL,
+    [CikisAracKimligi]  NVARCHAR (35)    NULL,
     CONSTRAINT [PK__ChepStok__FDAB99CF950106B1] PRIMARY KEY CLUSTERED ([StokCikisId] ASC),
     CONSTRAINT [FK_ChepStokCikis_Customer] FOREIGN KEY ([IhracatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId])
 );
+
+
 
 
 

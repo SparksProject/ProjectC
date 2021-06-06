@@ -21,7 +21,6 @@
     $scope.Get = function () {
         SparksXService.GetGenericReport($stateParams.id).success(function (data) {
             $scope.object = data;
-            console.log(data);
             if ($gridContainer == null) {
                 $gridContainer = $("#gridContainer").dxDataGrid({
                     dataSource: [],
@@ -226,7 +225,6 @@
             },
             success: function (data) {
                 var response = data.result;
-                console.log(response);
                 if (response != null && response != undefined && response.length > 0) {
                     if (!isPivot) {
                         // Grid ise

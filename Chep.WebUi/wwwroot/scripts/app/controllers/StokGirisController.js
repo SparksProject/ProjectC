@@ -216,6 +216,45 @@
                         { dataField: "model", caption: "Model", width: 100, },
                         { dataField: "poNo", caption: "PO", width: 100, },
                     ],
+                    export: {
+                        enabled: true,
+                    },
+                    onExporting: function (e) {
+                        var workbook = new ExcelJS.Workbook();
+                        var worksheet = workbook.addWorksheet('Sayfa 1');
+
+                        worksheet.views = [
+                            { state: 'frozen', xSplit: null, ySplit: 0 }
+                        ];
+
+                        DevExpress.excelExporter.exportDataGrid({
+                            worksheet: worksheet,
+                            component: e.component,
+                            customizeCell: function (options) {
+                                var { gridCell, excelCell } = options;
+
+                                if (gridCell.rowType === 'header') {
+                                    excelCell.font = { name: 'Arial', size: 11, bold: true };
+                                }
+
+                                if (gridCell.rowType === 'data') {
+                                    excelCell.font = { name: 'Arial', size: 10 };
+                                }
+
+                                excelCell.border = {
+                                    top: { style: 'thin', color: { argb: 'FF000000' } },
+                                    left: { style: 'thin', color: { argb: 'FF000000' } },
+                                    bottom: { style: 'thin', color: { argb: 'FF000000' } },
+                                    right: { style: 'thin', color: { argb: 'FF000000' } }
+                                };
+                            }
+                        }).then(function () {
+                            workbook.xlsx.writeBuffer().then(function (buffer) {
+                                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'StokGirisKalemler.xlsx');
+                            });
+                        });
+                        e.cancel = true;
+                    },
                     onContextMenuPreparing: function (e) {
                         if (e.target == "content") {
                             if (!e.items) e.items = [];

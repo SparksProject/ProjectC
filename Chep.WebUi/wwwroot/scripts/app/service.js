@@ -95,6 +95,14 @@
         return GetDefinitionRequestJson('GetCurrencyTypes');
     };
 
+    this.GetDeliveryTerms = function () {
+        return GetDefinitionRequestJson('GetDeliveryTerms');
+    };
+
+    this.GetPaymentMethods = function () {
+        return GetDefinitionRequestJson('GetPaymentMethods');
+    };
+
     this.GetCustoms = function () {
         return GetDefinitionRequestJson('GetCustoms');
     };
@@ -305,6 +313,10 @@
     this.GetStokCikis = function (id) {
         return GetBaseRequestJson("StokCikis", "Get", id);
     };
+    
+    this.SetWorkOrderService = function (id) {
+        return GetBaseRequestJson("StokCikis", "SetWorkOrderService", id);
+    };
 
     this.AddStokCikis = function (obj) {
         return GetBaseRequestPostJson("StokCikis", "Add", obj);
@@ -316,6 +328,10 @@
 
     this.GetStokDusumListe = function (itemNo, cikisAdet) {
         return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
+    };
+
+    this.GetStokDusumListeAdd = function (obj) {
+        return GetBaseRequestPostJson("StokCikis", "StokDusumListeAdd", obj);
     };
 
     this.InsertStokCikisFromStokDusumListe = function (stokCikisId, itemNo, cikisAdet) {

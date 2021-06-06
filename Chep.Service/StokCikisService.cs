@@ -110,6 +110,7 @@ namespace Chep.Service
             {
                 var entity = _uow.ChepStokCikis.Set()
                                                .Include(x => x.ChepStokCikisDetay)
+                                               .ThenInclude(x => x.StokGirisDetay)
                                                .AsNoTracking()
                                                .FirstOrDefault(x => x.StokCikisId == id);
 
@@ -185,6 +186,8 @@ namespace Chep.Service
                         StokCikisId = stokCikisId,
                         Miktar = item.DusulenMiktar,
                         StokGirisDetayId = item.StokGirisDetayId,
+                        InvoiceAmount = item.FaturaTutar,
+                        BirimTutar = item.BirimTutar
                     });
                 }
 
@@ -226,7 +229,6 @@ namespace Chep.Service
                     var farkCikis = toplamCikisAdet - cikisAltToplam;
 
                     var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
-
                     if (farkCikis > 0)
                     {
                         if (obj.KalanMiktar.HasValue && farkCikis >= obj.KalanMiktar)
@@ -240,13 +242,100 @@ namespace Chep.Service
                             cikisAltToplam += farkCikis;
                         }
                     }
-
+                    obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
+                    obj.BirimTutar = item.BirimFiyat;
                     target.Add(obj);
                 }
 
                 if (toplamCikisAdet - cikisAltToplam > 0)
                 {
                     var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {toplamCikisAdet - cikisAltToplam}";
+
+                    return Success(target, message);
+                }
+
+                return Success(target);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
+        public ResponseDTO StokDusumListeAdd(string itemNo, int dusulenMiktar, List<ChepStokCikisDetayDTO> details)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(itemNo))
+                {
+                    return Warning("Geçersiz Ürün Kodu!");
+                }
+                if (dusulenMiktar < 1)
+                {
+                    return Warning("Çıkış yapılacak ürün sayısı girilmedi!");
+                }
+
+                itemNo = itemNo.ToLower();
+
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
+
+                var detaylarToplamMiktar = 0;
+
+                if (details != null)
+                {
+                    foreach (var item in details.Where(x => !string.IsNullOrEmpty(x.UrunKod) && x.Miktar.HasValue).Where(x => x.UrunKod.ToLower().Equals(itemNo)))
+                    {
+                        detaylarToplamMiktar += item.Miktar.Value;
+                    }
+                }
+
+                var target = new List<ViewStokDusumListeDto>();
+                var dusulenToplamMiktar = 0;
+
+
+                var kalanlarDusulenToplam = 0;
+                foreach (var item in entities.Where(x => x.KalanMiktar.HasValue).OrderBy(x => x.SureSonuTarihi))
+                {
+                    var farkCikis = dusulenMiktar - dusulenToplamMiktar;
+                    var obj = Mapper.MapSingle<VwStokDusumListe, ViewStokDusumListeDto>(item);
+
+                    if (detaylarToplamMiktar > 0 && kalanlarDusulenToplam < detaylarToplamMiktar)
+                    {
+                        if (obj.KalanMiktar >= detaylarToplamMiktar)
+                        {
+                            obj.KalanMiktar -= detaylarToplamMiktar;
+                            kalanlarDusulenToplam += detaylarToplamMiktar;
+                        }
+                        else
+                        {
+                            obj.KalanMiktar -= obj.KalanMiktar;
+                            kalanlarDusulenToplam += obj.KalanMiktar.Value;
+                        }
+                    }
+
+                    if (farkCikis > 0)
+                    {
+                        if (farkCikis >= obj.KalanMiktar)
+                        {
+                            obj.DusulenMiktar = obj.KalanMiktar.Value;
+                            dusulenToplamMiktar += obj.KalanMiktar.Value;
+                        }
+                        else
+                        {
+                            obj.DusulenMiktar = farkCikis;
+                            dusulenToplamMiktar += farkCikis;
+                        }
+                    }
+
+                    obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
+                    obj.BirimTutar = item.BirimFiyat;
+
+                    target.Add(obj);
+                }
+
+                if (dusulenMiktar - dusulenToplamMiktar > 0)
+                {
+                    var message = $"Çıkış Adet, stoktan fazladır! Hesaplamalar stok miktarı baz alınarak yapılmıştır! Aşım adeti: {dusulenMiktar - dusulenToplamMiktar}";
 
                     return Success(target, message);
                 }
@@ -292,6 +381,12 @@ namespace Chep.Service
                 InvoiceId = obj.InvoiceId,
                 InvoiceNo = obj.InvoiceNo,
                 WorkOrderMasterId = obj.WorkOrderMasterId,
+                AliciFirma = obj.AliciFirma,
+                CikisGumruk = obj.CikisGumruk,
+                NakliyeciFirma = obj.NakliyeciFirma,
+                OdemeSekli = obj.OdemeSekli,
+                TeslimSekli = obj.TeslimSekli,
+                CikisAracKimligi = obj.CikisAracKimligi,
 
                 ChepStokCikisDetay = details,
             };
@@ -313,7 +408,10 @@ namespace Chep.Service
                 StokGirisDetayId = obj.StokGirisDetayId,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 InvoiceAmount = obj.InvoiceAmount,
-                InvoiceDetailId = obj.InvoiceDetailId
+                InvoiceDetailId = obj.InvoiceDetailId,
+                BirimTutar = obj.BirimTutar,
+                BrutKg = obj.BrutKg,
+                NetKg = obj.NetKg,
             };
         }
 
@@ -333,7 +431,11 @@ namespace Chep.Service
                 StokGirisDetayId = obj.StokGirisDetayId,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 InvoiceAmount = obj.InvoiceAmount,
-                InvoiceDetailId = obj.InvoiceDetailId
+                InvoiceDetailId = obj.InvoiceDetailId,
+                BirimTutar = obj.BirimTutar,
+                BrutKg = obj.BrutKg,
+                NetKg = obj.NetKg,
+                UrunKod = obj.StokGirisDetay?.UrunKod,
             };
         }
 
@@ -368,6 +470,12 @@ namespace Chep.Service
                 InvoiceId = obj.InvoiceId,
                 InvoiceNo = obj.InvoiceNo,
                 WorkOrderMasterId = obj.WorkOrderMasterId,
+                AliciFirma = obj.AliciFirma,
+                CikisGumruk = obj.CikisGumruk,
+                NakliyeciFirma = obj.NakliyeciFirma,
+                OdemeSekli = obj.OdemeSekli,
+                TeslimSekli = obj.TeslimSekli,
+                CikisAracKimligi = obj.CikisAracKimligi,
 
                 ChepStokCikisDetayList = details
             };

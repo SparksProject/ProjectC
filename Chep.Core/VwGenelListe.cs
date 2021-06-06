@@ -53,6 +53,5 @@ namespace Chep.Core
         public string CikisTpsno { get; set; }
         public DateTime? CikisTpstarih { get; set; }
         public int? CikisMiktar { get; set; }
-        public int UserId { get; set; }
     }
 }
