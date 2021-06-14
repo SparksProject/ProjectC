@@ -321,7 +321,10 @@
     this.DeleteStokCikis = function (id) {
         return GetBaseRequestJson("StokCikis", "Delete", id);
     };
-    
+
+    this.GetByUrunKod = function (id) {
+        return GetBaseRequestJson("StokCikis", "GetByUrunKod", id);
+    };
     this.SetWorkOrderService = function (id) {
         return GetBaseRequestJson("StokCikis", "SetWorkOrderService", id);
     };

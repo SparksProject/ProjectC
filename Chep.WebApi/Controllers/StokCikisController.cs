@@ -175,7 +175,14 @@ namespace Chep.WebApi.Controllers
             return StatusCode(StatusCodes.Status200OK, result);
         }
 
-      
+
+        [HttpGet("GetByUrunKod/{id}")]
+        public IActionResult GetByUrunKod(string id)
+        {
+            var result = _service.GetByUrunKod(id).Result;
+
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
 
     }
 }

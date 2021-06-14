@@ -98,7 +98,7 @@
                             editCellTemplate: function (cellElement, cellInfo) {
                                 // Hücre içine DropDownBox kurulumu
                                 return $("<div>").dxDropDownBox({
-                                    dropDownOptions: { width: 600 },
+                                    dropDownOptions: { width: 900 },
                                     dataSource: storeStokGiris,
                                     value: cellInfo.value,
                                     valueExpr: "stokGirisDetayId",
@@ -113,7 +113,9 @@
                                             remoteOperations: true,
                                             columns: [
                                                 {
-                                                    dataField: "tpsNo", caption: "TPS No", dataType: "number",
+                                                    dataField: "tpsNo", caption: "TPS No", width: 190
+                                                }, {
+                                                    dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 140
                                                 }, {
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                 }, {
@@ -145,6 +147,20 @@
                                                                 if (cell.column.dataField == rowColumn && cell.columnIndex != cellInfo.columnIndex) {
                                                                     if (cell.column.dataField != "miktar") {
                                                                         cellInfo.component.cellValue(cell.rowIndex, cell.columnIndex, rowValue);
+                                                                    }
+                                                                    if (cell.column.dataField == "urunKod") {
+                                                                        var data = {
+                                                                            id: rowValue
+                                                                        };
+                                                                        SparksXService.GetByUrunKod(data.id).success(function (data) {
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 4, data.birimTutar);
+                                                                        }).error(function (er) {
+                                                                            swal({
+                                                                                icon: "error",
+                                                                                title: "Hata!",
+                                                                                text: er,
+                                                                            });
+                                                                        });
                                                                     }
                                                                 }
                                                             });
@@ -368,8 +384,8 @@
                     keyExpr: "stokGirisDetayId",
                     dataSource: [],
                     columns: [
-                        { dataField: "girisBeyannameNo", caption: "Beyanname No", width: 150, },
-                        { dataField: "tpsNo", caption: "TPS No", width: 150, },
+                        { dataField: "girisBeyannameNo", caption: "Beyanname No", width: 140, },
+                        { dataField: "tpsNo", caption: "TPS No", width: 190, },
                         { dataField: "urunKod", caption: "Ürün Kodu", },
                         {
                             dataField: "girisMiktar", caption: "Giriş Adet", dataType: "number",
@@ -431,7 +447,7 @@
                 dataSource: [],
                 columns: [
                     { dataField: "referansNo", caption: "Referans No", },
-                    { dataField: "tpsNo", caption: "TPS No", },
+                    { dataField: "tPSNo", caption: "TPS No", },
                     { dataField: "islemTarihi", caption: "İşlem Tarihi", dataType: "date", formatType: "shortDate" },
                     { dataField: "tpsTarih", caption: "TPS Tarihi", dataType: "date", formatType: "shortDate" },
                     { dataField: "beyannameNo", caption: "Beyanname No", },
@@ -868,21 +884,21 @@
     $scope.SetWorkOrderService = function (id) {
         SparksXService.SetWorkOrderService(id)
             .success(function (data) {
-            if (data.result != null) {
-                console.log(data);
-            }
-            if (data.message != null) {
+                if (data.result != null) {
+                    console.log(data);
+                }
+                if (data.message != null) {
+                    swal({
+                        icon: "error",
+                        title: data.message,
+                    });
+                }
+            }).error(function (er) {
                 swal({
                     icon: "error",
-                    title: data.message,
+                    title: er.message,
                 });
-            }
-        }).error(function (er) {
-            swal({
-                icon: "error",
-                title: er.message,
             });
-        });
 
     };
 

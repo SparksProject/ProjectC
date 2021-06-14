@@ -331,7 +331,6 @@ namespace Chep.Service
                 BeyannameTarihi = obj.BeyannameTarihi,
                 BeyannameNo = obj.BeyannameNo,
                 TpsNo = obj.StokGiris.TpsNo,
-
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
 
@@ -748,7 +747,7 @@ namespace Chep.Service
                         return Warning("Aktarım Tarihi alanı DateTime'a parse edilemedi! Hiçbir işlem yapılmayacak!");
                     }
                 }
-                
+
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                 {   // exceli tek tek okumaya başla
                     try

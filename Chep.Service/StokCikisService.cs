@@ -124,6 +124,29 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO GetByUrunKod(string id)
+        {
+            try
+            {
+                var entity = _uow.Products.Set()
+                                               .AsNoTracking()
+                                               .FirstOrDefault(x => x.ProductNo == id);
+
+                var result = new ProductDTO
+                {
+                    ProductId = entity.ProductId,
+                    ProductNo = entity.ProductNo,
+                    BirimTutar = entity.UnitPrice,
+                };
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
         public ResponseDTO List(int? referansNo, string beyannameNo, string tpsNo)
         {
             try

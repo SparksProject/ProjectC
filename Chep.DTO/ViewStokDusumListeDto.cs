@@ -6,7 +6,7 @@ namespace Chep.DTO
     {
         public int StokGirisDetayId { get; set; }
         public int StokGirisId { get; set; }
-        public string Tpsno { get; set; }
+        public string TPSNo { get; set; }
         public string GirisReferansNo { get; set; }
         public DateTime? SureSonuTarihi { get; set; }
         public string GirisBeyannameNo { get; set; }
@@ -33,7 +33,7 @@ namespace Chep.DTO
                 return KalanMiktar.Value - DusulenMiktar;
             }
         }
-
+        public int? TpsCikisSiraNo { get; set; }
         public decimal? FaturaTutar { get; set; }
       
     }
