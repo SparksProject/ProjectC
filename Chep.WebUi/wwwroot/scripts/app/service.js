@@ -292,6 +292,10 @@
         return GetBaseRequestJson("StokGiris", "Get", id);
     };
 
+    this.DeleteStokGiris = function (id) {
+        return GetBaseRequestJson("StokGiris", "Delete", id);
+    };
+
     this.AddStokGiris = function (obj) {
         return GetBaseRequestPostJson("StokGiris", "Add", obj);
     };
@@ -312,6 +316,10 @@
 
     this.GetStokCikis = function (id) {
         return GetBaseRequestJson("StokCikis", "Get", id);
+    };
+
+    this.DeleteStokCikis = function (id) {
+        return GetBaseRequestJson("StokCikis", "Delete", id);
     };
     
     this.SetWorkOrderService = function (id) {

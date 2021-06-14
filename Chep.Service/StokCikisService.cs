@@ -168,6 +168,35 @@ namespace Chep.Service
             }
         }
 
+
+        public ResponseDTO Delete(int id)
+        {
+            try
+            {
+                var entity = _uow.ChepStokCikis.Set()
+                                               .Include(x => x.ChepStokCikisDetay)
+                                               .FirstOrDefault(x => x.StokCikisId == id);
+
+                if (entity.ChepStokCikisDetay.Count > 0)
+                {
+                    foreach (var item in entity.ChepStokCikisDetay)
+                    {
+                        _uow.ChepStokCikisDetay.Delete(item);
+                    }
+                }
+
+                _uow.ChepStokCikis.Delete(entity);
+
+                _uow.Commit();
+
+                return Success(entity.StokCikisId, "Silme işlemi tamamlandı!");
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
         public ResponseDTO AddDetail(int stokCikisId, List<ViewStokDusumListeDto> details)
         {
             try

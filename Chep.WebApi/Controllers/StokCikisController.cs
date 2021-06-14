@@ -93,6 +93,28 @@ namespace Chep.WebApi.Controllers
             }
         }
 
+        [HttpGet("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var result = _service.Delete(id);
+
+            switch (result.ResultMessage)
+            {
+                case Enums.ResponseMessage.OK:
+                    return StatusCode(StatusCodes.Status200OK, result.Result);
+                case Enums.ResponseMessage.ERROR:
+                    return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
+                case Enums.ResponseMessage.NOTFOUND:
+                    return StatusCode(StatusCodes.Status404NotFound);
+                case Enums.ResponseMessage.UNAUTHORIZED:
+                    return StatusCode(StatusCodes.Status401Unauthorized);
+                case Enums.ResponseMessage.WARNING:
+                    return StatusCode(StatusCodes.Status500InternalServerError, result.Message);
+                default:
+                    return StatusCode(StatusCodes.Status404NotFound);
+            }
+        }
+
         [HttpGet("GetStokDusumListe")]
         public IActionResult GetStokDusumListe([FromQuery] string itemNo, [FromQuery] int cikisAdet)
         {
@@ -152,5 +174,8 @@ namespace Chep.WebApi.Controllers
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
+      
+
     }
 }

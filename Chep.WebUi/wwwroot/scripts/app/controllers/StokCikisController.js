@@ -504,6 +504,37 @@
                                     $modalImport.modal('show');
                                 }
                             });
+
+                            if (e.rowIndex >= 0) {
+                                e.items.push({
+                                    text: "Sil",
+                                    icon: "trash",
+                                    onItemClick: function (eDel) {
+                                        swal({
+                                            icon: "warning",
+                                            title: "Dikkat!",
+                                            text: "Silmek istediğinize emin mizini?",
+                                            showCancelButton: true,
+                                        }, function (result) {
+                                            if (result) {
+                                                // Silme işlemine devam edilecek
+                                                var data = {
+                                                    id: e.row.key
+                                                };
+                                                SparksXService.DeleteStokCikis(data.id).success(function (data) {
+                                                    ListData();
+                                                }).error(function (er) {
+                                                    swal({
+                                                        icon: "error",
+                                                        title: "Hata!",
+                                                        text: er,
+                                                    });
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
 
                         //if (e.rowIndex >= 0) {
