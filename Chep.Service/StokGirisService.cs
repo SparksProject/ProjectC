@@ -733,22 +733,22 @@ namespace Chep.Service
 
                     if (cell == null)
                     {   // boş satırları es geç
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
 
                     var cellValue = cell.ToString();
 
                     if (string.IsNullOrEmpty(cellValue))
                     {
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
 
-                    if (!DateTime.TryParse(cellValue, out DateTime _))
+                    if (!DateTime.TryParse(cell.DateCellValue.ToString(), out DateTime _))
                     {
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi alanı DateTime'a parse edilemedi! Hiçbir işlem yapılmayacak!");
                     }
                 }
-
+                
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                 {   // exceli tek tek okumaya başla
                     try
