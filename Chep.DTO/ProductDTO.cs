@@ -25,6 +25,7 @@ namespace Chep.DTO
         public int? DeletedBy { get; set; }
         public decimal? UnitPrice { get; set; }
         public string CurrencyType { get; set; }
+        public decimal? BirimTutar { get; set; }
 
         public string CustomerName { get; set; }
         public string RecordStatusName { get; set; }

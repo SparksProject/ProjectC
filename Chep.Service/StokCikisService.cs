@@ -124,6 +124,29 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO GetByUrunKod(string id)
+        {
+            try
+            {
+                var entity = _uow.Products.Set()
+                                               .AsNoTracking()
+                                               .FirstOrDefault(x => x.ProductNo == id);
+
+                var result = new ProductDTO
+                {
+                    ProductId = entity.ProductId,
+                    ProductNo = entity.ProductNo,
+                    BirimTutar = entity.UnitPrice,
+                };
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
         public ResponseDTO List(int? referansNo, string beyannameNo, string tpsNo)
         {
             try
@@ -161,6 +184,35 @@ namespace Chep.Service
                 }
 
                 return Success(list);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
+
+        public ResponseDTO Delete(int id)
+        {
+            try
+            {
+                var entity = _uow.ChepStokCikis.Set()
+                                               .Include(x => x.ChepStokCikisDetay)
+                                               .FirstOrDefault(x => x.StokCikisId == id);
+
+                if (entity.ChepStokCikisDetay.Count > 0)
+                {
+                    foreach (var item in entity.ChepStokCikisDetay)
+                    {
+                        _uow.ChepStokCikisDetay.Delete(item);
+                    }
+                }
+
+                _uow.ChepStokCikis.Delete(entity);
+
+                _uow.Commit();
+
+                return Success(entity.StokCikisId, "Silme işlemi tamamlandı!");
             }
             catch (Exception ex)
             {

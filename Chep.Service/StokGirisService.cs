@@ -191,7 +191,38 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO Delete(int id)
+        {
+            try
+            {
+                var entity = _uow.ChepStokGiris.Set()
+                                               .Include(x => x.ChepStokGirisDetay)
+                                               .ThenInclude(x => x.ChepStokCikisDetay)
+                                               .FirstOrDefault(x => x.StokGirisId == id);
 
+                if (entity.ChepStokGirisDetay.Count > 0)
+                {
+                    foreach (var item in entity.ChepStokGirisDetay)
+                    {
+                        if (item.ChepStokCikisDetay.Count > 0)//detaylar çıkışta kullanılmış mı diye bakar eğer kullanıldıysa işlemi bitirir.
+                        {
+                            return Warning($"Referans Numarası {entity.ReferansNo} olan kaydın {item.TpsSiraNo} TPS Sıra Numaralı ve {item.UrunKod} Ürün Kodlu kalemi için Stok Çıkış sayfasının kaleminde eşleşen kayıt bulunuyor! Silme işlemi yapılmayacak!");
+                        }
+                        _uow.ChepStokGirisDetay.Delete(item);
+                    }
+                }
+
+                _uow.ChepStokGiris.Delete(entity);
+
+                _uow.Commit();
+
+                return Success(entity.StokGirisId, "Silme işlemi tamamlandı!");
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
 
         private ChepStokGiris Map(ChepStokGirisDTO obj)
         {
@@ -261,7 +292,7 @@ namespace Chep.Service
                 StokGirisId = obj.StokGirisId,
                 BeyannameKalemNo = obj.BeyannameKalemNo,
                 BeyannameNo = obj.BeyannameNo,
-                BeyannameTarihi = obj.BeyannameTarihi
+                BeyannameTarihi = obj.BeyannameTarihi,
             };
         }
 
@@ -300,7 +331,6 @@ namespace Chep.Service
                 BeyannameTarihi = obj.BeyannameTarihi,
                 BeyannameNo = obj.BeyannameNo,
                 TpsNo = obj.StokGiris.TpsNo,
-
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
 
@@ -702,19 +732,19 @@ namespace Chep.Service
 
                     if (cell == null)
                     {   // boş satırları es geç
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
 
                     var cellValue = cell.ToString();
 
                     if (string.IsNullOrEmpty(cellValue))
                     {
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
 
-                    if (!DateTime.TryParse(cellValue, out DateTime _))
+                    if (!DateTime.TryParse(cell.DateCellValue.ToString(), out DateTime _))
                     {
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi alanı DateTime'a parse edilemedi! Hiçbir işlem yapılmayacak!");
                     }
                 }
 
