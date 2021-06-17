@@ -746,6 +746,34 @@ namespace Chep.Service
                     {
                         return Warning("Aktarım Tarihi alanı DateTime'a parse edilemedi! Hiçbir işlem yapılmayacak!");
                     }
+
+                    if (i > 1000)
+                    {
+                        var tempList = new List<string>();
+                        tempList.Insert(0, "Tek seferde işlenecek maksimum veri sayısına ulaşıldı. İşlem durduruldu.");
+
+                        var isKeyContains = informationDictionary.TryGetValue(ImportMaxValueKey, out List<string> valueList);
+
+                        if (isKeyContains)
+                        {
+                            if (valueList == null)
+                            {
+                                valueList = new List<string>();
+                            }
+
+                            valueList.AddRange(tempList);
+
+                            informationDictionary[ImportMaxValueKey] = valueList;
+                        }
+                        else
+                        {
+                            informationDictionary.Add(ImportMaxValueKey, tempList);
+                        }
+
+                        logs.Add("Maximum veri girme değerine ulaşıldı. Program bitirilecek.");
+
+                        return Warning("Maximum veri girme değerine ulaşıldı. Tek seferde 1000'den fazla veri girilemez! Hiçbir işlem yapılmayacak.");
+                    }
                 }
 
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
@@ -754,34 +782,6 @@ namespace Chep.Service
                     {
                         var stokGirisDto = new ChepStokGirisDTO();
                         var detailDto = new ChepStokGirisDetayDTO();
-
-                        if (i > 500)
-                        {
-                            var tempList = new List<string>();
-                            tempList.Insert(0, "Tek seferde işlenecek maksimum veri sayısına ulaşıldı. İşlem durduruldu.");
-
-                            var isKeyContains = informationDictionary.TryGetValue(ImportMaxValueKey, out List<string> valueList);
-
-                            if (isKeyContains)
-                            {
-                                if (valueList == null)
-                                {
-                                    valueList = new List<string>();
-                                }
-
-                                valueList.AddRange(tempList);
-
-                                informationDictionary[ImportMaxValueKey] = valueList;
-                            }
-                            else
-                            {
-                                informationDictionary.Add(ImportMaxValueKey, tempList);
-                            }
-
-                            logs.Add("Maximum veri girme değerine ulaşıldı. Program bitirilecek.");
-
-                            break;
-                        }
 
                         var row = sheet.GetRow(i);
 
@@ -996,7 +996,7 @@ namespace Chep.Service
                         var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
                         if (existStokGirisEntity != null)
                         {
-                            var deneme = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.AktarimTarihi != null && x.AktarimTarihi >= stokGirisDto.AktarimTarihi);
+                            var deneme = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.AktarimTarihi != null && x.AktarimTarihi > stokGirisDto.AktarimTarihi);
                             var denemefirst = deneme.FirstOrDefault();
                             if (denemefirst != null)
                             {
@@ -1383,7 +1383,8 @@ namespace Chep.Service
                                              .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
                                              && x.BeyannameNo == detailDto.BeyannameNo && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.BeyannameKalemNo == detailDto.BeyannameKalemNo
                                              && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo
-                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo);
+                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo 
+                                             && x.TpsCikisSiraNo == detailDto.TpsCikisSiraNo);
 
                             ChepStokGiris stokGirisEntity = null;
 
@@ -1518,7 +1519,8 @@ namespace Chep.Service
                                              .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
                                             && x.BeyannameNo == detailDto.BeyannameNo && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.BeyannameKalemNo == detailDto.BeyannameKalemNo
                                              && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo
-                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo);
+                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo 
+                                             && x.TpsCikisSiraNo == detailDto.TpsCikisSiraNo);
 
                             ChepStokGiris stokGirisEntity = null;
 
@@ -1559,6 +1561,7 @@ namespace Chep.Service
                                     FaturaTutar = detailDto.FaturaTutar,
                                     Miktar = detailDto.Miktar,
                                     OlcuBirimi = detailDto.OlcuBirimi,
+
 
                                 };
 
@@ -1624,6 +1627,7 @@ namespace Chep.Service
                         return Error(ex);
                     }
                 } // END FOR
+
                 if (stokGirisInsertList != null && stokGirisInsertList.Count > 0)
                 {
 
