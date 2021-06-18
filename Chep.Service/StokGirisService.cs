@@ -727,7 +727,10 @@ namespace Chep.Service
                 for (int i = sheet.FirstRowNum + 1; i < sheet.LastRowNum; i++)
                 {
                     var row = sheet.GetRow(i);
-
+                    if (row == null)
+                    {
+                        return Warning("Gönderilen excelde boş satırlar algılandı!");
+                    }
                     var cell = row.GetCell(importColumnNames[ExcelAktarimTarihi]);
 
                     if (cell == null)
@@ -1388,7 +1391,7 @@ namespace Chep.Service
                                              .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
                                              && x.BeyannameNo == detailDto.BeyannameNo && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.BeyannameKalemNo == detailDto.BeyannameKalemNo
                                              && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo
-                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo 
+                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo
                                              && x.TpsCikisSiraNo == detailDto.TpsCikisSiraNo);
 
                             ChepStokGiris stokGirisEntity = null;
@@ -1481,7 +1484,7 @@ namespace Chep.Service
 
 
                             stokGirisEntity.ChepStokGirisDetay = new List<ChepStokGirisDetay>();
-                            //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki ifte atar. 
+                            //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki if'te atar. 
                             var stokGirisDetay = new ChepStokGirisDetay
                             {
                                 UrunKod = product?.ProductNo,
@@ -1524,7 +1527,7 @@ namespace Chep.Service
                                              .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
                                             && x.BeyannameNo == detailDto.BeyannameNo && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.BeyannameKalemNo == detailDto.BeyannameKalemNo
                                              && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo
-                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo 
+                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo
                                              && x.TpsCikisSiraNo == detailDto.TpsCikisSiraNo);
 
                             ChepStokGiris stokGirisEntity = null;
