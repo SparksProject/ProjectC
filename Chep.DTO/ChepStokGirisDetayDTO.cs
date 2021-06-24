@@ -33,6 +33,7 @@ namespace Chep.DTO
 
 
         public string StokGirisBeyannameNo { get; set; }
+        public string BirimTutar { get; set; }
         public string TpsNo { get; set; }
         public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }
 

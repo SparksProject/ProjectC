@@ -191,7 +191,38 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO Delete(int id)
+        {
+            try
+            {
+                var entity = _uow.ChepStokGiris.Set()
+                                               .Include(x => x.ChepStokGirisDetay)
+                                               .ThenInclude(x => x.ChepStokCikisDetay)
+                                               .FirstOrDefault(x => x.StokGirisId == id);
 
+                if (entity.ChepStokGirisDetay.Count > 0)
+                {
+                    foreach (var item in entity.ChepStokGirisDetay)
+                    {
+                        if (item.ChepStokCikisDetay.Count > 0)//detaylar çıkışta kullanılmış mı diye bakar eğer kullanıldıysa işlemi bitirir.
+                        {
+                            return Warning($"Referans Numarası {entity.ReferansNo} olan kaydın {item.TpsSiraNo} TPS Sıra Numaralı ve {item.UrunKod} Ürün Kodlu kalemi için Stok Çıkış sayfasının kaleminde eşleşen kayıt bulunuyor! Silme işlemi yapılmayacak!");
+                        }
+                        _uow.ChepStokGirisDetay.Delete(item);
+                    }
+                }
+
+                _uow.ChepStokGiris.Delete(entity);
+
+                _uow.Commit();
+
+                return Success(entity.StokGirisId, "Silme işlemi tamamlandı!");
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
 
         private ChepStokGiris Map(ChepStokGirisDTO obj)
         {
@@ -261,7 +292,7 @@ namespace Chep.Service
                 StokGirisId = obj.StokGirisId,
                 BeyannameKalemNo = obj.BeyannameKalemNo,
                 BeyannameNo = obj.BeyannameNo,
-                BeyannameTarihi = obj.BeyannameTarihi
+                BeyannameTarihi = obj.BeyannameTarihi,
             };
         }
 
@@ -300,7 +331,6 @@ namespace Chep.Service
                 BeyannameTarihi = obj.BeyannameTarihi,
                 BeyannameNo = obj.BeyannameNo,
                 TpsNo = obj.StokGiris.TpsNo,
-
                 ChepStokCikisDetayList = new List<ChepStokCikisDetayDTO>()
             };
 
@@ -697,24 +727,55 @@ namespace Chep.Service
                 for (int i = sheet.FirstRowNum + 1; i < sheet.LastRowNum; i++)
                 {
                     var row = sheet.GetRow(i);
-
+                    if (row == null)
+                    {
+                        return Warning("Gönderilen excelde boş satırlar algılandı!");
+                    }
                     var cell = row.GetCell(importColumnNames[ExcelAktarimTarihi]);
 
                     if (cell == null)
                     {   // boş satırları es geç
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
 
                     var cellValue = cell.ToString();
 
                     if (string.IsNullOrEmpty(cellValue))
                     {
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
 
-                    if (!DateTime.TryParse(cellValue, out DateTime _))
+                    if (!DateTime.TryParse(cell.DateCellValue.ToString(), out DateTime _))
                     {
-                        return Warning("Beklenen formatta bir excel dosyası verilmedi!");
+                        return Warning("Aktarım Tarihi alanı DateTime'a parse edilemedi! Hiçbir işlem yapılmayacak!");
+                    }
+
+                    if (i > 1000)
+                    {
+                        var tempList = new List<string>();
+                        tempList.Insert(0, "Tek seferde işlenecek maksimum veri sayısına ulaşıldı. İşlem durduruldu.");
+
+                        var isKeyContains = informationDictionary.TryGetValue(ImportMaxValueKey, out List<string> valueList);
+
+                        if (isKeyContains)
+                        {
+                            if (valueList == null)
+                            {
+                                valueList = new List<string>();
+                            }
+
+                            valueList.AddRange(tempList);
+
+                            informationDictionary[ImportMaxValueKey] = valueList;
+                        }
+                        else
+                        {
+                            informationDictionary.Add(ImportMaxValueKey, tempList);
+                        }
+
+                        logs.Add("Maximum veri girme değerine ulaşıldı. Program bitirilecek.");
+
+                        return Warning("Maximum veri girme değerine ulaşıldı. Tek seferde 1000'den fazla veri girilemez! Hiçbir işlem yapılmayacak.");
                     }
                 }
 
@@ -724,34 +785,6 @@ namespace Chep.Service
                     {
                         var stokGirisDto = new ChepStokGirisDTO();
                         var detailDto = new ChepStokGirisDetayDTO();
-
-                        if (i > 500)
-                        {
-                            var tempList = new List<string>();
-                            tempList.Insert(0, "Tek seferde işlenecek maksimum veri sayısına ulaşıldı. İşlem durduruldu.");
-
-                            var isKeyContains = informationDictionary.TryGetValue(ImportMaxValueKey, out List<string> valueList);
-
-                            if (isKeyContains)
-                            {
-                                if (valueList == null)
-                                {
-                                    valueList = new List<string>();
-                                }
-
-                                valueList.AddRange(tempList);
-
-                                informationDictionary[ImportMaxValueKey] = valueList;
-                            }
-                            else
-                            {
-                                informationDictionary.Add(ImportMaxValueKey, tempList);
-                            }
-
-                            logs.Add("Maximum veri girme değerine ulaşıldı. Program bitirilecek.");
-
-                            break;
-                        }
 
                         var row = sheet.GetRow(i);
 
@@ -775,11 +808,16 @@ namespace Chep.Service
                                 case CellType.String: break;
 
                                 case CellType.Unknown:
+                                    //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Formula:
                                 case CellType.Blank:
+                                    //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Boolean:
+                                    //return Warning("Excel'de boolean tipinde değerler bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Error:
-                                    continue;
+                                    //return Warning("Excel'de Error bulundu! Excelinizi kontrol ediniz.");
+                                    return Warning("Excel'de Formül olan alanlar bulundu! Excelinizi kontrol ediniz.");
+
                             }
 
                             var cellValue = cell.ToString();
@@ -966,7 +1004,7 @@ namespace Chep.Service
                         var existStokGirisEntity = existStokGirisEntities.FirstOrDefault();
                         if (existStokGirisEntity != null)
                         {
-                            var deneme = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.AktarimTarihi != null && x.AktarimTarihi >= stokGirisDto.AktarimTarihi);
+                            var deneme = _uow.ChepStokGiris.Search(x => x.TpsNo == stokGirisDto.TpsNo && x.AktarimTarihi != null && x.AktarimTarihi > stokGirisDto.AktarimTarihi);
                             var denemefirst = deneme.FirstOrDefault();
                             if (denemefirst != null)
                             {
@@ -1353,7 +1391,8 @@ namespace Chep.Service
                                              .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
                                              && x.BeyannameNo == detailDto.BeyannameNo && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.BeyannameKalemNo == detailDto.BeyannameKalemNo
                                              && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo
-                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo);
+                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo
+                                             && x.TpsCikisSiraNo == detailDto.TpsCikisSiraNo);
 
                             ChepStokGiris stokGirisEntity = null;
 
@@ -1445,7 +1484,7 @@ namespace Chep.Service
 
 
                             stokGirisEntity.ChepStokGirisDetay = new List<ChepStokGirisDetay>();
-                            //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki ifte atar. 
+                            //birden fazla aynı beyanname no varsa burda ilk detay insertini atar. diğer detay insertlerini 1011. satırdaki if'te atar. 
                             var stokGirisDetay = new ChepStokGirisDetay
                             {
                                 UrunKod = product?.ProductNo,
@@ -1488,7 +1527,8 @@ namespace Chep.Service
                                              .FirstOrDefault(x => x.StokGirisId == existStokGirisEntity.StokGirisId
                                             && x.BeyannameNo == detailDto.BeyannameNo && x.BeyannameTarihi == detailDto.BeyannameTarihi && x.BeyannameKalemNo == detailDto.BeyannameKalemNo
                                              && x.FaturaTutar == detailDto.FaturaTutar && x.FaturaDovizKod == detailDto.FaturaDovizKod && x.FaturaNo == detailDto.FaturaNo
-                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo);
+                                             && x.OlcuBirimi == detailDto.OlcuBirimi && x.UrunKod == product.ProductNo && x.TpsSiraNo == detailDto.TpsSiraNo
+                                             && x.TpsCikisSiraNo == detailDto.TpsCikisSiraNo);
 
                             ChepStokGiris stokGirisEntity = null;
 
@@ -1529,6 +1569,7 @@ namespace Chep.Service
                                     FaturaTutar = detailDto.FaturaTutar,
                                     Miktar = detailDto.Miktar,
                                     OlcuBirimi = detailDto.OlcuBirimi,
+
 
                                 };
 
@@ -1594,6 +1635,7 @@ namespace Chep.Service
                         return Error(ex);
                     }
                 } // END FOR
+
                 if (stokGirisInsertList != null && stokGirisInsertList.Count > 0)
                 {
 

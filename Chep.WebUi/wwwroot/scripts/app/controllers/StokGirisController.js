@@ -132,7 +132,7 @@
                             dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 150,
                         },
                         {
-                            dataField: "beyannameTarihi", caption: "Beyanname Tarihi", width: 130, dataType: "date", formatType: "shortDate" 
+                            dataField: "beyannameTarihi", caption: "Beyanname Tarihi", width: 130, dataType: "date", formatType: "shortDate"
                         },
                         {
                             dataField: "beyannameKalemNo", caption: "Beyanname Kalem No", dataType: "number", width: 150,
@@ -268,7 +268,6 @@
                                     }
                                 });
                             }
-
                             if (e.rowIndex >= 0) {
                                 // Tabloda boş satıra sağ tıklandığında sil çıkmaması için düzeltme
                                 e.items.push({
@@ -373,6 +372,12 @@
         }
     }
 
+    $('.info-popover').popover({
+        html: true,
+        placement: "top",
+        trigger: "hover"
+    });
+
     // CRUD
     $scope.Grid = function () {
         $scope.filter = {};
@@ -396,6 +401,7 @@
                     { dataField: "ithalatciFirmaName", caption: "İthalatçı Firma", width: 200 },
                     { dataField: "ihracatciFirmaName", caption: "İhracatçı Firma", width: 200 },
                     { dataField: "kapAdet", caption: "Kap Adet", },
+                    { dataField: "aktarimTarihi", caption: "Aktarım Tarihi", dataType: "date", formatType: "shortDate" },
                 ],
                 export: {
                     enabled: true,
@@ -460,26 +466,39 @@
                                     $modalImport.modal('show');
                                 }
                             });
+
+                            if (e.rowIndex >= 0) {
+                                e.items.push({
+                                    text: "Sil",
+                                    icon: "trash",
+                                    onItemClick: function (eDel) {
+                                        swal({
+                                            icon: "warning",
+                                            title: "Dikkat!",
+                                            text: "Silmek istediğinize emin mizini?",
+                                            showCancelButton: true,
+                                        }, function (result) {
+                                            if (result) {
+                                                // Silme işlemine devam edilecek
+                                                var data = {
+                                                    id: e.row.key
+                                                };
+                                                SparksXService.DeleteStokGiris(data.id).success(function (data) {
+                                                    ListData();
+                                                }).error(function (er) {
+                                                    swal({
+                                                        icon: "error",
+                                                        title: "Hata!",
+                                                        text: er,
+                                                    });
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
 
-                        //if (e.rowIndex >= 0) {
-                        //    e.items.push({
-                        //        text: "Sil",
-                        //        icon: "trash",
-                        //        onItemClick: function (eDel) {
-                        //            swal({
-                        //                icon: "warning",
-                        //                title: "Dikkat!",
-                        //                text: "Silmek istediğinize emin mizini?",
-                        //                showCancelButton: true,
-                        //            }, function (result) {
-                        //                if (result) {
-                        //                   //Sil işlemi
-                        //                }
-                        //            });
-                        //        }
-                        //    });
-                        //}
                     }
                 },
                 onRowDblClick: function (e) {
@@ -712,7 +731,7 @@
             swal({
                 icon: "error",
                 title: "Başarısız!",
-                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. " + error ,
+                text: "Excel'den veri yükleme işlemi sırasında bir sorun oluştu. " + error,
             });
         }).then(function (response) {
             $timeout(function () {

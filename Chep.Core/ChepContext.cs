@@ -62,7 +62,8 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
+               // optionsBuilder.UseSqlServer("Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Trusted_Connection=False;User Id=admin;Password=chep2021");
+               optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
 
@@ -1026,7 +1027,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.SureSonuTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.Tpsno)
+                entity.Property(e => e.TPSNo)
                     .IsRequired()
                     .HasColumnName("TPSNo")
                     .HasMaxLength(30);

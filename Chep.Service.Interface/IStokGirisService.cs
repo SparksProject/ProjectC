@@ -10,7 +10,7 @@ namespace Chep.Service.Interface
         ResponseDTO Add(ChepStokGirisDTO obj);
         ResponseDTO Edit(ChepStokGirisDTO obj);
         ResponseDTO Get(int id);
-
+        ResponseDTO Delete(int id);
         ResponseDTO ListDetails();
         ResponseDTO Import(IFormFile files, int userId);
     }
