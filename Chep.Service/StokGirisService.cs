@@ -809,12 +809,12 @@ namespace Chep.Service
                                 case CellType.String: break;
 
                                 case CellType.Unknown:
-                                    //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
+                                //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Formula:
                                 case CellType.Blank:
-                                    //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
+                                //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Boolean:
-                                    //return Warning("Excel'de boolean tipinde değerler bulundu! Excelinizi kontrol ediniz.");
+                                //return Warning("Excel'de boolean tipinde değerler bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Error:
                                     //return Warning("Excel'de Error bulundu! Excelinizi kontrol ediniz.");
                                     return Warning("Excel'de Formül olan alanlar bulundu! Excelinizi kontrol ediniz.");
@@ -1629,12 +1629,12 @@ namespace Chep.Service
                             }
                             continue;
                         }
-                        Thread.Sleep(100);
                     }
                     catch (Exception ex)
                     {
                         return Error(ex);
                     }
+                    Thread.Sleep(100);
                 } // END FOR
 
                 if (stokGirisInsertList != null && stokGirisInsertList.Count > 0)
