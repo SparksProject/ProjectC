@@ -1026,7 +1026,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.SureSonuTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.TPSNo)
+                entity.Property(e => e.Tpsno)
                     .IsRequired()
                     .HasColumnName("TPSNo")
                     .HasMaxLength(30);
