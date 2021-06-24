@@ -16,6 +16,7 @@ using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
 using System.Collections;
 using System.Globalization;
+using System.Threading;
 
 namespace Chep.Service
 {
@@ -808,12 +809,12 @@ namespace Chep.Service
                                 case CellType.String: break;
 
                                 case CellType.Unknown:
-                                    //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
+                                //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Formula:
                                 case CellType.Blank:
-                                    //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
+                                //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Boolean:
-                                    //return Warning("Excel'de boolean tipinde değerler bulundu! Excelinizi kontrol ediniz.");
+                                //return Warning("Excel'de boolean tipinde değerler bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Error:
                                     //return Warning("Excel'de Error bulundu! Excelinizi kontrol ediniz.");
                                     return Warning("Excel'de Formül olan alanlar bulundu! Excelinizi kontrol ediniz.");
@@ -1435,7 +1436,7 @@ namespace Chep.Service
 
                                 };
                                 _uow.ChepStokGirisDetay.Add(detayinsert);
-                                _uow.Commit();
+                                //_uow.Commit(); 24.06.2021
                             }
                             else
                             {
@@ -1453,7 +1454,7 @@ namespace Chep.Service
                                     oldEntityGirisDetay.Miktar = detailDto.Miktar;
                                 }
                                 var addition83indetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
-                                _uow.Commit();
+                                //_uow.Commit();24.06.2021
 
                                 continue;
                             }
@@ -1574,7 +1575,7 @@ namespace Chep.Service
                                 };
 
                                 _uow.ChepStokGirisDetay.Add(detayinsert);
-                                _uow.Commit();
+                                //_uow.Commit();24.06.2021
                             }
                             else
                             {
@@ -1595,7 +1596,7 @@ namespace Chep.Service
                                         oldEntityGirisDetay.Miktar = detailDto.Miktar;
                                     }
                                     var stokGirisDetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
-                                    _uow.Commit();
+                                    //_uow.Commit();24.06.2021
                                 }
                                 stokGirisUpdateList.Add(existStokGirisEntity);
                             }
@@ -1628,19 +1629,19 @@ namespace Chep.Service
                             }
                             continue;
                         }
-
                     }
                     catch (Exception ex)
                     {
                         return Error(ex);
                     }
+                    Thread.Sleep(100);
                 } // END FOR
 
                 if (stokGirisInsertList != null && stokGirisInsertList.Count > 0)
                 {
 
                     var resultInsert = _uow.ChepStokGiris.AddRange(stokGirisInsertList);
-                    _uow.Commit();
+                    //_uow.Commit();24.06.2021
                     if (resultInsert.Count > 0)
                     {
                         summaryList.Insert(0, $"{resultInsert.Count} adet yeni kayıt atıldı.");
