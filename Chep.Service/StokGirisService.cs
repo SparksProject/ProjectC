@@ -1307,7 +1307,7 @@ namespace Chep.Service
                                     CustomerId = ihracatciFirma.CustomerId
                                 });
 
-                                _uow.Commit();
+                                //_uow.Commit();
                                 if (product == null || product.ProductId == null)
                                 {
                                     continue;
