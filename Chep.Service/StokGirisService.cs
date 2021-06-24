@@ -1634,7 +1634,6 @@ namespace Chep.Service
                     {
                         return Error(ex);
                     }
-                    Thread.Sleep(100);
                 } // END FOR
 
                 if (stokGirisInsertList != null && stokGirisInsertList.Count > 0)
@@ -1665,7 +1664,7 @@ namespace Chep.Service
                     //    }
                     //}
                     var resultUpdate = _uow.ChepStokGiris.UpdateRange(stokGirisUpdateList);
-                    _uow.Commit();
+                    //_uow.Commit();24.06.2021
                     if (resultUpdate.Count > 0)
                     {
                         summaryList.Insert(0, $"{resultUpdate.Count} adet güncelleme yapıldı.");
