@@ -1307,7 +1307,7 @@ namespace Chep.Service
                                     CustomerId = ihracatciFirma.CustomerId
                                 });
 
-                                //_uow.Commit();
+                                _uow.Commit();
                                 if (product == null || product.ProductId == null)
                                 {
                                     continue;
@@ -1436,7 +1436,7 @@ namespace Chep.Service
 
                                 };
                                 _uow.ChepStokGirisDetay.Add(detayinsert);
-                                //_uow.Commit(); 24.06.2021
+                                _uow.Commit();
                             }
                             else
                             {
@@ -1454,7 +1454,7 @@ namespace Chep.Service
                                     oldEntityGirisDetay.Miktar = detailDto.Miktar;
                                 }
                                 var addition83indetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
-                                //_uow.Commit();24.06.2021
+                                _uow.Commit();
 
                                 continue;
                             }
@@ -1575,7 +1575,7 @@ namespace Chep.Service
                                 };
 
                                 _uow.ChepStokGirisDetay.Add(detayinsert);
-                                //_uow.Commit();24.06.2021
+                                _uow.Commit();
                             }
                             else
                             {
@@ -1596,7 +1596,7 @@ namespace Chep.Service
                                         oldEntityGirisDetay.Miktar = detailDto.Miktar;
                                     }
                                     var stokGirisDetailUpdate = _uow.ChepStokGirisDetay.Update(oldEntityGirisDetay);
-                                    //_uow.Commit();24.06.2021
+                                    _uow.Commit();
                                 }
                                 stokGirisUpdateList.Add(existStokGirisEntity);
                             }
@@ -1640,7 +1640,7 @@ namespace Chep.Service
                 {
 
                     var resultInsert = _uow.ChepStokGiris.AddRange(stokGirisInsertList);
-                    //_uow.Commit();24.06.2021
+                    _uow.Commit();
                     if (resultInsert.Count > 0)
                     {
                         summaryList.Insert(0, $"{resultInsert.Count} adet yeni kayıt atıldı.");
@@ -1664,7 +1664,7 @@ namespace Chep.Service
                     //    }
                     //}
                     var resultUpdate = _uow.ChepStokGiris.UpdateRange(stokGirisUpdateList);
-                    //_uow.Commit();24.06.2021
+                    _uow.Commit();
                     if (resultUpdate.Count > 0)
                     {
                         summaryList.Insert(0, $"{resultUpdate.Count} adet güncelleme yapıldı.");
