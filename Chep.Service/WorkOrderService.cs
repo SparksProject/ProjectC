@@ -1,12 +1,19 @@
 ﻿using System;
 using Chep.Data.Repository;
 using Chep.Service.Interface;
+using Newtonsoft.Json;
 
 namespace Chep.Service
 {
     public class WorkOrderService : IWorkOrderService
     {
         private readonly IUnitOfWork _uow;
+        //private readonly IHttpClientFactory _clientFactory;
+        //public SampleEmployeeController(IHttpClientFactory clientFactory)
+        //{
+        //    _clientFactory = clientFactory;
+        //}
+
 
         public WorkOrderService(IUnitOfWork uow)
         {
@@ -32,6 +39,7 @@ namespace Chep.Service
         //    var master = _uow.VwWorkOrderMaster.Search(x => x.StokCikisId == id);
         //    var invoice = _uow.VwWorkOrderInvoice.Search(x => x.StokCikisId == id);
         //    var invoiceDetails = _uow.VwWorkOrderInvoiceDetails.Search(x => x.StokCikisId == id);
+
         //    WorkOrderMasterModel model = new WorkOrderMasterModel
         //    {
         //        WorkOrderNo = "1",
@@ -53,6 +61,14 @@ namespace Chep.Service
         //        InvoiceDate = DateTime.Now.Date,
         //        PkgType = "ABC"
         //    };
+
+        //    //wcfService.SetWorkOrderMastersModel;
+
+        //    var client = _clientFactory.CreateClient();
+        //    var content = JsonConvert.SerializeObject(request).AsStringContent();
+
+        //    client.PostAsync($"{RouteData.Values["controller"]}/{nameof(BulkSave)}", content);
+
         //    return model;
         //}
     }
