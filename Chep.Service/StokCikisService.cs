@@ -42,7 +42,13 @@ namespace Chep.Service
                 var entity = Map(obj);
 
                 var result = _uow.ChepStokCikis.Add(entity);
-
+                foreach (var item in result.ChepStokCikisDetay)
+                {
+                    if (item.InvoiceDetailId == null)
+                    {
+                        item.InvoiceDetailId = Guid.NewGuid();
+                    }
+                }
                 _uow.Commit();
 
                 return Success(result.StokCikisId);
@@ -473,10 +479,11 @@ namespace Chep.Service
                 StokGirisDetayId = obj.StokGirisDetayId,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 InvoiceAmount = obj.InvoiceAmount,
-                InvoiceDetailId = obj.InvoiceDetailId,
                 BirimTutar = obj.BirimTutar,
                 BrutKg = obj.BrutKg,
                 NetKg = obj.NetKg,
+                InvoiceDetailId = obj.InvoiceDetailId
+
             };
         }
 
