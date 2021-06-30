@@ -37,6 +37,7 @@ namespace Chep.Service
                 }
 
                 obj.ReferansNo = Convert.ToInt32(_definitionService.GetNextReferenceNumber("Cikis").Result);
+                obj.InvoiceId = Guid.NewGuid();
 
                 var entity = Map(obj);
 
@@ -89,6 +90,11 @@ namespace Chep.Service
                         }
                         else
                         {
+                            if (!detailEntity.InvoiceDetailId.HasValue)
+                            {
+                                detailEntity.InvoiceDetailId = Guid.NewGuid();
+                            }
+
                             _uow.ChepStokCikisDetay.Add(detailEntity);
                         }
                     }
@@ -241,7 +247,8 @@ namespace Chep.Service
                         Miktar = item.DusulenMiktar,
                         StokGirisDetayId = item.StokGirisDetayId,
                         InvoiceAmount = item.FaturaTutar,
-                        BirimTutar = item.BirimTutar
+                        BirimTutar = item.BirimTutar,
+                        InvoiceDetailId = Guid.NewGuid()
                     });
                 }
 
