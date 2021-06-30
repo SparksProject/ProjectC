@@ -137,6 +137,8 @@ namespace Chep.Service
                     ProductId = entity.ProductId,
                     ProductNo = entity.ProductNo,
                     BirimTutar = entity.UnitPrice,
+                    NetWeight = entity.NetWeight,
+                    GrossWeight = entity.GrossWeight
                 };
 
                 return Success(result);
@@ -296,6 +298,8 @@ namespace Chep.Service
                     }
                     obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
                     obj.BirimTutar = item.BirimFiyat;
+                    obj.NetKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.NetKg);
+                    obj.BrutKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.BrutKg);
                     target.Add(obj);
                 }
 
@@ -381,6 +385,8 @@ namespace Chep.Service
 
                     obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
                     obj.BirimTutar = item.BirimFiyat;
+                    obj.NetKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.NetKg);
+                    obj.BrutKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.BrutKg);
 
                     target.Add(obj);
                 }

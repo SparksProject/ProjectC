@@ -12,8 +12,8 @@ namespace Chep.DTO
         public string ProductNameOrg { get; set; }
         public string HsCode { get; set; }
         public string Uom { get; set; }
-        public double? GrossWeight { get; set; }
-        public double? NetWeight { get; set; }
+        public decimal? GrossWeight { get; set; }
+        public decimal? NetWeight { get; set; }
         public string SapCode { get; set; }
         public string CountryOfOrigin { get; set; }
         public byte RecordStatusId { get; set; }

@@ -153,7 +153,10 @@
                                                                             id: rowValue
                                                                         };
                                                                         SparksXService.GetByUrunKod(data.id).success(function (data) {
+                                                                            console.log(data);
                                                                             cellInfo.component.cellValue(cell.rowIndex, 4, data.birimTutar);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 6, data.netWeight);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 7, data.grossWeight);
                                                                         }).error(function (er) {
                                                                             swal({
                                                                                 icon: "error",
@@ -284,6 +287,8 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 amountValue = args.value;
                                 e.setValue(args.value);
+                                console.log(args.value);
+                                console.log(amountValue);
                                 e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
 
                             }
@@ -292,6 +297,8 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 vatAmountValue = args.value;
                                 e.setValue(args.value);
+                                console.log(args.value);
+                                console.log(vatAmountValue);
                                 e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
                             }
                         }

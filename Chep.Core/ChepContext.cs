@@ -62,7 +62,6 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                // optionsBuilder.UseSqlServer("Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Trusted_Connection=False;User Id=admin;Password=chep2021");
                 optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
@@ -545,11 +544,15 @@ namespace Chep.Core
 
                 entity.Property(e => e.DeletedDate).HasColumnType("datetime");
 
+                entity.Property(e => e.GrossWeight).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.HsCode)
                     .IsRequired()
                     .HasMaxLength(16);
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.NetWeight).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ProductNameEng).HasMaxLength(100);
 
@@ -1381,7 +1384,7 @@ namespace Chep.Core
 
                 entity.ToView("vw_WsWorkOrderMaster");
 
-                entity.Property(e => e.DeclarationTypei)
+                entity.Property(e => e.DeclarationType)
                     .IsRequired()
                     .HasMaxLength(2)
                     .IsUnicode(false);
