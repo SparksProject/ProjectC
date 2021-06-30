@@ -4,7 +4,6 @@ using System.Net.Http;
 using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
-using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 
 namespace Chep.Service
@@ -22,25 +21,9 @@ namespace Chep.Service
 
         }
 
-        //public int SetWorkOrderMastersModel(int id)
-        //{
-        //    try
-        //    {
-        //        _uow.UserTypes.GetAll();
-
-        //        test_method();
-
-        //        return 0;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return default;
-        //    }
-        //}
-
-
         string userName = "sparks";
         string passowrd = "1234";
+        string webServiceUrl = "https://localhost:44398/WebService/Post";
 
 
         public int SetWorkOrderMastersModel(int id)
@@ -52,6 +35,7 @@ namespace Chep.Service
 
 
             WorkOrderMasterModelDTO dto = new WorkOrderMasterModelDTO();
+
             dto.VwWsWorkOrderMaster = new VwWsWorkOrderMasterDTO()
             {
                 DeclarationType = master.DeclarationType,
@@ -138,43 +122,14 @@ namespace Chep.Service
                 });
             }
 
-
-
-
-
-            ////wcfService.SetWorkOrderMastersModel;
-
             var client = _clientFactory.CreateClient();
             var content = JsonConvert.SerializeObject(dto);
-
-            var t = client.PostAsync(@"https://localhost:44398/WebService/Post", new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
-
-            t.Wait();
-
-            var result = t.Result;
-
-
-            //client.PostAsync($"{RouteData.Values["controller"]}/{nameof(BulkSave)}", content);
-
-            //return model;
+            var ws = client.PostAsync(webServiceUrl, new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
+            ws.Wait();
+            var result = ws.Result;
 
             return 0;
         }
-
-
-
-        //void test_method()
-        //{
-
-        //    RouteData rd = new RouteData();
-        //    var asd = rd.Values["WebServiceController"];
-
-        //    var client = _clientFactory.CreateClient();
-        //    var content = client.GetAsync("https://localhost:44398/WebService/Get").Result;
-
-        //    //client.PostAsync($"{RouteData.Values["controller"]}/{nameof(BulkSave)}", content);
-
-        //}
 
     }
 }
