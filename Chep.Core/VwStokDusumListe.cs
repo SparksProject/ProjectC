@@ -27,5 +27,6 @@ namespace Chep.Core
         public decimal? BirimFiyat { get; set; }
         public decimal? NetKg { get; set; }
         public decimal? BrutKg { get; set; }
+        public Guid? IthalatciFirma { get; set; }
     }
 }

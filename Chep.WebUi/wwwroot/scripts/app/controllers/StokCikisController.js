@@ -803,7 +803,7 @@
             });
     };
 
-    $scope.GetStokDusumListe = function (itemNo, cikisAdet) {
+    $scope.GetStokDusumListe = function (itemNo, cikisAdet, ithalatciFirma) {
         var $form = $('#form-drop'),
             form = $form.controller('form'),
             input = $form.find('input[ng-required], select[ng-required], textarea[ng-required], div[ng-invalid-required]');;
@@ -860,7 +860,7 @@
                 });
             }
             else {
-                SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
+                SparksXService.GetStokDusumListe(itemNo, cikisAdet, ithalatciFirma).success(function (data) {
                     if (data.result != null) {
                         $gridDrop.option("dataSource", data.result);
 

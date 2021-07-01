@@ -236,7 +236,7 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <ui-select ng-model="object.nakliyeciFirma" name="nakliyeciFirma" theme="bootstrap">
+                                                <ui-select ng-model="object.nakliyeciFirma" name="nakliyeciFirma" theme="bootstrap" >
                                                     <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
                                                     <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
                                                         <div ng-bind-html="item.name | highlight: $select.search"></div>
@@ -259,7 +259,7 @@
                                             <button id="btnArchive" type="button" class="btn btn-default btn-block hidden">Arşiv</button>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button id="btnJobOrder" type="button" ng-click="SetWorkOrderService(object.stokCikisId)"class="btn btn-default btn-block hidden">İş Emri Gönder</button>
+                                            <button id="btnJobOrder" type="button" ng-click="SetWorkOrderService(object.stokCikisId)" class="btn btn-default btn-block hidden">İş Emri Gönder</button>
                                         </div>
                                         <div class="col-sm-4">
                                             <button id="btnDrop" type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modalDrop">Düşüm</button>
@@ -295,7 +295,7 @@
                 <!-- BEGIN FORM-->
                 <div class="form-horizontal">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label col-md-5">Ürün Kodu</label>
                                 <div class="col-md-7">
@@ -306,10 +306,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label col-md-5">Çıkış Adet</label>
-                                <div class="col-md-7">
+                                <label class="control-label col-md-3">Çıkış Adet</label>
+                                <div class="col-md-8">
                                     <div class="input-icon right">
                                         <i class="fa"></i>
                                         <input type="text" ng-required="true" ng-model="object.Drop.dropCount" name="DropCount" class="form-control" placeholder="Çıkış Adet" maxlength="6">
@@ -318,7 +318,25 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.itemNo, object.Drop.dropCount)">Giriş Kayıtlarını Bul</button>
+                            <div class="form-group">
+                                <div class="form-group" ng-class="{'has-error': form.customerId.$invalid && form.customerId.$dirty, 'has-success': form.customerId.$valid }">
+                                    <label class="control-label col-md-4">İthalatcı Firma<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa"></i>
+                                            <ui-select ng-model="object.ithalatciFirma" name="ithalatciFirma" theme="bootstrap" ng-required="true">
+                                                <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.itemNo, object.Drop.dropCount)">Giriş Bul</button>
                         </div>
                     </div>
                 </div>

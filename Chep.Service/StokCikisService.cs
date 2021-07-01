@@ -275,7 +275,7 @@ namespace Chep.Service
             }
         }
 
-        public ResponseDTO GetStokDusumListe(string itemNo, int toplamCikisAdet)
+        public ResponseDTO GetStokDusumListe(string itemNo, int toplamCikisAdet, Guid customerId)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace Chep.Service
 
                 itemNo = itemNo.ToLower();
 
-                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo) && x.IthalatciFirma == customerId);
 
                 var target = new List<ViewStokDusumListeDto>();
 

@@ -733,17 +733,28 @@ namespace Chep.Service
                         return Warning("Gönderilen excelde boş satırlar algılandı!");
                     }
                     var cell = row.GetCell(importColumnNames[ExcelAktarimTarihi]);
+                    var cellIthalatci = row.GetCell(importColumnNames[ExcelIthalatciFirma]);
 
                     if (cell == null)
                     {   // boş satırları es geç
                         return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
                     }
+                    if (cellIthalatci == null)
+                    {   // boş satırları es geç
+                        return Warning("İthalatcı Firma Alanı Boş Geldi! Bu alan ürün kaydı için gereklidir!");
+                    }
 
                     var cellValue = cell.ToString();
+                    var cellValueFirma = cellIthalatci.ToString();
 
                     if (string.IsNullOrEmpty(cellValue))
                     {
                         return Warning("Aktarım Tarihi Alanı Boş Geldi! Hiçbir işlem yapılmayacak!");
+                    }
+
+                    if (string.IsNullOrEmpty(cellValueFirma))
+                    {
+                        return Warning("İthalatcı Firma Alanı Boş Geldi! Bu alan ürün kaydı için gereklidir!");
                     }
 
                     if (!DateTime.TryParse(cell.DateCellValue.ToString(), out DateTime _))
@@ -779,6 +790,7 @@ namespace Chep.Service
                         return Warning("Maximum veri girme değerine ulaşıldı. Tek seferde 1000'den fazla veri girilemez! Hiçbir işlem yapılmayacak.");
                     }
                 }
+
                 var warningList = new List<string>();
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                 {   // exceli tek tek okumaya başla
@@ -1087,8 +1099,8 @@ namespace Chep.Service
                                 var tempList = new List<string>();
                                 if (ithalatcıFirmaEntities.Count == 0)
                                 {
-                                    tempList.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}");
-                                    logs.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}.");
+                                    //tempList.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}");
+                                    //logs.Add($"IthalatciFirma Bulunamadı. IthalatciFirma:{stokGirisDto.IthalatciFirmaName}.");
 
                                     var isKeyContains = informationDictionary.TryGetValue(ImportNoContractKey, out List<string> valueList);
 
@@ -1098,19 +1110,21 @@ namespace Chep.Service
                                         {
                                             valueList = new List<string>();
                                         }
-
                                         valueList.AddRange(tempList);
-
                                         informationDictionary[ImportNoContractKey] = valueList;
                                     }
                                     else
                                     {
                                         informationDictionary.Add(ImportNoContractKey, tempList);
                                     }
+                                    warningList.Add($"İthalatcı Firma kaydı bulanamadığından işlem durduruldu.\nBulunamayan İthalatcı Firma: {stokGirisDto.IthalatciFirmaName} {i}. satıra kadar");
+
+                                    i = sheet.LastRowNum;
+                                    continue;
+
                                 }
                             }
                             ithalatcıFirma = ithalatcıFirmaEntities.FirstOrDefault();
-
                         }
 
                         //var ihracatciFirma = new Customer();
@@ -1263,7 +1277,7 @@ namespace Chep.Service
                         if (detailDto.UrunKod != null)
                         {
                             //GoodsName excelden gelir veritabanındaki ile karşılaştırır eşit olanları getirir.
-                            productEntities = _uow.Products.Search(x => x.ProductNo.Trim().ToUpper() == detailDto.UrunKod.Trim().ToUpper());
+                            productEntities = _uow.Products.Search(x => x.ProductNo.Trim().ToUpper() == detailDto.UrunKod.Trim().ToUpper() && x.CustomerId == ithalatcıFirma.CustomerId);
                             //eğer product tablosunda aynı adla 1'den fazla veri var ise başa dön kullanıcıya uyarı ver.
                             if (productEntities.Count > 1)
                             {
@@ -1308,7 +1322,11 @@ namespace Chep.Service
                                     CreatedDate = DateTime.Now,
                                     RecordStatusId = 1,
                                     ProductNameTr = detailDto.EsyaCinsi,
-                                    CustomerId = ihracatciFirma.CustomerId
+                                    CustomerId = ithalatcıFirma.CustomerId,
+                                    CountryOfOrigin = menseUlke,
+                                    Uom = detailDto.OlcuBirimi,
+                                    UnitPrice = detailDto.FaturaTutar,
+                                    CurrencyType = detailDto.FaturaDovizKod
                                 });
 
                                 _uow.Commit();
@@ -1681,7 +1699,7 @@ namespace Chep.Service
 
                 if (warningList.Count > 0)
                 {
-                    if (summaryList.Count>0)
+                    if (summaryList.Count > 0)
                     {
                         foreach (var item in summaryList)
                         {
