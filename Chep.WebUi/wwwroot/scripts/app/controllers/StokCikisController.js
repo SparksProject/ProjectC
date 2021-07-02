@@ -153,7 +153,6 @@
                                                                             id: rowValue
                                                                         };
                                                                         SparksXService.GetByUrunKod(data.id).success(function (data) {
-                                                                            console.log(data);
                                                                             cellInfo.component.cellValue(cell.rowIndex, 4, data.birimTutar);
                                                                             cellInfo.component.cellValue(cell.rowIndex, 6, data.netWeight);
                                                                             cellInfo.component.cellValue(cell.rowIndex, 7, data.grossWeight);
@@ -287,8 +286,6 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 amountValue = args.value;
                                 e.setValue(args.value);
-                                console.log(args.value);
-                                console.log(amountValue);
                                 e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
 
                             }
@@ -297,8 +294,6 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 vatAmountValue = args.value;
                                 e.setValue(args.value);
-                                console.log(args.value);
-                                console.log(vatAmountValue);
                                 e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
                             }
                         }
@@ -827,13 +822,11 @@
             var liste = [];
             for (var i = 0; i < stokCikisDetail._items.length; i++) {
                 var id = parseInt(stokCikisDetail._items[i].stokCikisDetayId);
-                console.log(id);
                 if (isNaN(id) || stokCikisDetail._items[i].stokCikisDetayId.length > 10 || stokCikisDetail._items[i].stokCikisDetayId == 0) { // Guid ise veya 0 ise
                     stokCikisDetail._items[i].stokCikisDetayId = 0;
                     liste.push(stokCikisDetail._items[i]);
                 }
             }
-            console.log(liste);
             if (liste.length > 0) {
                 var obj = {
                     ChepStokCikisDetayList: liste,
@@ -842,7 +835,6 @@
                 }
                 SparksXService.GetStokDusumListeAdd(obj).success(function (data) {
                     if (data.result != null) {
-                        console.log(data);
                         $gridDrop.option("dataSource", data.result);
 
                         $btnDropSubmit.prop('disabled', false);

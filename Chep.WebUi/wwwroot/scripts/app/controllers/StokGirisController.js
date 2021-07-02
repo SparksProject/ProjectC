@@ -634,7 +634,6 @@
             .validate()
             .then(function (validGrid) {
                 if (validGrid) {
-                    console.log(obj);
                     if (obj.chepStokGirisDetayList.length > 0) {
                         if (obj.stokGirisId == 0) {
                             // Insert
