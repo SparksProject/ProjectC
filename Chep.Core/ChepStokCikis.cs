@@ -22,7 +22,6 @@ namespace Chep.Core
         public Guid? IhracatciFirma { get; set; }
         public string TpsNo { get; set; }
         public DateTime? TpsTarih { get; set; }
-        public Guid? WorkOrderMasterId { get; set; }
         public Guid? InvoiceId { get; set; }
         public string InvoiceNo { get; set; }
         public DateTime? InvoiceDate { get; set; }

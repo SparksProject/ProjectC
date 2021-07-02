@@ -515,13 +515,13 @@
                                 }
                             });
 
-                            e.items.push({
-                                text: "Excel'den Al",
-                                icon: "exportxlsx",
-                                onItemClick: function () {
-                                    $modalImport.modal('show');
-                                }
-                            });
+                            //e.items.push({
+                            //    text: "Excel'den Al",
+                            //    icon: "exportxlsx",
+                            //    onItemClick: function () {
+                            //        $modalImport.modal('show');
+                            //    }
+                            //});
 
                             if (e.rowIndex >= 0) {
                                 e.items.push({
