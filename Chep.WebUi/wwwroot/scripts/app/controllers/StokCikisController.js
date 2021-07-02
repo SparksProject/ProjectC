@@ -153,7 +153,10 @@
                                                                             id: rowValue
                                                                         };
                                                                         SparksXService.GetByUrunKod(data.id).success(function (data) {
+                                                                            console.log(data);
                                                                             cellInfo.component.cellValue(cell.rowIndex, 4, data.birimTutar);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 6, data.netWeight);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 7, data.grossWeight);
                                                                         }).error(function (er) {
                                                                             swal({
                                                                                 icon: "error",
@@ -284,6 +287,8 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 amountValue = args.value;
                                 e.setValue(args.value);
+                                console.log(args.value);
+                                console.log(amountValue);
                                 e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
 
                             }
@@ -292,6 +297,8 @@
                             e.editorOptions.onValueChanged = function (args) {
                                 vatAmountValue = args.value;
                                 e.setValue(args.value);
+                                console.log(args.value);
+                                console.log(vatAmountValue);
                                 e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
                             }
                         }
@@ -796,7 +803,7 @@
             });
     };
 
-    $scope.GetStokDusumListe = function (itemNo, cikisAdet) {
+    $scope.GetStokDusumListe = function (itemNo, cikisAdet, ithalatciFirma) {
         var $form = $('#form-drop'),
             form = $form.controller('form'),
             input = $form.find('input[ng-required], select[ng-required], textarea[ng-required], div[ng-invalid-required]');;
@@ -853,7 +860,7 @@
                 });
             }
             else {
-                SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
+                SparksXService.GetStokDusumListe(itemNo, cikisAdet, ithalatciFirma).success(function (data) {
                     if (data.result != null) {
                         $gridDrop.option("dataSource", data.result);
 

@@ -35,6 +35,7 @@ namespace Chep.DTO
         }
         public int? TpsCikisSiraNo { get; set; }
         public decimal? FaturaTutar { get; set; }
-      
+        public decimal? NetKg { get; set; }
+        public decimal? BrutKg { get; set; }
     }
 }

@@ -337,8 +337,9 @@
         return GetBaseRequestPostJson("StokCikis", "Edit", obj);
     };
 
-    this.GetStokDusumListe = function (itemNo, cikisAdet) {
-        return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
+    this.GetStokDusumListe = function (itemNo, cikisAdet, customerId) {
+        console.log("service", customerId);
+        return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet + "&customerId=" + customerId);
     };
 
     this.GetStokDusumListeAdd = function (obj) {

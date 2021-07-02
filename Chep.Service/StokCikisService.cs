@@ -42,7 +42,13 @@ namespace Chep.Service
                 var entity = Map(obj);
 
                 var result = _uow.ChepStokCikis.Add(entity);
-
+                foreach (var item in result.ChepStokCikisDetay)
+                {
+                    if (item.InvoiceDetailId == null)
+                    {
+                        item.InvoiceDetailId = Guid.NewGuid();
+                    }
+                }
                 _uow.Commit();
 
                 return Success(result.StokCikisId);
@@ -143,6 +149,8 @@ namespace Chep.Service
                     ProductId = entity.ProductId,
                     ProductNo = entity.ProductNo,
                     BirimTutar = entity.UnitPrice,
+                    NetWeight = entity.NetWeight,
+                    GrossWeight = entity.GrossWeight
                 };
 
                 return Success(result);
@@ -267,7 +275,7 @@ namespace Chep.Service
             }
         }
 
-        public ResponseDTO GetStokDusumListe(string itemNo, int toplamCikisAdet)
+        public ResponseDTO GetStokDusumListe(string itemNo, int toplamCikisAdet, Guid customerId)
         {
             try
             {
@@ -278,7 +286,7 @@ namespace Chep.Service
 
                 itemNo = itemNo.ToLower();
 
-                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo));
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo) && x.IthalatciFirma == customerId);
 
                 var target = new List<ViewStokDusumListeDto>();
 
@@ -303,6 +311,8 @@ namespace Chep.Service
                     }
                     obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
                     obj.BirimTutar = item.BirimFiyat;
+                    obj.NetKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.NetKg);
+                    obj.BrutKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.BrutKg);
                     target.Add(obj);
                 }
 
@@ -388,6 +398,8 @@ namespace Chep.Service
 
                     obj.FaturaTutar = (Convert.ToDecimal(obj.DusulenMiktar) * item.BirimFiyat);
                     obj.BirimTutar = item.BirimFiyat;
+                    obj.NetKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.NetKg);
+                    obj.BrutKg = (Convert.ToDecimal(obj.DusulenMiktar) * item.BrutKg);
 
                     target.Add(obj);
                 }
@@ -467,10 +479,11 @@ namespace Chep.Service
                 StokGirisDetayId = obj.StokGirisDetayId,
                 TpsCikisSiraNo = obj.TpsCikisSiraNo,
                 InvoiceAmount = obj.InvoiceAmount,
-                InvoiceDetailId = obj.InvoiceDetailId,
                 BirimTutar = obj.BirimTutar,
                 BrutKg = obj.BrutKg,
                 NetKg = obj.NetKg,
+                InvoiceDetailId = obj.InvoiceDetailId
+
             };
         }
 
