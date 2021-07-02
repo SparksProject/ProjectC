@@ -116,11 +116,11 @@ namespace Chep.WebApi.Controllers
         }
 
         [HttpGet("GetStokDusumListe")]
-        public IActionResult GetStokDusumListe([FromQuery] string itemNo, [FromQuery] int cikisAdet, [FromQuery] Guid customerId)
+        public IActionResult GetStokDusumListe([FromQuery] string itemNo, [FromQuery] int cikisAdet, [FromQuery] Guid ithalatciFirma)
         {
             try
             {
-                var result = _service.GetStokDusumListe(itemNo, cikisAdet, customerId);
+                var result = _service.GetStokDusumListe(itemNo, cikisAdet, ithalatciFirma);
 
                 return StatusCode(StatusCodes.Status200OK, result);
             }

@@ -64,15 +64,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-4">İş Emri Id</label>
-                                        <div class="col-md-8">
-                                            <div class="input-icon right">
-                                                <i class="fa"></i>
-                                                <input type="text" ng-model="object.workOrderMasterId" name="WorkOrderMasterId" class="form-control" placeholder="İş Emri" ng-disabled="true">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="control-label col-md-4">Fatura Id</label>
                                         <div class="col-md-8">
                                             <div class="input-icon right">
@@ -236,7 +227,7 @@
                                         <div class="col-md-8">
                                             <div class="input-icon right">
                                                 <i class="fa"></i>
-                                                <ui-select ng-model="object.nakliyeciFirma" name="nakliyeciFirma" theme="bootstrap" >
+                                                <ui-select ng-model="object.nakliyeciFirma" name="nakliyeciFirma" theme="bootstrap">
                                                     <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
                                                     <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
                                                         <div ng-bind-html="item.name | highlight: $select.search"></div>
@@ -319,12 +310,12 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <div class="form-group" ng-class="{'has-error': form.customerId.$invalid && form.customerId.$dirty, 'has-success': form.customerId.$valid }">
-                                    <label class="control-label col-md-4">İthalatcı Firma<span class="required">*</span></label>
+                                <div class="form-group" ng-class="{'has-error': form.ithalatciFirma.$invalid && form.ithalatciFirma.$dirty, 'has-success': form.ithalatciFirma.$valid }">
+                                    <label class="control-label col-md-4">İhracatçı Firma</label>
                                     <div class="col-md-8">
                                         <div class="input-icon right">
                                             <i class="fa"></i>
-                                            <ui-select ng-model="object.ithalatciFirma" name="ithalatciFirma" theme="bootstrap" ng-required="true">
+                                            <ui-select ng-model="object.Drop.ithalatciFirma" name="IthalatciFirma" theme="bootstrap" ng-required="true">
                                                 <ui-select-match placeholder="Seçiniz">{{$select.selected.name}}</ui-select-match>
                                                 <ui-select-choices repeat="item.customerId as item in customers | filter: $select.search">
                                                     <div ng-bind-html="item.name | highlight: $select.search"></div>
@@ -336,7 +327,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.itemNo, object.Drop.dropCount)">Giriş Bul</button>
+                            <button class="btn btn-primary btn-block" ng-click="GetStokDusumListe(object.Drop.itemNo, object.Drop.dropCount, object.Drop.ithalatciFirma)">Giriş Bul</button>
                         </div>
                     </div>
                 </div>
