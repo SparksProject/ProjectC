@@ -1381,7 +1381,7 @@ namespace Chep.Core
 
                 entity.ToView("vw_WsWorkOrderMaster");
 
-                entity.Property(e => e.DeclarationTypei)
+                entity.Property(e => e.DeclarationType)
                     .IsRequired()
                     .HasMaxLength(2)
                     .IsUnicode(false);

@@ -18,11 +18,26 @@ namespace ServiceReference1
     public partial class WorkOrderMasterModel : object
     {
         
+        private string DeclarationTypeField;
+        
         private System.Collections.Generic.List<ServiceReference1.InvoiceModel> InvoiceListField;
+        
+        private System.Guid WorkOrderMasterIdField;
         
         private string WorkOrderNoField;
         
-        private string DeclarationTypeField;
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeclarationType
+        {
+            get
+            {
+                return this.DeclarationTypeField;
+            }
+            set
+            {
+                this.DeclarationTypeField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.List<ServiceReference1.InvoiceModel> InvoiceList
@@ -38,6 +53,19 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid WorkOrderMasterId
+        {
+            get
+            {
+                return this.WorkOrderMasterIdField;
+            }
+            set
+            {
+                this.WorkOrderMasterIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string WorkOrderNo
         {
             get
@@ -47,19 +75,6 @@ namespace ServiceReference1
             set
             {
                 this.WorkOrderNoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        public string DeclarationType
-        {
-            get
-            {
-                return this.DeclarationTypeField;
-            }
-            set
-            {
-                this.DeclarationTypeField = value;
             }
         }
     }

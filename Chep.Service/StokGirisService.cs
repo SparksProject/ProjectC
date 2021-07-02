@@ -779,11 +779,12 @@ namespace Chep.Service
                         return Warning("Maximum veri girme değerine ulaşıldı. Tek seferde 1000'den fazla veri girilemez! Hiçbir işlem yapılmayacak.");
                     }
                 }
-
+                var warningList = new List<string>();
                 for (var i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                 {   // exceli tek tek okumaya başla
                     try
                     {
+
                         var stokGirisDto = new ChepStokGirisDTO();
                         var detailDto = new ChepStokGirisDetayDTO();
 
@@ -808,10 +809,11 @@ namespace Chep.Service
                                 case CellType.Numeric:
                                 case CellType.String: break;
 
+                                case CellType.Blank:
+                                    continue;
                                 case CellType.Unknown:
                                 //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Formula:
-                                case CellType.Blank:
                                 //return Warning("Excel'de bilinmeyen bir değer bulundu! Excelinizi kontrol ediniz.");
                                 case CellType.Boolean:
                                 //return Warning("Excel'de boolean tipinde değerler bulundu! Excelinizi kontrol ediniz.");
@@ -1009,6 +1011,8 @@ namespace Chep.Service
                             var denemefirst = deneme.FirstOrDefault();
                             if (denemefirst != null)
                             {
+                                warningList.Add($"{i + 1}. satırda 'Aktarım Tarihi' önceki tarihten küçük olduğu için İŞLEM DURDURULDU! {i}. satıra kadar");
+                                i = sheet.LastRowNum;
                                 continue;
                             }
                         }
@@ -1673,6 +1677,22 @@ namespace Chep.Service
                 foreach (var item in logs)
                 {
                     summaryList.Add($"\n {item}");
+                }
+
+                if (warningList.Count > 0)
+                {
+                    if (summaryList.Count>0)
+                    {
+                        foreach (var item in summaryList)
+                        {
+                            warningList.Add($"\n {item}");
+                        }
+                    }
+                    else
+                    {
+                        warningList.Add(" hiçbir işlem yapılmadı.");
+                    }
+                    return Warning(string.Join("", warningList));
                 }
 
                 return Success(summaryList);
