@@ -33,6 +33,8 @@ namespace Chep.WebApi
 
             services.AddAuthorization();
 
+            services.AddHttpClient();
+
             services.Configure<SparksConfig>(Configuration.GetSection("SparksXConfig"));
             var configModel = Configuration.GetSection("SparksXConfig").Get<SparksConfig>();
 

@@ -420,10 +420,17 @@ namespace Chep.Service
 
             //var connectionString = configuration.GetSection("SparksXConfig")["ConnectionString"];
 
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true).Build();
-            var appconfig = configuration.GetSection("SparksXConfig").Get<SparksConfig>();
 
-            return appconfig.ConnectionString;
+            // tuncay
+
+            //var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true).Build();
+            //var appconfig = configuration.GetSection("SparksXConfig").Get<SparksConfig>();
+
+            //return appconfig.ConnectionString;
+
+            //  -- -- -- -- -- -- 
+
+            return "";
         }
 
         /// <summary>
