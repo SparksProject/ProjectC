@@ -154,6 +154,8 @@
                                                                         };
                                                                         SparksXService.GetByUrunKod(data.id).success(function (data) {
                                                                             cellInfo.component.cellValue(cell.rowIndex, 4, data.birimTutar);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 6, data.netWeight);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 7, data.grossWeight);
                                                                         }).error(function (er) {
                                                                             swal({
                                                                                 icon: "error",
@@ -513,13 +515,13 @@
                                 }
                             });
 
-                            e.items.push({
-                                text: "Excel'den Al",
-                                icon: "exportxlsx",
-                                onItemClick: function () {
-                                    $modalImport.modal('show');
-                                }
-                            });
+                            //e.items.push({
+                            //    text: "Excel'den Al",
+                            //    icon: "exportxlsx",
+                            //    onItemClick: function () {
+                            //        $modalImport.modal('show');
+                            //    }
+                            //});
 
                             if (e.rowIndex >= 0) {
                                 e.items.push({
@@ -796,7 +798,7 @@
             });
     };
 
-    $scope.GetStokDusumListe = function (itemNo, cikisAdet) {
+    $scope.GetStokDusumListe = function (itemNo, cikisAdet, ithalatciFirma) {
         var $form = $('#form-drop'),
             form = $form.controller('form'),
             input = $form.find('input[ng-required], select[ng-required], textarea[ng-required], div[ng-invalid-required]');;
@@ -820,13 +822,11 @@
             var liste = [];
             for (var i = 0; i < stokCikisDetail._items.length; i++) {
                 var id = parseInt(stokCikisDetail._items[i].stokCikisDetayId);
-                console.log(id);
                 if (isNaN(id) || stokCikisDetail._items[i].stokCikisDetayId.length > 10 || stokCikisDetail._items[i].stokCikisDetayId == 0) { // Guid ise veya 0 ise
                     stokCikisDetail._items[i].stokCikisDetayId = 0;
                     liste.push(stokCikisDetail._items[i]);
                 }
             }
-            console.log(liste);
             if (liste.length > 0) {
                 var obj = {
                     ChepStokCikisDetayList: liste,
@@ -835,7 +835,6 @@
                 }
                 SparksXService.GetStokDusumListeAdd(obj).success(function (data) {
                     if (data.result != null) {
-                        console.log(data);
                         $gridDrop.option("dataSource", data.result);
 
                         $btnDropSubmit.prop('disabled', false);
@@ -853,7 +852,7 @@
                 });
             }
             else {
-                SparksXService.GetStokDusumListe(itemNo, cikisAdet).success(function (data) {
+                SparksXService.GetStokDusumListe(itemNo, cikisAdet, ithalatciFirma).success(function (data) {
                     if (data.result != null) {
                         $gridDrop.option("dataSource", data.result);
 
