@@ -1,5 +1,5 @@
 ﻿using Chep.DTO;
-
+using System;
 using System.Collections.Generic;
 
 namespace Chep.Service.Interface
@@ -13,7 +13,7 @@ namespace Chep.Service.Interface
         ResponseDTO GetByUrunKod(string id);
         ResponseDTO Delete(int id);
         ResponseDTO AddDetail(int stokCikisId, List<ViewStokDusumListeDto> details);
-        ResponseDTO GetStokDusumListe(string itemNo, int cikisAdet);
+        ResponseDTO GetStokDusumListe(string itemNo, int cikisAdet, Guid customerId);
         ResponseDTO StokDusumListeAdd(string itemNo, int cikisAdet, List<ChepStokCikisDetayDTO> details);
     }
 }

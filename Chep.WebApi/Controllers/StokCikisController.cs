@@ -116,11 +116,11 @@ namespace Chep.WebApi.Controllers
         }
 
         [HttpGet("GetStokDusumListe")]
-        public IActionResult GetStokDusumListe([FromQuery] string itemNo, [FromQuery] int cikisAdet)
+        public IActionResult GetStokDusumListe([FromQuery] string itemNo, [FromQuery] int cikisAdet, [FromQuery] Guid ithalatciFirma)
         {
             try
             {
-                var result = _service.GetStokDusumListe(itemNo, cikisAdet);
+                var result = _service.GetStokDusumListe(itemNo, cikisAdet, ithalatciFirma);
 
                 return StatusCode(StatusCodes.Status200OK, result);
             }
@@ -146,11 +146,11 @@ namespace Chep.WebApi.Controllers
         }
 
         [HttpGet("InsertStokCikisFromStokDusumListe")]
-        public IActionResult InsertStokCikisFromStokDusumListe([FromQuery] int stokCikisId, [FromQuery] string itemNo, [FromQuery] int cikisAdet)
+        public IActionResult InsertStokCikisFromStokDusumListe([FromQuery] int stokCikisId, [FromQuery] string itemNo, [FromQuery] int cikisAdet, [FromQuery] Guid customerId)
         {
             try
             {
-                var stokDusumListeResult = _service.GetStokDusumListe(itemNo, cikisAdet);
+                var stokDusumListeResult = _service.GetStokDusumListe(itemNo, cikisAdet, customerId);
 
                 if (!stokDusumListeResult.IsSuccesful || stokDusumListeResult.Result == null)
                 {

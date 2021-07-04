@@ -62,7 +62,6 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                // optionsBuilder.UseSqlServer("Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Trusted_Connection=False;User Id=admin;Password=chep2021");
                 optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
@@ -184,7 +183,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.CikisRejimi).HasMaxLength(4);
+                entity.Property(e => e.CikisRejimi).HasMaxLength(50);
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
@@ -210,7 +209,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.PoNo).HasMaxLength(50);
 
-                entity.Property(e => e.Rejim).HasMaxLength(4);
+                entity.Property(e => e.Rejim).HasMaxLength(50);
 
                 entity.Property(e => e.SozlesmeUlke).HasMaxLength(20);
 
@@ -545,11 +544,15 @@ namespace Chep.Core
 
                 entity.Property(e => e.DeletedDate).HasColumnType("datetime");
 
+                entity.Property(e => e.GrossWeight).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.HsCode)
                     .IsRequired()
                     .HasMaxLength(16);
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.NetWeight).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ProductNameEng).HasMaxLength(100);
 
@@ -1013,6 +1016,8 @@ namespace Chep.Core
 
                 entity.Property(e => e.BirimFiyat).HasColumnType("decimal(18, 2)");
 
+                entity.Property(e => e.BrutKg).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.GirisBeyannameNo).HasMaxLength(16);
 
                 entity.Property(e => e.GirisBeyannameTarihi).HasColumnType("datetime");
@@ -1020,6 +1025,8 @@ namespace Chep.Core
                 entity.Property(e => e.Marka).HasMaxLength(50);
 
                 entity.Property(e => e.Model).HasMaxLength(50);
+
+                entity.Property(e => e.NetKg).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Pono)
                     .HasColumnName("PONo")
@@ -1207,7 +1214,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.ConsgnAddress)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(13)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ConsgnCity)
@@ -1222,7 +1229,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.ConsgnName)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ConsgnNo)
@@ -1277,27 +1284,27 @@ namespace Chep.Core
 
                 entity.Property(e => e.SenderAddress)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(13)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SenderCity)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SenderCountry)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(13)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SenderName)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SenderNo)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(4)
                     .IsUnicode(false);
 
                 entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();

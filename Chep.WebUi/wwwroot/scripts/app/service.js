@@ -297,6 +297,9 @@
     };
 
     this.AddStokGiris = function (obj) {
+        if (obj.aktarimTarihi == "") {
+            obj.aktarimTarihi = null;
+        }
         return GetBaseRequestPostJson("StokGiris", "Add", obj);
     };
 
@@ -337,8 +340,8 @@
         return GetBaseRequestPostJson("StokCikis", "Edit", obj);
     };
 
-    this.GetStokDusumListe = function (itemNo, cikisAdet) {
-        return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet);
+    this.GetStokDusumListe = function (itemNo, cikisAdet, ithalatciFirma) {
+        return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet + "&ithalatciFirma=" + ithalatciFirma);
     };
 
     this.GetStokDusumListeAdd = function (obj) {
