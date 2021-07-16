@@ -35,6 +35,9 @@ namespace Chep.Service
                 var invoices = _uow.VwWsWorkOrderInvoice.Search(x => x.StokCikisId == id);
                 var invoiceDetails = _uow.VwWsWorkOrderInvoiceDetails.Search(x => x.StokCikisId == id);
 
+                userName = master.UserNameWs;
+                passowrd = master.PasswordWs;
+
 
                 WorkOrderMasterModelDTO dto = new WorkOrderMasterModelDTO();
 

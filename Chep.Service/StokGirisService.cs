@@ -126,7 +126,11 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokGiris.Set()
+                var context = new ChepContext();
+
+                context.Database.SetCommandTimeout(TimeSpan.FromMinutes(3));
+
+                var entities = context.ChepStokGiris
                                                  .Include(x => x.ChepStokGirisDetay)
                                                  .Include(x => x.IhracatciFirmaNavigation)
                                                  .Include(x => x.IthalatciFirmaNavigation)

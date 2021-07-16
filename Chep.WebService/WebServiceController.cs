@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace Chep.WebService
 {
-    [Microsoft.AspNetCore.Mvc.Route("[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class WebServiceController : ControllerBase
     {
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public IActionResult Post([Microsoft.AspNetCore.Mvc.FromBody] WorkOrderMasterModelDTO dto)
+        [HttpPost]
+        public IActionResult Post([FromBody] WorkOrderMasterModelDTO dto)
         {
             try
             {
