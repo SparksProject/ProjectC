@@ -165,7 +165,11 @@ namespace Chep.Service
         {
             try
             {
-                var entities = _uow.ChepStokCikis.Set()
+                var context = new ChepContext();
+
+                context.Database.SetCommandTimeout(TimeSpan.FromMinutes(3));
+
+                var entities = context.ChepStokCikis
                                                  .Include(x => x.ChepStokCikisDetay)
                                                  .Include(x => x.IhracatciFirmaNavigation)
                                                  .Include(x => x.IhracatciFirmaNavigation)
