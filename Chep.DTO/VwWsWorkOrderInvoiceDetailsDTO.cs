@@ -26,7 +26,7 @@ namespace Chep.DTO
         public decimal InvoiceAmount { get; set; }
         public string PkgType { get; set; }
         public string CommclDesc { get; set; }
-        public string NumberOfPackages { get; set; }
+        public int? NumberOfPackages { get; set; }
         public long? ItemNumber { get; set; }
         public string ProducerCompanyNo { get; set; }
         public string ProducerCompany { get; set; }

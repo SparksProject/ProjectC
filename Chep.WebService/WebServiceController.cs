@@ -91,8 +91,8 @@ namespace Chep.WebService
                         if (invDetail.ItemNumber.HasValue)
                             detail.ItemNumber = Convert.ToInt32(invDetail.ItemNumber.Value);
                         detail.NetWeight = Convert.ToDouble(invDetail.NetWeight);
-                        if (!string.IsNullOrEmpty(invDetail.NumberOfPackages))
-                            detail.NumberOfPackages = Convert.ToInt32(invDetail.NumberOfPackages);
+                        if (invDetail.NumberOfPackages.HasValue)
+                            detail.NumberOfPackages = invDetail.NumberOfPackages.Value;
                         detail.PkgType = invDetail.PkgType;
                         detail.ProducerCompany = invDetail.ProducerCompany;
                         detail.ProducerCompanyNo = invDetail.ProducerCompanyNo;

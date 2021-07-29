@@ -11,7 +11,6 @@ namespace Chep.Service
     public class WorkOrderService : IWorkOrderService
     {
         private readonly IUnitOfWork _uow;
-
         private readonly IHttpClientFactory _clientFactory;
 
         public WorkOrderService(IUnitOfWork uow, IHttpClientFactory clientFactory)
@@ -21,10 +20,22 @@ namespace Chep.Service
 
         }
 
-        string userName = "sparks";
-        string passowrd = "1234";
-        string webServiceUrl = "https://localhost:44398/WebService/Post";
+        public string WebServiceUrl
+        {
+            get
+            {
+                //TODO: Burası Amazon URL si ile değişecek.
+                var baseUrl = "https://localhost:44398/";
 
+#if DEBUG
+                baseUrl = "https://localhost:44398/";
+#endif
+
+                var url = $"{baseUrl}WebService/Post";
+
+                return url;
+            }
+        }
 
         public int SetWorkOrderMastersModel(int id)
         {
@@ -35,15 +46,14 @@ namespace Chep.Service
                 var invoices = _uow.VwWsWorkOrderInvoice.Search(x => x.StokCikisId == id);
                 var invoiceDetails = _uow.VwWsWorkOrderInvoiceDetails.Search(x => x.StokCikisId == id);
 
-
                 WorkOrderMasterModelDTO dto = new WorkOrderMasterModelDTO();
 
                 dto.VwWsWorkOrderMaster = new VwWsWorkOrderMasterDTO()
                 {
                     DeclarationType = master.DeclarationType,
-                    PasswordWs = passowrd,
+                    UserNameWs = master.UserNameWs,
+                    PasswordWs = master.PasswordWs,
                     StokCikisId = master.StokCikisId,
-                    UserNameWs = userName,
                     WorkOrderMasterId = master.WorkOrderMasterId,
                     WorkOrderNo = master.WorkOrderNo
                 };
@@ -126,7 +136,7 @@ namespace Chep.Service
 
                 var client = _clientFactory.CreateClient();
                 var content = JsonConvert.SerializeObject(dto);
-                var ws = client.PostAsync(webServiceUrl, new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
+                var ws = client.PostAsync(WebServiceUrl, new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
                 ws.Wait();
                 return (int)ws.Result.StatusCode;
             }
@@ -136,6 +146,5 @@ namespace Chep.Service
             }
 
         }
-
     }
 }
