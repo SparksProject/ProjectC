@@ -1,32 +1,31 @@
 ﻿using Chep.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using LocalWs;
 using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Chep.WebService
 {
-    [Microsoft.AspNetCore.Mvc.Route("[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class WebServiceController : ControllerBase
     {
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public IActionResult Post([Microsoft.AspNetCore.Mvc.FromBody] WorkOrderMasterModelDTO dto)
+        [HttpPost]
+        public IActionResult Post([FromBody] WorkOrderMasterModelDTO dto)
         {
             try
             {
-                ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
-                ServiceReference1.WorkOrderMasterModel wo = new ServiceReference1.WorkOrderMasterModel();
+                Service1Client client = new Service1Client();
+                WorkOrderMasterModel wo = new WorkOrderMasterModel();
 
                 wo.DeclarationType = dto.VwWsWorkOrderMaster.DeclarationType;
                 wo.WorkOrderNo = dto.VwWsWorkOrderMaster.WorkOrderNo.ToString();
                 wo.WorkOrderMasterId = dto.VwWsWorkOrderMaster.WorkOrderMasterId.Value;
 
-                ServiceReference1.InvoiceModel inv = new ServiceReference1.InvoiceModel();
-                wo.InvoiceList = new List<ServiceReference1.InvoiceModel>();
+                InvoiceModel inv = new InvoiceModel();
+                wo.InvoiceList = new List<InvoiceModel>();
 
-                ServiceReference1.ResultModel resultModel = new ServiceReference1.ResultModel();
+                ResultModel resultModel = new ResultModel();
 
                 foreach (var woInv in dto.VwWsWorkOrderInvoices)
                 {
@@ -64,8 +63,8 @@ namespace Chep.WebService
                     if (woInv.WorkOrderMasterId.HasValue)
                         inv.WorkOrderMasterId = woInv.WorkOrderMasterId.Value;
 
-                    inv.InvoiceDetailList = new List<ServiceReference1.InvoiceDetailModel>();
-                    ServiceReference1.InvoiceDetailModel detail = new ServiceReference1.InvoiceDetailModel();
+                    inv.InvoiceDetailList = new List<InvoiceDetailModel>();
+                    InvoiceDetailModel detail = new InvoiceDetailModel();
 
                     foreach (var invDetail in dto.VwWsWorkOrderInvoiceDetails)
                     {
