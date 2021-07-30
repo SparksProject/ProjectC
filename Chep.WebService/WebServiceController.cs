@@ -1,9 +1,8 @@
 ﻿using Chep.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using LocalWs;
 using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Chep.WebService
 {
@@ -16,17 +15,17 @@ namespace Chep.WebService
         {
             try
             {
-                ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
-                ServiceReference1.WorkOrderMasterModel wo = new ServiceReference1.WorkOrderMasterModel();
+                Service1Client client = new Service1Client();
+                WorkOrderMasterModel wo = new WorkOrderMasterModel();
 
                 wo.DeclarationType = dto.VwWsWorkOrderMaster.DeclarationType;
                 wo.WorkOrderNo = dto.VwWsWorkOrderMaster.WorkOrderNo.ToString();
                 wo.WorkOrderMasterId = dto.VwWsWorkOrderMaster.WorkOrderMasterId.Value;
 
-                ServiceReference1.InvoiceModel inv = new ServiceReference1.InvoiceModel();
-                wo.InvoiceList = new List<ServiceReference1.InvoiceModel>();
+                InvoiceModel inv = new InvoiceModel();
+                wo.InvoiceList = new List<InvoiceModel>();
 
-                ServiceReference1.ResultModel resultModel = new ServiceReference1.ResultModel();
+                ResultModel resultModel = new ResultModel();
 
                 foreach (var woInv in dto.VwWsWorkOrderInvoices)
                 {
@@ -64,8 +63,8 @@ namespace Chep.WebService
                     if (woInv.WorkOrderMasterId.HasValue)
                         inv.WorkOrderMasterId = woInv.WorkOrderMasterId.Value;
 
-                    inv.InvoiceDetailList = new List<ServiceReference1.InvoiceDetailModel>();
-                    ServiceReference1.InvoiceDetailModel detail = new ServiceReference1.InvoiceDetailModel();
+                    inv.InvoiceDetailList = new List<InvoiceDetailModel>();
+                    InvoiceDetailModel detail = new InvoiceDetailModel();
 
                     foreach (var invDetail in dto.VwWsWorkOrderInvoiceDetails)
                     {
@@ -92,8 +91,8 @@ namespace Chep.WebService
                         if (invDetail.ItemNumber.HasValue)
                             detail.ItemNumber = Convert.ToInt32(invDetail.ItemNumber.Value);
                         detail.NetWeight = Convert.ToDouble(invDetail.NetWeight);
-                        if (!string.IsNullOrEmpty(invDetail.NumberOfPackages))
-                            detail.NumberOfPackages = Convert.ToInt32(invDetail.NumberOfPackages);
+                        if (invDetail.NumberOfPackages.HasValue)
+                            detail.NumberOfPackages = invDetail.NumberOfPackages.Value;
                         detail.PkgType = invDetail.PkgType;
                         detail.ProducerCompany = invDetail.ProducerCompany;
                         detail.ProducerCompanyNo = invDetail.ProducerCompanyNo;
