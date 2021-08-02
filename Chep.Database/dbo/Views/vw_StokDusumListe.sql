@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE View [dbo].[vw_StokDusumListe]
 as
 select  
@@ -7,7 +8,10 @@ select
 	Marka, Model, UrunKod ,PONo,detay.Miktar as GirisMiktar,
 	isnull((select sum(CikisDetay.Miktar) from ChepStokCikisDetay CikisDetay where Detay.StokGirisDetayId=CikisDetay.StokGirisDetayId),0) as CikisMiktar,
     isnull(Miktar,0) - isnull((select sum(CikisDetay.Miktar) from ChepStokCikisDetay CikisDetay where Detay.StokGirisDetayId=CikisDetay.StokGirisDetayId),0) as KalanMiktar,
-    Detay.TpsCikisSiraNo,(select isnull(p.UnitPrice,0) from Product p where detay.UrunKod=p.ProductNo) as BirimFiyat
+    Detay.TpsCikisSiraNo,(select isnull(p.UnitPrice,0) from Product p where detay.UrunKod=p.ProductNo and p.CustomerId=Giris.IthalatciFirma) as BirimFiyat,
+	(select isnull(p.NetWeight,0) from Product p where detay.UrunKod=p.ProductNo and p.CustomerId=Giris.IthalatciFirma) as NetKg,
+	(select isnull(p.GrossWeight,0) from Product p where detay.UrunKod=p.ProductNo and p.CustomerId=Giris.IthalatciFirma) as BrutKg,
+	giris.IthalatciFirma
 from ChepStokGiris Giris
  join ChepStokGirisDetay Detay on Giris.StokGirisId=Detay.StokGirisId
 where   (Miktar - isnull((select sum(CikisDetay.Miktar) from ChepStokCikisDetay CikisDetay where Detay.StokGirisDetayId=CikisDetay.StokGirisDetayId),0) )>0

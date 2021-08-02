@@ -63,6 +63,7 @@ namespace Chep.Core
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
+                //optionsBuilder.UseSqlServer("User ID=admin;Password=chep2021;Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Pooling=true;");
             }
         }
 
@@ -92,6 +93,8 @@ namespace Chep.Core
                 entity.Property(e => e.InvoiceNo).HasMaxLength(50);
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.KapCinsi).HasMaxLength(2);
 
                 entity.Property(e => e.OdemeSekli).HasMaxLength(2);
 
@@ -1212,40 +1215,24 @@ namespace Chep.Core
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ConsgnAddress)
-                    .IsRequired()
-                    .HasMaxLength(13)
-                    .IsUnicode(false);
+                entity.Property(e => e.ConsgnAddress).HasMaxLength(500);
 
-                entity.Property(e => e.ConsgnCity)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.ConsgnCity).HasMaxLength(100);
 
-                entity.Property(e => e.ConsgnCountry)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.ConsgnCountry).HasMaxLength(100);
 
                 entity.Property(e => e.ConsgnName)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
 
-                entity.Property(e => e.ConsgnNo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.ConsgnNo).HasMaxLength(50);
 
                 entity.Property(e => e.ContainerNo)
                     .IsRequired()
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Customs)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.Customs).HasMaxLength(6);
 
                 entity.Property(e => e.DeliveryLocation)
                     .IsRequired()
@@ -1259,10 +1246,7 @@ namespace Chep.Core
                     .HasMaxLength(1)
                     .IsUnicode(false);
 
-                entity.Property(e => e.GtbReferenceNo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.GtbReferenceNo).HasMaxLength(25);
 
                 entity.Property(e => e.Incoterms).HasMaxLength(3);
 
@@ -1277,42 +1261,21 @@ namespace Chep.Core
 
                 entity.Property(e => e.PaymentMethod).HasMaxLength(2);
 
-                entity.Property(e => e.PlateNo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.PlateNo).HasMaxLength(35);
 
-                entity.Property(e => e.SenderAddress)
-                    .IsRequired()
-                    .HasMaxLength(13)
-                    .IsUnicode(false);
+                entity.Property(e => e.SenderAddress).HasMaxLength(500);
 
-                entity.Property(e => e.SenderCity)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                entity.Property(e => e.SenderCity).HasMaxLength(100);
 
-                entity.Property(e => e.SenderCountry)
-                    .IsRequired()
-                    .HasMaxLength(13)
-                    .IsUnicode(false);
+                entity.Property(e => e.SenderCountry).HasMaxLength(100);
 
                 entity.Property(e => e.SenderName)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
 
-                entity.Property(e => e.SenderNo)
-                    .IsRequired()
-                    .HasMaxLength(4)
-                    .IsUnicode(false);
+                entity.Property(e => e.SenderNo).HasMaxLength(50);
 
-                entity.Property(e => e.StokCikisId).ValueGeneratedOnAdd();
-
-                entity.Property(e => e.TransptrName)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.TransptrName).HasMaxLength(151);
 
                 entity.Property(e => e.VesselName)
                     .IsRequired()
@@ -1328,16 +1291,19 @@ namespace Chep.Core
 
                 entity.Property(e => e.CommclDesc)
                     .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                    .HasMaxLength(100);
 
-                entity.Property(e => e.CountryOfOrigin).HasMaxLength(20);
+                entity.Property(e => e.CountryOfOrigin).HasMaxLength(3);
 
-                entity.Property(e => e.DescGoods).HasMaxLength(20);
+                entity.Property(e => e.DescGoods)
+                    .IsRequired()
+                    .HasMaxLength(151);
 
                 entity.Property(e => e.GrossWeight).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.HsCode).HasMaxLength(12);
+                entity.Property(e => e.HsCode)
+                    .IsRequired()
+                    .HasMaxLength(16);
 
                 entity.Property(e => e.IncentiveLineNo)
                     .IsRequired()
@@ -1357,15 +1323,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.NetWeight).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.NumberOfPackages)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PkgType)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.PkgType).HasMaxLength(2);
 
                 entity.Property(e => e.ProducerCompany)
                     .IsRequired()
@@ -1379,7 +1337,9 @@ namespace Chep.Core
 
                 entity.Property(e => e.ProductNo).HasMaxLength(50);
 
-                entity.Property(e => e.Uom).HasMaxLength(5);
+                entity.Property(e => e.Uom)
+                    .HasMaxLength(3)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<VwWsWorkOrderMaster>(entity =>

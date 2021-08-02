@@ -13,8 +13,8 @@
     [FaturaDovizKod]   NVARCHAR (3)    NULL,
     [Miktar]           INT             NULL,
     [OlcuBirimi]       NVARCHAR (5)    NULL,
-    [Rejim]            NVARCHAR (4)    NULL,
-    [CikisRejimi]      NVARCHAR (4)    NULL,
+    [Rejim]            NVARCHAR (50)   NULL,
+    [CikisRejimi]      NVARCHAR (50)   NULL,
     [GidecegiUlke]     NVARCHAR (20)   NULL,
     [MenseUlke]        NVARCHAR (20)   NULL,
     [SozlesmeUlke]     NVARCHAR (20)   NULL,
@@ -27,6 +27,8 @@
     CONSTRAINT [PK__ChepStok__5F1F65B0F75ADB99] PRIMARY KEY CLUSTERED ([StokGirisDetayId] ASC),
     CONSTRAINT [FK_ChepStokGirisDetay_ChepStokGiris] FOREIGN KEY ([StokGirisId]) REFERENCES [dbo].[ChepStokGiris] ([StokGirisId]) ON DELETE CASCADE
 );
+
+
 
 
 
