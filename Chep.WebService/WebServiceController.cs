@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using LocalWs;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Chep.WebService
 {
@@ -11,106 +12,141 @@ namespace Chep.WebService
     public class WebServiceController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Post([FromBody] WorkOrderMasterModelDTO dto)
+        public async Task<IActionResult> Post([FromBody] WorkOrderMasterModelDTO obj)
         {
             try
             {
-                Service1Client client = new Service1Client();
-                WorkOrderMasterModel wo = new WorkOrderMasterModel();
-
-                wo.DeclarationType = dto.VwWsWorkOrderMaster.DeclarationType;
-                wo.WorkOrderNo = dto.VwWsWorkOrderMaster.WorkOrderNo.ToString();
-                wo.WorkOrderMasterId = dto.VwWsWorkOrderMaster.WorkOrderMasterId.Value;
-
-                InvoiceModel inv = new InvoiceModel();
-                wo.InvoiceList = new List<InvoiceModel>();
-
-                ResultModel resultModel = new ResultModel();
-
-                foreach (var woInv in dto.VwWsWorkOrderInvoices)
+                if (!obj.VwWsWorkOrderMaster.WorkOrderMasterId.HasValue)
                 {
-                    inv.AgentName = woInv.AgentName;
-                    inv.AwbNo = woInv.AwbNo;
-                    inv.BLNo = woInv.Blno;
-                    inv.ConsgnAddress = woInv.ConsgnAddress;
-                    inv.ConsgnCity = woInv.ConsgnCity;
-                    inv.ConsgnCountry = woInv.ConsgnCountry;
-                    inv.ConsgnName = woInv.ConsgnName;
-                    inv.ConsgnNo = woInv.ConsgnNo;
-                    inv.ContainerNo = woInv.ContainerNo;
-                    inv.Customs = woInv.Customs;
-                    inv.DeliveryLocation = woInv.DeliveryLocation;
-                    inv.EntryExitCustoms = woInv.EntryExitCustoms;
-                    inv.FreightAmount = woInv.FreightAmount;
-                    inv.FreightCurrency = woInv.FreightCurrency;
-                    inv.GtbReferenceNo = woInv.GtbReferenceNo;
-                    inv.Incoterms = woInv.Incoterms;
-                    inv.InsuranceAmount = woInv.InsuranceAmount;
-                    inv.InsuranceCurrency = woInv.InsuranceCurrency;
-                    if (woInv.InvoiceAmount.HasValue)
-                        inv.InvoiceAmount = woInv.InvoiceAmount.Value;
-                    inv.InvoiceCurrency = woInv.InvoiceCurrency;
-                    inv.InvoiceId = woInv.InvoiceId.Value;
-                    inv.PaymentMethod = woInv.PaymentMethod;
-                    inv.PlateNo = woInv.PlateNo;
-                    inv.SenderAddress = woInv.SenderAddress;
-                    inv.SenderCity = woInv.SenderCity;
-                    inv.SenderCountry = woInv.SenderCountry;
-                    inv.SenderName = woInv.SenderName;
-                    inv.SenderNo = woInv.SenderNo;
-                    inv.TransptrName = woInv.TransptrName;
-                    inv.VesselName = woInv.VesselName;
-                    if (woInv.WorkOrderMasterId.HasValue)
-                        inv.WorkOrderMasterId = woInv.WorkOrderMasterId.Value;
-
-                    inv.InvoiceDetailList = new List<InvoiceDetailModel>();
-                    InvoiceDetailModel detail = new InvoiceDetailModel();
-
-                    foreach (var invDetail in dto.VwWsWorkOrderInvoiceDetails)
-                    {
-                        if (invDetail.ActualQuantity.HasValue)
-                            detail.ActualQuantity = invDetail.ActualQuantity.Value;
-
-                        detail.CommclDesc = invDetail.CommclDesc;
-                        detail.CountryOfOrigin = invDetail.CountryOfOrigin;
-                        detail.DescGoods = invDetail.DescGoods;
-                        detail.GrossWeight = Convert.ToDouble(invDetail.GrossWeight);
-                        detail.HsCode = invDetail.HsCode;
-                        detail.IncentiveLineNo = invDetail.IncentiveLineNo;
-                        detail.IntrnlAgmt = invDetail.IntrnlAgmt;
-                        detail.InvoiceAmount = Convert.ToDouble(invDetail.InvoiceAmount);
-                        if (invDetail.InvoiceDate.HasValue)
-                            detail.InvoiceDate = invDetail.InvoiceDate.Value;
-                        if (invDetail.InvoiceDetailId.HasValue)
-                            detail.InvoiceDetailId = invDetail.InvoiceDetailId.Value;
-                        if (invDetail.InvoiceId.HasValue)
-                            detail.InvoiceId = invDetail.InvoiceId.Value;
-                        detail.InvoiceNo = invDetail.InvoiceNo;
-                        if (invDetail.InvoiceQuantity.HasValue)
-                            detail.InvoiceQuantity = invDetail.InvoiceQuantity.Value;
-                        if (invDetail.ItemNumber.HasValue)
-                            detail.ItemNumber = Convert.ToInt32(invDetail.ItemNumber.Value);
-                        detail.NetWeight = Convert.ToDouble(invDetail.NetWeight);
-                        if (invDetail.NumberOfPackages.HasValue)
-                            detail.NumberOfPackages = invDetail.NumberOfPackages.Value;
-                        detail.PkgType = invDetail.PkgType;
-                        detail.ProducerCompany = invDetail.ProducerCompany;
-                        detail.ProducerCompanyNo = invDetail.ProducerCompanyNo;
-                        detail.ProductNo = invDetail.ProductNo;
-                        detail.Uom = invDetail.Uom;
-
-                        inv.InvoiceDetailList.Add(detail);
-                    }
-
-                    wo.InvoiceList.Add(inv);
+                    return BadRequest("WorkOrderMasterId eksik!");
                 }
 
-                var wcf = client.SetWorkOrderMastersModelAsync(dto.VwWsWorkOrderMaster.UserNameWs, dto.VwWsWorkOrderMaster.PasswordWs, wo);
-                wcf.Wait();
-                resultModel = wcf.Result;
+                var objMaster = new WorkOrderMasterModel
+                {
+                    DeclarationType = obj.VwWsWorkOrderMaster.DeclarationType,
+                    WorkOrderNo = $"{obj.VwWsWorkOrderMaster.WorkOrderNo}",
+                    WorkOrderMasterId = obj.VwWsWorkOrderMaster.WorkOrderMasterId.Value,
+                    InvoiceList = new List<InvoiceModel>(),
+                };
 
-                return Ok(resultModel);
+                foreach (var woInv in obj.VwWsWorkOrderInvoices)
+                {
+                    var objInvoice = new InvoiceModel
+                    {
+                        AgentName = woInv.AgentName,
+                        AwbNo = woInv.AwbNo,
+                        BLNo = woInv.Blno,
+                        ConsgnAddress = woInv.ConsgnAddress,
+                        ConsgnCity = woInv.ConsgnCity,
+                        ConsgnCountry = woInv.ConsgnCountry,
+                        ConsgnName = woInv.ConsgnName,
+                        ConsgnNo = woInv.ConsgnNo,
+                        ContainerNo = woInv.ContainerNo,
+                        Customs = woInv.Customs,
+                        DeliveryLocation = woInv.DeliveryLocation,
+                        EntryExitCustoms = woInv.EntryExitCustoms,
+                        FreightAmount = woInv.FreightAmount,
+                        FreightCurrency = woInv.FreightCurrency,
+                        GtbReferenceNo = woInv.GtbReferenceNo,
+                        Incoterms = woInv.Incoterms,
+                        InsuranceAmount = woInv.InsuranceAmount,
+                        InsuranceCurrency = woInv.InsuranceCurrency,
+                        InvoiceCurrency = woInv.InvoiceCurrency,
+                        InvoiceId = woInv.InvoiceId.Value,
+                        PaymentMethod = woInv.PaymentMethod,
+                        PlateNo = woInv.PlateNo,
+                        SenderAddress = woInv.SenderAddress,
+                        SenderCity = woInv.SenderCity,
+                        SenderCountry = woInv.SenderCountry,
+                        SenderName = woInv.SenderName,
+                        SenderNo = woInv.SenderNo,
+                        TransptrName = woInv.TransptrName,
+                        VesselName = woInv.VesselName,
+                        InvoiceDetailList = new List<InvoiceDetailModel>(),
+                    };
 
+                    if (woInv.InvoiceAmount.HasValue)
+                    {
+                        objInvoice.InvoiceAmount = woInv.InvoiceAmount.Value;
+                    }
+                    if (woInv.WorkOrderMasterId.HasValue)
+                    {
+                        objInvoice.WorkOrderMasterId = woInv.WorkOrderMasterId.Value;
+                    }
+
+                    foreach (var itemInvoiceDetail in obj.VwWsWorkOrderInvoiceDetails)
+                    {
+                        var objInvoiceDetail = new InvoiceDetailModel
+                        {
+                            Uom = itemInvoiceDetail.Uom,
+                            HsCode = itemInvoiceDetail.HsCode,
+                            PkgType = itemInvoiceDetail.PkgType,
+                            ProductNo = itemInvoiceDetail.ProductNo,
+                            InvoiceNo = itemInvoiceDetail.InvoiceNo,
+                            DescGoods = itemInvoiceDetail.DescGoods,
+                            CommclDesc = itemInvoiceDetail.CommclDesc,
+                            IntrnlAgmt = itemInvoiceDetail.IntrnlAgmt,
+                            CountryOfOrigin = itemInvoiceDetail.CountryOfOrigin,
+                            IncentiveLineNo = itemInvoiceDetail.IncentiveLineNo,
+                            ProducerCompany = itemInvoiceDetail.ProducerCompany,
+                            ProducerCompanyNo = itemInvoiceDetail.ProducerCompanyNo,
+                            NetWeight = Convert.ToDouble(itemInvoiceDetail.NetWeight),
+                            GrossWeight = Convert.ToDouble(itemInvoiceDetail.GrossWeight),
+                            InvoiceAmount = Convert.ToDouble(itemInvoiceDetail.InvoiceAmount),
+                        };
+
+                        if (itemInvoiceDetail.ActualQuantity.HasValue)
+                        {
+                            objInvoiceDetail.ActualQuantity = itemInvoiceDetail.ActualQuantity.Value;
+                        }
+                        if (itemInvoiceDetail.InvoiceDate.HasValue)
+                        {
+                            objInvoiceDetail.InvoiceDate = itemInvoiceDetail.InvoiceDate.Value;
+                        }
+                        if (itemInvoiceDetail.InvoiceDetailId.HasValue)
+                        {
+                            objInvoiceDetail.InvoiceDetailId = itemInvoiceDetail.InvoiceDetailId.Value;
+                        }
+                        if (itemInvoiceDetail.InvoiceId.HasValue)
+                        {
+                            objInvoiceDetail.InvoiceId = itemInvoiceDetail.InvoiceId.Value;
+                        }
+                        if (itemInvoiceDetail.InvoiceQuantity.HasValue)
+                        {
+                            objInvoiceDetail.InvoiceQuantity = itemInvoiceDetail.InvoiceQuantity.Value;
+                        }
+                        if (itemInvoiceDetail.ItemNumber.HasValue)
+                        {
+                            objInvoiceDetail.ItemNumber = Convert.ToInt32(itemInvoiceDetail.ItemNumber.Value);
+                        }
+                        if (itemInvoiceDetail.NumberOfPackages.HasValue)
+                        {
+                            objInvoiceDetail.NumberOfPackages = itemInvoiceDetail.NumberOfPackages.Value;
+                        }
+
+                        objInvoice.InvoiceDetailList.Add(objInvoiceDetail);
+                    }
+
+                    objMaster.InvoiceList.Add(objInvoice);
+                }
+
+#if DEBUG
+                //var xsSubmit = new XmlSerializer(typeof(WorkOrderMasterModel));
+                //var xml = string.Empty;
+
+                //using (var sww = new StringWriter())
+                //using (var writer = XmlWriter.Create(sww))
+                //{
+                //    xsSubmit.Serialize(writer, objMaster);
+                //    xml = sww.ToString();
+                //} 
+#endif
+
+                var client = new Service1Client();
+
+                var result = await client.SetWorkOrderMastersModelAsync(obj.VwWsWorkOrderMaster.UserNameWs, obj.VwWsWorkOrderMaster.PasswordWs, objMaster);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

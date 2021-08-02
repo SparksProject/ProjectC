@@ -39,26 +39,34 @@ namespace Chep.Service
 
         public int SetWorkOrderMastersModel(int id)
         {
-
             try
             {
+#if DEBUG
+                id = 34;
+#endif
                 var master = _uow.VwWsWorkOrderMaster.Single(x => x.StokCikisId == id);
                 var invoices = _uow.VwWsWorkOrderInvoice.Search(x => x.StokCikisId == id);
                 var invoiceDetails = _uow.VwWsWorkOrderInvoiceDetails.Search(x => x.StokCikisId == id);
 
-                WorkOrderMasterModelDTO dto = new WorkOrderMasterModelDTO();
-
-                dto.VwWsWorkOrderMaster = new VwWsWorkOrderMasterDTO()
+                if (master == null)
                 {
-                    DeclarationType = master.DeclarationType,
-                    UserNameWs = master.UserNameWs,
-                    PasswordWs = master.PasswordWs,
-                    StokCikisId = master.StokCikisId,
-                    WorkOrderMasterId = master.WorkOrderMasterId,
-                    WorkOrderNo = master.WorkOrderNo
-                };
+                    return 400;
+                }
 
-                dto.VwWsWorkOrderInvoices = new List<VwWsWorkOrderInvoiceDTO>();
+                var dto = new WorkOrderMasterModelDTO
+                {
+                    VwWsWorkOrderMaster = new VwWsWorkOrderMasterDTO()
+                    {
+                        DeclarationType = master.DeclarationType,
+                        UserNameWs = master.UserNameWs,
+                        PasswordWs = master.PasswordWs,
+                        StokCikisId = master.StokCikisId,
+                        WorkOrderMasterId = master.WorkOrderMasterId,
+                        WorkOrderNo = master.WorkOrderNo
+                    },
+                    VwWsWorkOrderInvoices = new List<VwWsWorkOrderInvoiceDTO>(),
+                    VwWsWorkOrderInvoiceDetails = new List<VwWsWorkOrderInvoiceDetailsDTO>()
+                };
 
                 foreach (var invoice in invoices)
                 {
@@ -100,8 +108,6 @@ namespace Chep.Service
                     });
                 }
 
-                dto.VwWsWorkOrderInvoiceDetails = new List<VwWsWorkOrderInvoiceDetailsDTO>();
-
                 foreach (var detail in invoiceDetails)
                 {
                     dto.VwWsWorkOrderInvoiceDetails.Add(new VwWsWorkOrderInvoiceDetailsDTO()
@@ -138,9 +144,10 @@ namespace Chep.Service
                 var content = JsonConvert.SerializeObject(dto);
                 var ws = client.PostAsync(WebServiceUrl, new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
                 ws.Wait();
+
                 return (int)ws.Result.StatusCode;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return 400;
             }
