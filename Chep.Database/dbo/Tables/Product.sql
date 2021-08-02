@@ -7,8 +7,8 @@
     [ProductNameOrg]  NVARCHAR (100)   NULL,
     [HsCode]          NVARCHAR (16)    NOT NULL,
     [Uom]             NCHAR (3)        NULL,
-    [GrossWeight]     FLOAT (53)       NULL,
-    [NetWeight]       FLOAT (53)       NULL,
+    [GrossWeight]     DECIMAL (18, 2)  NULL,
+    [NetWeight]       DECIMAL (18, 2)  NULL,
     [SapCode]         NVARCHAR (50)    NULL,
     [CountryOfOrigin] NVARCHAR (3)     NULL,
     [RecordStatusId]  TINYINT          NOT NULL,
@@ -27,6 +27,8 @@
     CONSTRAINT [FK_Product_Users1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[User] ([UserId]),
     CONSTRAINT [FK_Product_Users2] FOREIGN KEY ([DeletedBy]) REFERENCES [dbo].[User] ([UserId])
 );
+
+
 
 
 

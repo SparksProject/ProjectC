@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ServiceReference1
+namespace LocalWs
 {
     using System.Runtime.Serialization;
     
@@ -15,32 +15,19 @@ namespace ServiceReference1
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WorkOrderMasterModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class WorkOrderMasterModel : object
+    internal partial class WorkOrderMasterModel : object
     {
         
-        private string DeclarationTypeField;
-        
-        private System.Collections.Generic.List<ServiceReference1.InvoiceModel> InvoiceListField;
+        private System.Collections.Generic.List<LocalWs.InvoiceModel> InvoiceListField;
         
         private System.Guid WorkOrderMasterIdField;
         
         private string WorkOrderNoField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DeclarationType
-        {
-            get
-            {
-                return this.DeclarationTypeField;
-            }
-            set
-            {
-                this.DeclarationTypeField = value;
-            }
-        }
+        private string DeclarationTypeField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<ServiceReference1.InvoiceModel> InvoiceList
+        internal System.Collections.Generic.List<LocalWs.InvoiceModel> InvoiceList
         {
             get
             {
@@ -53,7 +40,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid WorkOrderMasterId
+        internal System.Guid WorkOrderMasterId
         {
             get
             {
@@ -66,7 +53,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string WorkOrderNo
+        internal string WorkOrderNo
         {
             get
             {
@@ -77,12 +64,25 @@ namespace ServiceReference1
                 this.WorkOrderNoField = value;
             }
         }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        internal string DeclarationType
+        {
+            get
+            {
+                return this.DeclarationTypeField;
+            }
+            set
+            {
+                this.DeclarationTypeField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class InvoiceModel : object
+    internal partial class InvoiceModel : object
     {
         
         private System.Guid InvoiceIdField;
@@ -147,10 +147,10 @@ namespace ServiceReference1
         
         private string EntryExitCustomsField;
         
-        private System.Collections.Generic.List<ServiceReference1.InvoiceDetailModel> InvoiceDetailListField;
+        private System.Collections.Generic.List<LocalWs.InvoiceDetailModel> InvoiceDetailListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid InvoiceId
+        internal System.Guid InvoiceId
         {
             get
             {
@@ -163,7 +163,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid WorkOrderMasterId
+        internal System.Guid WorkOrderMasterId
         {
             get
             {
@@ -176,7 +176,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        public string SenderNo
+        internal string SenderNo
         {
             get
             {
@@ -189,7 +189,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        public string SenderName
+        internal string SenderName
         {
             get
             {
@@ -202,7 +202,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-        public string SenderAddress
+        internal string SenderAddress
         {
             get
             {
@@ -215,7 +215,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-        public string SenderCity
+        internal string SenderCity
         {
             get
             {
@@ -228,7 +228,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-        public string SenderCountry
+        internal string SenderCountry
         {
             get
             {
@@ -241,7 +241,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-        public string ConsgnName
+        internal string ConsgnName
         {
             get
             {
@@ -254,7 +254,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-        public string ConsgnAddress
+        internal string ConsgnAddress
         {
             get
             {
@@ -267,7 +267,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-        public string ConsgnCity
+        internal string ConsgnCity
         {
             get
             {
@@ -280,7 +280,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
-        public string ConsgnCountry
+        internal string ConsgnCountry
         {
             get
             {
@@ -293,7 +293,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-        public string TransptrName
+        internal string TransptrName
         {
             get
             {
@@ -306,7 +306,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
-        public string VesselName
+        internal string VesselName
         {
             get
             {
@@ -319,7 +319,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
-        public string AgentName
+        internal string AgentName
         {
             get
             {
@@ -332,7 +332,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
-        public string PlateNo
+        internal string PlateNo
         {
             get
             {
@@ -345,7 +345,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
-        public string AwbNo
+        internal string AwbNo
         {
             get
             {
@@ -358,7 +358,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
-        public string BLNo
+        internal string BLNo
         {
             get
             {
@@ -371,7 +371,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
-        public string Incoterms
+        internal string Incoterms
         {
             get
             {
@@ -384,7 +384,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=18)]
-        public string DeliveryLocation
+        internal string DeliveryLocation
         {
             get
             {
@@ -397,7 +397,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=19)]
-        public decimal InvoiceAmount
+        internal decimal InvoiceAmount
         {
             get
             {
@@ -410,7 +410,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=20)]
-        public string Customs
+        internal string Customs
         {
             get
             {
@@ -423,7 +423,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=21)]
-        public string InvoiceCurrency
+        internal string InvoiceCurrency
         {
             get
             {
@@ -436,7 +436,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
-        public System.Nullable<decimal> FreightAmount
+        internal System.Nullable<decimal> FreightAmount
         {
             get
             {
@@ -449,7 +449,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=23)]
-        public string FreightCurrency
+        internal string FreightCurrency
         {
             get
             {
@@ -462,7 +462,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=24)]
-        public System.Nullable<decimal> InsuranceAmount
+        internal System.Nullable<decimal> InsuranceAmount
         {
             get
             {
@@ -475,7 +475,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=25)]
-        public string InsuranceCurrency
+        internal string InsuranceCurrency
         {
             get
             {
@@ -488,7 +488,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=26)]
-        public string ConsgnNo
+        internal string ConsgnNo
         {
             get
             {
@@ -501,7 +501,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=27)]
-        public string ContainerNo
+        internal string ContainerNo
         {
             get
             {
@@ -514,7 +514,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=28)]
-        public string GtbReferenceNo
+        internal string GtbReferenceNo
         {
             get
             {
@@ -527,7 +527,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=29)]
-        public string PaymentMethod
+        internal string PaymentMethod
         {
             get
             {
@@ -540,7 +540,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=30)]
-        public string EntryExitCustoms
+        internal string EntryExitCustoms
         {
             get
             {
@@ -553,7 +553,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=31)]
-        public System.Collections.Generic.List<ServiceReference1.InvoiceDetailModel> InvoiceDetailList
+        internal System.Collections.Generic.List<LocalWs.InvoiceDetailModel> InvoiceDetailList
         {
             get
             {
@@ -569,7 +569,7 @@ namespace ServiceReference1
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceDetailModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class InvoiceDetailModel : object
+    internal partial class InvoiceDetailModel : object
     {
         
         private System.Guid InvoiceDetailIdField;
@@ -617,7 +617,7 @@ namespace ServiceReference1
         private string IncentiveLineNoField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid InvoiceDetailId
+        internal System.Guid InvoiceDetailId
         {
             get
             {
@@ -630,7 +630,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid InvoiceId
+        internal System.Guid InvoiceId
         {
             get
             {
@@ -643,7 +643,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        public string HsCode
+        internal string HsCode
         {
             get
             {
@@ -656,7 +656,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        public string DescGoods
+        internal string DescGoods
         {
             get
             {
@@ -669,7 +669,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-        public string ProductNo
+        internal string ProductNo
         {
             get
             {
@@ -682,7 +682,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-        public string CountryOfOrigin
+        internal string CountryOfOrigin
         {
             get
             {
@@ -695,7 +695,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-        public string Uom
+        internal string Uom
         {
             get
             {
@@ -708,7 +708,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-        public double ActualQuantity
+        internal double ActualQuantity
         {
             get
             {
@@ -721,7 +721,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-        public double InvoiceQuantity
+        internal double InvoiceQuantity
         {
             get
             {
@@ -734,7 +734,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-        public System.Nullable<double> GrossWeight
+        internal System.Nullable<double> GrossWeight
         {
             get
             {
@@ -747,7 +747,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
-        public double NetWeight
+        internal double NetWeight
         {
             get
             {
@@ -760,7 +760,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-        public string IntrnlAgmt
+        internal string IntrnlAgmt
         {
             get
             {
@@ -773,7 +773,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
-        public string InvoiceNo
+        internal string InvoiceNo
         {
             get
             {
@@ -786,7 +786,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
-        public System.DateTime InvoiceDate
+        internal System.DateTime InvoiceDate
         {
             get
             {
@@ -799,7 +799,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
-        public double InvoiceAmount
+        internal double InvoiceAmount
         {
             get
             {
@@ -812,7 +812,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
-        public string PkgType
+        internal string PkgType
         {
             get
             {
@@ -825,7 +825,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
-        public string CommclDesc
+        internal string CommclDesc
         {
             get
             {
@@ -838,7 +838,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
-        public int NumberOfPackages
+        internal int NumberOfPackages
         {
             get
             {
@@ -851,7 +851,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=18)]
-        public int ItemNumber
+        internal int ItemNumber
         {
             get
             {
@@ -864,7 +864,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=19)]
-        public string ProducerCompanyNo
+        internal string ProducerCompanyNo
         {
             get
             {
@@ -877,7 +877,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=20)]
-        public string ProducerCompany
+        internal string ProducerCompany
         {
             get
             {
@@ -890,7 +890,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=21)]
-        public string IncentiveLineNo
+        internal string IncentiveLineNo
         {
             get
             {
@@ -906,7 +906,7 @@ namespace ServiceReference1
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ResultModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class ResultModel : object
+    internal partial class ResultModel : object
     {
         
         private int ResultCodeField;
@@ -914,7 +914,7 @@ namespace ServiceReference1
         private string ResultNameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ResultCode
+        internal int ResultCode
         {
             get
             {
@@ -927,7 +927,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ResultName
+        internal string ResultName
         {
             get
             {
@@ -943,14 +943,14 @@ namespace ServiceReference1
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WsBeyannameModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class WsBeyannameModel : object
+    internal partial class WsBeyannameModel : object
     {
         
         private string AliciAdField;
         
         private string AliciAdresField;
         
-        private System.Nullable<int> AliciNoField;
+        private string AliciNoField;
         
         private string AliciSehirField;
         
@@ -961,6 +961,8 @@ namespace ServiceReference1
         private string DosyaNoField;
         
         private string FaturaDovizKoduField;
+        
+        private string FaturaNoField;
         
         private decimal FaturaTutariField;
         
@@ -986,7 +988,7 @@ namespace ServiceReference1
         
         private string NavlunDovizKoduField;
         
-        private double NavlunTutariField;
+        private decimal NavlunTutariField;
         
         private string OdemeSekliField;
         
@@ -994,7 +996,7 @@ namespace ServiceReference1
         
         private string SigortaDovizKoduField;
         
-        private double SigortaTutariField;
+        private decimal SigortaTutariField;
         
         private string SinirGecenVasitaField;
         
@@ -1006,10 +1008,10 @@ namespace ServiceReference1
         
         private string TeslimYeriField;
         
-        private System.Collections.Generic.List<ServiceReference1.WsBeyannameKalemModel> WsBeyannameKalemListField;
+        private System.Collections.Generic.List<LocalWs.WsBeyannameKalemModel> WsBeyannameKalemListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AliciAd
+        internal string AliciAd
         {
             get
             {
@@ -1022,7 +1024,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AliciAdres
+        internal string AliciAdres
         {
             get
             {
@@ -1035,7 +1037,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> AliciNo
+        internal string AliciNo
         {
             get
             {
@@ -1048,7 +1050,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AliciSehir
+        internal string AliciSehir
         {
             get
             {
@@ -1061,7 +1063,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AliciUlke
+        internal string AliciUlke
         {
             get
             {
@@ -1074,7 +1076,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CikisVasitasi
+        internal string CikisVasitasi
         {
             get
             {
@@ -1087,7 +1089,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DosyaNo
+        internal string DosyaNo
         {
             get
             {
@@ -1100,7 +1102,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FaturaDovizKodu
+        internal string FaturaDovizKodu
         {
             get
             {
@@ -1113,7 +1115,20 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal FaturaTutari
+        internal string FaturaNo
+        {
+            get
+            {
+                return this.FaturaNoField;
+            }
+            set
+            {
+                this.FaturaNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        internal decimal FaturaTutari
         {
             get
             {
@@ -1126,7 +1141,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string GirisCikisGumruk
+        internal string GirisCikisGumruk
         {
             get
             {
@@ -1139,7 +1154,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string GondericiAd
+        internal string GondericiAd
         {
             get
             {
@@ -1152,7 +1167,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string GondericiAdres
+        internal string GondericiAdres
         {
             get
             {
@@ -1165,7 +1180,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string GondericiNo
+        internal string GondericiNo
         {
             get
             {
@@ -1178,7 +1193,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string GondericiSehir
+        internal string GondericiSehir
         {
             get
             {
@@ -1191,7 +1206,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string GondericiUlke
+        internal string GondericiUlke
         {
             get
             {
@@ -1204,7 +1219,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Gumruk
+        internal string Gumruk
         {
             get
             {
@@ -1217,7 +1232,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> IntacTarihi
+        internal System.Nullable<System.DateTime> IntacTarihi
         {
             get
             {
@@ -1230,7 +1245,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MusRefNo
+        internal string MusRefNo
         {
             get
             {
@@ -1243,7 +1258,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nakliyeci
+        internal string Nakliyeci
         {
             get
             {
@@ -1256,7 +1271,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NavlunDovizKodu
+        internal string NavlunDovizKodu
         {
             get
             {
@@ -1269,7 +1284,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double NavlunTutari
+        internal decimal NavlunTutari
         {
             get
             {
@@ -1282,7 +1297,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OdemeSekli
+        internal string OdemeSekli
         {
             get
             {
@@ -1295,7 +1310,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Rejim
+        internal string Rejim
         {
             get
             {
@@ -1308,7 +1323,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SigortaDovizKodu
+        internal string SigortaDovizKodu
         {
             get
             {
@@ -1321,7 +1336,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double SigortaTutari
+        internal decimal SigortaTutari
         {
             get
             {
@@ -1334,7 +1349,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SinirGecenVasita
+        internal string SinirGecenVasita
         {
             get
             {
@@ -1347,7 +1362,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TescilNo
+        internal string TescilNo
         {
             get
             {
@@ -1360,7 +1375,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> TescilTarihi
+        internal System.Nullable<System.DateTime> TescilTarihi
         {
             get
             {
@@ -1373,7 +1388,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TeslimSekli
+        internal string TeslimSekli
         {
             get
             {
@@ -1386,7 +1401,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TeslimYeri
+        internal string TeslimYeri
         {
             get
             {
@@ -1399,7 +1414,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<ServiceReference1.WsBeyannameKalemModel> WsBeyannameKalemList
+        internal System.Collections.Generic.List<LocalWs.WsBeyannameKalemModel> WsBeyannameKalemList
         {
             get
             {
@@ -1415,7 +1430,7 @@ namespace ServiceReference1
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WsBeyannameKalemModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class WsBeyannameKalemModel : object
+    internal partial class WsBeyannameKalemModel : object
     {
         
         private string BirimField;
@@ -1429,6 +1444,8 @@ namespace ServiceReference1
         private string GtipField;
         
         private System.Nullable<int> KalemNoField;
+        
+        private decimal KalemTutarField;
         
         private string KapField;
         
@@ -1446,10 +1463,10 @@ namespace ServiceReference1
         
         private string TicariTanimField;
         
-        private System.Collections.Generic.List<ServiceReference1.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeListField;
+        private System.Collections.Generic.List<LocalWs.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Birim
+        internal string Birim
         {
             get
             {
@@ -1462,7 +1479,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> BrutKG
+        internal System.Nullable<double> BrutKG
         {
             get
             {
@@ -1475,7 +1492,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> CifTutar
+        internal System.Nullable<double> CifTutar
         {
             get
             {
@@ -1488,7 +1505,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> FobTutar
+        internal System.Nullable<double> FobTutar
         {
             get
             {
@@ -1501,7 +1518,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Gtip
+        internal string Gtip
         {
             get
             {
@@ -1514,7 +1531,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> KalemNo
+        internal System.Nullable<int> KalemNo
         {
             get
             {
@@ -1527,7 +1544,20 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Kap
+        internal decimal KalemTutar
+        {
+            get
+            {
+                return this.KalemTutarField;
+            }
+            set
+            {
+                this.KalemTutarField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        internal string Kap
         {
             get
             {
@@ -1540,7 +1570,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string KapCinsi
+        internal string KapCinsi
         {
             get
             {
@@ -1553,7 +1583,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MenseiUlke
+        internal string MenseiUlke
         {
             get
             {
@@ -1566,7 +1596,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<decimal> Miktar
+        internal System.Nullable<decimal> Miktar
         {
             get
             {
@@ -1579,7 +1609,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> NetKG
+        internal System.Nullable<double> NetKG
         {
             get
             {
@@ -1592,7 +1622,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Rejim
+        internal string Rejim
         {
             get
             {
@@ -1605,7 +1635,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TesvikKalemNo
+        internal string TesvikKalemNo
         {
             get
             {
@@ -1618,7 +1648,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TicariTanim
+        internal string TicariTanim
         {
             get
             {
@@ -1631,7 +1661,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<ServiceReference1.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeList
+        internal System.Collections.Generic.List<LocalWs.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeList
         {
             get
             {
@@ -1647,7 +1677,7 @@ namespace ServiceReference1
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WsBeyannameKalemBelgeModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    public partial class WsBeyannameKalemBelgeModel : object
+    internal partial class WsBeyannameKalemBelgeModel : object
     {
         
         private int KalemNoField;
@@ -1665,7 +1695,7 @@ namespace ServiceReference1
         private System.Nullable<System.DateTime> VizeTarihiField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int KalemNo
+        internal int KalemNo
         {
             get
             {
@@ -1678,7 +1708,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Kodu
+        internal string Kodu
         {
             get
             {
@@ -1691,7 +1721,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        public string Aciklama
+        internal string Aciklama
         {
             get
             {
@@ -1704,7 +1734,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        public string Dogrulama
+        internal string Dogrulama
         {
             get
             {
@@ -1717,7 +1747,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-        public string Referans
+        internal string Referans
         {
             get
             {
@@ -1730,7 +1760,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-        public System.Nullable<System.DateTime> BelgeTarihi
+        internal System.Nullable<System.DateTime> BelgeTarihi
         {
             get
             {
@@ -1743,7 +1773,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-        public System.Nullable<System.DateTime> VizeTarihi
+        internal System.Nullable<System.DateTime> VizeTarihi
         {
             get
             {
@@ -1757,28 +1787,28 @@ namespace ServiceReference1
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
-    public interface IService1
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LocalWs.IService1")]
+    internal interface IService1
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetWorkOrderMastersModel", ReplyAction="http://tempuri.org/IService1/SetWorkOrderMastersModelResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.ResultModel> SetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, ServiceReference1.WorkOrderMasterModel workOrderMaster);
+        System.Threading.Tasks.Task<LocalWs.ResultModel> SetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, LocalWs.WorkOrderMasterModel workOrderMaster);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetWorkOrderMastersModel", ReplyAction="http://tempuri.org/IService1/GetWorkOrderMastersModelResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.WorkOrderMasterModel> GetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, string WorkOrderNo, string DeclarationType);
+        System.Threading.Tasks.Task<LocalWs.WorkOrderMasterModel> GetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, string WorkOrderNo, string DeclarationType);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetBeyannameModel", ReplyAction="http://tempuri.org/IService1/GetBeyannameModelResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.WsBeyannameModel> GetBeyannameModelAsync(string UserNameWs, string PasswordWs, string InvoiceNo);
+        System.Threading.Tasks.Task<LocalWs.WsBeyannameModel> GetBeyannameModelAsync(string UserNameWs, string PasswordWs, string InvoiceNo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface IService1Channel : ServiceReference1.IService1, System.ServiceModel.IClientChannel
+    internal interface IService1Channel : LocalWs.IService1, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class Service1Client : System.ServiceModel.ClientBase<ServiceReference1.IService1>, ServiceReference1.IService1
+    internal partial class Service1Client : System.ServiceModel.ClientBase<LocalWs.IService1>, LocalWs.IService1
     {
         
         /// <summary>
@@ -1821,17 +1851,17 @@ namespace ServiceReference1
         {
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.ResultModel> SetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, ServiceReference1.WorkOrderMasterModel workOrderMaster)
+        public System.Threading.Tasks.Task<LocalWs.ResultModel> SetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, LocalWs.WorkOrderMasterModel workOrderMaster)
         {
             return base.Channel.SetWorkOrderMastersModelAsync(UserNameWs, PasswordWs, workOrderMaster);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.WorkOrderMasterModel> GetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, string WorkOrderNo, string DeclarationType)
+        public System.Threading.Tasks.Task<LocalWs.WorkOrderMasterModel> GetWorkOrderMastersModelAsync(string UserNameWs, string PasswordWs, string WorkOrderNo, string DeclarationType)
         {
             return base.Channel.GetWorkOrderMastersModelAsync(UserNameWs, PasswordWs, WorkOrderNo, DeclarationType);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.WsBeyannameModel> GetBeyannameModelAsync(string UserNameWs, string PasswordWs, string InvoiceNo)
+        public System.Threading.Tasks.Task<LocalWs.WsBeyannameModel> GetBeyannameModelAsync(string UserNameWs, string PasswordWs, string InvoiceNo)
         {
             return base.Channel.GetBeyannameModelAsync(UserNameWs, PasswordWs, InvoiceNo);
         }
