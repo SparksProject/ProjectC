@@ -1,7 +1,7 @@
 ﻿using Chep.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using LocalWs;
+using Pfr360Ws;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
