@@ -24,8 +24,7 @@ namespace Chep.Service
         {
             get
             {
-                //TODO: Burası Amazon URL si ile değişecek.
-                var baseUrl = "https://localhost:44398/";
+                var baseUrl = "http://chepws.us-east-1.elasticbeanstalk.com/";
 
 #if DEBUG
                 baseUrl = "https://localhost:44398/";
