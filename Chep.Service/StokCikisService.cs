@@ -461,7 +461,9 @@ namespace Chep.Service
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
                 CikisAracKimligi = obj.CikisAracKimligi,
-
+                KapCinsi=obj.KapCinsi,
+                KapMiktari=obj.KapMiktari,
+                IsEmriDurum=obj.IsEmriDurum,
                 ChepStokCikisDetay = details,
             };
         }
@@ -550,6 +552,9 @@ namespace Chep.Service
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
                 CikisAracKimligi = obj.CikisAracKimligi,
+                KapCinsi = obj.KapCinsi,
+                KapMiktari = obj.KapMiktari,
+                IsEmriDurum = obj.IsEmriDurum,
 
                 ChepStokCikisDetayList = details
             };

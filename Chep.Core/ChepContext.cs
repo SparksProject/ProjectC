@@ -62,8 +62,7 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
-                optionsBuilder.UseSqlServer("User ID=admin;Password=chep2021;Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Pooling=true;");
+                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
 
@@ -86,11 +85,15 @@ namespace Chep.Core
 
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.InvoiceCurrency).HasMaxLength(3);
+                entity.Property(e => e.InvoiceCurrency)
+                    .IsRequired()
+                    .HasMaxLength(3);
 
                 entity.Property(e => e.InvoiceDate).HasColumnType("date");
 
                 entity.Property(e => e.InvoiceNo).HasMaxLength(50);
+
+                entity.Property(e => e.IsEmriDurum).HasMaxLength(300);
 
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
 
@@ -906,15 +909,13 @@ namespace Chep.Core
                     .HasColumnName("PARÇA NO")
                     .HasMaxLength(57);
 
-                entity.Property(e => e.ÇıkışReferansNo).HasColumnName("Çıkış ReferansNo");
-
                 entity.Property(e => e.İhracatBeyannameNumarasi)
                     .HasColumnName("İHRACAT BEYANNAME NUMARASI")
                     .HasMaxLength(20);
 
                 entity.Property(e => e.İhracatBeyannameTarİhİ)
                     .HasColumnName("İHRACAT BEYANNAME TARİHİ")
-                    .HasColumnType("datetime");
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.İhracatTpsNo)
                     .HasColumnName("İHRACAT TPS NO")
@@ -922,7 +923,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.İhracatTpsTarİhİ)
                     .HasColumnName("İHRACAT TPS TARİHİ")
-                    .HasColumnType("datetime");
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.İthalatBeyannameNo)
                     .HasColumnName("İTHALAT BEYANNAME NO")
@@ -930,11 +931,11 @@ namespace Chep.Core
 
                 entity.Property(e => e.İthalatBeyannameTarİhİ)
                     .HasColumnName("İTHALAT BEYANNAME TARİHİ")
-                    .HasColumnType("datetime");
+                    .HasMaxLength(4000);
 
                 entity.Property(e => e.İthalİşlemTürü)
                     .HasColumnName("İTHAL İŞLEM TÜRÜ")
-                    .HasMaxLength(50);
+                    .HasMaxLength(2);
             });
 
             modelBuilder.Entity<VwStokDurumListe>(entity =>
@@ -953,7 +954,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.CikisRejimi).HasMaxLength(4);
+                entity.Property(e => e.CikisRejimi).HasMaxLength(50);
 
                 entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
 
@@ -971,6 +972,10 @@ namespace Chep.Core
 
                 entity.Property(e => e.GumrukKod).HasMaxLength(6);
 
+                entity.Property(e => e.IhracatciFirma).HasMaxLength(100);
+
+                entity.Property(e => e.IthalatciFirma).HasMaxLength(100);
+
                 entity.Property(e => e.Marka).HasMaxLength(50);
 
                 entity.Property(e => e.MenseUlke).HasMaxLength(20);
@@ -983,7 +988,7 @@ namespace Chep.Core
                     .HasColumnName("PONo")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Rejim).HasMaxLength(4);
+                entity.Property(e => e.Rejim).HasMaxLength(50);
 
                 entity.Property(e => e.SozlesmeUlke).HasMaxLength(20);
 
@@ -1323,7 +1328,9 @@ namespace Chep.Core
 
                 entity.Property(e => e.NetWeight).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.PkgType).HasMaxLength(2);
+                entity.Property(e => e.PkgType)
+                    .IsRequired()
+                    .HasMaxLength(2);
 
                 entity.Property(e => e.ProducerCompany)
                     .IsRequired()

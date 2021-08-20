@@ -25,6 +25,9 @@ namespace Chep.DTO
         public string OdemeSekli { get; set; }
         public Guid? NakliyeciFirma { get; set; }
         public string CikisAracKimligi { get; set; }
+        public string KapCinsi { get; set; }
+        public int? KapMiktari { get; set; }
+        public string IsEmriDurum { get; set; }
 
         public string ItemNo { get; set; }
         public int DropCount { get; set; }
