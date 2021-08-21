@@ -288,9 +288,9 @@ namespace Chep.Service
                     return Warning("Geçersiz Ürün Kodu!");
                 }
 
-                itemNo = itemNo.ToLower();
+                //itemNo = itemNo.ToLower();
 
-                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod.ToLower().Equals(itemNo) && x.IthalatciFirma == ithalatciFirma);
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod==itemNo && x.IthalatciFirma == ithalatciFirma);
 
                 var target = new List<ViewStokDusumListeDto>();
 
@@ -461,7 +461,9 @@ namespace Chep.Service
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
                 CikisAracKimligi = obj.CikisAracKimligi,
-
+                KapCinsi=obj.KapCinsi,
+                KapMiktari=obj.KapMiktari,
+                IsEmriDurum=obj.IsEmriDurum,
                 ChepStokCikisDetay = details,
             };
         }
@@ -550,6 +552,9 @@ namespace Chep.Service
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
                 CikisAracKimligi = obj.CikisAracKimligi,
+                KapCinsi = obj.KapCinsi,
+                KapMiktari = obj.KapMiktari,
+                IsEmriDurum = obj.IsEmriDurum,
 
                 ChepStokCikisDetayList = details
             };

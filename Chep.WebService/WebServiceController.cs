@@ -92,7 +92,7 @@ namespace Chep.WebService
                             ProducerCompanyNo = itemInvoiceDetail.ProducerCompanyNo,
                             NetWeight = Convert.ToDouble(itemInvoiceDetail.NetWeight),
                             GrossWeight = Convert.ToDouble(itemInvoiceDetail.GrossWeight),
-                            InvoiceAmount = Convert.ToDouble(itemInvoiceDetail.InvoiceAmount),
+                            InvoiceAmount = Convert.ToDouble(itemInvoiceDetail.InvoiceAmount),                            
                         };
 
                         if (itemInvoiceDetail.ActualQuantity.HasValue)

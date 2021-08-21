@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using Chep.Data.Repository;
 using Chep.DTO;
@@ -27,7 +28,7 @@ namespace Chep.Service
                 var baseUrl = "http://chepws.us-east-1.elasticbeanstalk.com/";
 
 #if DEBUG
-                baseUrl = "https://localhost:44398/";
+               // baseUrl = "https://localhost:44398/";
 #endif
 
                 var url = $"{baseUrl}WebService/Post";
@@ -41,7 +42,7 @@ namespace Chep.Service
             try
             {
 #if DEBUG
-                id = 34;
+               // id = 34;
 #endif
                 var master = _uow.VwWsWorkOrderMaster.Single(x => x.StokCikisId == id);
                 var invoices = _uow.VwWsWorkOrderInvoice.Search(x => x.StokCikisId == id);
@@ -107,7 +108,7 @@ namespace Chep.Service
                     });
                 }
 
-                foreach (var detail in invoiceDetails)
+                foreach (var detail in invoiceDetails.OrderBy(x=>x.ItemNumber))
                 {
                     dto.VwWsWorkOrderInvoiceDetails.Add(new VwWsWorkOrderInvoiceDetailsDTO()
                     {

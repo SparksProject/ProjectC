@@ -36,6 +36,7 @@ namespace Chep.Core
         public string CikisAracKimligi { get; set; }
         public string KapCinsi { get; set; }
         public int? KapMiktari { get; set; }
+        public string IsEmriDurum { get; set; }
 
         public virtual Customer IhracatciFirmaNavigation { get; set; }
         public virtual ICollection<ChepStokCikisDetay> ChepStokCikisDetay { get; set; }

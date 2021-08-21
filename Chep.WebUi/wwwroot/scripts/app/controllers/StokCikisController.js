@@ -84,7 +84,7 @@
             if ($gridDetail == null) {
                 $gridDetail = $("#gridDetail").dxDataGrid({
                     keyExpr: "stokCikisDetayId",
-                    dataSource: [],
+                    dataSource: [],                    
                     columns: [
                         {
                             dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No", width: 250,
@@ -111,15 +111,18 @@
                                         return $("<div>").dxDataGrid({
                                             dataSource: storeStokGiris,
                                             remoteOperations: true,
+                                            filterRow: {
+                                                visible: true,
+                                            },
                                             columns: [
                                                 {
-                                                    dataField: "tpsNo", caption: "TPS No", width: 190
+                                                    dataField: "tpsNo", caption: "TPS No", width: 200
                                                 }, {
-                                                    dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 140
+                                                    dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 150
                                                 }, {
                                                     dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
                                                 }, {
-                                                    dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number",
+                                                    dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", 
                                                 }, {
                                                     dataField: "urunKod", caption: "Ürün Kodu", dataType: "string",
                                                 }, {
@@ -127,9 +130,10 @@
                                                 },
 
                                             ],
+                                           
                                             hoverStateEnabled: true,
                                             scrolling: { mode: "virtual" },
-                                            height: 250,
+                                            height: 300,
                                             selection: { mode: "single" },
                                             selectedRowKeys: [cellInfo.value],
                                             focusedRowEnabled: true,
@@ -212,6 +216,7 @@
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
+                    
                     export: {
                         enabled: true,
                     },
