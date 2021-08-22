@@ -15,12 +15,11 @@ namespace Chep.Core
         public string Menşeİ { get; set; }
         public string Gtİp { get; set; }
         public string İthalatBeyannameNo { get; set; }
-        public DateTime? İthalatBeyannameTarİhİ { get; set; }
+        public string İthalatBeyannameTarİhİ { get; set; }
         public string İhracatTpsNo { get; set; }
-        public DateTime? İhracatTpsTarİhİ { get; set; }
+        public string İhracatTpsTarİhİ { get; set; }
         public string İhracatBeyannameNumarasi { get; set; }
-        public DateTime? İhracatBeyannameTarİhİ { get; set; }
-        public int ÇıkışReferansNo { get; set; }
-        public int UserId { get; set; }
+        public string İhracatBeyannameTarİhİ { get; set; }
+        public int CikisReferansNo { get; set; }
     }
 }
