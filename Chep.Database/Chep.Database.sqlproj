@@ -101,6 +101,7 @@
     <Build Include="dbo\Views\vw_WsWorkOrderInvoiceDetails.sql" />
     <Build Include="dbo\Views\vw_WsWorkOrderInvoice.sql" />
     <Build Include="dbo\Views\vw_StokCikisFordListe.sql" />
+    <Build Include="dbo\Views\vw_StokCikisFaturaOrnekListe.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="projectToAmazon.scmp" />

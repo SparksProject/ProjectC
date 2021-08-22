@@ -171,8 +171,7 @@ namespace Chep.Service
 
                 var entities = context.ChepStokCikis
                                                  .Include(x => x.ChepStokCikisDetay)
-                                                 .Include(x => x.IhracatciFirmaNavigation)
-                                                 .Include(x => x.IhracatciFirmaNavigation)
+                                                 .Include(x => x.IhracatciFirmaNavigation)                                                
                                                  .ToList();
 
                 if (referansNo.HasValue && referansNo.Value > 0)

@@ -48,6 +48,7 @@ namespace Chep.Core
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<VwGenelListe> VwGenelListe { get; set; }
         public virtual DbSet<VwStokCikisDetayListe> VwStokCikisDetayListe { get; set; }
+        public virtual DbSet<VwStokCikisFaturaOrnekListe> VwStokCikisFaturaOrnekListe { get; set; }
         public virtual DbSet<VwStokCikisFordListe> VwStokCikisFordListe { get; set; }
         public virtual DbSet<VwStokDurumListe> VwStokDurumListe { get; set; }
         public virtual DbSet<VwStokDusumListe> VwStokDusumListe { get; set; }
@@ -62,7 +63,8 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
+                //optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
+                optionsBuilder.UseSqlServer("User ID=admin;Password=chep2021;Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Pooling=true;");
             }
         }
 
@@ -85,9 +87,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.InvoiceCurrency)
-                    .IsRequired()
-                    .HasMaxLength(3);
+                entity.Property(e => e.InvoiceCurrency).HasMaxLength(3);
 
                 entity.Property(e => e.InvoiceDate).HasColumnType("date");
 
@@ -887,6 +887,73 @@ namespace Chep.Core
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.UrunKod).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<VwStokCikisFaturaOrnekListe>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_StokCikisFaturaOrnekListe");
+
+                entity.Property(e => e.AliciAdres)
+                    .HasColumnName("Alici Adres")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.AlıcıFirma)
+                    .HasColumnName("Alıcı Firma")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.BirimFiyat)
+                    .HasColumnName("Birim Fiyat")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.BrütKg).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.FaturaTutarı)
+                    .HasColumnName("Fatura Tutarı")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Gtip)
+                    .IsRequired()
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Gümrük).HasMaxLength(257);
+
+                entity.Property(e => e.Menşei).HasMaxLength(20);
+
+                entity.Property(e => e.NetKg).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.TeslimŞekli)
+                    .HasColumnName("Teslim Şekli")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.TicariTanım)
+                    .HasColumnName("Ticari Tanım")
+                    .HasMaxLength(71);
+
+                entity.Property(e => e.ÇıkışReferansNo).HasColumnName("Çıkış ReferansNo");
+
+                entity.Property(e => e.ÜrünKodu)
+                    .HasColumnName("Ürün Kodu")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.İhracatTpsNo)
+                    .HasColumnName("İhracat TPS No")
+                    .HasMaxLength(34);
+
+                entity.Property(e => e.İhracatTpsTarihi)
+                    .HasColumnName("İhracat TPS Tarihi")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.İthalatBeyannameKalemNo).HasColumnName("İthalat Beyanname Kalem No");
+
+                entity.Property(e => e.İthalatBeyannameNo)
+                    .HasColumnName("İthalat Beyanname No")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.İthalatBeyannameTarihi)
+                    .HasColumnName("İthalat Beyanname Tarihi")
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<VwStokCikisFordListe>(entity =>

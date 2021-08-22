@@ -21,8 +21,8 @@ namespace Chep.Core
         public string BelgeAd { get; set; }
         public string BelgeSart { get; set; }
         public string Tpsaciklama { get; set; }
-        public Guid? IthalatciFirma { get; set; }
-        public Guid? IhracatciFirma { get; set; }
+        public string IthalatciFirma { get; set; }
+        public string IhracatciFirma { get; set; }
         public int? KapAdet { get; set; }
         public int StokGirisDetayId { get; set; }
         public int? TpssiraNo { get; set; }
@@ -46,6 +46,5 @@ namespace Chep.Core
         public string Pono { get; set; }
         public int CikisMiktar { get; set; }
         public int? KalanMiktar { get; set; }
-        public int UserId { get; set; }
     }
 }
