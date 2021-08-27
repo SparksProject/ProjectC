@@ -222,10 +222,6 @@
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
-                    remoteOperations: true,
-                    filterRow: {
-                        visible: true,
-                    },
                     paging: false,
                     export: {
                         enabled: true,
