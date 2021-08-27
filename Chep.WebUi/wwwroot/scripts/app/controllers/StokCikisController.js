@@ -84,7 +84,7 @@
             if ($gridDetail == null) {
                 $gridDetail = $("#gridDetail").dxDataGrid({
                     keyExpr: "stokCikisDetayId",
-                    dataSource: [],                    
+                    dataSource: [],
                     columns: [
                         {
                             dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No", width: 250,
@@ -98,7 +98,7 @@
                             editCellTemplate: function (cellElement, cellInfo) {
                                 // Hücre içine DropDownBox kurulumu
                                 return $("<div>").dxDropDownBox({
-                                    dropDownOptions: { width: 900 },
+                                    dropDownOptions: { width: 1050 },
                                     dataSource: storeStokGiris,
                                     value: cellInfo.value,
                                     valueExpr: "stokGirisDetayId",
@@ -120,17 +120,23 @@
                                                 }, {
                                                     dataField: "beyannameNo", caption: "Beyanname No", dataType: "string", width: 150
                                                 }, {
-                                                    dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number",
+                                                    dataField: "tpsSiraNo", caption: "TPS Sıra No", dataType: "number", width: 90
                                                 }, {
-                                                    dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", 
+                                                    dataField: "tpsCikisSiraNo", caption: "TPS Çıkış Sıra No", dataType: "number", width: 90
                                                 }, {
-                                                    dataField: "urunKod", caption: "Ürün Kodu", dataType: "string",
+                                                    dataField: "urunKod", caption: "Ürün Kodu", dataType: "string", width: 90
                                                 }, {
-                                                    dataField: "esyaCinsi", caption: "Eşya Cinsi", dataType: "string",
+                                                    dataField: "esyaCinsi", caption: "Eşya Cinsi", dataType: "string", width: 90
+                                                }, {
+                                                    dataField: "miktar", caption: "Giriş Miktar", dataType: "number", width: 90
+                                                }, {
+                                                    dataField: "cikisMiktar", caption: "Çıkış Miktar", dataType: "number", width: 90
+                                                }, {
+                                                    dataField: "kalanMiktar", caption: "Kalan Miktar", dataType: "number", width: 90
                                                 },
 
                                             ],
-                                           
+
                                             hoverStateEnabled: true,
                                             scrolling: { mode: "virtual" },
                                             height: 300,
@@ -216,7 +222,11 @@
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
-                    
+                    remoteOperations: true,
+                    filterRow: {
+                        visible: true,
+                    },
+                    paging: false,
                     export: {
                         enabled: true,
                     },
@@ -434,6 +444,7 @@
                     groupPanel: {
                         visible: false,
                     },
+                    paging: false,
                     showBorders: true,
                     showRowLines: true,
                     sorting: {
@@ -886,23 +897,130 @@
     };
 
     $scope.SetWorkOrderService = function (id) {
-        SparksXService.SetWorkOrderService(id)
+        SparksXService.GetStokCikis(id)
             .success(function (data) {
-                if (data.result != null) {
-                    console.log(data);
-                }
-                if (data.message != null) {
+                console.log(data);
+                if (data.invoiceId == null) {
                     swal({
-                        icon: "error",
-                        title: data.message,
+                        icon: "warning",
+                        title: "Fatura Id alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
                     });
+                    return false;
                 }
-            }).error(function (er) {
+                if (data.ihracatciFirma == null) {
+                    swal({
+                        icon: "warning",
+                        title: "İhracatcı Firma alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.invoiceCurrency == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Fatura Döviz Türü alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.invoiceAmount == null || data.invoiceAmount <= 0) {
+                    swal({
+                        icon: "warning",
+                        title: "Fatura Tutar alanı 0'dan büyük olmalı. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.odemeSekli == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Ödeme Şekli alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.aliciFirma == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Alıcı Firma alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.teslimSekli == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Teslim Şekli alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.kapCinsi == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Kap Cinsi alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.kapMiktari == null || data.kapMiktari <= 0) {
+                    swal({
+                        icon: "warning",
+                        title: "Kap Adedi alanı 0'dan büyük olmalı. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+
+                for (var i = 0; i < data.chepStokCikisDetayList.length; i++) {
+                    if (data.chepStokCikisDetayList[i].miktar == null || data.chepStokCikisDetayList[i].miktar <= 0) {
+                        swal({
+                            icon: "warning",
+                            title: "Detayların birinde Miktar alanı  0'dan büyük olmalı. Tüm verileri kaydettiğinizden emin olunuz.",
+                        });
+                        return false;
+                    }
+                    if (data.chepStokCikisDetayList[i].invoiceAmount == null || data.chepStokCikisDetayList[i].invoiceAmount <= 0) {
+                        swal({
+                            icon: "warning",
+                            title: "Detayların birinde Fatura Tutar alanı  0'dan büyük olmalı. Tüm verileri kaydettiğinizden emin olunuz.",
+                        });
+                        return false;
+                    }
+                    if (data.chepStokCikisDetayList[i].netKg == null || data.chepStokCikisDetayList[i].netKg <= 0) {
+                        swal({
+                            icon: "warning",
+                            title: "Detayların birinde Net KG alanı  0'dan büyük olmalı. Tüm verileri kaydettiğinizden emin olunuz.",
+                        });
+                        return false;
+                    }
+                    if (data.chepStokCikisDetayList[i].invoiceDetailId == null) {
+                        swal({
+                            icon: "warning",
+                            title: "Detayların birinde Fatura Detay Id alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                        });
+                        return false;
+                    }
+                }
+
+                SparksXService.SetWorkOrderService(id)
+                    .success(function (data) {
+                        if (data.result != null) {
+                            console.log(data);
+                        }
+                        if (data.message != null) {
+                            swal({
+                                icon: "error",
+                                title: data.message,
+                            });
+                        }
+                    }).error(function (er) {
+                        swal({
+                            icon: "error",
+                            title: er.message,
+                        });
+                    });
+
+            }).error(function (error) {
                 swal({
                     icon: "error",
-                    title: er.message,
+                    title: error.message,
                 });
             });
+
+
 
     };
 

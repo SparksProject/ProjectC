@@ -40,6 +40,7 @@ namespace Chep.Service
                 obj.InvoiceId = Guid.NewGuid();
 
                 var entity = Map(obj);
+                entity.InvoiceAmount = entity.ChepStokCikisDetay.Sum(x => x.InvoiceAmount);
 
                 var result = _uow.ChepStokCikis.Add(entity);
                 foreach (var item in result.ChepStokCikisDetay)
@@ -67,8 +68,12 @@ namespace Chep.Service
                 {
                     return BadRequest();
                 }
-
                 var entity = Map(obj);
+
+                if (obj.InvoiceAmount != entity.ChepStokCikisDetay.Sum(x => x.InvoiceAmount))
+                {
+                    entity.InvoiceAmount = entity.ChepStokCikisDetay.Sum(x => x.InvoiceAmount);
+                }
 
                 entity.ChepStokCikisDetay = null;
 
@@ -171,7 +176,7 @@ namespace Chep.Service
 
                 var entities = context.ChepStokCikis
                                                  .Include(x => x.ChepStokCikisDetay)
-                                                 .Include(x => x.IhracatciFirmaNavigation)                                                
+                                                 .Include(x => x.IhracatciFirmaNavigation)
                                                  .ToList();
 
                 if (referansNo.HasValue && referansNo.Value > 0)
@@ -289,7 +294,7 @@ namespace Chep.Service
 
                 //itemNo = itemNo.ToLower();
 
-                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod==itemNo && x.IthalatciFirma == ithalatciFirma);
+                var entities = _uow.ViewStokDusumListe.Search(x => x.UrunKod != null && x.UrunKod == itemNo && x.IthalatciFirma == ithalatciFirma);
 
                 var target = new List<ViewStokDusumListeDto>();
 
@@ -460,9 +465,9 @@ namespace Chep.Service
                 OdemeSekli = obj.OdemeSekli,
                 TeslimSekli = obj.TeslimSekli,
                 CikisAracKimligi = obj.CikisAracKimligi,
-                KapCinsi=obj.KapCinsi,
-                KapMiktari=obj.KapMiktari,
-                IsEmriDurum=obj.IsEmriDurum,
+                KapCinsi = obj.KapCinsi,
+                KapMiktari = obj.KapMiktari,
+                IsEmriDurum = obj.IsEmriDurum,
                 ChepStokCikisDetay = details,
             };
         }

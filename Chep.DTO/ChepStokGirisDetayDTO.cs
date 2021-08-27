@@ -31,6 +31,8 @@ namespace Chep.DTO
         public string BeyannameNo { get; set; }
         public DateTime? BeyannameTarihi { get; set; }
 
+        public int? CikisMiktar { get; set; }
+        public int? KalanMiktar { get; set; }
 
         public string StokGirisBeyannameNo { get; set; }
         public string BirimTutar { get; set; }
