@@ -184,6 +184,35 @@ namespace Chep.Service
                 foreach (var item in entities)
                 {
                     var obj = Map(item);
+                    obj.Miktar = item.Miktar;
+                    obj.CikisMiktar = item.ChepStokCikisDetay.Sum(x => x.Miktar);
+                    obj.KalanMiktar = item.Miktar - item.ChepStokCikisDetay.Sum(x => x.Miktar);
+
+                    list.Add(obj);
+                }
+
+                return Success(list);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
+        public ResponseDTO ListDetailDeneme()
+        {
+            try
+            {
+                var entities = _uow.ChepStokGirisDetay.Set()
+                                                      .Include(x => x.ChepStokCikisDetay)
+                                                      .Include(x => x.StokGiris)
+                                                      .ToList();
+
+                var list = new List<ChepStokGirisDetayDTO>();
+
+                foreach (var item in entities)
+                {
+                    var obj = Map(item);
 
                     list.Add(obj);
                 }
