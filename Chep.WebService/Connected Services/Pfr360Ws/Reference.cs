@@ -616,6 +616,8 @@ namespace Pfr360Ws
         
         private string IncentiveLineNoField;
         
+        private System.Collections.Generic.List<Pfr360Ws.InvoiceDetailTcgbModel> InvoiceDetailTcgbListField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid InvoiceDetailId
         {
@@ -899,6 +901,131 @@ namespace Pfr360Ws
             set
             {
                 this.IncentiveLineNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
+        public System.Collections.Generic.List<Pfr360Ws.InvoiceDetailTcgbModel> InvoiceDetailTcgbList
+        {
+            get
+            {
+                return this.InvoiceDetailTcgbListField;
+            }
+            set
+            {
+                this.InvoiceDetailTcgbListField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceDetailTcgbModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
+    public partial class InvoiceDetailTcgbModel : object
+    {
+        
+        private System.Guid InvoiceDetailTcgbIdField;
+        
+        private System.Guid InvoiceDetailIdField;
+        
+        private string DeclarationNoField;
+        
+        private int ItemNoField;
+        
+        private decimal QuantityField;
+        
+        private string DescriptionField;
+        
+        private System.Nullable<System.DateTime> DeclarationDateField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid InvoiceDetailTcgbId
+        {
+            get
+            {
+                return this.InvoiceDetailTcgbIdField;
+            }
+            set
+            {
+                this.InvoiceDetailTcgbIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public System.Guid InvoiceDetailId
+        {
+            get
+            {
+                return this.InvoiceDetailIdField;
+            }
+            set
+            {
+                this.InvoiceDetailIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public string DeclarationNo
+        {
+            get
+            {
+                return this.DeclarationNoField;
+            }
+            set
+            {
+                this.DeclarationNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public int ItemNo
+        {
+            get
+            {
+                return this.ItemNoField;
+            }
+            set
+            {
+                this.ItemNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public decimal Quantity
+        {
+            get
+            {
+                return this.QuantityField;
+            }
+            set
+            {
+                this.QuantityField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string Description
+        {
+            get
+            {
+                return this.DescriptionField;
+            }
+            set
+            {
+                this.DescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public System.Nullable<System.DateTime> DeclarationDate
+        {
+            get
+            {
+                return this.DeclarationDateField;
+            }
+            set
+            {
+                this.DeclarationDateField = value;
             }
         }
     }
