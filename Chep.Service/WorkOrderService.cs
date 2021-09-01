@@ -28,7 +28,7 @@ namespace Chep.Service
                 var baseUrl = "http://chepws.us-east-1.elasticbeanstalk.com/";
 
 #if DEBUG
-               // baseUrl = "https://localhost:44398/";
+                baseUrl = "http://localhost:65404/";
 #endif
 
                 var url = $"{baseUrl}WebService/Post";
@@ -42,11 +42,12 @@ namespace Chep.Service
             try
             {
 #if DEBUG
-               // id = 34;
+                // id = 34;
 #endif
                 var master = _uow.VwWsWorkOrderMaster.Single(x => x.StokCikisId == id);
                 var invoices = _uow.VwWsWorkOrderInvoice.Search(x => x.StokCikisId == id);
                 var invoiceDetails = _uow.VwWsWorkOrderInvoiceDetails.Search(x => x.StokCikisId == id);
+                var invoiceDetailsTcgb = _uow.VwWsWorkOrderInvoiceDetailsTcgb.Search(x => x.StokCikisId == id);
 
                 if (master == null)
                 {
@@ -65,7 +66,8 @@ namespace Chep.Service
                         WorkOrderNo = master.WorkOrderNo
                     },
                     VwWsWorkOrderInvoices = new List<VwWsWorkOrderInvoiceDTO>(),
-                    VwWsWorkOrderInvoiceDetails = new List<VwWsWorkOrderInvoiceDetailsDTO>()
+                    VwWsWorkOrderInvoiceDetails = new List<VwWsWorkOrderInvoiceDetailsDTO>(),
+                    VwWsWorkOrderInvoiceDetailsTcgb = new List<VwWsWorkOrderInvoiceDetailsTcgbDto>()
                 };
 
                 foreach (var invoice in invoices)
@@ -108,7 +110,7 @@ namespace Chep.Service
                     });
                 }
 
-                foreach (var detail in invoiceDetails.OrderBy(x=>x.ItemNumber))
+                foreach (var detail in invoiceDetails.OrderBy(x => x.ItemNumber))
                 {
                     dto.VwWsWorkOrderInvoiceDetails.Add(new VwWsWorkOrderInvoiceDetailsDTO()
                     {
@@ -136,7 +138,23 @@ namespace Chep.Service
                         StokCikisId = detail.StokCikisId,
                         Uom = detail.Uom,
                         WorkOrderMasterId = detail.WorkOrderMasterId,
-                        WorkOrderNo = detail.WorkOrderNo
+                        WorkOrderNo = detail.WorkOrderNo,
+                    });
+
+                }
+
+                foreach (var detailTcgb in invoiceDetailsTcgb)
+                {
+                    dto.VwWsWorkOrderInvoiceDetailsTcgb.Add(new VwWsWorkOrderInvoiceDetailsTcgbDto()
+                    {
+                        StokCikisId = detailTcgb.StokCikisId,
+                        DeclarationDate = detailTcgb.DeclarationDate,
+                        DeclarationNo = detailTcgb.DeclarationNo,
+                        Description = detailTcgb.Description,
+                        InvoiceDetailId = detailTcgb.InvoiceDetailId,
+                        InvoiceDetailsTcgbId = detailTcgb.InvoiceDetailsTcgbId,
+                        ItemNo = detailTcgb.ItemNo,
+                        Quantity = detailTcgb.Quantity
                     });
                 }
 

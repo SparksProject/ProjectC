@@ -75,5 +75,6 @@ namespace Chep.Data.Repository
         public Repository<VwWsWorkOrderMaster> VwWsWorkOrderMaster { get { return new Repository<VwWsWorkOrderMaster>(_context); } }
         public Repository<VwWsWorkOrderInvoice> VwWsWorkOrderInvoice { get { return new Repository<VwWsWorkOrderInvoice>(_context); } }
         public Repository<VwWsWorkOrderInvoiceDetails> VwWsWorkOrderInvoiceDetails { get { return new Repository<VwWsWorkOrderInvoiceDetails>(_context); } }
+        public Repository<VwWsWorkOrderInvoiceDetailsTcgb> VwWsWorkOrderInvoiceDetailsTcgb { get { return new Repository<VwWsWorkOrderInvoiceDetailsTcgb>(_context); } }
     }
 }

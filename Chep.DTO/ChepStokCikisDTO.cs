@@ -32,6 +32,7 @@ namespace Chep.DTO
         public string ItemNo { get; set; }
         public int DropCount { get; set; }
         public string IhracatciFirmaName { get; set; }
+        public string AliciFirmaName { get; set; }
         public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";
         public string TpsTarihDisplay => $"{TpsTarih:dd.MM.yyyy}";
         public string BeyannameTarihiDisplay => $"{BeyannameTarihi:dd.MM.yyyy}";

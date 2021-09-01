@@ -15,7 +15,7 @@ namespace LocalWs
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WorkOrderMasterModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class WorkOrderMasterModel : object
+    public partial class WorkOrderMasterModel : object
     {
         
         private System.Collections.Generic.List<LocalWs.InvoiceModel> InvoiceListField;
@@ -27,7 +27,7 @@ namespace LocalWs
         private string DeclarationTypeField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Collections.Generic.List<LocalWs.InvoiceModel> InvoiceList
+        public System.Collections.Generic.List<LocalWs.InvoiceModel> InvoiceList
         {
             get
             {
@@ -40,7 +40,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Guid WorkOrderMasterId
+        public System.Guid WorkOrderMasterId
         {
             get
             {
@@ -53,7 +53,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string WorkOrderNo
+        public string WorkOrderNo
         {
             get
             {
@@ -66,7 +66,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        internal string DeclarationType
+        public string DeclarationType
         {
             get
             {
@@ -82,7 +82,7 @@ namespace LocalWs
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class InvoiceModel : object
+    public partial class InvoiceModel : object
     {
         
         private System.Guid InvoiceIdField;
@@ -150,7 +150,7 @@ namespace LocalWs
         private System.Collections.Generic.List<LocalWs.InvoiceDetailModel> InvoiceDetailListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Guid InvoiceId
+        public System.Guid InvoiceId
         {
             get
             {
@@ -163,7 +163,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Guid WorkOrderMasterId
+        public System.Guid WorkOrderMasterId
         {
             get
             {
@@ -176,7 +176,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        internal string SenderNo
+        public string SenderNo
         {
             get
             {
@@ -189,7 +189,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        internal string SenderName
+        public string SenderName
         {
             get
             {
@@ -202,7 +202,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-        internal string SenderAddress
+        public string SenderAddress
         {
             get
             {
@@ -215,7 +215,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-        internal string SenderCity
+        public string SenderCity
         {
             get
             {
@@ -228,7 +228,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-        internal string SenderCountry
+        public string SenderCountry
         {
             get
             {
@@ -241,7 +241,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-        internal string ConsgnName
+        public string ConsgnName
         {
             get
             {
@@ -254,7 +254,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-        internal string ConsgnAddress
+        public string ConsgnAddress
         {
             get
             {
@@ -267,7 +267,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-        internal string ConsgnCity
+        public string ConsgnCity
         {
             get
             {
@@ -280,7 +280,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
-        internal string ConsgnCountry
+        public string ConsgnCountry
         {
             get
             {
@@ -293,7 +293,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-        internal string TransptrName
+        public string TransptrName
         {
             get
             {
@@ -306,7 +306,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
-        internal string VesselName
+        public string VesselName
         {
             get
             {
@@ -319,7 +319,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
-        internal string AgentName
+        public string AgentName
         {
             get
             {
@@ -332,7 +332,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
-        internal string PlateNo
+        public string PlateNo
         {
             get
             {
@@ -345,7 +345,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
-        internal string AwbNo
+        public string AwbNo
         {
             get
             {
@@ -358,7 +358,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
-        internal string BLNo
+        public string BLNo
         {
             get
             {
@@ -371,7 +371,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
-        internal string Incoterms
+        public string Incoterms
         {
             get
             {
@@ -384,7 +384,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=18)]
-        internal string DeliveryLocation
+        public string DeliveryLocation
         {
             get
             {
@@ -397,7 +397,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=19)]
-        internal decimal InvoiceAmount
+        public decimal InvoiceAmount
         {
             get
             {
@@ -410,7 +410,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=20)]
-        internal string Customs
+        public string Customs
         {
             get
             {
@@ -423,7 +423,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=21)]
-        internal string InvoiceCurrency
+        public string InvoiceCurrency
         {
             get
             {
@@ -436,7 +436,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
-        internal System.Nullable<decimal> FreightAmount
+        public System.Nullable<decimal> FreightAmount
         {
             get
             {
@@ -449,7 +449,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=23)]
-        internal string FreightCurrency
+        public string FreightCurrency
         {
             get
             {
@@ -462,7 +462,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=24)]
-        internal System.Nullable<decimal> InsuranceAmount
+        public System.Nullable<decimal> InsuranceAmount
         {
             get
             {
@@ -475,7 +475,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=25)]
-        internal string InsuranceCurrency
+        public string InsuranceCurrency
         {
             get
             {
@@ -488,7 +488,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=26)]
-        internal string ConsgnNo
+        public string ConsgnNo
         {
             get
             {
@@ -501,7 +501,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=27)]
-        internal string ContainerNo
+        public string ContainerNo
         {
             get
             {
@@ -514,7 +514,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=28)]
-        internal string GtbReferenceNo
+        public string GtbReferenceNo
         {
             get
             {
@@ -527,7 +527,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=29)]
-        internal string PaymentMethod
+        public string PaymentMethod
         {
             get
             {
@@ -540,7 +540,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=30)]
-        internal string EntryExitCustoms
+        public string EntryExitCustoms
         {
             get
             {
@@ -553,7 +553,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=31)]
-        internal System.Collections.Generic.List<LocalWs.InvoiceDetailModel> InvoiceDetailList
+        public System.Collections.Generic.List<LocalWs.InvoiceDetailModel> InvoiceDetailList
         {
             get
             {
@@ -569,7 +569,7 @@ namespace LocalWs
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceDetailModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class InvoiceDetailModel : object
+    public partial class InvoiceDetailModel : object
     {
         
         private System.Guid InvoiceDetailIdField;
@@ -616,8 +616,10 @@ namespace LocalWs
         
         private string IncentiveLineNoField;
         
+        private System.Collections.Generic.List<LocalWs.InvoiceDetailTcgbModel> InvoiceDetailTcgbListField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Guid InvoiceDetailId
+        public System.Guid InvoiceDetailId
         {
             get
             {
@@ -630,7 +632,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Guid InvoiceId
+        public System.Guid InvoiceId
         {
             get
             {
@@ -643,7 +645,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        internal string HsCode
+        public string HsCode
         {
             get
             {
@@ -656,7 +658,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        internal string DescGoods
+        public string DescGoods
         {
             get
             {
@@ -669,7 +671,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-        internal string ProductNo
+        public string ProductNo
         {
             get
             {
@@ -682,7 +684,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-        internal string CountryOfOrigin
+        public string CountryOfOrigin
         {
             get
             {
@@ -695,7 +697,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-        internal string Uom
+        public string Uom
         {
             get
             {
@@ -708,7 +710,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-        internal double ActualQuantity
+        public double ActualQuantity
         {
             get
             {
@@ -721,7 +723,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-        internal double InvoiceQuantity
+        public double InvoiceQuantity
         {
             get
             {
@@ -734,7 +736,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-        internal System.Nullable<double> GrossWeight
+        public System.Nullable<double> GrossWeight
         {
             get
             {
@@ -747,7 +749,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
-        internal double NetWeight
+        public double NetWeight
         {
             get
             {
@@ -760,7 +762,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-        internal string IntrnlAgmt
+        public string IntrnlAgmt
         {
             get
             {
@@ -773,7 +775,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
-        internal string InvoiceNo
+        public string InvoiceNo
         {
             get
             {
@@ -786,7 +788,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
-        internal System.DateTime InvoiceDate
+        public System.DateTime InvoiceDate
         {
             get
             {
@@ -799,7 +801,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
-        internal double InvoiceAmount
+        public double InvoiceAmount
         {
             get
             {
@@ -812,7 +814,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
-        internal string PkgType
+        public string PkgType
         {
             get
             {
@@ -825,7 +827,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
-        internal string CommclDesc
+        public string CommclDesc
         {
             get
             {
@@ -838,7 +840,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
-        internal int NumberOfPackages
+        public int NumberOfPackages
         {
             get
             {
@@ -851,7 +853,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=18)]
-        internal int ItemNumber
+        public int ItemNumber
         {
             get
             {
@@ -864,7 +866,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=19)]
-        internal string ProducerCompanyNo
+        public string ProducerCompanyNo
         {
             get
             {
@@ -877,7 +879,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=20)]
-        internal string ProducerCompany
+        public string ProducerCompany
         {
             get
             {
@@ -890,7 +892,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=21)]
-        internal string IncentiveLineNo
+        public string IncentiveLineNo
         {
             get
             {
@@ -901,12 +903,137 @@ namespace LocalWs
                 this.IncentiveLineNoField = value;
             }
         }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
+        public System.Collections.Generic.List<LocalWs.InvoiceDetailTcgbModel> InvoiceDetailTcgbList
+        {
+            get
+            {
+                return this.InvoiceDetailTcgbListField;
+            }
+            set
+            {
+                this.InvoiceDetailTcgbListField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InvoiceDetailTcgbModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
+    public partial class InvoiceDetailTcgbModel : object
+    {
+        
+        private System.Guid InvoiceDetailTcgbIdField;
+        
+        private System.Guid InvoiceDetailIdField;
+        
+        private string DeclarationNoField;
+        
+        private int ItemNoField;
+        
+        private decimal QuantityField;
+        
+        private string DescriptionField;
+        
+        private System.Nullable<System.DateTime> DeclarationDateField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid InvoiceDetailTcgbId
+        {
+            get
+            {
+                return this.InvoiceDetailTcgbIdField;
+            }
+            set
+            {
+                this.InvoiceDetailTcgbIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public System.Guid InvoiceDetailId
+        {
+            get
+            {
+                return this.InvoiceDetailIdField;
+            }
+            set
+            {
+                this.InvoiceDetailIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public string DeclarationNo
+        {
+            get
+            {
+                return this.DeclarationNoField;
+            }
+            set
+            {
+                this.DeclarationNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public int ItemNo
+        {
+            get
+            {
+                return this.ItemNoField;
+            }
+            set
+            {
+                this.ItemNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public decimal Quantity
+        {
+            get
+            {
+                return this.QuantityField;
+            }
+            set
+            {
+                this.QuantityField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string Description
+        {
+            get
+            {
+                return this.DescriptionField;
+            }
+            set
+            {
+                this.DescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public System.Nullable<System.DateTime> DeclarationDate
+        {
+            get
+            {
+                return this.DeclarationDateField;
+            }
+            set
+            {
+                this.DeclarationDateField = value;
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ResultModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class ResultModel : object
+    public partial class ResultModel : object
     {
         
         private int ResultCodeField;
@@ -914,7 +1041,7 @@ namespace LocalWs
         private string ResultNameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int ResultCode
+        public int ResultCode
         {
             get
             {
@@ -927,7 +1054,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string ResultName
+        public string ResultName
         {
             get
             {
@@ -943,153 +1070,75 @@ namespace LocalWs
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WsBeyannameModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class WsBeyannameModel : object
+    public partial class WsBeyannameModel : object
     {
-        
-        private string AliciAdField;
-        
-        private string AliciAdresField;
-        
-        private string AliciNoField;
-        
-        private string AliciSehirField;
-        
-        private string AliciUlkeField;
-        
-        private string CikisVasitasiField;
         
         private string DosyaNoField;
         
-        private string FaturaDovizKoduField;
-        
-        private string FaturaNoField;
-        
-        private decimal FaturaTutariField;
-        
-        private string GirisCikisGumrukField;
-        
-        private string GondericiAdField;
-        
-        private string GondericiAdresField;
-        
-        private string GondericiNoField;
-        
-        private string GondericiSehirField;
-        
-        private string GondericiUlkeField;
-        
-        private string GumrukField;
-        
-        private System.Nullable<System.DateTime> IntacTarihiField;
-        
-        private string MusRefNoField;
-        
-        private string NakliyeciField;
-        
-        private string NavlunDovizKoduField;
-        
-        private decimal NavlunTutariField;
-        
-        private string OdemeSekliField;
-        
         private string RejimField;
-        
-        private string SigortaDovizKoduField;
-        
-        private decimal SigortaTutariField;
-        
-        private string SinirGecenVasitaField;
         
         private string TescilNoField;
         
         private System.Nullable<System.DateTime> TescilTarihiField;
         
+        private System.Nullable<System.DateTime> IntacTarihiField;
+        
+        private string FaturaNoField;
+        
+        private string GondericiNoField;
+        
+        private string GondericiAdField;
+        
+        private string GondericiAdresField;
+        
+        private string GondericiSehirField;
+        
+        private string GondericiUlkeField;
+        
+        private string AliciNoField;
+        
+        private string AliciAdField;
+        
+        private string AliciAdresField;
+        
+        private string AliciSehirField;
+        
+        private string AliciUlkeField;
+        
+        private string NakliyeciField;
+        
+        private string SinirGecenVasitaField;
+        
+        private string CikisVasitasiField;
+        
         private string TeslimSekliField;
         
         private string TeslimYeriField;
         
+        private decimal FaturaTutariField;
+        
+        private string FaturaDovizKoduField;
+        
+        private System.Nullable<decimal> NavlunTutariField;
+        
+        private string NavlunDovizKoduField;
+        
+        private System.Nullable<decimal> SigortaTutariField;
+        
+        private string SigortaDovizKoduField;
+        
+        private string OdemeSekliField;
+        
+        private string GirisCikisGumrukField;
+        
+        private string GumrukField;
+        
+        private string MusRefNoField;
+        
         private System.Collections.Generic.List<LocalWs.WsBeyannameKalemModel> WsBeyannameKalemListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string AliciAd
-        {
-            get
-            {
-                return this.AliciAdField;
-            }
-            set
-            {
-                this.AliciAdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string AliciAdres
-        {
-            get
-            {
-                return this.AliciAdresField;
-            }
-            set
-            {
-                this.AliciAdresField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string AliciNo
-        {
-            get
-            {
-                return this.AliciNoField;
-            }
-            set
-            {
-                this.AliciNoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string AliciSehir
-        {
-            get
-            {
-                return this.AliciSehirField;
-            }
-            set
-            {
-                this.AliciSehirField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string AliciUlke
-        {
-            get
-            {
-                return this.AliciUlkeField;
-            }
-            set
-            {
-                this.AliciUlkeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string CikisVasitasi
-        {
-            get
-            {
-                return this.CikisVasitasiField;
-            }
-            set
-            {
-                this.CikisVasitasiField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string DosyaNo
+        public string DosyaNo
         {
             get
             {
@@ -1102,215 +1151,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string FaturaDovizKodu
-        {
-            get
-            {
-                return this.FaturaDovizKoduField;
-            }
-            set
-            {
-                this.FaturaDovizKoduField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string FaturaNo
-        {
-            get
-            {
-                return this.FaturaNoField;
-            }
-            set
-            {
-                this.FaturaNoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal decimal FaturaTutari
-        {
-            get
-            {
-                return this.FaturaTutariField;
-            }
-            set
-            {
-                this.FaturaTutariField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string GirisCikisGumruk
-        {
-            get
-            {
-                return this.GirisCikisGumrukField;
-            }
-            set
-            {
-                this.GirisCikisGumrukField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string GondericiAd
-        {
-            get
-            {
-                return this.GondericiAdField;
-            }
-            set
-            {
-                this.GondericiAdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string GondericiAdres
-        {
-            get
-            {
-                return this.GondericiAdresField;
-            }
-            set
-            {
-                this.GondericiAdresField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string GondericiNo
-        {
-            get
-            {
-                return this.GondericiNoField;
-            }
-            set
-            {
-                this.GondericiNoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string GondericiSehir
-        {
-            get
-            {
-                return this.GondericiSehirField;
-            }
-            set
-            {
-                this.GondericiSehirField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string GondericiUlke
-        {
-            get
-            {
-                return this.GondericiUlkeField;
-            }
-            set
-            {
-                this.GondericiUlkeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Gumruk
-        {
-            get
-            {
-                return this.GumrukField;
-            }
-            set
-            {
-                this.GumrukField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<System.DateTime> IntacTarihi
-        {
-            get
-            {
-                return this.IntacTarihiField;
-            }
-            set
-            {
-                this.IntacTarihiField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string MusRefNo
-        {
-            get
-            {
-                return this.MusRefNoField;
-            }
-            set
-            {
-                this.MusRefNoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Nakliyeci
-        {
-            get
-            {
-                return this.NakliyeciField;
-            }
-            set
-            {
-                this.NakliyeciField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string NavlunDovizKodu
-        {
-            get
-            {
-                return this.NavlunDovizKoduField;
-            }
-            set
-            {
-                this.NavlunDovizKoduField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal decimal NavlunTutari
-        {
-            get
-            {
-                return this.NavlunTutariField;
-            }
-            set
-            {
-                this.NavlunTutariField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string OdemeSekli
-        {
-            get
-            {
-                return this.OdemeSekliField;
-            }
-            set
-            {
-                this.OdemeSekliField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Rejim
+        public string Rejim
         {
             get
             {
@@ -1323,46 +1164,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string SigortaDovizKodu
-        {
-            get
-            {
-                return this.SigortaDovizKoduField;
-            }
-            set
-            {
-                this.SigortaDovizKoduField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal decimal SigortaTutari
-        {
-            get
-            {
-                return this.SigortaTutariField;
-            }
-            set
-            {
-                this.SigortaTutariField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string SinirGecenVasita
-        {
-            get
-            {
-                return this.SinirGecenVasitaField;
-            }
-            set
-            {
-                this.SinirGecenVasitaField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string TescilNo
+        public string TescilNo
         {
             get
             {
@@ -1375,7 +1177,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<System.DateTime> TescilTarihi
+        public System.Nullable<System.DateTime> TescilTarihi
         {
             get
             {
@@ -1387,8 +1189,203 @@ namespace LocalWs
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string TeslimSekli
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public System.Nullable<System.DateTime> IntacTarihi
+        {
+            get
+            {
+                return this.IntacTarihiField;
+            }
+            set
+            {
+                this.IntacTarihiField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string FaturaNo
+        {
+            get
+            {
+                return this.FaturaNoField;
+            }
+            set
+            {
+                this.FaturaNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public string GondericiNo
+        {
+            get
+            {
+                return this.GondericiNoField;
+            }
+            set
+            {
+                this.GondericiNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public string GondericiAd
+        {
+            get
+            {
+                return this.GondericiAdField;
+            }
+            set
+            {
+                this.GondericiAdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        public string GondericiAdres
+        {
+            get
+            {
+                return this.GondericiAdresField;
+            }
+            set
+            {
+                this.GondericiAdresField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+        public string GondericiSehir
+        {
+            get
+            {
+                return this.GondericiSehirField;
+            }
+            set
+            {
+                this.GondericiSehirField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        public string GondericiUlke
+        {
+            get
+            {
+                return this.GondericiUlkeField;
+            }
+            set
+            {
+                this.GondericiUlkeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        public string AliciNo
+        {
+            get
+            {
+                return this.AliciNoField;
+            }
+            set
+            {
+                this.AliciNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+        public string AliciAd
+        {
+            get
+            {
+                return this.AliciAdField;
+            }
+            set
+            {
+                this.AliciAdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+        public string AliciAdres
+        {
+            get
+            {
+                return this.AliciAdresField;
+            }
+            set
+            {
+                this.AliciAdresField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
+        public string AliciSehir
+        {
+            get
+            {
+                return this.AliciSehirField;
+            }
+            set
+            {
+                this.AliciSehirField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
+        public string AliciUlke
+        {
+            get
+            {
+                return this.AliciUlkeField;
+            }
+            set
+            {
+                this.AliciUlkeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
+        public string Nakliyeci
+        {
+            get
+            {
+                return this.NakliyeciField;
+            }
+            set
+            {
+                this.NakliyeciField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
+        public string SinirGecenVasita
+        {
+            get
+            {
+                return this.SinirGecenVasitaField;
+            }
+            set
+            {
+                this.SinirGecenVasitaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=18)]
+        public string CikisVasitasi
+        {
+            get
+            {
+                return this.CikisVasitasiField;
+            }
+            set
+            {
+                this.CikisVasitasiField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=19)]
+        public string TeslimSekli
         {
             get
             {
@@ -1400,8 +1397,8 @@ namespace LocalWs
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string TeslimYeri
+        [System.Runtime.Serialization.DataMemberAttribute(Order=20)]
+        public string TeslimYeri
         {
             get
             {
@@ -1413,8 +1410,138 @@ namespace LocalWs
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Collections.Generic.List<LocalWs.WsBeyannameKalemModel> WsBeyannameKalemList
+        [System.Runtime.Serialization.DataMemberAttribute(Order=21)]
+        public decimal FaturaTutari
+        {
+            get
+            {
+                return this.FaturaTutariField;
+            }
+            set
+            {
+                this.FaturaTutariField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
+        public string FaturaDovizKodu
+        {
+            get
+            {
+                return this.FaturaDovizKoduField;
+            }
+            set
+            {
+                this.FaturaDovizKoduField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=23)]
+        public System.Nullable<decimal> NavlunTutari
+        {
+            get
+            {
+                return this.NavlunTutariField;
+            }
+            set
+            {
+                this.NavlunTutariField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=24)]
+        public string NavlunDovizKodu
+        {
+            get
+            {
+                return this.NavlunDovizKoduField;
+            }
+            set
+            {
+                this.NavlunDovizKoduField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=25)]
+        public System.Nullable<decimal> SigortaTutari
+        {
+            get
+            {
+                return this.SigortaTutariField;
+            }
+            set
+            {
+                this.SigortaTutariField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=26)]
+        public string SigortaDovizKodu
+        {
+            get
+            {
+                return this.SigortaDovizKoduField;
+            }
+            set
+            {
+                this.SigortaDovizKoduField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=27)]
+        public string OdemeSekli
+        {
+            get
+            {
+                return this.OdemeSekliField;
+            }
+            set
+            {
+                this.OdemeSekliField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=28)]
+        public string GirisCikisGumruk
+        {
+            get
+            {
+                return this.GirisCikisGumrukField;
+            }
+            set
+            {
+                this.GirisCikisGumrukField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=29)]
+        public string Gumruk
+        {
+            get
+            {
+                return this.GumrukField;
+            }
+            set
+            {
+                this.GumrukField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=30)]
+        public string MusRefNo
+        {
+            get
+            {
+                return this.MusRefNoField;
+            }
+            set
+            {
+                this.MusRefNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=31)]
+        public System.Collections.Generic.List<LocalWs.WsBeyannameKalemModel> WsBeyannameKalemList
         {
             get
             {
@@ -1430,108 +1557,47 @@ namespace LocalWs
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WsBeyannameKalemModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class WsBeyannameKalemModel : object
+    public partial class WsBeyannameKalemModel : object
     {
-        
-        private string BirimField;
-        
-        private System.Nullable<double> BrutKGField;
-        
-        private System.Nullable<double> CifTutarField;
-        
-        private System.Nullable<double> FobTutarField;
-        
-        private string GtipField;
         
         private System.Nullable<int> KalemNoField;
         
-        private decimal KalemTutarField;
+        private string RejimField;
         
-        private string KapField;
+        private string GtipField;
         
-        private string KapCinsiField;
+        private string TicariTanimField;
         
         private string MenseiUlkeField;
         
         private System.Nullable<decimal> MiktarField;
         
+        private string BirimField;
+        
+        private System.Nullable<double> BrutKGField;
+        
         private System.Nullable<double> NetKGField;
         
-        private string RejimField;
+        private System.Nullable<double> FobTutarField;
+        
+        private System.Nullable<double> CifTutarField;
+        
+        private string KapField;
+        
+        private string KapCinsiField;
         
         private string TesvikKalemNoField;
         
-        private string TicariTanimField;
+        private System.Nullable<double> KalemTutarField;
+        
+        private string ImalatciNoField;
+        
+        private string ImalatciAdField;
         
         private System.Collections.Generic.List<LocalWs.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Birim
-        {
-            get
-            {
-                return this.BirimField;
-            }
-            set
-            {
-                this.BirimField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<double> BrutKG
-        {
-            get
-            {
-                return this.BrutKGField;
-            }
-            set
-            {
-                this.BrutKGField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<double> CifTutar
-        {
-            get
-            {
-                return this.CifTutarField;
-            }
-            set
-            {
-                this.CifTutarField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<double> FobTutar
-        {
-            get
-            {
-                return this.FobTutarField;
-            }
-            set
-            {
-                this.FobTutarField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Gtip
-        {
-            get
-            {
-                return this.GtipField;
-            }
-            set
-            {
-                this.GtipField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<int> KalemNo
+        public System.Nullable<int> KalemNo
         {
             get
             {
@@ -1544,85 +1610,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal decimal KalemTutar
-        {
-            get
-            {
-                return this.KalemTutarField;
-            }
-            set
-            {
-                this.KalemTutarField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Kap
-        {
-            get
-            {
-                return this.KapField;
-            }
-            set
-            {
-                this.KapField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string KapCinsi
-        {
-            get
-            {
-                return this.KapCinsiField;
-            }
-            set
-            {
-                this.KapCinsiField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string MenseiUlke
-        {
-            get
-            {
-                return this.MenseiUlkeField;
-            }
-            set
-            {
-                this.MenseiUlkeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<decimal> Miktar
-        {
-            get
-            {
-                return this.MiktarField;
-            }
-            set
-            {
-                this.MiktarField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Nullable<double> NetKG
-        {
-            get
-            {
-                return this.NetKGField;
-            }
-            set
-            {
-                this.NetKGField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Rejim
+        public string Rejim
         {
             get
             {
@@ -1634,21 +1622,21 @@ namespace LocalWs
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string TesvikKalemNo
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public string Gtip
         {
             get
             {
-                return this.TesvikKalemNoField;
+                return this.GtipField;
             }
             set
             {
-                this.TesvikKalemNoField = value;
+                this.GtipField = value;
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string TicariTanim
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public string TicariTanim
         {
             get
             {
@@ -1660,8 +1648,177 @@ namespace LocalWs
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal System.Collections.Generic.List<LocalWs.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeList
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public string MenseiUlke
+        {
+            get
+            {
+                return this.MenseiUlkeField;
+            }
+            set
+            {
+                this.MenseiUlkeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public System.Nullable<decimal> Miktar
+        {
+            get
+            {
+                return this.MiktarField;
+            }
+            set
+            {
+                this.MiktarField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public string Birim
+        {
+            get
+            {
+                return this.BirimField;
+            }
+            set
+            {
+                this.BirimField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public System.Nullable<double> BrutKG
+        {
+            get
+            {
+                return this.BrutKGField;
+            }
+            set
+            {
+                this.BrutKGField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        public System.Nullable<double> NetKG
+        {
+            get
+            {
+                return this.NetKGField;
+            }
+            set
+            {
+                this.NetKGField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+        public System.Nullable<double> FobTutar
+        {
+            get
+            {
+                return this.FobTutarField;
+            }
+            set
+            {
+                this.FobTutarField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        public System.Nullable<double> CifTutar
+        {
+            get
+            {
+                return this.CifTutarField;
+            }
+            set
+            {
+                this.CifTutarField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        public string Kap
+        {
+            get
+            {
+                return this.KapField;
+            }
+            set
+            {
+                this.KapField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+        public string KapCinsi
+        {
+            get
+            {
+                return this.KapCinsiField;
+            }
+            set
+            {
+                this.KapCinsiField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+        public string TesvikKalemNo
+        {
+            get
+            {
+                return this.TesvikKalemNoField;
+            }
+            set
+            {
+                this.TesvikKalemNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
+        public System.Nullable<double> KalemTutar
+        {
+            get
+            {
+                return this.KalemTutarField;
+            }
+            set
+            {
+                this.KalemTutarField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
+        public string ImalatciNo
+        {
+            get
+            {
+                return this.ImalatciNoField;
+            }
+            set
+            {
+                this.ImalatciNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
+        public string ImalatciAd
+        {
+            get
+            {
+                return this.ImalatciAdField;
+            }
+            set
+            {
+                this.ImalatciAdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
+        public System.Collections.Generic.List<LocalWs.WsBeyannameKalemBelgeModel> WsBeyannameKalemBelgeList
         {
             get
             {
@@ -1677,7 +1834,7 @@ namespace LocalWs
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WsBeyannameKalemBelgeModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
-    internal partial class WsBeyannameKalemBelgeModel : object
+    public partial class WsBeyannameKalemBelgeModel : object
     {
         
         private int KalemNoField;
@@ -1695,7 +1852,7 @@ namespace LocalWs
         private System.Nullable<System.DateTime> VizeTarihiField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int KalemNo
+        public int KalemNo
         {
             get
             {
@@ -1708,7 +1865,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string Kodu
+        public string Kodu
         {
             get
             {
@@ -1721,7 +1878,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-        internal string Aciklama
+        public string Aciklama
         {
             get
             {
@@ -1734,7 +1891,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-        internal string Dogrulama
+        public string Dogrulama
         {
             get
             {
@@ -1747,7 +1904,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-        internal string Referans
+        public string Referans
         {
             get
             {
@@ -1760,7 +1917,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-        internal System.Nullable<System.DateTime> BelgeTarihi
+        public System.Nullable<System.DateTime> BelgeTarihi
         {
             get
             {
@@ -1773,7 +1930,7 @@ namespace LocalWs
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-        internal System.Nullable<System.DateTime> VizeTarihi
+        public System.Nullable<System.DateTime> VizeTarihi
         {
             get
             {
@@ -1788,7 +1945,7 @@ namespace LocalWs
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LocalWs.IService1")]
-    internal interface IService1
+    public interface IService1
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetWorkOrderMastersModel", ReplyAction="http://tempuri.org/IService1/SetWorkOrderMastersModelResponse")]
@@ -1802,13 +1959,13 @@ namespace LocalWs
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    internal interface IService1Channel : LocalWs.IService1, System.ServiceModel.IClientChannel
+    public interface IService1Channel : LocalWs.IService1, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    internal partial class Service1Client : System.ServiceModel.ClientBase<LocalWs.IService1>, LocalWs.IService1
+    public partial class Service1Client : System.ServiceModel.ClientBase<LocalWs.IService1>, LocalWs.IService1
     {
         
         /// <summary>

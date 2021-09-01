@@ -567,6 +567,14 @@ namespace Chep.Service
             {
                 target.IhracatciFirmaName = obj.IhracatciFirmaNavigation.Name;
             }
+            if (obj.AliciFirma != null)
+            {
+                var aliciFirma = _uow.Customers.Search(x => x.CustomerId == obj.AliciFirma);
+                if (aliciFirma.Count > 0)
+                {
+                    target.AliciFirmaName = aliciFirma.FirstOrDefault().Name;
+                }
+            }
 
 
             return target;

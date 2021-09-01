@@ -467,6 +467,7 @@
                     { dataField: "beyannameNo", caption: "Beyanname No", },
                     { dataField: "beyannameTarihi", caption: "Beyanname Tarihi", dataType: "date", formatType: "shortDate" },
                     { dataField: "ihracatciFirmaName", caption: "İhracatci Firma", },
+                    { dataField: "aliciFirmaName", caption: "Alıcı Firma", },
                 ],
                 export: {
                     enabled: true,
