@@ -10,5 +10,6 @@ namespace Chep.DTO
         public VwWsWorkOrderMasterDTO VwWsWorkOrderMaster { get; set; }
         public List<VwWsWorkOrderInvoiceDTO> VwWsWorkOrderInvoices { get; set; }
         public List<VwWsWorkOrderInvoiceDetailsDTO> VwWsWorkOrderInvoiceDetails { get; set; }
+        public List<VwWsWorkOrderInvoiceDetailsTcgbDto> VwWsWorkOrderInvoiceDetailsTcgb { get; set; }
     }
 }

@@ -50,6 +50,7 @@ namespace Chep.Data.Repository
         Repository<VwWsWorkOrderMaster> VwWsWorkOrderMaster { get; }
         Repository<VwWsWorkOrderInvoice> VwWsWorkOrderInvoice { get; }
         Repository<VwWsWorkOrderInvoiceDetails> VwWsWorkOrderInvoiceDetails { get; }
+        Repository<VwWsWorkOrderInvoiceDetailsTcgb> VwWsWorkOrderInvoiceDetailsTcgb { get; }
 
         
 

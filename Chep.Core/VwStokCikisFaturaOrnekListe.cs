@@ -28,5 +28,6 @@ namespace Chep.Core
         public DateTime? İhracatTpsTarihi { get; set; }
         public string AlıcıFirma { get; set; }
         public string AliciAdres { get; set; }
+        public string GirişİthalatcıFirma { get; set; }
     }
 }

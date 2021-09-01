@@ -6,7 +6,7 @@
   },
   "ExtendedData": {
     "inputs": [
-      "http://pfr360ws.pfr.com.tr/Service1.svc?wsdl"
+      "http://pfr360ws.pfr.com.tr/Service1.svc"
     ],
     "collectionTypes": [
       "System.Collections.Generic.Dictionary`2",
@@ -16,8 +16,8 @@
       "*, Pfr360Ws"
     ],
     "references": [
-      "D:\\github.com\\SparksProject\\ProjectC\\Chep.WebService\\bin\\Debug\\netcoreapp3.1\\Chep.Core.dll",
-      "D:\\github.com\\SparksProject\\ProjectC\\Chep.WebService\\bin\\Debug\\netcoreapp3.1\\Chep.DTO.dll",
+      "D:\\Necmi\\Source\\Repos\\ProjectC\\Chep.WebService\\bin\\Debug\\netcoreapp3.1\\Chep.Core.dll",
+      "D:\\Necmi\\Source\\Repos\\ProjectC\\Chep.WebService\\bin\\Debug\\netcoreapp3.1\\Chep.DTO.dll",
       "Microsoft.Bcl.AsyncInterfaces, {Microsoft.Bcl.AsyncInterfaces, 1.1.1}",
       "Microsoft.Bcl.HashCode, {Microsoft.Bcl.HashCode, 1.1.1}",
       "Microsoft.Data.SqlClient, {Microsoft.Data.SqlClient, 1.1.3}",

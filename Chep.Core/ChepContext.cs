@@ -56,6 +56,7 @@ namespace Chep.Core
         public virtual DbSet<VwSureTakipListe> VwSureTakipListe { get; set; }
         public virtual DbSet<VwWsWorkOrderInvoice> VwWsWorkOrderInvoice { get; set; }
         public virtual DbSet<VwWsWorkOrderInvoiceDetails> VwWsWorkOrderInvoiceDetails { get; set; }
+        public virtual DbSet<VwWsWorkOrderInvoiceDetailsTcgb> VwWsWorkOrderInvoiceDetailsTcgb { get; set; }
         public virtual DbSet<VwWsWorkOrderMaster> VwWsWorkOrderMaster { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -783,7 +784,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.CikisIslemTarihi).HasColumnType("datetime");
 
-                entity.Property(e => e.CikisRejimi).HasMaxLength(4);
+                entity.Property(e => e.CikisRejimi).HasMaxLength(50);
 
                 entity.Property(e => e.CikisTpsno)
                     .HasColumnName("CikisTPSNo")
@@ -832,7 +833,7 @@ namespace Chep.Core
                     .HasColumnName("PONo")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Rejim).HasMaxLength(4);
+                entity.Property(e => e.Rejim).HasMaxLength(50);
 
                 entity.Property(e => e.SozlesmeUlke).HasMaxLength(20);
 
@@ -911,6 +912,10 @@ namespace Chep.Core
                 entity.Property(e => e.FaturaTutarı)
                     .HasColumnName("Fatura Tutarı")
                     .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.GirişİthalatcıFirma)
+                    .HasColumnName("Giriş İthalatcı Firma")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Gtip)
                     .IsRequired()
@@ -1413,6 +1418,17 @@ namespace Chep.Core
                 entity.Property(e => e.Uom)
                     .HasMaxLength(3)
                     .IsFixedLength();
+            });
+
+            modelBuilder.Entity<VwWsWorkOrderInvoiceDetailsTcgb>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_WsWorkOrderInvoiceDetailsTcgb");
+
+                entity.Property(e => e.DeclarationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.DeclarationNo).HasMaxLength(16);
             });
 
             modelBuilder.Entity<VwWsWorkOrderMaster>(entity =>

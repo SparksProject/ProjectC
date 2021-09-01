@@ -92,7 +92,7 @@ namespace Chep.WebService
                             ProducerCompanyNo = itemInvoiceDetail.ProducerCompanyNo,
                             NetWeight = Convert.ToDouble(itemInvoiceDetail.NetWeight),
                             GrossWeight = Convert.ToDouble(itemInvoiceDetail.GrossWeight),
-                            InvoiceAmount = Convert.ToDouble(itemInvoiceDetail.InvoiceAmount),                            
+                            InvoiceAmount = Convert.ToDouble(itemInvoiceDetail.InvoiceAmount),
                         };
 
                         if (itemInvoiceDetail.ActualQuantity.HasValue)
@@ -125,6 +125,30 @@ namespace Chep.WebService
                         }
 
                         objInvoice.InvoiceDetailList.Add(objInvoiceDetail);
+
+                        foreach (var itemInvoiceTcgbDetail in obj.VwWsWorkOrderInvoiceDetailsTcgb)
+                        {
+                            var objInvoicetcgbDetail = new InvoiceDetailTcgbModel
+                            {
+                                Quantity = itemInvoiceTcgbDetail.Quantity,
+                                ItemNo = itemInvoiceTcgbDetail.ItemNo,
+                                DeclarationDate = itemInvoiceTcgbDetail.DeclarationDate,
+                                DeclarationNo = itemInvoiceTcgbDetail.DeclarationNo,
+                                Description = itemInvoiceTcgbDetail.Description,
+                                InvoiceDetailId = itemInvoiceTcgbDetail.InvoiceDetailId,
+                                InvoiceDetailTcgbId = itemInvoiceTcgbDetail.InvoiceDetailsTcgbId,
+                            };
+
+                            if (objInvoiceDetail.InvoiceDetailTcgbList == null)
+                            {
+                                objInvoiceDetail.InvoiceDetailTcgbList = new List<InvoiceDetailTcgbModel>();
+                            }
+
+                            if (objInvoicetcgbDetail.InvoiceDetailId == objInvoiceDetail.InvoiceDetailId)
+                            {
+                                objInvoiceDetail.InvoiceDetailTcgbList.Add(objInvoicetcgbDetail);
+                            }
+                        }
                     }
 
                     objMaster.InvoiceList.Add(objInvoice);
