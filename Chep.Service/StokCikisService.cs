@@ -482,7 +482,7 @@ namespace Chep.Service
             return new ChepStokCikisDetay
             {
                 Miktar = obj.Miktar,
-                Kg = obj.Kg,
+                SiraNo = obj.SiraNo,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId,
@@ -506,7 +506,7 @@ namespace Chep.Service
             return new ChepStokCikisDetayDTO
             {
                 Miktar = obj.Miktar,
-                Kg = obj.Kg,
+                SiraNo = obj.SiraNo,
                 StokCikisDetayId = obj.StokCikisDetayId,
                 StokCikisId = obj.StokCikisId,
                 StokGirisDetayId = obj.StokGirisDetayId,
