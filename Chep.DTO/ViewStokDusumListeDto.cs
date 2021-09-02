@@ -37,5 +37,6 @@ namespace Chep.DTO
         public decimal? FaturaTutar { get; set; }
         public decimal? NetKg { get; set; }
         public decimal? BrutKg { get; set; }
+        public int? SiraNo { get; set; }
     }
 }

@@ -12,6 +12,7 @@
     var $btnArchive = null;
     var $btnJobOrder = null;
     var $btnDropSubmit = null;
+    var $btnKiloDagit = null;
 
     var storeStokGiris = new DevExpress.data.CustomStore({
         key: "stokGirisDetayId",
@@ -45,6 +46,7 @@
         if ($modalDetail == null) {
             $btnArchive = $('#btnArchive');
             $btnJobOrder = $('#btnJobOrder');
+            $btnKiloDagit = $('#btnKiloDagit');
 
             $modalDetail = $('#modalDetail').on({
                 "hide.bs.modal": function (e) {
@@ -75,6 +77,7 @@
 
                     $btnArchive.addClass('hidden');
                     $btnJobOrder.addClass('hidden');
+                    $btnKiloDagit.addClass('hidden');
                 }
             }).modal({
                 show: false,
@@ -86,6 +89,10 @@
                     keyExpr: "stokCikisDetayId",
                     dataSource: [],
                     columns: [
+                        {
+                        dataField: "siraNo", caption: "Sıra No", dataType: "number", sortOrder: "asc",
+                            validationRules: [{ type: "required" }],
+                        },
                         {
                             dataField: "stokGirisDetayId", caption: "Stok Girişi Beyanname No", width: 250,
                             lookup: {
@@ -225,6 +232,15 @@
                     paging: false,
                     export: {
                         enabled: true,
+                    },
+                    onInitNewRow: function (e) {
+                        var ds = e.component.getDataSource();
+                        if (ds._items.length) {
+                            e.data.siraNo = $(ds._items).last()[0].siraNo + 1;
+                        } else {
+                            e.data.siraNo = 1;
+                        }
+
                     },
                     onExporting: function (e) {
                         var workbook = new ExcelJS.Workbook();
@@ -596,6 +612,7 @@
 
                         $btnArchive.removeClass('hidden');
                         $btnJobOrder.removeClass('hidden');
+                        $btnKiloDagit.removeClass('hidden');
 
                         $modalDetail.modal('show');
                     });
@@ -904,6 +921,20 @@
                     });
                     return false;
                 }
+                if (data.invoiceNo == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Fatura No alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
+                if (data.invoiceDate == null) {
+                    swal({
+                        icon: "warning",
+                        title: "Fatura Tarihi alanı boş. Tüm verileri kaydettiğinizden emin olunuz.",
+                    });
+                    return false;
+                }
                 if (data.ihracatciFirma == null) {
                     swal({
                         icon: "warning",
@@ -994,15 +1025,19 @@
 
                 SparksXService.SetWorkOrderService(id)
                     .success(function (data) {
-                        if (data.result != null) {
-                            console.log(data);
-                        }
-                        if (data.message != null) {
-                            swal({
-                                icon: "error",
-                                title: data.message,
-                            });
-                        }
+                        //if (data.result != null) {
+                        //    console.log(data);
+                        //}
+                        //if (data.message != null) {
+                        //    swal({
+                        //        icon: "error",
+                        //        title: data.message,
+                        //    });
+                        //}
+                        swal({
+                            icon: "successs",
+                            title: "İş emri gönderildi.",
+                        });
                     }).error(function (er) {
                         swal({
                             icon: "error",
@@ -1041,6 +1076,10 @@
             }
         });
 
+        $.each(dsDetail._items, function (index, elem) {
+            elem.siraNo = index + 1;
+        });
+
         $modalDrop.modal('hide');
         $gridDetail.option("dataSource", itemsDetail);
     }
@@ -1052,5 +1091,102 @@
                 return v.toString(16);
             });
     };
+
+
+    $scope.KiloDagit = function (obj) {
+        SparksXService.GetStokCikis(obj).success(function (data) {
+            $scope.object = data;
+            console.log(data);
+
+              var farkNet, farkBrut;
+
+            //var kilo = 1000;
+            var toplamMiktar = 0;
+            //var netKilo = parseFloat(prompt("Net Kiloyu Yazınız", 1));
+            var brutKilo = parseFloat(prompt("Brüt Kiloyu Yazınız", 1));
+            //var roundNet = parseFloat(0);
+            var roundBrut = parseFloat(0);
+
+            for (var i in data.chepStokCikisDetayList) {
+                var kalem = data.chepStokCikisDetayList[i];
+                if (kalem.miktar == null) {
+                    swal({
+                        icon: "warning",
+                        title: kalem.siraNo + " nolu kalemde miktar bilgisi girilmedi",
+                    });
+                    return;
+                }
+
+                toplamMiktar += parseFloat(kalem.miktar);
+            }
+            console.log(toplamMiktar);
+            for (var i in data.chepStokCikisDetayList) {
+                var kalem = data.chepStokCikisDetayList[i];
+                if (isNaN(toplamMiktar)) {
+                    swal({
+                        icon: "warning",
+                        title: "miktar bilgisi girilmedi",
+                    });
+                    return;
+                }
+                if (brutKilo > 0) {
+                    if (kalem.brutKg == null) {
+                        swal({
+                            icon: "warning",
+                            title: kalem.siraNo + " nolu kalemde Brüt Kg bilgisi girilmedi",
+                        });
+                        return;
+                    }
+                    kalem.brutKg = parseFloat((((brutKilo) * (kalem.miktar)) / (toplamMiktar)).toFixed(2));
+                    //roundBrut += parseFloat(kalem.brutKg);
+                    //console.log(i + ".kalemin brütKg değeri: " + brutKG); //TODO:
+                }
+                console.log(kalem.brutKg);
+                //if (netKilo > 0) {
+                //    if (kalem.netKg == null) {
+                //    if (kalem.netKg == null) {
+                //        alert(kalem.siraNo + " nolu kalemde Net Ağırlık (Kg) bilgisi girilmedi");
+                //        return;
+                //    }
+                //    kalem.netKg = parseFloat(((parseFloat(netKilo) * parseFloat(kalem.miktar)) / parseFloat(toplamMiktar)).toFixed(2));
+                //    roundNet += parseFloat(kalem.netKg);
+                //    //console.log(i + ". kalemin netKg değeri: " + netKg); //TODO:
+                //}
+            }
+            console.log(data);
+            SparksXService.EditStokCikis(data).success(function () {
+                swal({
+                    icon: "success",
+                    title: "Başarılı!",
+                    text: "Kilo dağıtıldı!",
+                });
+                SparksXService.GetStokCikis(obj).success(function (updateData) {
+
+                    $gridDetail.option("dataSource", updateData.chepStokCikisDetayList);
+                });
+            }).error(function () {
+                swal({
+                    icon: "error",
+                    title: "Hata!",
+                    text: "Güncelleme işlemi yapılamadı. Lütfen tekrar deneyin.",
+                });
+            });
+
+            //farkNet = parseFloat((parseFloat(netKilo) - roundNet)).toFixed(2);
+            farkBrut = parseFloat((parseFloat(brutKilo - roundBrut))).toFixed(2);
+
+            //console.log("farkNet: ", farkNet);
+            console.log("farkBrut: ", farkBrut);
+            //if (farkBrut != 0 || farkNet != 0) {
+            //    swal({
+            //        icon: "success",
+            //        title: "İşlem Bitti!",
+            //        text: /*'Net Kg : ' + farkNet.toString() + */' Brut Kg : ' + farkBrut.toString() + ' fark ile Dağıtılmıştır. Kalemlere Farkı El ile dağıtınız. (Eksi Değerli Farkı Uygun Kalemden Eksiltiniz.)',
+            //    });
+            //}
+        });
+          
+    };
+
 
 }]);

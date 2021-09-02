@@ -124,8 +124,6 @@ namespace Chep.Core
 
                 entity.Property(e => e.InvoiceAmount).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Kg).HasColumnType("decimal(18, 2)");
-
                 entity.Property(e => e.NetKg).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.StokCikis)
@@ -1381,10 +1379,7 @@ namespace Chep.Core
                     .IsRequired()
                     .HasMaxLength(16);
 
-                entity.Property(e => e.IncentiveLineNo)
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.IncentiveLineNo).HasMaxLength(34);
 
                 entity.Property(e => e.IntrnlAgmt)
                     .IsRequired()

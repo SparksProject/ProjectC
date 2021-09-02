@@ -380,7 +380,7 @@ namespace Chep.Service
                 {
                     target.ChepStokCikisDetayList.Add(new ChepStokCikisDetayDTO
                     {
-                        Kg = item.Kg,
+                        SiraNo = item.SiraNo,
                         Miktar = item.Miktar,
                         StokCikisDetayId = item.StokCikisDetayId,
                         StokCikisId = item.StokCikisId,
