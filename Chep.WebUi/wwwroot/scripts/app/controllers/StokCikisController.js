@@ -90,7 +90,7 @@
                     dataSource: [],
                     columns: [
                         {
-                        dataField: "siraNo", caption: "Sıra No", dataType: "number", sortOrder: "asc",
+                            dataField: "siraNo", caption: "Sıra No", dataType: "number", sortOrder: "asc",
                             validationRules: [{ type: "required" }],
                         },
                         {
@@ -1024,19 +1024,25 @@
                 }
 
                 SparksXService.SetWorkOrderService(id)
-                    .success(function (data) {
-                        //if (data.result != null) {
-                        //    console.log(data);
-                        //}
-                        //if (data.message != null) {
-                        //    swal({
-                        //        icon: "error",
-                        //        title: data.message,
-                        //    });
-                        //}
+                    .success(function (isEmriDurum) {
+                        var obj = {
+                            stokCikisId: data.stokCikisId,
+                            isEmriDurum: isEmriDurum,
+                        };
+                        console.log(obj);
+                        SparksXService.IsEmriDurumEditStokCikis(obj).success(function (updateData) {
+                            $scope.object = updateData;
+
+                        }).error(function () {
+                            swal({
+                                icon: "error",
+                                title: "Hata!",
+                                text: "İş emri gönderildi ancak durum güncelleme işlemi yapılamadı.",
+                            });
+                        });
                         swal({
                             icon: "successs",
-                            title: "İş emri gönderildi.",
+                            title: isEmriDurum,
                         });
                     }).error(function (er) {
                         swal({
@@ -1098,7 +1104,7 @@
             $scope.object = data;
             console.log(data);
 
-              var farkNet, farkBrut;
+            var farkNet, farkBrut;
 
             //var kilo = 1000;
             var toplamMiktar = 0;
@@ -1185,7 +1191,7 @@
             //    });
             //}
         });
-          
+
     };
 
 

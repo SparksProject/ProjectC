@@ -340,6 +340,10 @@
         return GetBaseRequestPostJson("StokCikis", "Edit", obj);
     };
 
+    this.IsEmriDurumEditStokCikis = function (obj) {
+        return GetBaseRequestPostJson("StokCikis", "WorkOrderStatusEdit", obj);
+    };
+
     this.GetStokDusumListe = function (itemNo, cikisAdet, ithalatciFirma) {
         return GetBaseRequestJson("StokCikis", "GetStokDusumListe", undefined, 'itemNo=' + itemNo + "&cikisAdet=" + cikisAdet + "&ithalatciFirma=" + ithalatciFirma);
     };

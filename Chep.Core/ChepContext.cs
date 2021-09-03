@@ -1425,6 +1425,11 @@ namespace Chep.Core
                 entity.Property(e => e.DeclarationDate).HasColumnType("datetime");
 
                 entity.Property(e => e.DeclarationNo).HasMaxLength(16);
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<VwWsWorkOrderMaster>(entity =>

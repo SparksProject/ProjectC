@@ -1,7 +1,9 @@
-﻿namespace Chep.Service.Interface
+﻿using System.Threading.Tasks;
+
+namespace Chep.Service.Interface
 {
     public interface IWorkOrderService
     {
-        int SetWorkOrderMastersModel(int id);
+        Task<string> SetWorkOrderMastersModel(int id);
     }
 }

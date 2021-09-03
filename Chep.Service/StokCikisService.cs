@@ -121,6 +121,30 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO WorkOrderStatusEdit(ChepStokCikisDTO obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+                var oldEntity = _uow.ChepStokCikis.Search(x => x.StokCikisId == obj.StokCikisId).FirstOrDefault();
+
+                oldEntity.IsEmriDurum = obj.IsEmriDurum;
+
+                var result = _uow.ChepStokCikis.Update(oldEntity);
+
+                _uow.Commit();
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
         public ResponseDTO Get(int id)
         {
             try

@@ -1,7 +1,7 @@
 ﻿using Chep.DTO;
+using LocalWs;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using Pfr360Ws;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -170,7 +170,7 @@ namespace Chep.WebService
 
                 var result = await client.SetWorkOrderMastersModelAsync(obj.VwWsWorkOrderMaster.UserNameWs, obj.VwWsWorkOrderMaster.PasswordWs, objMaster);
 
-                return Ok(result);
+                return Ok(result.ResultCode + "-" + result.ResultName);
             }
             catch (Exception ex)
             {
