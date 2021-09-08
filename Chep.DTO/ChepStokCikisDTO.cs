@@ -28,7 +28,7 @@ namespace Chep.DTO
         public string KapCinsi { get; set; }
         public int? KapMiktari { get; set; }
         public string IsEmriDurum { get; set; }
-
+        public string SiparisNo { get; set; }
         public string ItemNo { get; set; }
         public int DropCount { get; set; }
         public string IhracatciFirmaName { get; set; }
@@ -36,6 +36,7 @@ namespace Chep.DTO
         public string IslemTarihiDisplay => $"{IslemTarihi:dd.MM.yyyy}";
         public string TpsTarihDisplay => $"{TpsTarih:dd.MM.yyyy}";
         public string BeyannameTarihiDisplay => $"{BeyannameTarihi:dd.MM.yyyy}";
+        
 
         public List<ChepStokCikisDetayDTO> ChepStokCikisDetayList { get; set; }
         public List<int> DeletedChepStokCikisDetayIdList { get; set; }

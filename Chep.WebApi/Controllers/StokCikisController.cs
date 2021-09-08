@@ -26,9 +26,9 @@ namespace Chep.WebApi.Controllers
 
         // Crud
         [HttpGet("List")]
-        public IActionResult List([FromQuery] int? referansNo, [FromQuery] string beyannameNo, [FromQuery] string tpsNo)
+        public IActionResult List([FromQuery] int? referansNo, [FromQuery] string beyannameNo, [FromQuery] string siparisNo)
         {
-            var result = _service.List(referansNo, beyannameNo, tpsNo);
+            var result = _service.List(referansNo, beyannameNo, siparisNo);
 
             switch (result.ResultMessage)
             {
