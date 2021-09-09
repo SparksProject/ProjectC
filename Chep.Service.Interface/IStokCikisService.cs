@@ -9,6 +9,7 @@ namespace Chep.Service.Interface
         ResponseDTO List(int? referansNo, string beyannameNo, string tpsNo);
         ResponseDTO Add(ChepStokCikisDTO obj);
         ResponseDTO Edit(ChepStokCikisDTO obj);
+        ResponseDTO WorkOrderStatusEdit(ChepStokCikisDTO obj);
         ResponseDTO Get(int id);
         ResponseDTO GetByUrunKod(string id);
         ResponseDTO Delete(int id);

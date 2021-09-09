@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Chep.Data.Repository;
 using Chep.DTO;
 using Chep.Service.Interface;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Chep.Service
 {
@@ -37,7 +40,7 @@ namespace Chep.Service
             }
         }
 
-        public int SetWorkOrderMastersModel(int id)
+        public async Task<string> SetWorkOrderMastersModel(int id)
         {
             try
             {
@@ -51,7 +54,7 @@ namespace Chep.Service
 
                 if (master == null)
                 {
-                    return 400;
+                    return ("Master kaydı null geldi. Bir sorun var!");
                 }
 
                 var dto = new WorkOrderMasterModelDTO
@@ -160,14 +163,17 @@ namespace Chep.Service
 
                 var client = _clientFactory.CreateClient();
                 var content = JsonConvert.SerializeObject(dto);
-                var ws = client.PostAsync(WebServiceUrl, new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
-                ws.Wait();
+                var ws = await client.PostAsync(WebServiceUrl, new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
 
-                return (int)ws.Result.StatusCode;
+                ws.EnsureSuccessStatusCode();
+
+                var deger = (await ws.Content.ReadAsStringAsync()).ToString();
+
+                return deger;
             }
             catch (Exception ex)
             {
-                return 400;
+                return ex.Message;
             }
 
         }

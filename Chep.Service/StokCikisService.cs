@@ -121,6 +121,30 @@ namespace Chep.Service
             }
         }
 
+        public ResponseDTO WorkOrderStatusEdit(ChepStokCikisDTO obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+                var oldEntity = _uow.ChepStokCikis.Search(x => x.StokCikisId == obj.StokCikisId).FirstOrDefault();
+
+                oldEntity.IsEmriDurum = obj.IsEmriDurum;
+
+                var result = _uow.ChepStokCikis.Update(oldEntity);
+
+                _uow.Commit();
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
+        }
+
         public ResponseDTO Get(int id)
         {
             try
@@ -166,7 +190,7 @@ namespace Chep.Service
             }
         }
 
-        public ResponseDTO List(int? referansNo, string beyannameNo, string tpsNo)
+        public ResponseDTO List(int? referansNo, string beyannameNo, string siparisNo)
         {
             try
             {
@@ -190,10 +214,10 @@ namespace Chep.Service
                     entities = entities.Where(x => x.BeyannameNo != null).Where(x => x.BeyannameNo.ToLower().Contains(beyannameNo)).ToList();
                 }
 
-                if (!string.IsNullOrEmpty(tpsNo))
+                if (!string.IsNullOrEmpty(siparisNo))
                 {
-                    tpsNo = tpsNo.ToLower();
-                    entities = entities.Where(x => x.TpsNo != null).Where(x => x.TpsNo.ToLower().Contains(tpsNo)).ToList();
+                    siparisNo = siparisNo.ToLower();
+                    entities = entities.Where(x => x.SiparisNo != null).Where(x => x.SiparisNo.ToLower().Contains(siparisNo)).ToList();
                 }
 
                 var list = new List<ChepStokCikisDTO>();
@@ -468,7 +492,9 @@ namespace Chep.Service
                 KapCinsi = obj.KapCinsi,
                 KapMiktari = obj.KapMiktari,
                 IsEmriDurum = obj.IsEmriDurum,
+                SiparisNo=obj.SiparisNo,
                 ChepStokCikisDetay = details,
+                
             };
         }
 
@@ -559,6 +585,7 @@ namespace Chep.Service
                 KapCinsi = obj.KapCinsi,
                 KapMiktari = obj.KapMiktari,
                 IsEmriDurum = obj.IsEmriDurum,
+                SiparisNo= obj.SiparisNo,
 
                 ChepStokCikisDetayList = details
             };

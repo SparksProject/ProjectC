@@ -90,7 +90,7 @@
                     dataSource: [],
                     columns: [
                         {
-                        dataField: "siraNo", caption: "Sıra No", dataType: "number", sortOrder: "asc",
+                            dataField: "siraNo", caption: "Sıra No", dataType: "number", sortOrder: "asc",
                             validationRules: [{ type: "required" }],
                         },
                         {
@@ -229,6 +229,35 @@
                             format: { type: "fixedPoint", precision: 0 }, allowEditing: false,
                         },
                     ],
+                    summary: {
+                        totalItems: [{
+                            column: "siraNo",
+                            summaryType: "count"
+                        }, {
+                            column: "miktar",
+                            summaryType: "sum",
+                            valueFormat: { type: "fixedPoint", precision: 2 }
+                        }, {
+                            column: "birimTutar",
+                            summaryType: "sum",
+                            valueFormat: { type: "fixedPoint", precision: 2 }
+                        }, {
+                            column: "invoiceAmount",
+                            summaryType: "sum",
+                            valueFormat: { type: "fixedPoint", precision: 2 }
+
+                        }, {
+                            column: "brutKg",
+                            summaryType: "sum",
+                            valueFormat: { type: "fixedPoint", precision: 2 }
+                        }, {
+                            column: "netKg",
+                            summaryType: "sum",
+                            valueFormat: { type: "fixedPoint", precision: 2 }
+                        }]
+
+
+                    },
                     paging: false,
                     export: {
                         enabled: true,
@@ -670,9 +699,9 @@
     function ListData() {
         var referansNo = $scope.filter.referansNo ? $scope.filter.referansNo : "";
         var beyannameNo = $scope.filter.beyannameNo ? $scope.filter.beyannameNo : "";
-        var tpsNo = $scope.filter.tpsNo ? $scope.filter.tpsNo : "";
+        var siparisNo = $scope.filter.siparisNo ? $scope.filter.siparisNo : "";
 
-        SparksXService.ListStokCikises(referansNo, beyannameNo, tpsNo).success(function (data) {
+        SparksXService.ListStokCikises(referansNo, beyannameNo, siparisNo).success(function (data) {
             $gridContainer.option("dataSource", data);
             $gridContainer.endCustomLoading();
         }).error(function () {
@@ -913,7 +942,7 @@
     $scope.SetWorkOrderService = function (id) {
         SparksXService.GetStokCikis(id)
             .success(function (data) {
-                console.log(data);
+
                 if (data.invoiceId == null) {
                     swal({
                         icon: "warning",
@@ -1024,19 +1053,24 @@
                 }
 
                 SparksXService.SetWorkOrderService(id)
-                    .success(function (data) {
-                        //if (data.result != null) {
-                        //    console.log(data);
-                        //}
-                        //if (data.message != null) {
-                        //    swal({
-                        //        icon: "error",
-                        //        title: data.message,
-                        //    });
-                        //}
+                    .success(function (isEmriDurum) {
+                        var obj = {
+                            stokCikisId: data.stokCikisId,
+                            isEmriDurum: isEmriDurum,
+                        };
+                        SparksXService.IsEmriDurumEditStokCikis(obj).success(function (updateData) {
+                            $scope.object = updateData;
+
+                        }).error(function () {
+                            swal({
+                                icon: "error",
+                                title: "Hata!",
+                                text: "İş emri gönderildi ancak durum güncelleme işlemi yapılamadı.",
+                            });
+                        });
                         swal({
                             icon: "successs",
-                            title: "İş emri gönderildi.",
+                            title: isEmriDurum,
                         });
                     }).error(function (er) {
                         swal({
@@ -1096,9 +1130,8 @@
     $scope.KiloDagit = function (obj) {
         SparksXService.GetStokCikis(obj).success(function (data) {
             $scope.object = data;
-            console.log(data);
 
-              var farkNet, farkBrut;
+            var farkNet, farkBrut;
 
             //var kilo = 1000;
             var toplamMiktar = 0;
@@ -1119,7 +1152,7 @@
 
                 toplamMiktar += parseFloat(kalem.miktar);
             }
-            console.log(toplamMiktar);
+
             for (var i in data.chepStokCikisDetayList) {
                 var kalem = data.chepStokCikisDetayList[i];
                 if (isNaN(toplamMiktar)) {
@@ -1141,7 +1174,7 @@
                     //roundBrut += parseFloat(kalem.brutKg);
                     //console.log(i + ".kalemin brütKg değeri: " + brutKG); //TODO:
                 }
-                console.log(kalem.brutKg);
+
                 //if (netKilo > 0) {
                 //    if (kalem.netKg == null) {
                 //    if (kalem.netKg == null) {
@@ -1153,7 +1186,7 @@
                 //    //console.log(i + ". kalemin netKg değeri: " + netKg); //TODO:
                 //}
             }
-            console.log(data);
+
             SparksXService.EditStokCikis(data).success(function () {
                 swal({
                     icon: "success",
@@ -1176,7 +1209,7 @@
             farkBrut = parseFloat((parseFloat(brutKilo - roundBrut))).toFixed(2);
 
             //console.log("farkNet: ", farkNet);
-            console.log("farkBrut: ", farkBrut);
+
             //if (farkBrut != 0 || farkNet != 0) {
             //    swal({
             //        icon: "success",
@@ -1185,7 +1218,7 @@
             //    });
             //}
         });
-          
+
     };
 
 

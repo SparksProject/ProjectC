@@ -313,8 +313,8 @@
 
     //Stok Cikis======================>
 
-    this.ListStokCikises = function (ReferansNo, BeyannameNo, TPSNo) {
-        return GetBaseRequestJson("StokCikis", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&tpsNo=' + TPSNo);
+    this.ListStokCikises = function (ReferansNo, BeyannameNo, SiparisNo) {
+        return GetBaseRequestJson("StokCikis", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&siparisNo=' + SiparisNo);
     };
 
     this.GetStokCikis = function (id) {
@@ -338,6 +338,10 @@
 
     this.EditStokCikis = function (obj) {
         return GetBaseRequestPostJson("StokCikis", "Edit", obj);
+    };
+
+    this.IsEmriDurumEditStokCikis = function (obj) {
+        return GetBaseRequestPostJson("StokCikis", "WorkOrderStatusEdit", obj);
     };
 
     this.GetStokDusumListe = function (itemNo, cikisAdet, ithalatciFirma) {

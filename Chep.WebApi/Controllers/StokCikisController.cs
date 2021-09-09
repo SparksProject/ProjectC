@@ -6,6 +6,7 @@ using Chep.Service.Interface;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Chep.WebApi.Controllers
 {
@@ -25,9 +26,9 @@ namespace Chep.WebApi.Controllers
 
         // Crud
         [HttpGet("List")]
-        public IActionResult List([FromQuery] int? referansNo, [FromQuery] string beyannameNo, [FromQuery] string tpsNo)
+        public IActionResult List([FromQuery] int? referansNo, [FromQuery] string beyannameNo, [FromQuery] string siparisNo)
         {
-            var result = _service.List(referansNo, beyannameNo, tpsNo);
+            var result = _service.List(referansNo, beyannameNo, siparisNo);
 
             switch (result.ResultMessage)
             {
@@ -77,6 +78,27 @@ namespace Chep.WebApi.Controllers
         {
 
             var result = _service.Edit(obj);
+
+            switch (result.ResultMessage)
+            {
+                case Enums.ResponseMessage.OK:
+                    return StatusCode(StatusCodes.Status200OK, result.Result);
+                case Enums.ResponseMessage.ERROR:
+                    return StatusCode(StatusCodes.Status500InternalServerError, result.Exception);
+                case Enums.ResponseMessage.NOTFOUND:
+                    return StatusCode(StatusCodes.Status404NotFound);
+                case Enums.ResponseMessage.UNAUTHORIZED:
+                    return StatusCode(StatusCodes.Status401Unauthorized);
+                default:
+                    return StatusCode(StatusCodes.Status404NotFound);
+            }
+        }
+
+        [HttpPost("WorkOrderStatusEdit")]
+        public IActionResult WorkOrderStatusEdit([FromBody] ChepStokCikisDTO obj)
+        {
+
+            var result = _service.WorkOrderStatusEdit(obj);
 
             switch (result.ResultMessage)
             {
@@ -168,9 +190,9 @@ namespace Chep.WebApi.Controllers
         }
 
         [HttpGet("SetWorkOrderService/{id}")]
-        public IActionResult SetWorkOrderService(int id)
+        public async Task<IActionResult> SetWorkOrderService(int id)
         {
-            var result = _workOrderService.SetWorkOrderMastersModel(id);
+            var result = await _workOrderService.SetWorkOrderMastersModel(id);
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
