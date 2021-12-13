@@ -8,7 +8,7 @@
     "environment"    : "ChepWebService",
     "enable-xray"    : false,
     "enhanced-health-type" : "basic",
-    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-0e9425b6397ccf320\";\"aws:ec2:vpc,Subnets\"=\"subnet-0e57c47656f92fa54\"",
+    "additional-options"   : "",
     "solution-stack"       : "64bit Amazon Linux 2 v2.2.8 running .NET Core",
     "environment-type"     : "SingleInstance",
     "cname"                : "chepwebservice",

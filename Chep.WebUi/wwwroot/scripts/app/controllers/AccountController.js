@@ -94,8 +94,7 @@
     function Login(object) {
         localStorage.clear();
         $rootScope.user = undefined;
-        $scope.loginclass = "fa fa-spin fa-spinner";
-        debugger;
+        $scope.loginclass = "fa fa-spin fa-spinner";        
 
         SparksXService.Authenticate(object).success(function (data) {
             if (data.result != null) {
