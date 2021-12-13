@@ -67,7 +67,8 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
+                //optionsBuilder.UseSqlServer("Server=10.6.85.3;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");               
+                optionsBuilder.UseSqlServer("User ID=dbusers;Password=Chep2021;Server=chep.c20foll0va7u.eu-central-1.rds.amazonaws.com,1433;Database=Chep_DB;Pooling=true;");
             }
         }
 

@@ -130,7 +130,8 @@
     //Login========================>
 
     this.Authenticate = function (user) {
-
+        
+        
         var response = $http({
             url: $rootScope.settings.serverPath + '/api/Account/Authenticate',
             method: 'post',
@@ -313,8 +314,8 @@
 
     //Stok Cikis======================>
 
-    this.ListStokCikises = function (ReferansNo, BeyannameNo, TPSNo) {
-        return GetBaseRequestJson("StokCikis", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&tpsNo=' + TPSNo);
+    this.ListStokCikises = function (ReferansNo, BeyannameNo, SiparisNo) {
+        return GetBaseRequestJson("StokCikis", "List", undefined, 'referansNo=' + ReferansNo + '&beyannameNo=' + BeyannameNo + '&siparisNo=' + SiparisNo);
     };
 
     this.GetStokCikis = function (id) {
