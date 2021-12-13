@@ -67,8 +67,7 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer("Server=10.6.85.3;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");               
-                optionsBuilder.UseSqlServer("User ID=dbusers;Password=Chep2021;Server=chep.c20foll0va7u.eu-central-1.rds.amazonaws.com,1433;Database=Chep_DB;Pooling=true;");
+                optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
 
@@ -157,7 +156,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.BelgeSart).HasMaxLength(50);
 
-                entity.Property(e => e.BeyannameNo).HasMaxLength(16);
+                entity.Property(e => e.BeyannameNo).HasMaxLength(20);
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 
@@ -258,7 +257,7 @@ namespace Chep.Core
                 entity.HasKey(e => e.StokGirisDetayId)
                     .HasName("PK__ChepStok__5F1F65B0F75ADB99");
 
-                entity.Property(e => e.BeyannameNo).HasMaxLength(16);
+                entity.Property(e => e.BeyannameNo).HasMaxLength(20);
 
                 entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
 

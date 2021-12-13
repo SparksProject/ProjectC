@@ -46,5 +46,6 @@ namespace Chep.Core
         public DateTime? BeyannameTarihi { get; set; }
         public DateTime OlusturmaTarihi { get; set; }
         public DateTime? GuncellemeTarihi { get; set; }
+        public int? StokGirisDetayId { get; set; }
     }
 }
