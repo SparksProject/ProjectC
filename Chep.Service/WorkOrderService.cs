@@ -32,6 +32,7 @@ namespace Chep.Service
 
 #if DEBUG
                 baseUrl = "http://localhost:65404/";
+                //baseUrl = "http://ws.chepprojectc.com/";
 #endif
 
                 var url = $"{baseUrl}WebService/Post";
@@ -142,6 +143,7 @@ namespace Chep.Service
                         Uom = detail.Uom,
                         WorkOrderMasterId = detail.WorkOrderMasterId,
                         WorkOrderNo = detail.WorkOrderNo,
+                         
                     });
 
                 }
@@ -154,10 +156,10 @@ namespace Chep.Service
                         DeclarationDate = detailTcgb.DeclarationDate,
                         DeclarationNo = detailTcgb.DeclarationNo,
                         Description = detailTcgb.Description,
-                        //InvoiceDetailId = detailTcgb.InvoiceDetailId,
-                        //InvoiceDetailsTcgbId = detailTcgb.InvoiceDetailsTcgbId,
-                        //ItemNo = detailTcgb.ItemNo,
-                        //Quantity = detailTcgb.Quantity
+                        InvoiceDetailId = detailTcgb.InvoiceDetailId,
+                        InvoiceDetailsTcgbId = detailTcgb.InvoiceDetailsTcgbId,
+                        ItemNo = detailTcgb.ItemNo,
+                        Quantity = detailTcgb.Quantity
                     });
                 }
 
