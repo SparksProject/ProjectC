@@ -130,7 +130,8 @@
     //Login========================>
 
     this.Authenticate = function (user) {
-
+        
+        
         var response = $http({
             url: $rootScope.settings.serverPath + '/api/Account/Authenticate',
             method: 'post',
