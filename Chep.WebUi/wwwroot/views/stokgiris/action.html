@@ -227,3 +227,29 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="modalExcelImport" aria-hidden="true" ng-init="ModalExcelImport()">
+    <div class="modal-dialog modal-full">
+        <form class="modal-content" name="form" ng-init="BindFields()" valid-submit="Action(object)" novalidate>
+            <div class="modal-header">
+                <h4 class="modal-title">Stok Giriş Excel Aktarım</h4>
+            </div>
+            <div class="modal-body">
+                <!-- BEGIN FORM-->
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <input type="hidden" id="StokGirisId" ng-model="object.stokGirisId" name="StokGirisId" value="0" />
+                        <div id="gridImportList" style="min-height: 200px;"></div>
+                    </div>
+                </div>
+                <!-- END FORM-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button id="btn-importList" type="button" class="btn blue">Kaydet</button>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

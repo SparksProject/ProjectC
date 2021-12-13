@@ -14,7 +14,7 @@ namespace Chep.Core
         public DateTime? IslemTarihi { get; set; }
         public string BeyannameNo { get; set; }
         public DateTime? BeyannameTarihi { get; set; }
-        public Guid? IhracatciFirma { get; set; }
+        public string IhracatciFirma { get; set; }
         public string Tpsno { get; set; }
         public DateTime? Tpstarih { get; set; }
         public int StokCikisDetayId { get; set; }
@@ -27,6 +27,5 @@ namespace Chep.Core
         public int? GirisMiktar { get; set; }
         public int? CikisMiktar { get; set; }
         public int StokGirisDetayId { get; set; }
-        public int UserId { get; set; }
     }
 }

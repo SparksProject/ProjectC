@@ -5,6 +5,7 @@
     var $gridContainer = null;
     var $gridDetail = null;
     var $modalDetail = null;
+    var $modalExcelImport = null;
     var $modalImport = null;
     var DeletedChepStokGirisDetayIdList = [];
 
@@ -201,9 +202,7 @@
                             },
                         },
                         {
-                            dataField: "sozlesmeUlke",
-                            caption: "Sözleşme Ülke",
-                            width: 200,
+                            dataField: "sozlesmeUlke", caption: "Sözleşme Ülke", width: 200,
                             lookup: {
                                 dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
                                 displayExpr: function (data) {
@@ -776,4 +775,157 @@
     //    };
     //};
 
+    $scope.ModalExcelImport = function () {
+        if ($modalExcelImport == null) {
+            $modalExcelImport = $('#modalDetail').on({
+                "shown.bs.modal": function () {
+                },
+                "hidden.bs.modal": function () {
+                    $scope.object = {};
+                    $scope.$apply();
+
+                    $gridImportList.option("dataSource", []);
+                    $gridImportList.cancelEditData();
+
+                    DeletedChepStokGirisDetayIdList = [];
+
+                    $modalExcelImport.find('form .form-group').removeClass('has-success').removeClass('has-error');
+                    $modalExcelImport.find('form .form-control').removeClass('ng-valid').removeClass('ng-invalid');
+                    $modalExcelImport.find('form .input-icon .fa').removeClass('fa-check').removeClass('fa-warning');
+                },
+
+            }).modal({
+                show: false,
+                keyboard: false
+            });
+
+            if ($gridImportList == null) {
+                $gridImportList = $("#gridImportList").dxDataGrid({
+                    keyExpr: "stokGirisId",
+                    dataSource: [],
+                    columns: [
+                        { dataField: "tpsNo", caption: "TPS No", width: 200 },
+                        { dataField: "tpsDurum", caption: "TPS Durum", width: 200 },
+                        { dataField: "basvuruTarihi", caption: "Basvuru Tarihi", dataType: "date", formatType: "shortDate" },
+                        { dataField: "sureSonuTarihi", caption: "Süre Sonu Tarihi", dataType: "date", formatType: "shortDate" },
+                        { dataField: "gumrukKod", caption: "Gumruk Kodu", },
+                        { dataField: "belgeAd", caption: "Belge Ad", },
+                        { dataField: "belgeSart", caption: "Belge Şart", },
+                        { dataField: "tpsAciklama", caption: "TPS Açıklama", },
+                        { dataField: "ithalatciFirmaName", caption: "İthalatçı Firma", width: 200 },
+                        { dataField: "ihracatciFirmaName", caption: "İhracatçı Firma", width: 200 },
+                        { dataField: "beyannameNo", caption: "Beyanname No", },
+                        { dataField: "beyannameTarihi", caption: "Beyanname Tarihi", dataType: "date", formatType: "shortDate" },
+                        { dataField: "beyannameKalemNo", caption: "Beyanname Kalem No", dataType: "number", width: 150, },
+                        { dataField: "kapAdet", caption: "TPS Sira No", },
+                        { dataField: "tpsBeyan", caption: "TPS Beyan", width: 100, },
+                        {
+                            dataField: "urunKod", caption: "Ürün Kodu", width: 170,
+                            lookup: {
+                                dataSource: storeProducts, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: "productNo", // Dönen veride basılacak metin
+                                valueExpr: "productNo", // Dönen veride basılacak value
+                            },
+                        },
+                        { dataField: "esyaCinsi", caption: "Eşya Cinsi", width: 120, },
+                        { dataField: "esyaGtip", caption: "Eşya GTİP", width: 120, },
+                        {
+                            dataField: "menseUlke",
+                            caption: "Menşei Ülke",
+                            width: 200,
+                            lookup: {
+                                dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: function (data) {
+                                    return data.ediCode + " - " + data.countryName;
+                                }, // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
+                        {
+                            dataField: "miktar", caption: "Miktar", dataType: "number", width: 100,
+                            format: { type: "fixedPoint", precision: 0 },
+                        },
+                        {
+                            dataField: "olcuBirimi", caption: "Ölçü Birimi", width: 200,
+                            lookup: {
+                                dataSource: storeUnits, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: "unitsName", // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
+                        { dataField: "faturaNo", caption: "Fatura No", width: 100, },
+                        { dataField: "faturaTarih", caption: "Fatura Tarihi", width: 100, dataType: "date", formatType: "shortDate" },
+                        {
+                            dataField: "faturaTutar", caption: "Fatura Tutar", width: 100, dataType: "number",
+                            format: { type: "fixedPoint", precision: 2 },
+                        },
+                        {
+                            dataField: "faturaDovizKod", caption: "Fatura Döviz Kod", width: 140,
+                            lookup: {
+                                dataSource: storeCurrencyTypes, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: "ediCode", // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
+                        { dataField: "rejim", caption: "Rejim", width: 90, },
+                        { dataField: "cikisRejimi", caption: "Çıkış Rejimi", width: 100, },
+                        {
+                            dataField: "gidecegiUlke",
+                            caption: "Gideceği Ülke",
+                            width: 200,
+                            lookup: {
+                                dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: function (data) {
+                                    return data.ediCode + " - " + data.countryName;
+                                }, // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
+
+                        {
+                            dataField: "sozlesmeUlke",
+                            caption: "Sözleşme Ülke",
+                            width: 200,
+                            lookup: {
+                                dataSource: storeCountries, // Edit aşamasında kolonda SelectBox oluşturulur ve tanımlanan kaynaktan ajax get veri alır.
+                                displayExpr: function (data) {
+                                    return data.ediCode + " - " + data.countryName;
+                                }, // Dönen veride basılacak metin
+                                valueExpr: "ediCode", // Dönen veride basılacak value
+                            },
+                        },
+                        { dataField: "marka", caption: "Marka", width: 100, },
+                        { dataField: "model", caption: "Model", width: 100, },
+                        { dataField: "aa", caption: "TPS Çıkış Sıra No", },
+                        { dataField: "aktarimTarihi", caption: "Aktarım Tarihi", dataType: "date", formatType: "shortDate" },
+                    ],
+                    paging: {
+                        pageSize: 10
+                    },
+                    pager: {
+                        showPageSizeSelector: true,
+                        allowedPageSizes: [10, 25, 50, 100]
+                    },
+                    remoteOperations: false,
+                    filterRow: {
+                        visible: true,
+                        applyFilter: "auto"
+                    },
+                    searchPanel: {
+                        visible: false,
+                    },
+                    groupPanel: { visible: true },
+                    grouping: {
+                        autoExpandAll: false
+                    },
+                    allowColumnReordering: false,
+                    allowColumnResizing: true,
+                    columnAutoWidth: true,
+                    rowAlternationEnabled: true,
+                    showBorders: true,
+                    focusedRowEnabled: true,
+                }).dxDataGrid('instance');
+            }
+        }
+    }
 }]);

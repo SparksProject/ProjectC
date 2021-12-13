@@ -10,11 +10,11 @@ namespace Chep.Core
     public partial class VwWsWorkOrderInvoiceDetailsTcgb
     {
         public int StokCikisId { get; set; }
-        public Guid InvoiceDetailsTcgbId { get; set; }
-        public Guid InvoiceDetailId { get; set; }
+        public Guid? InvoiceDetailsTcgbId { get; set; }
+        public Guid? InvoiceDetailId { get; set; }
         public string DeclarationNo { get; set; }
-        public int ItemNo { get; set; }
-        public int Quantity { get; set; }
+        public int? ItemNo { get; set; }
+        public int? Quantity { get; set; }
         public string Description { get; set; }
         public DateTime? DeclarationDate { get; set; }
     }

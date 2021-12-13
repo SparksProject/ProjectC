@@ -10,6 +10,7 @@ namespace Chep.Core
     public partial class VwStokCikisFaturaOrnekListe
     {
         public int ÇıkışReferansNo { get; set; }
+        public int? KalemNo { get; set; }
         public string ÜrünKodu { get; set; }
         public string Gtip { get; set; }
         public string TicariTanım { get; set; }

@@ -22,6 +22,7 @@ namespace Chep.Core
         public virtual DbSet<ChepStokCikis> ChepStokCikis { get; set; }
         public virtual DbSet<ChepStokCikisDetay> ChepStokCikisDetay { get; set; }
         public virtual DbSet<ChepStokGiris> ChepStokGiris { get; set; }
+        public virtual DbSet<ChepStokGirisAktarim> ChepStokGirisAktarim { get; set; }
         public virtual DbSet<ChepStokGirisDetay> ChepStokGirisDetay { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Country> Country { get; set; }
@@ -46,6 +47,8 @@ namespace Chep.Core
         public virtual DbSet<UserCustomer> UserCustomer { get; set; }
         public virtual DbSet<UserPermission> UserPermission { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
+        public virtual DbSet<VwEfaturaKalemTaslak> VwEfaturaKalemTaslak { get; set; }
+        public virtual DbSet<VwEfaturaTaslak> VwEfaturaTaslak { get; set; }
         public virtual DbSet<VwGenelListe> VwGenelListe { get; set; }
         public virtual DbSet<VwStokCikisDetayListe> VwStokCikisDetayListe { get; set; }
         public virtual DbSet<VwStokCikisFaturaOrnekListe> VwStokCikisFaturaOrnekListe { get; set; }
@@ -65,7 +68,6 @@ namespace Chep.Core
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
-                //optionsBuilder.UseSqlServer("User ID=admin;Password=chep2021;Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Pooling=true;");
             }
         }
 
@@ -101,6 +103,8 @@ namespace Chep.Core
                 entity.Property(e => e.KapCinsi).HasMaxLength(2);
 
                 entity.Property(e => e.OdemeSekli).HasMaxLength(2);
+
+                entity.Property(e => e.SiparisNo).HasMaxLength(50);
 
                 entity.Property(e => e.TeslimSekli).HasMaxLength(3);
 
@@ -179,6 +183,75 @@ namespace Chep.Core
                     .HasConstraintName("FK_ChepStokGiris_Customer");
             });
 
+            modelBuilder.Entity<ChepStokGirisAktarim>(entity =>
+            {
+                entity.Property(e => e.BasvuruTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.BelgeAd).HasMaxLength(50);
+
+                entity.Property(e => e.BelgeSart).HasMaxLength(50);
+
+                entity.Property(e => e.BeyannameNo).HasMaxLength(16);
+
+                entity.Property(e => e.BeyannameTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.CikisRejimi).HasMaxLength(50);
+
+                entity.Property(e => e.EsyaCinsi).HasMaxLength(50);
+
+                entity.Property(e => e.EsyaGtip).HasMaxLength(12);
+
+                entity.Property(e => e.FaturaDovizKod).HasMaxLength(3);
+
+                entity.Property(e => e.FaturaNo).HasMaxLength(30);
+
+                entity.Property(e => e.FaturaTarih).HasColumnType("datetime");
+
+                entity.Property(e => e.FaturaTutar).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.GidecegiUlke).HasMaxLength(20);
+
+                entity.Property(e => e.GumrukKod).HasMaxLength(6);
+
+                entity.Property(e => e.GuncellemeTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.IhracatciFirma).HasMaxLength(50);
+
+                entity.Property(e => e.IthalatciFirma).HasMaxLength(50);
+
+                entity.Property(e => e.Marka).HasMaxLength(50);
+
+                entity.Property(e => e.MenseUlke).HasMaxLength(20);
+
+                entity.Property(e => e.Model).HasMaxLength(50);
+
+                entity.Property(e => e.OlcuBirimi).HasMaxLength(5);
+
+                entity.Property(e => e.OlusturmaTarihi)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.PoNo).HasMaxLength(50);
+
+                entity.Property(e => e.Rejim).HasMaxLength(50);
+
+                entity.Property(e => e.SozlesmeUlke).HasMaxLength(20);
+
+                entity.Property(e => e.SureSonuTarihi).HasColumnType("datetime");
+
+                entity.Property(e => e.TpsAciklama).HasMaxLength(250);
+
+                entity.Property(e => e.TpsBeyan).HasMaxLength(20);
+
+                entity.Property(e => e.TpsDurum).HasMaxLength(50);
+
+                entity.Property(e => e.TpsNo)
+                    .IsRequired()
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.UrunKod).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<ChepStokGirisDetay>(entity =>
             {
                 entity.HasKey(e => e.StokGirisDetayId)
@@ -190,7 +263,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.CikisRejimi).HasMaxLength(50);
 
-                entity.Property(e => e.EsyaCinsi).HasMaxLength(20);
+                entity.Property(e => e.EsyaCinsi).HasMaxLength(50);
 
                 entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
@@ -765,6 +838,973 @@ namespace Chep.Core
                 entity.Property(e => e.UserTypeName).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<VwEfaturaKalemTaslak>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_EFaturaKalemTaslak");
+
+                entity.Property(e => e.BirimFiyat)
+                    .HasColumnName("BIRIM_FIYAT")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.BirimKodu)
+                    .IsRequired()
+                    .HasColumnName("BIRIM_KODU")
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ChepPrdCode)
+                    .IsRequired()
+                    .HasColumnName("CHEP Prd Code")
+                    .HasMaxLength(19)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FaturaNo)
+                    .HasColumnName("FATURA_NO")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaturaSiraNo).HasColumnName("FATURA_SIRA_NO");
+
+                entity.Property(e => e.IhrDemiryoluTrenNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_DEMIRYOLU_TREN_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrDemiryoluVagonNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_DEMIRYOLU_VAGON_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrEsyaKapAdet)
+                    .IsRequired()
+                    .HasColumnName("IHR_ESYA_KAP_ADET")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrEsyaKapCinsi)
+                    .IsRequired()
+                    .HasColumnName("IHR_ESYA_KAP_CINSI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrEsyaKapNumarasi)
+                    .IsRequired()
+                    .HasColumnName("IHR_ESYA_KAP_NUMARASI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrEsyaninGonderimSekli).HasColumnName("IHR_ESYANIN_GONDERIM_SEKLI");
+
+                entity.Property(e => e.IhrGemiAdi)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_ADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiBrutAgirlik)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_BRUT_AGIRLIK")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiBrutAgirlikBirimi)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_BRUT_AGIRLIK_BIRIMI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiImoMmsiNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_IMO_MMSI_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiKayitDokumanReferansNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_KAYIT_DOKUMAN_REFERANS_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiKayitDokumanTarihi)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_KAYIT_DOKUMAN_TARIHI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiKayitLimani)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_KAYIT_LIMANI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiNetAgirlik)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_NET_AGIRLIK")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiNetAgirlikBirimi)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_NET_AGIRLIK_BIRIMI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemiRadyoCagriAdi)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMI_RADYO_CAGRI_ADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGemininIhtiyaclari)
+                    .IsRequired()
+                    .HasColumnName("IHR_GEMININ_IHTIYACLARI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGonderimId).HasColumnName("IHR_GONDERIM_ID");
+
+                entity.Property(e => e.IhrGtipNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_GTIP_NO")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.IhrHavayoluAracNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_HAVAYOLU_ARAC_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrKabinMarkasi)
+                    .IsRequired()
+                    .HasColumnName("IHR_KABIN_MARKASI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrKarayoluAracPlaka)
+                    .IsRequired()
+                    .HasColumnName("IHR_KARAYOLU_ARAC_PLAKA")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimSarti)
+                    .HasColumnName("IHR_TESLIM_SARTI")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.IhrTeslimatBinaAdi)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_BINA_ADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatBinaNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_BINA_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatCaddeAdi)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_CADDE_ADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatId)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_ID")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatIlce)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_ILCE")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatPostaKodu)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_POSTA_KODU")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatSehir)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_SEHIR")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatUlke)
+                    .HasColumnName("IHR_TESLIMAT_ULKE")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IhrUrunIzNumarasi)
+                    .IsRequired()
+                    .HasColumnName("IHR_URUN_IZ_NUMARASI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IskontoOrani)
+                    .IsRequired()
+                    .HasColumnName("ISKONTO_ORANI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IskontoTutari)
+                    .IsRequired()
+                    .HasColumnName("ISKONTO_TUTARI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.KalemNotu1)
+                    .IsRequired()
+                    .HasColumnName("KALEM_NOTU_1")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.KalemNotu2)
+                    .IsRequired()
+                    .HasColumnName("KALEM_NOTU_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.KalemNotu3)
+                    .IsRequired()
+                    .HasColumnName("KALEM_NOTU_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.KalemSiraNo).HasColumnName("KALEM_SIRA_NO");
+
+                entity.Property(e => e.Miktar).HasColumnName("MIKTAR");
+
+                entity.Property(e => e.ToplamVergiTutari)
+                    .IsRequired()
+                    .HasColumnName("TOPLAM_VERGI_TUTARI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Tutar)
+                    .HasColumnName("TUTAR")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.UrunHizmetAdi)
+                    .HasColumnName("URUN_HIZMET ADI")
+                    .HasMaxLength(71);
+
+                entity.Property(e => e.UrunKodu)
+                    .HasColumnName("URUN_KODU")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.VergiHesaplamaSirasi1).HasColumnName("VERGI_HESAPLAMA_SIRASI_1");
+
+                entity.Property(e => e.VergiHesaplamaSirasi2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori1)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_1")
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod1)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_1")
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah1)
+                    .HasColumnName("VERGI_MATRAH_1")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.VergiMatrah2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran1).HasColumnName("VERGI_ORAN_1");
+
+                entity.Property(e => e.VergiOran2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar1).HasColumnName("VERGI_TUTAR_1");
+
+                entity.Property(e => e.VergiTutar2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwEfaturaTaslak>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_EFaturaTaslak");
+
+                entity.Property(e => e.AliciBinaAdi)
+                    .IsRequired()
+                    .HasColumnName("ALICI_BINA_ADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciBinaNo)
+                    .IsRequired()
+                    .HasColumnName("ALICI_BINA_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciEmail)
+                    .IsRequired()
+                    .HasColumnName("ALICI_EMAIL")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciEtiket)
+                    .IsRequired()
+                    .HasColumnName("ALICI_ETIKET")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciFax)
+                    .IsRequired()
+                    .HasColumnName("ALICI_FAX")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciIlce)
+                    .IsRequired()
+                    .HasColumnName("ALICI_ILCE")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciKapiNo)
+                    .IsRequired()
+                    .HasColumnName("ALICI_KAPI_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciPostaKodu)
+                    .IsRequired()
+                    .HasColumnName("ALICI_POSTA_KODU")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciSehir)
+                    .IsRequired()
+                    .HasColumnName("ALICI_SEHIR")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciSokak)
+                    .IsRequired()
+                    .HasColumnName("ALICI_SOKAK")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciTelefon)
+                    .IsRequired()
+                    .HasColumnName("ALICI_TELEFON")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciUlke)
+                    .IsRequired()
+                    .HasColumnName("ALICI_ULKE")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciUnvanAdiSoyadi)
+                    .IsRequired()
+                    .HasColumnName("ALICI_UNVAN_ADI_SOYADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciVd)
+                    .IsRequired()
+                    .HasColumnName("ALICI_VD")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AliciVknTckn)
+                    .IsRequired()
+                    .HasColumnName("ALICI_VKN_TCKN")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DovizKuru)
+                    .IsRequired()
+                    .HasColumnName("DOVIZ_KURU")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FaturaNo)
+                    .HasColumnName("FATURA_NO")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FaturaNotu1)
+                    .HasColumnName("FATURA_NOTU_1")
+                    .HasMaxLength(184);
+
+                entity.Property(e => e.FaturaNotu2)
+                    .IsRequired()
+                    .HasColumnName("FATURA_NOTU_2")
+                    .HasMaxLength(57)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FaturaNotu3)
+                    .HasColumnName("FATURA_NOTU_3")
+                    .HasMaxLength(336);
+
+                entity.Property(e => e.FaturaProfili)
+                    .IsRequired()
+                    .HasColumnName("FATURA_PROFILI")
+                    .HasMaxLength(7)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FaturaSaati)
+                    .IsRequired()
+                    .HasColumnName("FATURA_SAATI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FaturaTarihi)
+                    .HasColumnName("FATURA_TARIHI")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.FaturaTipi)
+                    .IsRequired()
+                    .HasColumnName("FATURA_TIPI")
+                    .HasMaxLength(7)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrAliciAdi)
+                    .IsRequired()
+                    .HasColumnName("IHR_ALICI_ADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrAliciIlce)
+                    .HasColumnName("IHR_ALICI_ILCE")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.IhrAliciResmiUnvan)
+                    .IsRequired()
+                    .HasColumnName("IHR_ALICI_RESMI_UNVAN")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IhrAliciSehir)
+                    .HasColumnName("IHR_ALICI_SEHIR")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IhrAliciSoyadi)
+                    .IsRequired()
+                    .HasColumnName("IHR_ALICI_SOYADI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrAliciUlke)
+                    .HasColumnName("IHR_ALICI_ULKE")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IhrAliciUnvan)
+                    .IsRequired()
+                    .HasColumnName("IHR_ALICI_UNVAN")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IhrAliciVkn)
+                    .IsRequired()
+                    .HasColumnName("IHR_ALICI_VKN")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrGonderimNo).HasColumnName("IHR_GONDERIM_NO");
+
+                entity.Property(e => e.IhrGonderimSekli).HasColumnName("IHR_GONDERIM_SEKLI");
+
+                entity.Property(e => e.IhrGtipNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_GTIP_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrOdemeBankaHesapNo)
+                    .IsRequired()
+                    .HasColumnName("IHR_ODEME_BANKA_HESAP_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrOdemeKanali)
+                    .IsRequired()
+                    .HasColumnName("IHR_ODEME_KANALI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrOdemeSekliSartlari)
+                    .HasColumnName("IHR_ODEME_SEKLI_SARTLARI")
+                    .HasMaxLength(2);
+
+                entity.Property(e => e.IhrTeslimSarti)
+                    .HasColumnName("IHR_TESLIM_SARTI")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.IhrTeslimatId)
+                    .IsRequired()
+                    .HasColumnName("IHR_TESLIMAT_ID")
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IhrTeslimatIlce)
+                    .HasColumnName("IHR_TESLIMAT_ILCE")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.IhrTeslimatSehir)
+                    .HasColumnName("IHR_TESLIMAT_SEHIR")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IhrTeslimatUlke)
+                    .HasColumnName("IHR_TESLIMAT_ULKE")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IrsaliyeNo1)
+                    .IsRequired()
+                    .HasColumnName("IRSALIYE_NO_1")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IrsaliyeNo2)
+                    .IsRequired()
+                    .HasColumnName("IRSALIYE_NO_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IrsaliyeNo3)
+                    .IsRequired()
+                    .HasColumnName("IRSALIYE_NO_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IrsaliyeTarihi1)
+                    .IsRequired()
+                    .HasColumnName("IRSALIYE_TARIHI_1")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IrsaliyeTarihi2)
+                    .IsRequired()
+                    .HasColumnName("IRSALIYE_TARIHI_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IrsaliyeTarihi3)
+                    .IsRequired()
+                    .HasColumnName("IRSALIYE_TARIHI_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IskontoTutari)
+                    .IsRequired()
+                    .HasColumnName("ISKONTO_TUTARI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OdenecekTutar)
+                    .IsRequired()
+                    .HasColumnName("ODENECEK_TUTAR")
+                    .HasMaxLength(4)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ParaBirimi)
+                    .HasColumnName("PARA_BIRIMI")
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.SiparisNo)
+                    .IsRequired()
+                    .HasColumnName("SIPARIS_NO")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SiparisTarihi)
+                    .IsRequired()
+                    .HasColumnName("SIPARIS_TARIHI")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SiraNo).HasColumnName("SIRA_NO");
+
+                entity.Property(e => e.ToplamTutar)
+                    .HasColumnName("TOPLAM_TUTAR")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Uuid)
+                    .IsRequired()
+                    .HasColumnName("UUID")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi1).HasColumnName("VERGI_HESAPLAMA_SIRASI_1");
+
+                entity.Property(e => e.VergiHesaplamaSirasi2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiHesaplamaSirasi5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_HESAPLAMA_SIRASI_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori1)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_1")
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKategori5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KATEGORI_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod1)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_1")
+                    .HasMaxLength(4)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiKod5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_KOD_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah1)
+                    .HasColumnName("VERGI_MATRAH_1")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.VergiMatrah2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMatrah5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MATRAH_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetKodu1).HasColumnName("VERGI_MUAFIYET_KODU_1");
+
+                entity.Property(e => e.VergiMuafiyetKodu2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_KODU_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetKodu3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_KODU_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetKodu4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_KODU_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetKodu5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_KODU_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetSebebi1)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_SEBEBI_1")
+                    .HasMaxLength(19)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetSebebi2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_SEBEBI_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetSebebi3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_SEBEBI_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetSebebi4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_SEBEBI_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiMuafiyetSebebi5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_MUAFIYET_SEBEBI_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran1).HasColumnName("VERGI_ORAN_1");
+
+                entity.Property(e => e.VergiOran2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiOran5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_ORAN_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar1)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_1")
+                    .HasMaxLength(4)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar2)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_2")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar3)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_3")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar4)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_4")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergiTutar5)
+                    .IsRequired()
+                    .HasColumnName("VERGI_TUTAR_5")
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VergilerDahilToplamTutar)
+                    .HasColumnName("VERGILER_DAHIL_TOPLAM_TUTAR")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.VergilerHaricToplamTutar)
+                    .HasColumnName("VERGILER_HARIC_TOPLAM_TUTAR")
+                    .HasColumnType("decimal(18, 2)");
+            });
+
             modelBuilder.Entity<VwGenelListe>(entity =>
             {
                 entity.HasNoKey();
@@ -867,6 +1907,8 @@ namespace Chep.Core
 
                 entity.Property(e => e.EsyaGtip).HasMaxLength(12);
 
+                entity.Property(e => e.IhracatciFirma).HasMaxLength(100);
+
                 entity.Property(e => e.IslemTarihi).HasColumnType("datetime");
 
                 entity.Property(e => e.Marka).HasMaxLength(50);
@@ -878,8 +1920,9 @@ namespace Chep.Core
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Tpsno)
+                    .IsRequired()
                     .HasColumnName("TPSNo")
-                    .HasMaxLength(50);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.Tpstarih)
                     .HasColumnName("TPSTarih")
@@ -1368,7 +2411,7 @@ namespace Chep.Core
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.CountryOfOrigin).HasMaxLength(3);
+                entity.Property(e => e.CountryOfOrigin).HasMaxLength(20);
 
                 entity.Property(e => e.DescGoods)
                     .IsRequired()
