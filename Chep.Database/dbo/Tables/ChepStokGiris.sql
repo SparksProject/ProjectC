@@ -6,7 +6,7 @@
     [BasvuruTarihi]   DATETIME         NULL,
     [SureSonuTarihi]  DATETIME         NULL,
     [GumrukKod]       NVARCHAR (6)     NULL,
-    [BeyannameNo]     NVARCHAR (16)    NULL,
+    [BeyannameNo]     NVARCHAR (20)    NULL,
     [BeyannameTarihi] DATETIME         NULL,
     [BelgeAd]         NVARCHAR (50)    NULL,
     [BelgeSart]       NVARCHAR (50)    NULL,
@@ -19,6 +19,8 @@
     CONSTRAINT [FK_ChepStokGiris_Customer] FOREIGN KEY ([IthalatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId]),
     CONSTRAINT [FK_ChepStokGiris_Customer1] FOREIGN KEY ([IhracatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId])
 );
+
+
 
 
 

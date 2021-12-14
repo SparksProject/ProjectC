@@ -21,10 +21,13 @@
     [CikisAracKimligi] NVARCHAR (35)    NULL,
     [KapCinsi]         NVARCHAR (2)     NULL,
     [KapMiktari]       INT              NULL,
-    [IsEmriDurum] NVARCHAR(300) NULL, 
+    [IsEmriDurum]      NVARCHAR (300)   NULL,
+    [SiparisNo]        NVARCHAR (50)    NULL,
     CONSTRAINT [PK__ChepStok__FDAB99CF950106B1] PRIMARY KEY CLUSTERED ([StokCikisId] ASC),
     CONSTRAINT [FK_ChepStokCikis_Customer] FOREIGN KEY ([IhracatciFirma]) REFERENCES [dbo].[Customer] ([CustomerId])
 );
+
+
 
 
 

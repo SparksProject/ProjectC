@@ -1,0 +1,23 @@
+﻿CREATE View [dbo].[vw_EFaturaKalemTaslak]
+as
+select 
+	c.tpsno as FATURA_NO,
+	DENSE_RANK() over (order by c.StokcikisId) as FATURA_SIRA_NO,cd.SiraNo as KALEM_SIRA_NO,'Buraya ne yazılacak' as 'CHEP Prd Code',gd.UrunKod as URUN_KODU,
+    (gd.UrunKod +'-'+ gd.EsyaCinsi) as 'URUN_HIZMET ADI',cd.Miktar as MIKTAR,'C62' as BIRIM_KODU,cd.BirimTutar as BIRIM_FIYAT,cd.InvoiceAmount as TUTAR,
+	'' as KALEM_NOTU_1,'' as KALEM_NOTU_2,'' as	KALEM_NOTU_3,'' as ISKONTO_ORANI,''as ISKONTO_TUTARI,'015' as VERGI_KOD_1,'KDV'as VERGI_KATEGORI_1,0 as VERGI_ORAN_1,
+	cd.InvoiceAmount as VERGI_MATRAH_1,0 as VERGI_TUTAR_1,1 as VERGI_HESAPLAMA_SIRASI_1,''as VERGI_KOD_2,'' as VERGI_KATEGORI_2,'' as VERGI_ORAN_2,'' as VERGI_MATRAH_2,
+	'' as VERGI_TUTAR_2,'' as VERGI_HESAPLAMA_SIRASI_2,''as VERGI_KOD_3,''as VERGI_KATEGORI_3,'' as	VERGI_ORAN_3,'' as VERGI_MATRAH_3,'' as VERGI_TUTAR_3,''as VERGI_HESAPLAMA_SIRASI_3,
+	'' as VERGI_KOD_4,'' as	VERGI_KATEGORI_4,'' as VERGI_ORAN_4,'' as VERGI_MATRAH_4,'' as VERGI_TUTAR_4,'' as VERGI_HESAPLAMA_SIRASI_4,'' as VERGI_KOD_5,''as VERGI_KATEGORI_5,
+	'' as VERGI_ORAN_5,'' as VERGI_MATRAH_5,''as VERGI_TUTAR_5,'' as VERGI_HESAPLAMA_SIRASI_5,'' as TOPLAM_VERGI_TUTARI,'' as IHR_KABIN_MARKASI,'' as IHR_TESLIMAT_ID,
+	'' as IHR_TESLIMAT_CADDE_ADI,'' as IHR_TESLIMAT_BINA_ADI,'' as IHR_TESLIMAT_BINA_NO,'' as IHR_TESLIMAT_ILCE,'' as IHR_TESLIMAT_SEHIR,'' as IHR_TESLIMAT_POSTA_KODU,
+    AliciFirma.Country as IHR_TESLIMAT_ULKE,c.TeslimSekli as IHR_TESLIM_SARTI,cd.SiraNo as IHR_GONDERIM_ID,p.HsCode as IHR_GTIP_NO,3 as IHR_ESYANIN_GONDERIM_SEKLI,
+	'' as IHR_ESYA_KAP_NUMARASI,'' as IHR_ESYA_KAP_ADET,'' as IHR_ESYA_KAP_CINSI,'' as IHR_HAVAYOLU_ARAC_NO,'' as IHR_KARAYOLU_ARAC_PLAKA,'' as IHR_DEMIRYOLU_TREN_NO,
+	'' as IHR_DEMIRYOLU_VAGON_NO,'' as IHR_GEMI_IMO_MMSI_NO,'' as IHR_GEMI_ADI,'' as IHR_GEMI_RADYO_CAGRI_ADI,'' as	IHR_GEMININ_IHTIYACLARI,'' as IHR_GEMI_BRUT_AGIRLIK,
+	'' as IHR_GEMI_BRUT_AGIRLIK_BIRIMI,'' as IHR_GEMI_NET_AGIRLIK,'' as	IHR_GEMI_NET_AGIRLIK_BIRIMI,'' as IHR_GEMI_KAYIT_DOKUMAN_REFERANS_NO,'' as IHR_GEMI_KAYIT_DOKUMAN_TARIHI,
+	'' as IHR_GEMI_KAYIT_LIMANI,'' as IHR_URUN_IZ_NUMARASI
+from ChepStokCikis c
+JOIN ChepStokCikisDetay cd on c.StokCikisId=cd.StokCikisId
+JOIN ChepStokGirisDetay gd on cd.StokGirisDetayId=gd.StokGirisDetayId
+JOIN ChepStokGiris g on gd.StokGirisId=g.StokGirisId
+JOIN Customer AliciFirma on c.AliciFirma=AliciFirma.CustomerId
+JOIN Product p on gd.UrunKod=p.ProductNo and g.IthalatciFirma=p.CustomerId

@@ -2,8 +2,8 @@
     [StokCikisDetayId] INT              IDENTITY (1, 1) NOT NULL,
     [StokCikisId]      INT              NOT NULL,
     [StokGirisDetayId] INT              NOT NULL,
+    [SiraNo]           INT              NULL,
     [Miktar]           INT              NULL,
-    [Kg]               DECIMAL (18, 2)  NULL,
     [InvoiceDetailId]  UNIQUEIDENTIFIER NULL,
     [InvoiceAmount]    DECIMAL (18, 2)  NULL,
     [TpsCikisSiraNo]   INT              NULL,
@@ -14,6 +14,8 @@
     CONSTRAINT [FK_ChepStokCikisDetay_ChepStokCikis] FOREIGN KEY ([StokCikisId]) REFERENCES [dbo].[ChepStokCikis] ([StokCikisId]) ON DELETE CASCADE,
     CONSTRAINT [FK_ChepStokCikisDetay_ChepStokGirisDetay] FOREIGN KEY ([StokGirisDetayId]) REFERENCES [dbo].[ChepStokGirisDetay] ([StokGirisDetayId])
 );
+
+
 
 
 
