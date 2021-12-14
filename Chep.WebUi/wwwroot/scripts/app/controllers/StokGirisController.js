@@ -4,6 +4,7 @@
 
     var $gridContainer = null;
     var $gridDetail = null;
+    var $gridImportList = null;
     var $modalDetail = null;
     var $modalExcelImport = null;
     var $modalImport = null;

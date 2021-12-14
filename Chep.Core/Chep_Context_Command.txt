@@ -11,4 +11,4 @@
 
 localde connectionString: "Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*"
 amazonda connectionString: "User ID=admin;Password=chep2021;Server=database-1.c7nonlbizeql.us-east-2.rds.amazonaws.com,1433;Database=Chep;Pooling=true;"
-Frunkfurt amazon connectionString: "User ID=chepdb;Password=Chep2021;Server=chepdb.c20foll0va7u.eu-central-1.rds.amazonaws.com,1433;Database=Chep_DB;Pooling=true;"
+Frunkfurt amazon connectionString: "User ID=dbusers;Password=Chep2021;Server=chep.c20foll0va7u.eu-central-1.rds.amazonaws.com,1433;Database=Chep_DB;Pooling=true;"
