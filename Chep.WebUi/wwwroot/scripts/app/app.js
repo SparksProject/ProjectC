@@ -25,7 +25,7 @@ SparksXApp.config(['$controllerProvider', function ($controllerProvider) {
 SparksXApp.factory('settings', ['$http', '$rootScope', function ($http, $rootScope) {
 
     var localServerPath = 'https://localhost:44361';
-    ///var localServerPath = 'http://api.chepprojectc.com';
+    //var localServerPath = 'http://api.chepprojectc.com';
 
     // supported languages
     var settings = {
