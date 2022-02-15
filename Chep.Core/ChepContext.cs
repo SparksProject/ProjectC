@@ -67,7 +67,7 @@ namespace Chep.Core
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=chep.c20foll0va7u.eu-central-1.rds.amazonaws.com;Database=Chep_DB;Trusted_Connection=False;User Id=dbusers;Password=Chep2021");
+                //optionsBuilder.UseSqlServer("Server=chep.c20foll0va7u.eu-central-1.rds.amazonaws.com;Database=Chep_DB;Trusted_Connection=False;User Id=dbusers;Password=Chep2021");
                 optionsBuilder.UseSqlServer("Server=.;Database=Chep;Trusted_Connection=False;User Id=necmi;Password=@Necmi*");
             }
         }
@@ -270,7 +270,7 @@ namespace Chep.Core
 
                 entity.Property(e => e.FaturaDovizKod).HasMaxLength(3);
 
-                entity.Property(e => e.FaturaNo).HasMaxLength(30);
+                entity.Property(e => e.FaturaNo).HasMaxLength(50);
 
                 entity.Property(e => e.FaturaTarih).HasColumnType("datetime");
 
