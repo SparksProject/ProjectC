@@ -128,6 +128,7 @@ namespace Chep.Service
                         IntrnlAgmt = detail.IntrnlAgmt,
                         InvoiceAmount = detail.InvoiceAmount,
                         InvoiceDate = detail.InvoiceDate,
+                        IncentiveDate = detail.IncentiveDate,
                         InvoiceDetailId = detail.InvoiceDetailId,
                         InvoiceId = detail.InvoiceId,
                         InvoiceNo = detail.InvoiceNo,
@@ -143,7 +144,7 @@ namespace Chep.Service
                         Uom = detail.Uom,
                         WorkOrderMasterId = detail.WorkOrderMasterId,
                         WorkOrderNo = detail.WorkOrderNo,
-                         
+
                     });
 
                 }

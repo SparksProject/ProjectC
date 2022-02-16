@@ -492,9 +492,9 @@ namespace Chep.Service
                 KapCinsi = obj.KapCinsi,
                 KapMiktari = obj.KapMiktari,
                 IsEmriDurum = obj.IsEmriDurum,
-                SiparisNo=obj.SiparisNo,
+                SiparisNo = obj.SiparisNo,
                 ChepStokCikisDetay = details,
-                
+
             };
         }
 
@@ -585,7 +585,7 @@ namespace Chep.Service
                 KapCinsi = obj.KapCinsi,
                 KapMiktari = obj.KapMiktari,
                 IsEmriDurum = obj.IsEmriDurum,
-                SiparisNo= obj.SiparisNo,
+                SiparisNo = obj.SiparisNo,
 
                 ChepStokCikisDetayList = details
             };

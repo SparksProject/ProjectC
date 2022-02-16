@@ -34,5 +34,6 @@ namespace Chep.Core
         public string ProducerCompanyNo { get; set; }
         public string ProducerCompany { get; set; }
         public string IncentiveLineNo { get; set; }
+        public DateTime? IncentiveDate { get; set; }
     }
 }

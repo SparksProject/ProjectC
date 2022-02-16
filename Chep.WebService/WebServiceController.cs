@@ -123,6 +123,10 @@ namespace Chep.WebService
                         {
                             objInvoiceDetail.NumberOfPackages = itemInvoiceDetail.NumberOfPackages.Value;
                         }
+                        if (itemInvoiceDetail.IncentiveDate.HasValue)
+                        {
+                            objInvoiceDetail.IncentiveDate = itemInvoiceDetail.IncentiveDate.Value;
+                        }
 
                         objInvoice.InvoiceDetailList.Add(objInvoiceDetail);
 

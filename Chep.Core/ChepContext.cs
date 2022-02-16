@@ -2424,6 +2424,8 @@ namespace Chep.Core
                     .IsRequired()
                     .HasMaxLength(16);
 
+                entity.Property(e => e.IncentiveDate).HasColumnType("datetime");
+
                 entity.Property(e => e.IncentiveLineNo).HasMaxLength(34);
 
                 entity.Property(e => e.IntrnlAgmt)
