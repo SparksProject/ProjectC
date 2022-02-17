@@ -1,5 +1,5 @@
 ﻿using Chep.DTO;
-using LocalWs;
+using Pfr360Ws;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

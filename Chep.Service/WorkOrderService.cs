@@ -124,7 +124,7 @@ namespace Chep.Service
                         DescGoods = detail.DescGoods,
                         GrossWeight = detail.GrossWeight,
                         HsCode = detail.HsCode,
-                        IncentiveLineNo = detail.IncentiveLineNo,
+                        IncentiveLineNo = detail.IncentiveLineNo,                        
                         IntrnlAgmt = detail.IntrnlAgmt,
                         InvoiceAmount = detail.InvoiceAmount,
                         InvoiceDate = detail.InvoiceDate,
