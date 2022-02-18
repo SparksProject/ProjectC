@@ -1135,6 +1135,7 @@
 
             //var kilo = 1000;
             var toplamMiktar = 0;
+            var toplamNetKg = 0;
             //var netKilo = parseFloat(prompt("Net Kiloyu Yazınız", 1));
             var brutKilo = parseFloat(prompt("Brüt Kiloyu Yazınız", 1));
             //var roundNet = parseFloat(0);
@@ -1151,8 +1152,10 @@
                 }
 
                 toplamMiktar += parseFloat(kalem.miktar);
+                toplamNetKg += parseFloat(kalem.netKg);
             }
-
+            var detayKayitSayisi = data.chepStokCikisDetayList.length;
+            debugger;
             for (var i in data.chepStokCikisDetayList) {
                 var kalem = data.chepStokCikisDetayList[i];
                 if (isNaN(toplamMiktar)) {
@@ -1170,7 +1173,12 @@
                         });
                         return;
                     }
-                    kalem.brutKg = parseFloat((((brutKilo) * (kalem.miktar)) / (toplamMiktar)).toFixed(2));
+                    //Toplam Net KG - Yazılan Brüt Kilo / Detaydaki Kayıt Sayısı = birimmiktar + NEtKG her satır için
+                    var netBrut = parseFloat(toplamNetKg) - (brutKilo).toFixed(2);
+                    kalem.miktar = parseFloat(netBrut / (detayKayitSayisi).toFixed(2));
+                    var birimMiktar = kalem.miktar;
+                    kalem.brutKg = parseFloat((birimMiktar + kalem.netKg).toFixed(2));
+
                     //roundBrut += parseFloat(kalem.brutKg);
                     //console.log(i + ".kalemin brütKg değeri: " + brutKG); //TODO:
                 }
