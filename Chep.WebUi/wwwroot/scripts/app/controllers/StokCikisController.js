@@ -40,9 +40,6 @@
     });
 
     $scope.ModalDetail = function () {
-        var amountValue = 0.00;
-        var vatAmountValue = 0.00;
-
         if ($modalDetail == null) {
             $btnArchive = $('#btnArchive');
             $btnJobOrder = $('#btnJobOrder');
@@ -170,9 +167,12 @@
                                                                             id: rowValue
                                                                         };
                                                                         SparksXService.GetByUrunKod(data.id).success(function (data) {
-                                                                            cellInfo.component.cellValue(cell.rowIndex, 4, data.birimTutar);
-                                                                            cellInfo.component.cellValue(cell.rowIndex, 6, data.netWeight);
-                                                                            cellInfo.component.cellValue(cell.rowIndex, 7, data.grossWeight);
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 5, data.birimTutar);
+                                                                            cell.data.birimTutar = data.birimTutar;
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 7, data.netWeight);
+                                                                            cell.row.netWeight = data.netWeight;
+                                                                            cellInfo.component.cellValue(cell.rowIndex, 8, data.grossWeight);
+                                                                            cell.data.grossWeight = data.grossWeight;
                                                                         }).error(function (er) {
                                                                             swal({
                                                                                 icon: "error",
@@ -205,7 +205,6 @@
                         },
                         {
                             dataField: "miktar", caption: "Miktar", dataType: "number",
-                            format: { type: "fixedPoint", precision: 2 },
                         },
                         {
                             dataField: "birimTutar", caption: "Birim Tutar", dataType: "number",
@@ -340,17 +339,17 @@
                     onEditorPreparing: function (e) {//her değişiklikte her satıra bakar 
                         if (e.dataField == "miktar") {
                             e.editorOptions.onValueChanged = function (args) {
-                                amountValue = args.value;
                                 e.setValue(args.value);
-                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
+                                var faturaTutar = e.row.data.birimTutar * args.value;
+                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", faturaTutar);
 
                             }
                         }
                         if (e.dataField == "birimTutar") {
                             e.editorOptions.onValueChanged = function (args) {
-                                vatAmountValue = args.value;
                                 e.setValue(args.value);
-                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", amountValue * vatAmountValue);
+                                var faturaTutar = e.row.data.miktar * args.value;
+                                e.component.cellValue(e.row.rowIndex, "invoiceAmount", faturaTutar);
                             }
                         }
                     },
