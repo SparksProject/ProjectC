@@ -616,6 +616,8 @@ namespace Pfr360Ws
         
         private string IncentiveLineNoField;
         
+        private System.Nullable<System.DateTime> IncentiveDateField;
+        
         private System.Collections.Generic.List<Pfr360Ws.InvoiceDetailTcgbModel> InvoiceDetailTcgbListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -905,6 +907,19 @@ namespace Pfr360Ws
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
+        public System.Nullable<System.DateTime> IncentiveDate
+        {
+            get
+            {
+                return this.IncentiveDateField;
+            }
+            set
+            {
+                this.IncentiveDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=23)]
         public System.Collections.Generic.List<Pfr360Ws.InvoiceDetailTcgbModel> InvoiceDetailTcgbList
         {
             get
@@ -1943,6 +1958,58 @@ namespace Pfr360Ws
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WsArchiveEvrimModel", Namespace="http://schemas.datacontract.org/2004/07/Sparks.WcfService.DataContracts")]
+    public partial class WsArchiveEvrimModel : object
+    {
+        
+        private int ArchiveIdField;
+        
+        private string TescilNoField;
+        
+        private byte[] ArchiveDataField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ArchiveId
+        {
+            get
+            {
+                return this.ArchiveIdField;
+            }
+            set
+            {
+                this.ArchiveIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TescilNo
+        {
+            get
+            {
+                return this.TescilNoField;
+            }
+            set
+            {
+                this.TescilNoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public byte[] ArchiveData
+        {
+            get
+            {
+                return this.ArchiveDataField;
+            }
+            set
+            {
+                this.ArchiveDataField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Pfr360Ws.IService1")]
     public interface IService1
@@ -1956,6 +2023,15 @@ namespace Pfr360Ws
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetBeyannameModel", ReplyAction="http://tempuri.org/IService1/GetBeyannameModelResponse")]
         System.Threading.Tasks.Task<Pfr360Ws.WsBeyannameModel> GetBeyannameModelAsync(string UserNameWs, string PasswordWs, string InvoiceNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetArchiveEvrimIdList", ReplyAction="http://tempuri.org/IService1/GetArchiveEvrimIdListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Pfr360Ws.WsArchiveEvrimModel>> GetArchiveEvrimIdListAsync(string UserNameWs, string PasswordWs, System.DateTime ArchiveDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetArchiveEvrim", ReplyAction="http://tempuri.org/IService1/GetArchiveEvrimResponse")]
+        System.Threading.Tasks.Task<Pfr360Ws.WsArchiveEvrimModel> GetArchiveEvrimAsync(string UserNameWs, string PasswordWs, int ArchiveId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetArchiveEvrimFile", ReplyAction="http://tempuri.org/IService1/GetArchiveEvrimFileResponse")]
+        System.Threading.Tasks.Task<Pfr360Ws.WsArchiveEvrimModel> GetArchiveEvrimFileAsync(int ArchiveId, string TescilNo, byte[] ArchiveData);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -2021,6 +2097,21 @@ namespace Pfr360Ws
         public System.Threading.Tasks.Task<Pfr360Ws.WsBeyannameModel> GetBeyannameModelAsync(string UserNameWs, string PasswordWs, string InvoiceNo)
         {
             return base.Channel.GetBeyannameModelAsync(UserNameWs, PasswordWs, InvoiceNo);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Pfr360Ws.WsArchiveEvrimModel>> GetArchiveEvrimIdListAsync(string UserNameWs, string PasswordWs, System.DateTime ArchiveDate)
+        {
+            return base.Channel.GetArchiveEvrimIdListAsync(UserNameWs, PasswordWs, ArchiveDate);
+        }
+        
+        public System.Threading.Tasks.Task<Pfr360Ws.WsArchiveEvrimModel> GetArchiveEvrimAsync(string UserNameWs, string PasswordWs, int ArchiveId)
+        {
+            return base.Channel.GetArchiveEvrimAsync(UserNameWs, PasswordWs, ArchiveId);
+        }
+        
+        public System.Threading.Tasks.Task<Pfr360Ws.WsArchiveEvrimModel> GetArchiveEvrimFileAsync(int ArchiveId, string TescilNo, byte[] ArchiveData)
+        {
+            return base.Channel.GetArchiveEvrimFileAsync(ArchiveId, TescilNo, ArchiveData);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
