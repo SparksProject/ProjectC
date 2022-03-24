@@ -1129,59 +1129,34 @@
     $scope.KiloDagit = function (obj) {
         SparksXService.GetStokCikis(obj).success(function (data) {
             $scope.object = data;
-
             var farkNet, farkBrut;
 
-            //var kilo = 1000;
-            var toplamMiktar = 0;
             var toplamNetKg = 0;
-            //var netKilo = parseFloat(prompt("Net Kiloyu Yazınız", 1));
             var brutKilo = parseFloat(prompt("Brüt Kiloyu Yazınız", 1));
-            //var roundNet = parseFloat(0);
             var roundBrut = parseFloat(0);
 
             for (var i in data.chepStokCikisDetayList) {
                 var kalem = data.chepStokCikisDetayList[i];
-                if (kalem.miktar == null) {
-                    swal({
-                        icon: "warning",
-                        title: kalem.siraNo + " nolu kalemde miktar bilgisi girilmedi",
-                    });
-                    return;
-                }
 
-                toplamMiktar += parseFloat(kalem.miktar);
                 toplamNetKg += parseFloat(kalem.netKg);
             }
             var detayKayitSayisi = data.chepStokCikisDetayList.length;
-            debugger;
             for (var i in data.chepStokCikisDetayList) {
                 var kalem = data.chepStokCikisDetayList[i];
-                if (isNaN(toplamMiktar)) {
+                if (kalem.netKg == null) {
                     swal({
                         icon: "warning",
-                        title: "miktar bilgisi girilmedi",
+                        title: kalem.siraNo + " nolu kalemde Net Kg bilgisi girilmedi",
                     });
                     return;
                 }
-                if (brutKilo > 0) {
-                    if (kalem.brutKg == null) {
-                        swal({
-                            icon: "warning",
-                            title: kalem.siraNo + " nolu kalemde Brüt Kg bilgisi girilmedi",
-                        });
-                        return;
-                    }
-                    // Yazılan Brüt Kilo-Toplam Net KG  / Detaydaki Kayıt Sayısı = birimmiktar + NEtKG her satır için
-                    var netBrut = parseFloat(toplamNetKg) - (brutKilo).toFixed(2);
-                    kalem.miktar = parseFloat(netBrut / (detayKayitSayisi).toFixed(2));
-                    var birimMiktar = kalem.miktar;
-                    kalem.brutKg = parseFloat((birimMiktar + kalem.netKg).toFixed(2));
+                // Yazılan Brüt Kilo-Toplam Net KG  / Detaydaki Kayıt Sayısı = birimmiktar + NEtKG her satır için
+                var netBrut = parseFloat(brutKilo) - (toplamNetKg).toFixed(2);
+                var birimMiktar = parseFloat(netBrut / (detayKayitSayisi).toFixed(2));
+                kalem.brutKg = parseFloat((birimMiktar + kalem.netKg).toFixed(2));
 
-                    //roundBrut += parseFloat(kalem.brutKg);
-                    //console.log(i + ".kalemin brütKg değeri: " + brutKG); //TODO:
-                }
-
+                //roundBrut += parseFloat(kalem.brutKg);
+                //console.log(i + ".kalemin brütKg değeri: " + brutKG); //TODO:
                 //if (netKilo > 0) {
                 //    if (kalem.netKg == null) {
                 //    if (kalem.netKg == null) {
