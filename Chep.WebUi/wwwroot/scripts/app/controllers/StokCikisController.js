@@ -1172,7 +1172,7 @@
                         });
                         return;
                     }
-                    //Toplam Net KG - Yazılan Brüt Kilo / Detaydaki Kayıt Sayısı = birimmiktar + NEtKG her satır için
+                    // Yazılan Brüt Kilo-Toplam Net KG  / Detaydaki Kayıt Sayısı = birimmiktar + NEtKG her satır için
                     var netBrut = parseFloat(toplamNetKg) - (brutKilo).toFixed(2);
                     kalem.miktar = parseFloat(netBrut / (detayKayitSayisi).toFixed(2));
                     var birimMiktar = kalem.miktar;
