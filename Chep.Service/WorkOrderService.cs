@@ -28,11 +28,13 @@ namespace Chep.Service
         {
             get
             {
-                var baseUrl = "http://ws.chepprojectc.com/";
+                var baseUrl = "http://chepwebservice.eu-central-1.elasticbeanstalk.com/";
 
 #if DEBUG
-                baseUrl = "http://localhost:65404/";
+                //baseUrl = "http://localhost:65404/";
                 //baseUrl = "http://ws.chepprojectc.com/";
+                //baseUrl = "http://chepwebservice.eu-central-1.elasticbeanstalk.com/";
+
 #endif
 
                 var url = $"{baseUrl}WebService/Post";
